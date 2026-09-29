@@ -252,8 +252,15 @@ const startConversationWithGemini = async (words, structures) => {
 
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
-    const prompt = `Eres un tutor experto de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
+    const prompt = `Eres un tutor y compañero de conversación de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Crea el inicio de una simulación de conversación interactiva cotidiana realista para un estudiante principiante.
+
+NIVEL ESTRICTO DEL ESTUDIANTE: TOCFL A1 (Banda A, Principiante / MTC Dangdai Lecciones 1-3).
+REGLAS OBLIGATORIAS:
+1. Vocabulario: Prioridad máxima a las palabras conocidas del estudiante. Puedes usar vocabulario extra ÚNICAMENTE si es indispensable para la naturalidad de la situación (ej. pedir una bebida típica o comida), pero si se puede expresar con lo ya conocido, ES OBLIGATORIO usar lo conocido.
+2. Gramática: ÚNICAMENTE oraciones breves y directas de nivel A1 (S + V + O, S + 很 + Adj, S + 想/要 + V, S + 去 + Lugar + V, preguntas con 嗎, 呢, 什麼, 哪裡, 怎麼樣, 好不好).
+   ESTRICTAMENTE PROHIBIDO usar gramática avanzada de A2 o superior (prohibido complementos de resultado como 完/到/懂, conectores complejos como 而且/因為/虽然, o complementos direccionales compuestos).
+3. Longitud: Frases cortas y claras (máximo 6 a 12 caracteres por frase).
 
 Vocabulario y conceptos conocidos por el estudiante:
 ${words.join(', ')}
@@ -266,10 +273,10 @@ Tu tarea:
 2. Define el nombre del interlocutor (ej. 安同, 田中, 白如玉, o un amigo local).
 3. Decide si el interlocutor abre la conversación (inicia_ai: true) o si el usuario debe iniciar (inicia_ai: false).
 4. Si inicia_ai es true:
-   - Proporciona el primer mensaje del interlocutor en caracteres tradicionales, pinyin con tonos y traducción al español.
-   - Da una instrucción clara y concisa al estudiante en español indicando qué debe responder o preguntar a continuación, sugiriendo alguna estructura o palabra clave.
+   - Proporciona el primer mensaje del interlocutor en caracteres tradicionales A1, pinyin con tonos y traducción al español.
+   - Da una instrucción clara y concisa al estudiante en español indicando qué debe responder o preguntar a continuación con vocabulario A1.
 5. Si inicia_ai es false:
-   - Da una instrucción inicial en español al estudiante para que comience el diálogo.
+   - Da una instrucción inicial en español al estudiante para que comience el diálogo con vocabulario A1.
 
 Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
 {
@@ -278,7 +285,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
   "interlocutor": "Nombre del interlocutor",
   "inicia_ai": true,
   "primer_mensaje": {
-    "texto": "Mensaje en chino tradicional",
+    "texto": "Mensaje en chino tradicional A1",
     "pinyin": "Pinyin con tonos",
     "traduccion": "Traducción al español",
     "instruccion_usuario": "Instrucción específica en español de lo que debe responder o preguntar el estudiante"
@@ -342,6 +349,14 @@ const continueConversationWithGemini = async (contexto, history, userReply, word
     const prompt = `Eres el interlocutor y tutor de chino mandarín tradicional (Taiwán - estándar MTC Dangdai).
 Estás en una conversación cotidiana con un estudiante.
 
+NIVEL ESTRICTO DEL ESTUDIANTE: TOCFL A1 (Banda A, Principiante / MTC Dangdai Lecciones 1-3).
+REGLAS OBLIGATORIAS:
+1. Longitud: Frases muy breves y directas (6 a 12 caracteres por frase).
+2. Vocabulario: Prioridad máxima a las palabras conocidas del estudiante. Se permite incorporar vocabulario extra únicamente si es indispensable para el contexto cotidiano, pero si se puede expresar con lo ya conocido, ES OBLIGATORIO usar lo conocido.
+3. Gramática: ÚNICAMENTE estructuras simples A1 (S + V + O, S + 很 + Adj, S + 想/要 + V, S + 去 + Lugar + V, S + 一起 + V, preguntas con 嗎, 呢, 什麼, 哪裡, 幾, 怎麼樣, 好不好).
+   ESTRICTAMENTE PROHIBIDO usar gramática de nivel A2 o superior (NO uses complementos de resultado como 完/到/好/懂, complementos direccionales complejos, conectores como 而且, 因為...所以, 虽然...但是, ni estructuras con 把/被).
+4. Corrección pedagógica: En "correccion" NO uses estructuras avanzadas ni conectores como "而且". Sugiere una versión limpia usando conectores A1 que el alumno conoce (ej. "也").
+
 Escenario:
 ${contexto}
 
@@ -356,20 +371,20 @@ ${words.join(', ')}
 
 Tareas:
 1. Evalúa el mensaje del estudiante:
-   - "correcta": boolean (true si es comprensible y gramaticalmente correcta).
+   - "correcta": boolean (true si es comprensible y gramaticalmente correcta a nivel A1).
    - "estado": "correcta" | "mejorable" | "error".
    - "comentario": Feedback pedagógico breve en español (1-2 oraciones).
-   - "correccion": Oración en chino tradicional correcta o más natural.
+   - "correccion": Oración en chino tradicional correcta y natural adaptada a nivel A1.
    - "pinyin": Pinyin de la corrección.
    - "traduccion": Traducción de la corrección al español.
 2. Decide si la conversación debe terminar ("terminada": true o false):
    - La conversación debe durar entre 3 y 5 intercambios del estudiante.
    - Marca "terminada": true cuando el diálogo llegue a una conclusión natural (ej. acuerdo en los planes, despedida cordial como 明天見, etc.).
 3. Si "terminada" es false:
-   - Genera la respuesta del interlocutor en caracteres tradicionales, su pinyin y traducción.
-   - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante.
+   - Genera la respuesta del interlocutor en caracteres tradicionales A1, su pinyin y traducción.
+   - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante con estructuras A1.
 4. Si "terminada" es true:
-   - Genera la despedida final del interlocutor en chino tradicional, pinyin y traducción.
+   - Genera la despedida final del interlocutor en chino tradicional A1, pinyin y traducción.
    - Proporciona una "evaluacion_final" de toda la conversación:
      - "puntuacion": ej. "9/10" o "Excelente"
      - "resumen": 2 oraciones de balance general sobre la conversación.
