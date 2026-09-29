@@ -1,0 +1,13 @@
+# Editor / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Save files & Backups
+*.json
+!package.json
+!tsconfig.json
+
+# PDFs
+*.pdf
