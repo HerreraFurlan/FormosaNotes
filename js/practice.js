@@ -12,6 +12,8 @@
 const PRACTICE_STORAGE_KEY = 'appchino_practice_state_v1';
 const CONVERSATION_STORAGE_KEY = 'appchino_conversation_state_v1';
 const PRACTICE_TAB_KEY = 'appchino_practice_tab_v1';
+const CONVO_MODE_KEY = 'appchino_convo_mode_v1';
+const CONVO_TARGET_STRUCTS_KEY = 'appchino_convo_target_structs_v1';
 
 // Tab state: 'retos' | 'conversacion'
 let activePracticeTab = 'retos';
@@ -28,6 +30,10 @@ let isPracticeEvaluating = false;
 // ------------------------------------------------------
 // State: Interactive Conversation
 // ------------------------------------------------------
+let convoTargetMode = 'libre'; // 'libre' | 'especifico'
+let selectedTargetStructureIds = []; // max 5
+let structFilterSearch = '';
+
 let conversationSession = {
     active: false,
     contexto: '',
@@ -35,6 +41,7 @@ let conversationSession = {
     interlocutor: '',
     history: [],
     currentPrompt: '',
+    targetStructures: [],
     terminada: false,
     evaluacion_final: null
 };
@@ -48,6 +55,16 @@ const loadPracticeState = () => {
         const savedTab = sessionStorage.getItem(PRACTICE_TAB_KEY);
         if (savedTab === 'conversacion' || savedTab === 'retos') {
             activePracticeTab = savedTab;
+        }
+
+        const savedMode = sessionStorage.getItem(CONVO_MODE_KEY);
+        if (savedMode === 'libre' || savedMode === 'especifico') {
+            convoTargetMode = savedMode;
+        }
+
+        const savedStructs = sessionStorage.getItem(CONVO_TARGET_STRUCTS_KEY);
+        if (savedStructs) {
+            selectedTargetStructureIds = JSON.parse(savedStructs) || [];
         }
 
         const savedChallenges = sessionStorage.getItem(PRACTICE_STORAGE_KEY);
@@ -64,6 +81,15 @@ const loadPracticeState = () => {
         }
     } catch (e) {
         console.warn("No se pudo cargar el estado de práctica:", e);
+    }
+};
+
+const saveConvoSettings = () => {
+    try {
+        sessionStorage.setItem(CONVO_MODE_KEY, convoTargetMode);
+        sessionStorage.setItem(CONVO_TARGET_STRUCTS_KEY, JSON.stringify(selectedTargetStructureIds));
+    } catch (e) {
+        console.warn("No se pudo guardar la configuración de conversación:", e);
     }
 };
 
@@ -293,6 +319,27 @@ const startInteractiveConversation = async () => {
         return;
     }
 
+    if (allStructures.length === 0) {
+        showToast('No tienes estructuras registradas para practicar', 'error');
+        return;
+    }
+
+    let targetStructures = [];
+    if (convoTargetMode === 'especifico') {
+        if (selectedTargetStructureIds.length === 0) {
+            showToast('Selecciona entre 1 y 5 estructuras o cambia a Modo Libre', 'warning');
+            return;
+        }
+        targetStructures = allStructures
+            .filter(s => selectedTargetStructureIds.includes(String(s.id)))
+            .slice(0, 5)
+            .map(s => ({
+                id: s.id,
+                nombre: s.nombre,
+                formula: s.formula
+            }));
+    }
+
     isConversationLoading = true;
     conversationSession = {
         active: true,
@@ -301,13 +348,14 @@ const startInteractiveConversation = async () => {
         interlocutor: '',
         history: [],
         currentPrompt: '',
+        targetStructures: targetStructures,
         terminada: false,
         evaluacion_final: null
     };
     renderPracticeUI();
 
     try {
-        const setup = await startConversationWithGemini(words, allStructures);
+        const setup = await startConversationWithGemini(words, allStructures, targetStructures);
         if (!setup || !setup.contexto) {
             throw new Error("No se pudo iniciar la conversación con la IA.");
         }
@@ -385,7 +433,8 @@ const handleSendChatMessage = async () => {
             historyForApi,
             userText,
             words,
-            allStructures
+            allStructures,
+            conversationSession.targetStructures || []
         );
 
         if (!result) {
@@ -451,6 +500,7 @@ const resetConversationSession = () => {
         interlocutor: '',
         history: [],
         currentPrompt: '',
+        targetStructures: [],
         terminada: false,
         evaluacion_final: null
     };
@@ -782,10 +832,63 @@ const renderConversationView = (bodyContent) => {
     // 1. Initial / Not Active State
     if (!conversationSession.active) {
         const totalWords = getAllWords().length;
-        const totalStructs = getAllStructures().length;
+        const allStructures = getAllStructures();
+        const totalStructs = allStructures.length;
+
+        let pickerHtml = '';
+        if (convoTargetMode === 'especifico') {
+            const cardsHtml = allStructures.map(s => {
+                const isSelected = selectedTargetStructureIds.includes(String(s.id));
+                const searchText = `${s.nombre || ''} ${s.formula || ''} ${s.espanol || ''}`.toLowerCase();
+                return `
+                    <div class="convo-struct-card ${isSelected ? 'selected' : ''}" data-id="${s.id}" data-search="${searchText}">
+                        <div class="convo-struct-card-check">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" width="12" height="12">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="convo-struct-card-info">
+                            <div class="convo-struct-name" title="${s.nombre}">${s.nombre}</div>
+                            <div class="convo-struct-formula" title="${s.formula}">${s.formula}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            pickerHtml = `
+                <div class="convo-struct-picker-panel">
+                    <div class="convo-picker-header">
+                        <div class="convo-picker-title">
+                            <span>Estructuras obligatorias:</span>
+                            <span class="convo-count-badge ${selectedTargetStructureIds.length === 5 ? 'max' : ''}" id="convo-count-badge">
+                                ${selectedTargetStructureIds.length} / 5 seleccionadas
+                            </span>
+                        </div>
+                        <div class="convo-picker-controls">
+                            <div class="convo-search-wrapper">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                <input type="text" id="convo-struct-search-input" class="convo-search-input" placeholder="Filtrar por nombre o fórmula...">
+                            </div>
+                            ${selectedTargetStructureIds.length > 0 ? `
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-convo-clear-structs">Desmarcar</button>
+                            ` : ''}
+                        </div>
+                    </div>
+                    <div class="convo-struct-cards-grid" id="convo-struct-grid">
+                        ${cardsHtml}
+                    </div>
+                    <div class="convo-picker-hint">
+                        💡 Selecciona entre 1 y 5 estructuras. La IA conducirá el diálogo para que debas practicar cada una de ellas al menos una vez.
+                    </div>
+                </div>
+            `;
+        }
 
         bodyContent.innerHTML = `
-            <div class="practice-empty-state">
+            <div class="practice-empty-state convo-setup-state">
                 <div class="practice-icon-badge convo-badge">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
@@ -793,11 +896,33 @@ const renderConversationView = (bodyContent) => {
                 </div>
                 <h2>Conversación Interactiva con IA</h2>
                 <p>
-                    Practica situaciones cotidianas en Taiwán (en una tienda, restaurante, universidad o conociendo amigos).
-                    La IA iniciará un diálogo adaptado a <strong>tu vocabulario y estructuras</strong>. En cada turno,
-                    escribe tu respuesta en caracteres tradicionales: la IA <strong>evaluará tu oración</strong> al instante
-                    y te indicará qué responder o preguntar para continuar el diálogo hasta completarlo con éxito.
+                    Practica situaciones cotidianas en Taiwán. La IA iniciará un diálogo adaptado a tu progreso,
+                    evaluará cada frase que envíes en caracteres tradicionales y te dará retroalimentación pedagógica al instante.
                 </p>
+
+                <!-- Mode Selector -->
+                <div class="convo-mode-section">
+                    <div class="convo-mode-label">Elige la modalidad de práctica:</div>
+                    <div class="convo-mode-toggle">
+                        <button type="button" class="convo-mode-btn ${convoTargetMode === 'libre' ? 'active' : ''}" data-mode="libre">
+                            <span class="convo-mode-icon">🌐</span>
+                            <div class="convo-mode-meta">
+                                <strong>Modo Libre</strong>
+                                <small>Practica cualquier estructura de tu biblioteca</small>
+                            </div>
+                        </button>
+                        <button type="button" class="convo-mode-btn ${convoTargetMode === 'especifico' ? 'active' : ''}" data-mode="especifico">
+                            <span class="convo-mode-icon">🎯</span>
+                            <div class="convo-mode-meta">
+                                <strong>Modo Enfocado</strong>
+                                <small>Elige hasta 5 estructuras obligatorias</small>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                ${pickerHtml}
+
                 <div class="practice-stats-bar">
                     <div class="stat-pill">
                         <span class="stat-number">${totalWords}</span>
@@ -805,25 +930,118 @@ const renderConversationView = (bodyContent) => {
                     </div>
                     <div class="stat-pill">
                         <span class="stat-number">${totalStructs}</span>
-                        <span class="stat-label">Estructuras conocidas</span>
+                        <span class="stat-label">Estructuras disponibles</span>
                     </div>
                 </div>
-                <button class="btn btn-primary btn-lg" id="btn-start-convo" ${isConversationLoading ? 'disabled' : ''}>
+
+                <button class="btn btn-primary btn-lg" id="btn-start-convo" ${isConversationLoading || (convoTargetMode === 'especifico' && selectedTargetStructureIds.length === 0) ? 'disabled' : ''}>
                     ${isConversationLoading ? `
                         <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
                             <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
                         </svg>
                         Conectando con interlocutor...
+                    ` : (convoTargetMode === 'especifico' ? `
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                        </svg>
+                        ${selectedTargetStructureIds.length === 0 ? 'Selecciona entre 1 y 5 estructuras' : `Iniciar conversación (${selectedTargetStructureIds.length} estructura${selectedTargetStructureIds.length > 1 ? 's' : ''})`}
                     ` : `
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
-                        Iniciar conversación
-                    `}
+                        Iniciar conversación libre
+                    `)}
                 </button>
             </div>
         `;
+
+        // Attach event listeners for Mode Selector
+        bodyContent.querySelectorAll('.convo-mode-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const mode = btn.dataset.mode;
+                if (mode !== convoTargetMode) {
+                    convoTargetMode = mode;
+                    saveConvoSettings();
+                    renderPracticeUI();
+                }
+            });
+        });
+
+        // Search in structure picker
+        const searchInput = document.getElementById('convo-struct-search-input');
+        const grid = document.getElementById('convo-struct-grid');
+        if (searchInput && grid) {
+            searchInput.addEventListener('input', (e) => {
+                const q = e.target.value.toLowerCase().trim();
+                const cards = grid.querySelectorAll('.convo-struct-card');
+                cards.forEach(card => {
+                    const searchData = card.dataset.search || '';
+                    card.style.display = searchData.includes(q) ? '' : 'none';
+                });
+            });
+        }
+
+        // Clear all structures selection
+        const btnClear = document.getElementById('btn-convo-clear-structs');
+        if (btnClear) {
+            btnClear.addEventListener('click', () => {
+                selectedTargetStructureIds = [];
+                saveConvoSettings();
+                renderPracticeUI();
+            });
+        }
+
+        // Structure card selection clicks
+        if (grid) {
+            grid.querySelectorAll('.convo-struct-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    const id = String(card.dataset.id);
+                    const idx = selectedTargetStructureIds.indexOf(id);
+                    if (idx !== -1) {
+                        selectedTargetStructureIds.splice(idx, 1);
+                        card.classList.remove('selected');
+                    } else {
+                        if (selectedTargetStructureIds.length >= 5) {
+                            showToast('Puedes elegir como máximo 5 estructuras para enfocar la conversación', 'warning');
+                            return;
+                        }
+                        selectedTargetStructureIds.push(id);
+                        card.classList.add('selected');
+                    }
+                    saveConvoSettings();
+
+                    // Update live badge
+                    const badge = document.getElementById('convo-count-badge');
+                    if (badge) {
+                        badge.textContent = `${selectedTargetStructureIds.length} / 5 seleccionadas`;
+                        badge.classList.toggle('max', selectedTargetStructureIds.length === 5);
+                    }
+
+                    // Update start button
+                    const startBtn = document.getElementById('btn-start-convo');
+                    if (startBtn && convoTargetMode === 'especifico') {
+                        if (selectedTargetStructureIds.length === 0) {
+                            startBtn.disabled = true;
+                            startBtn.innerHTML = `
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Selecciona entre 1 y 5 estructuras
+                            `;
+                        } else {
+                            startBtn.disabled = false;
+                            startBtn.innerHTML = `
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                                </svg>
+                                Iniciar conversación (${selectedTargetStructureIds.length} estructura${selectedTargetStructureIds.length > 1 ? 's' : ''})
+                            `;
+                        }
+                    }
+                });
+            });
+        }
 
         const btnStart = document.getElementById('btn-start-convo');
         if (btnStart) {
@@ -1035,6 +1253,27 @@ const renderConversationView = (bodyContent) => {
                 <div class="chat-scenario-label">📍 Escenario:</div>
                 <div class="chat-scenario-description">${scenario}</div>
             </div>
+
+            ${Array.isArray(conversationSession.targetStructures) && conversationSession.targetStructures.length > 0 ? `
+                <div class="chat-target-banner">
+                    <div class="chat-target-header">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="6"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                        <span>Estructuras a practicar en esta sesión (${conversationSession.targetStructures.length}):</span>
+                    </div>
+                    <div class="chat-target-pills">
+                        ${conversationSession.targetStructures.map(s => `
+                            <span class="chat-target-pill" title="${s.formula}">
+                                <span class="pill-name">${s.nombre}</span>
+                                <span class="pill-formula">${s.formula}</span>
+                            </span>
+                        `).join('')}
+                    </div>
+                </div>
+            ` : ''}
 
             <!-- Messages Stream -->
             <div class="chat-messages" id="chat-messages">

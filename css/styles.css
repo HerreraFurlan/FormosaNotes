@@ -3192,3 +3192,338 @@ input:checked+.slider:before {
         display: none;
     }
 }
+
+/* ==========================================================
+   INTERACTIVE CONVERSATION: MODE SELECTOR & STRUCTURE PICKER
+   ========================================================== */
+
+.convo-setup-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.convo-mode-section {
+    margin: 1.25rem 0 1rem 0;
+    width: 100%;
+    max-width: 680px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.convo-mode-label {
+    font-size: 0.86rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+}
+
+.convo-mode-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.convo-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 1.15rem;
+    background: var(--bg-card);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.convo-mode-btn:hover {
+    border-color: rgba(179, 58, 58, 0.4);
+    background: var(--bg-tertiary);
+}
+
+.convo-mode-btn.active {
+    border-color: var(--accent);
+    background: #FFF5F5;
+    box-shadow: 0 2px 8px rgba(179, 58, 58, 0.15);
+}
+
+.convo-mode-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.convo-mode-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.convo-mode-meta strong {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.convo-mode-meta small {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+}
+
+/* --- Structure Picker Panel --- */
+.convo-struct-picker-panel {
+    width: 100%;
+    max-width: 680px;
+    background: #FFFFFF;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    animation: fadeIn 0.2s ease-out;
+}
+
+.convo-picker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.convo-picker-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.convo-count-badge {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: 0.18rem 0.65rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s;
+}
+
+.convo-count-badge.max {
+    background: #FEF3C7;
+    color: #B45309;
+    border-color: #FCD34D;
+}
+
+.convo-picker-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.convo-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.convo-search-wrapper svg {
+    position: absolute;
+    left: 0.65rem;
+    color: var(--text-muted);
+    pointer-events: none;
+}
+
+.convo-search-input {
+    padding: 0.4rem 0.65rem 0.4rem 1.85rem;
+    font-size: 0.84rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    background: var(--bg-primary);
+    width: 180px;
+    transition: all 0.2s;
+}
+
+.convo-search-input:focus {
+    outline: none;
+    border-color: var(--border-focus);
+    width: 220px;
+    background: #FFF;
+}
+
+.convo-struct-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 0.55rem;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 0.35rem;
+}
+
+.convo-struct-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    padding: 0.55rem 0.75rem;
+    background: var(--bg-primary);
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    user-select: none;
+}
+
+.convo-struct-card:hover {
+    border-color: rgba(179, 58, 58, 0.4);
+    background: var(--bg-tertiary);
+}
+
+.convo-struct-card.selected {
+    border-color: var(--accent);
+    background: #FFF5F5;
+    box-shadow: 0 1px 4px rgba(179, 58, 58, 0.12);
+}
+
+.convo-struct-card-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    border: 1.5px solid var(--border-color);
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+    transition: all 0.18s;
+}
+
+.convo-struct-card.selected .convo-struct-card-check {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #FFFFFF;
+}
+
+.convo-struct-card-check svg {
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+
+.convo-struct-card.selected .convo-struct-card-check svg {
+    opacity: 1;
+}
+
+.convo-struct-card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    overflow: hidden;
+}
+
+.convo-struct-name {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.convo-struct-formula {
+    font-size: 0.76rem;
+    color: var(--color-structure);
+    font-weight: 500;
+    background: var(--color-structure-light);
+    padding: 0.05rem 0.4rem;
+    border-radius: 3px;
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.convo-picker-hint {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    text-align: center;
+    padding-top: 0.25rem;
+}
+
+/* --- Target Structures Banner in Chat --- */
+.chat-target-banner {
+    padding: 0.65rem 1.25rem;
+    background: #FFFBEB;
+    border-bottom: 1px solid #FDE68A;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.chat-target-header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #B45309;
+}
+
+.chat-target-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.chat-target-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    background: #FFFFFF;
+    border: 1px solid #FCD34D;
+    padding: 0.2rem 0.55rem;
+    border-radius: 12px;
+    font-size: 0.82rem;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+.chat-target-pill .pill-name {
+    font-weight: 600;
+    color: #78350F;
+}
+
+.chat-target-pill .pill-formula {
+    font-size: 0.74rem;
+    color: var(--color-structure);
+    background: var(--color-structure-light);
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+}
+
+@media (max-width: 640px) {
+    .convo-mode-toggle {
+        grid-template-columns: 1fr;
+    }
+    .convo-struct-cards-grid {
+        grid-template-columns: 1fr;
+    }
+    .convo-search-input {
+        width: 140px;
+    }
+    .convo-search-input:focus {
+        width: 160px;
+    }
+}

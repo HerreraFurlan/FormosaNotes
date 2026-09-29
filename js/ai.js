@@ -239,12 +239,14 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
 
 /**
  * Initiates an interactive real-life Chinese dialogue simulation tailored to known words and structures.
+ * Optionally focuses on specific target structures (up to 5) that must be practiced during the dialogue.
  * 
  * @param {Array<string>} words - List of known traditional Chinese vocabulary
- * @param {Array<object>} structures - List of structures ({ nombre, formula })
+ * @param {Array<object>} structures - List of all structures ({ nombre, formula })
+ * @param {Array<object>} [targetStructures=[]] - Specific target structures to practice (max 5)
  * @returns {Promise<object>} Initial conversation setup and opening message
  */
-const startConversationWithGemini = async (words, structures) => {
+const startConversationWithGemini = async (words, structures, targetStructures = []) => {
     const apiKey = getGeminiApiKey();
     if (!apiKey) {
         throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
@@ -255,6 +257,25 @@ const startConversationWithGemini = async (words, structures) => {
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
+
+    let targetSection = '';
+    if (Array.isArray(targetStructures) && targetStructures.length > 0) {
+        const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
+        targetSection = `
+ESTRUCTURAS OBJETIVO QUE EL ESTUDIANTE DEBE PRACTICAR OBLIGATORIAMENTE:
+El estudiante ha seleccionado estas ${targetStructures.length} estructuras específicas para esta sesión:
+${targetList}
+
+MISIÓN DE FLUJO:
+Conduce la conversación cotidiana de forma natural para que el estudiante deba emplear CADA UNA de estas ${targetStructures.length} estructuras al menos una vez durante el diálogo.
+En este primer turno, diseña tu primer mensaje o tu "instruccion_usuario" para orientar al estudiante a usar la primera de estas estructuras.
+`;
+    } else {
+        targetSection = `
+MODO LIBRE:
+El estudiante practicará de forma libre utilizando cualquiera de las estructuras gramaticales aprendidas.
+`;
+    }
 
     const prompt = `Eres un tutor y compañero de conversación de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Crea el inicio de una simulación de conversación cotidiana realista y dinámica para un estudiante.
@@ -272,7 +293,7 @@ REGLAS DE ADAPTABILIDAD:
    - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
 3. Instrucciones guiadas:
    - Da instrucciones claras y alcanzables al estudiante basadas en el vocabulario y estructuras que domina.
-
+${targetSection}
 Vocabulario conocido por el estudiante:
 ${words.join(', ')}
 
@@ -341,15 +362,17 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
 
 /**
  * Continues an ongoing dialogue: evaluates the user's sentence and generates the partner's reply.
+ * Optionally guides the student to practice specific target structures.
  * 
  * @param {string} contexto - Description of the scenario
  * @param {Array<object>} history - Prior messages in the conversation
  * @param {string} userReply - The student's latest Chinese sentence
  * @param {Array<string>} words - List of known words
  * @param {Array<object>} structures - List of known structures
+ * @param {Array<object>} [targetStructures=[]] - Target structures to practice (max 5)
  * @returns {Promise<object>} Turn evaluation, next reply, and termination status
  */
-const continueConversationWithGemini = async (contexto, history, userReply, words, structures) => {
+const continueConversationWithGemini = async (contexto, history, userReply, words, structures, targetStructures = []) => {
     const apiKey = getGeminiApiKey();
     if (!apiKey) {
         throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
@@ -358,6 +381,25 @@ const continueConversationWithGemini = async (contexto, history, userReply, word
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
+
+    let targetContinueSection = '';
+    if (Array.isArray(targetStructures) && targetStructures.length > 0) {
+        const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
+        targetContinueSection = `
+ESTRUCTURAS OBJETIVO A PRACTICAR EN ESTA SESIÓN (EL ESTUDIANTE DEBE PRACTICAR CADA UNA AL MENOS UNA VEZ):
+${targetList}
+
+Instrucción de flujo:
+- Conduce la conversación y diseña la siguiente "instruccion_usuario" para que el estudiante ponga en práctica las estructuras objetivo que aún no haya utilizado.
+- En "evaluacion_usuario", confirma amablemente si el estudiante logró emplear la estructura objetivo solicitada.
+- La conversación NO debe terminar ("terminada": false) hasta que el estudiante haya tenido la oportunidad de practicar las ${targetStructures.length} estructuras objetivo seleccionadas.
+`;
+    } else {
+        targetContinueSection = `
+MODO LIBRE:
+La conversación debe durar entre 3 y 5 intercambios del estudiante y llegar a una conclusión natural.
+`;
+    }
 
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
@@ -377,7 +419,7 @@ REGLAS DE ADAPTABILIDAD:
    - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
 3. Correcciones pedagógicas adaptativas:
    - En "correccion": ofrece una versión natural y correcta basada en las palabras y estructuras que el estudiante ya domina o tiene en su biblioteca. NO corrijas introduciendo conectores o gramática desconocida a menos que sea estrictamente necesario, priorizando fórmulas y conectores ya registrados.
-
+${targetContinueSection}
 Escenario:
 ${contexto}
 
@@ -402,8 +444,7 @@ Tareas:
    - "pinyin": Pinyin de la corrección.
    - "traduccion": Traducción de la corrección al español.
 2. Decide si la conversación debe terminar ("terminada": true o false):
-   - La conversación debe durar entre 3 y 5 intercambios del estudiante.
-   - Marca "terminada": true cuando el diálogo llegue a una conclusión natural (ej. acuerdo en los planes, despedida cordial como 明天見, etc.).
+   - Marca "terminada": true cuando el diálogo llegue a una conclusión natural y se hayan cubierto las estructuras objetivo.
 3. Si "terminada" es false:
    - Genera la respuesta del interlocutor en caracteres tradicionales, su pinyin y traducción, respetando las palabras y estructuras aprendidas.
    - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante basándose en su repertorio.
