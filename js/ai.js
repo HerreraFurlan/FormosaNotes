@@ -252,31 +252,42 @@ const startConversationWithGemini = async (words, structures) => {
 
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
+    const structSummary = Array.isArray(structures) && structures.length > 0
+        ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
+        : 'Estructuras elementales de mandarín';
+
     const prompt = `Eres un tutor y compañero de conversación de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
-Crea el inicio de una simulación de conversación interactiva cotidiana realista para un estudiante principiante.
+Crea el inicio de una simulación de conversación cotidiana realista y dinámica para un estudiante.
 
-NIVEL ESTRICTO DEL ESTUDIANTE: TOCFL A1 (Banda A, Principiante / MTC Dangdai Lecciones 1-3).
-REGLAS OBLIGATORIAS:
-1. Vocabulario: Prioridad máxima a las palabras conocidas del estudiante. Puedes usar vocabulario extra ÚNICAMENTE si es indispensable para la naturalidad de la situación (ej. pedir una bebida típica o comida), pero si se puede expresar con lo ya conocido, ES OBLIGATORIO usar lo conocido.
-2. Gramática: ÚNICAMENTE oraciones breves y directas de nivel A1 (S + V + O, S + 很 + Adj, S + 想/要 + V, S + 去 + Lugar + V, preguntas con 嗎, 呢, 什麼, 哪裡, 怎麼樣, 好不好).
-   ESTRICTAMENTE PROHIBIDO usar gramática avanzada de A2 o superior (prohibido complementos de resultado como 完/到/懂, conectores complejos como 而且/因為/虽然, o complementos direccionales compuestos).
-3. Longitud: Frases cortas y claras (máximo 6 a 12 caracteres por frase).
+NIVEL ADAPTATIVO DEL ESTUDIANTE:
+El nivel del estudiante es DINÁMICO y se define estrictamente por su biblioteca actual: el vocabulario conocido y las estructuras gramaticales aprendidas listadas abajo. A medida que el estudiante incorpore nuevas palabras y estructuras a su biblioteca, su nivel de diálogo se adaptará automáticamente a sus nuevos conocimientos.
 
-Vocabulario y conceptos conocidos por el estudiante:
+REGLAS DE ADAPTABILIDAD:
+1. Vocabulario:
+   - Prioridad máxima a las palabras conocidas del estudiante.
+   - Tienes libertad para incorporar términos cotidianos adicionales únicamente si son indispensables para la naturalidad de la situación (máximo 1 término extra por turno), pero SIEMPRE que una idea se pueda expresar con el vocabulario ya registrado, ES OBLIGATORIO usar lo ya aprendido.
+2. Gramática:
+   - Limita el diálogo y tus construcciones a las estructuras gramaticales aprendidas por el estudiante (o estructuras elementales derivadas directamente de ellas).
+   - NUNCA introduzcas construcciones gramaticales complejas o avanzadas que no figuren entre las estructuras conocidas ni se puedan deducir de su biblioteca actual.
+   - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
+3. Instrucciones guiadas:
+   - Da instrucciones claras y alcanzables al estudiante basadas en el vocabulario y estructuras que domina.
+
+Vocabulario conocido por el estudiante:
 ${words.join(', ')}
 
-Estructuras gramaticales conocidas:
-${JSON.stringify(structures.slice(0, 15).map(s => ({ nombre: s.nombre, formula: s.formula })))}
+Estructuras gramaticales aprendidas por el estudiante:
+${structSummary}
 
 Tu tarea:
 1. Diseña un escenario cotidiano verosímil y aleatorio en Taiwán (ej. en una cafetería, en la universidad, hablando de planes para el fin de semana, en un restaurante, etc.).
 2. Define el nombre del interlocutor (ej. 安同, 田中, 白如玉, o un amigo local).
 3. Decide si el interlocutor abre la conversación (inicia_ai: true) o si el usuario debe iniciar (inicia_ai: false).
 4. Si inicia_ai es true:
-   - Proporciona el primer mensaje del interlocutor en caracteres tradicionales A1, pinyin con tonos y traducción al español.
-   - Da una instrucción clara y concisa al estudiante en español indicando qué debe responder o preguntar a continuación con vocabulario A1.
+   - Proporciona el primer mensaje del interlocutor en caracteres tradicionales, pinyin con tonos y traducción al español, respetando las palabras y estructuras aprendidas.
+   - Da una instrucción clara y concisa al estudiante en español indicando qué debe responder o preguntar a continuación.
 5. Si inicia_ai es false:
-   - Da una instrucción inicial en español al estudiante para que comience el diálogo con vocabulario A1.
+   - Da una instrucción inicial en español al estudiante para que comience el diálogo.
 
 Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
 {
@@ -285,7 +296,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
   "interlocutor": "Nombre del interlocutor",
   "inicia_ai": true,
   "primer_mensaje": {
-    "texto": "Mensaje en chino tradicional A1",
+    "texto": "Mensaje en chino tradicional",
     "pinyin": "Pinyin con tonos",
     "traduccion": "Traducción al español",
     "instruccion_usuario": "Instrucción específica en español de lo que debe responder o preguntar el estudiante"
@@ -344,18 +355,28 @@ const continueConversationWithGemini = async (contexto, history, userReply, word
         throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
     }
 
+    const structSummary = Array.isArray(structures) && structures.length > 0
+        ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
+        : 'Estructuras elementales de mandarín';
+
     const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
     const prompt = `Eres el interlocutor y tutor de chino mandarín tradicional (Taiwán - estándar MTC Dangdai).
 Estás en una conversación cotidiana con un estudiante.
 
-NIVEL ESTRICTO DEL ESTUDIANTE: TOCFL A1 (Banda A, Principiante / MTC Dangdai Lecciones 1-3).
-REGLAS OBLIGATORIAS:
-1. Longitud: Frases muy breves y directas (6 a 12 caracteres por frase).
-2. Vocabulario: Prioridad máxima a las palabras conocidas del estudiante. Se permite incorporar vocabulario extra únicamente si es indispensable para el contexto cotidiano, pero si se puede expresar con lo ya conocido, ES OBLIGATORIO usar lo conocido.
-3. Gramática: ÚNICAMENTE estructuras simples A1 (S + V + O, S + 很 + Adj, S + 想/要 + V, S + 去 + Lugar + V, S + 一起 + V, preguntas con 嗎, 呢, 什麼, 哪裡, 幾, 怎麼樣, 好不好).
-   ESTRICTAMENTE PROHIBIDO usar gramática de nivel A2 o superior (NO uses complementos de resultado como 完/到/好/懂, complementos direccionales complejos, conectores como 而且, 因為...所以, 虽然...但是, ni estructuras con 把/被).
-4. Corrección pedagógica: En "correccion" NO uses estructuras avanzadas ni conectores como "而且". Sugiere una versión limpia usando conectores A1 que el alumno conoce (ej. "也").
+NIVEL ADAPTATIVO DEL ESTUDIANTE:
+El nivel del estudiante es DINÁMICO y se define estrictamente por su biblioteca actual: el vocabulario conocido y las estructuras gramaticales aprendidas listadas abajo. A medida que el estudiante incorpore nuevas palabras y estructuras a su biblioteca, su nivel de diálogo se adaptará automáticamente a sus nuevos conocimientos.
+
+REGLAS DE ADAPTABILIDAD:
+1. Vocabulario:
+   - Prioridad máxima a las palabras conocidas del estudiante.
+   - Tienes libertad para incorporar términos cotidianos adicionales únicamente si son indispensables para la naturalidad de la situación (máximo 1 término extra por turno), pero SIEMPRE que una idea se pueda expresar con el vocabulario ya registrado, ES OBLIGATORIO usar lo ya aprendido.
+2. Gramática:
+   - Limita tus respuestas, réplicas y construcciones a las estructuras gramaticales aprendidas por el estudiante (o estructuras elementales derivadas directamente de ellas).
+   - NUNCA introduzcas construcciones gramaticales complejas o avanzadas que no figuren entre las estructuras conocidas ni se puedan deducir de su biblioteca actual.
+   - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
+3. Correcciones pedagógicas adaptativas:
+   - En "correccion": ofrece una versión natural y correcta basada en las palabras y estructuras que el estudiante ya domina o tiene en su biblioteca. NO corrijas introduciendo conectores o gramática desconocida a menos que sea estrictamente necesario, priorizando fórmulas y conectores ya registrados.
 
 Escenario:
 ${contexto}
@@ -366,25 +387,28 @@ ${JSON.stringify(history, null, 2)}
 Último mensaje recibido del estudiante:
 "${userReply}"
 
-Vocabulario de referencia del estudiante:
+Vocabulario conocido por el estudiante:
 ${words.join(', ')}
+
+Estructuras gramaticales aprendidas por el estudiante:
+${structSummary}
 
 Tareas:
 1. Evalúa el mensaje del estudiante:
-   - "correcta": boolean (true si es comprensible y gramaticalmente correcta a nivel A1).
+   - "correcta": boolean (true si es comprensible y gramaticalmente correcta acorde a su nivel).
    - "estado": "correcta" | "mejorable" | "error".
    - "comentario": Feedback pedagógico breve en español (1-2 oraciones).
-   - "correccion": Oración en chino tradicional correcta y natural adaptada a nivel A1.
+   - "correccion": Oración en chino tradicional correcta y natural adaptada a su biblioteca.
    - "pinyin": Pinyin de la corrección.
    - "traduccion": Traducción de la corrección al español.
 2. Decide si la conversación debe terminar ("terminada": true o false):
    - La conversación debe durar entre 3 y 5 intercambios del estudiante.
    - Marca "terminada": true cuando el diálogo llegue a una conclusión natural (ej. acuerdo en los planes, despedida cordial como 明天見, etc.).
 3. Si "terminada" es false:
-   - Genera la respuesta del interlocutor en caracteres tradicionales A1, su pinyin y traducción.
-   - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante con estructuras A1.
+   - Genera la respuesta del interlocutor en caracteres tradicionales, su pinyin y traducción, respetando las palabras y estructuras aprendidas.
+   - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante basándose en su repertorio.
 4. Si "terminada" es true:
-   - Genera la despedida final del interlocutor en chino tradicional A1, pinyin y traducción.
+   - Genera la despedida final del interlocutor en chino tradicional, pinyin y traducción.
    - Proporciona una "evaluacion_final" de toda la conversación:
      - "puntuacion": ej. "9/10" o "Excelente"
      - "resumen": 2 oraciones de balance general sobre la conversación.
