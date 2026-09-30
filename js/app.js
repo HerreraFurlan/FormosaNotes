@@ -13,45 +13,187 @@
 let currentFilter = 'todos';
 let currentSearch = '';
 
+/**
+ * Strips tone marks from pinyin and standardizes string.
+ */
+const stripPinyinTones = (str) => {
+    if (!str) return '';
+    return str
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[1-5]/g, '')
+        .replace(/v/g, 'u')
+        .toLowerCase()
+        .trim();
+};
+
+/**
+ * Strips tone marks from Zhuyin (Bopomofo) characters.
+ */
+const stripZhuyinTones = (str) => {
+    if (!str) return '';
+    return str
+        .replace(/[ˇˊˋ˙ˉ·‧\u02c7\u02ca\u02cb\u02d9\u02c9\u00b7\u2027\u0300-\u036f1-5]/g, '')
+        .trim();
+};
+
+/**
+ * Enhanced search and sort for words.
+ * Performs alike/fuzzy search across Hanzi, Pinyin, Zhuyin, and Spanish,
+ * but strongly prioritizes EXACT matches without tones (Pinyin & Zhuyin),
+ * prefix syllable matches, and shorter words before longer compound words.
+ *
+ * @param {string} query - The search query
+ * @param {Array|null} wordsList - Optional list of words (defaults to getAllWords())
+ * @param {object} options - Search options (e.g. { includeChar: true })
+ * @returns {Array} Sorted list of matched words
+ */
 window.searchAndSortWords = (query, wordsList = null, options = { includeChar: true }) => {
-    if (!query) return wordsList || getAllWords();
-    const q = query.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    if (!query || !query.trim()) return wordsList || getAllWords();
+
+    const rawQ = query.trim();
+    const qLower = rawQ.toLowerCase();
+    const qPinyin = stripPinyinTones(rawQ);
+    const qPinyinCompact = qPinyin.replace(/\s+/g, '');
+    const qZhuyin = stripZhuyinTones(rawQ);
+    const qZhuyinCompact = qZhuyin.replace(/\s+/g, '');
+    const qEspanol = stripPinyinTones(rawQ);
+
+    const hasZhuyinInQuery = /[\u3105-\u312F\u31A0-\u31BF]/.test(rawQ);
+    const hasHanziInQuery = /[\u4e00-\u9fff]/.test(rawQ);
+
     const words = wordsList || getAllWords();
-    
-    const filtered = words.filter(w => {
-        const wPinyin = (w.pinyin || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const wEspanol = (w.espanol || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const wTrad = w.tradicional || '';
-        const wZhuyin = w.zhuyin || '';
-        
-        const pinyinMatch = wPinyin.startsWith(q) || wPinyin.split(' ').some(syl => syl.startsWith(q)) || wPinyin.includes(q);
-        const charMatch = options.includeChar ? (wTrad.includes(query) || wTrad.includes(q)) : false;
-        const zhuyinMatch = wZhuyin && (wZhuyin.includes(query) || wZhuyin.includes(q));
-        const espanolMatch = wEspanol.includes(q);
-        
-        return pinyinMatch || charMatch || zhuyinMatch || espanolMatch;
+    const scoredWords = [];
+
+    for (let i = 0; i < words.length; i++) {
+        const w = words[i];
+        const trad = (w.tradicional || '').trim();
+        const pinyinRaw = (w.pinyin || '').toLowerCase().trim();
+        const pinyinNorm = stripPinyinTones(pinyinRaw);
+        const pinyinCompact = pinyinNorm.replace(/\s+/g, '');
+        const pinyinSyllables = pinyinNorm.split(/\s+/).filter(Boolean);
+
+        const zhuyinRaw = (w.zhuyin || '').trim();
+        const zhuyinNorm = stripZhuyinTones(zhuyinRaw);
+        const zhuyinCompact = zhuyinNorm.replace(/\s+/g, '');
+        const zhuyinSyllables = zhuyinNorm.split(/\s+/).filter(Boolean);
+
+        const espanolRaw = (w.espanol || '').toLowerCase().trim();
+        const espanolNorm = stripPinyinTones(espanolRaw);
+        const espanolWords = espanolNorm.split(/[\s,./\(\)\-—]+/).filter(Boolean);
+
+        const charMatch = (options.includeChar !== false) && (trad.includes(rawQ) || trad.includes(qLower));
+        const pinyinMatch = !!(qPinyin && (pinyinNorm.includes(qPinyin) || pinyinCompact.includes(qPinyinCompact)));
+        const zhuyinMatch = !!(hasZhuyinInQuery && qZhuyin && (zhuyinNorm.includes(qZhuyin) || zhuyinCompact.includes(qZhuyinCompact)));
+        const espanolMatch = !!(qEspanol && espanolNorm.includes(qEspanol));
+
+        if (!charMatch && !pinyinMatch && !zhuyinMatch && !espanolMatch) {
+            continue;
+        }
+
+        let score = 0;
+
+        // Tier 1: Exact matches of entire word without tones
+        if (hasHanziInQuery && trad === rawQ) {
+            score = Math.max(score, 100000);
+        }
+
+        if (qPinyin && (pinyinNorm === qPinyin || pinyinCompact === qPinyinCompact)) {
+            score = Math.max(score, 80000);
+            if (pinyinRaw === qLower) {
+                score += 5000; // Bonus for exact tone match
+            }
+        }
+
+        if (hasZhuyinInQuery && qZhuyin && (zhuyinNorm === qZhuyin || zhuyinCompact === qZhuyinCompact)) {
+            score = Math.max(score, 80000);
+            if (zhuyinRaw === rawQ) {
+                score += 5000; // Bonus for exact tone match
+            }
+        }
+
+        if (qEspanol && (espanolNorm === qEspanol || espanolWords.some(ew => ew === qEspanol))) {
+            score = Math.max(score, 60000);
+        }
+
+        // Tier 2: Prefix exact syllable / word match
+        if (score === 0) {
+            if (qPinyin && pinyinSyllables.length > 0 && pinyinSyllables[0] === qPinyin) {
+                score = Math.max(score, 40000);
+            }
+            if (hasZhuyinInQuery && qZhuyin && zhuyinSyllables.length > 0 && zhuyinSyllables[0] === qZhuyin) {
+                score = Math.max(score, 40000);
+            }
+            if (hasHanziInQuery && trad.startsWith(rawQ)) {
+                score = Math.max(score, 40000);
+            }
+            if (qEspanol && (espanolNorm.startsWith(qEspanol) || espanolWords.some(ew => ew.startsWith(qEspanol)))) {
+                score = Math.max(score, 30000);
+            }
+        }
+
+        // Tier 3: Contains exact syllable anywhere in compound word
+        if (score === 0) {
+            if (qPinyin && pinyinSyllables.some(s => s === qPinyin)) {
+                score = Math.max(score, 20000);
+            }
+            if (hasZhuyinInQuery && qZhuyin && zhuyinSyllables.some(s => s === qZhuyin)) {
+                score = Math.max(score, 20000);
+            }
+        }
+
+        // Tier 4: Prefix match of first syllable / pinyin
+        if (score === 0) {
+            if (qPinyin && (pinyinNorm.startsWith(qPinyin) || pinyinCompact.startsWith(qPinyinCompact))) {
+                score = Math.max(score, 10000);
+            }
+            if (hasZhuyinInQuery && qZhuyin && (zhuyinNorm.startsWith(qZhuyin) || zhuyinCompact.startsWith(qZhuyinCompact))) {
+                score = Math.max(score, 10000);
+            }
+        }
+
+        // Tier 5: Any later syllable starts with query
+        if (score === 0) {
+            if (qPinyin && pinyinSyllables.some(s => s.startsWith(qPinyin))) {
+                score = Math.max(score, 5000);
+            }
+            if (hasZhuyinInQuery && qZhuyin && zhuyinSyllables.some(s => s.startsWith(qZhuyin))) {
+                score = Math.max(score, 5000);
+            }
+        }
+
+        // Tier 6: Substring match in pinyin / zhuyin / hanzi
+        if (score === 0) {
+            if (pinyinMatch || zhuyinMatch || charMatch) {
+                score = Math.max(score, 2000);
+            }
+        }
+
+        // Tier 7: Only Spanish arbitrary substring match
+        if (score === 0 && espanolMatch) {
+            score = Math.max(score, 200);
+        }
+
+        // Tie-breaker penalty for length: shorter traditional Hanzi and shorter pinyin rank first
+        score -= trad.length * 50;
+        score -= pinyinNorm.length * 5;
+
+        scoredWords.push({ word: w, score, index: i });
+    }
+
+    scoredWords.sort((a, b) => {
+        if (b.score !== a.score) {
+            return b.score - a.score;
+        }
+        const aLen = (a.word.tradicional || '').length;
+        const bLen = (b.word.tradicional || '').length;
+        if (aLen !== bLen) {
+            return aLen - bLen;
+        }
+        return a.index - b.index;
     });
 
-    return filtered.sort((a, b) => {
-        const aEspanol = (a.espanol || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const bEspanol = (b.espanol || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const aPinyin = (a.pinyin || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const bPinyin = (b.pinyin || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-        const aTrad = a.tradicional || '';
-        const bTrad = b.tradicional || '';
-        const aZh = a.zhuyin || '';
-        const bZh = b.zhuyin || '';
-        
-        const aHasPinyin = aPinyin.includes(q) || aTrad.includes(query) || aTrad.includes(q) || (aZh && (aZh.includes(query) || aZh.includes(q)));
-        const bHasPinyin = bPinyin.includes(q) || bTrad.includes(query) || bTrad.includes(q) || (bZh && (bZh.includes(query) || bZh.includes(q)));
-        
-        const aOnlyEspanol = aEspanol.includes(q) && !aHasPinyin;
-        const bOnlyEspanol = bEspanol.includes(q) && !bHasPinyin;
-
-        if (!aOnlyEspanol && bOnlyEspanol) return -1;
-        if (aOnlyEspanol && !bOnlyEspanol) return 1;
-        return 0;
-    });
+    return scoredWords.map(sw => sw.word);
 };
 
 

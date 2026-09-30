@@ -175,7 +175,7 @@ const initBuilder = () => {
     const searchByPinyin = (query) => {
         if (!query || query.length < 1) return [];
         try {
-            return window.searchAndSortWords(query, null, { includeChar: false }).slice(0, 12);
+            return window.searchAndSortWords(query, null, { includeChar: true }).slice(0, 12);
         } catch (e) {
             console.error("Error en searchByPinyin:", e);
             return [];
