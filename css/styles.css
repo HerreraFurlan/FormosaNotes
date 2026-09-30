@@ -1217,10 +1217,41 @@ dialog:not([open]) {
     margin-bottom: 1.5rem;
 }
 
-.builder-area h3 {
+.builder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.builder-header h3 {
     font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
+}
+
+#btn-clear-builder {
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    padding: 0.35rem 0.75rem;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    border-radius: var(--radius-sm);
+    transition: var(--transition);
+}
+
+#btn-clear-builder:hover:not(:disabled) {
+    color: var(--danger);
+    border-color: var(--danger);
+    background: var(--accent-light);
+}
+
+#btn-clear-builder:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    border-color: transparent;
+    background: transparent;
 }
 
 .builder-dropzone {

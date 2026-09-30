@@ -14,17 +14,20 @@ const updateBuilderPreview = () => {
     const cards = dropzone.querySelectorAll('.mini-card');
     const previewEl = document.getElementById('builder-preview');
     const saveRow = document.getElementById('builder-save-row');
+    const clearBtn = document.getElementById('btn-clear-builder');
 
     if (cards.length === 0) {
         dropzone.classList.add('is-empty');
         previewEl.style.display = 'none';
         saveRow.style.display = 'none';
+        if (clearBtn) clearBtn.disabled = true;
         return;
     }
 
     dropzone.classList.remove('is-empty');
     previewEl.style.display = 'flex';
     saveRow.style.display = 'flex';
+    if (clearBtn) clearBtn.disabled = false;
 
     const chinese = Array.from(cards).map(c => c.dataset.tradicional).join('');
     const pinyin  = Array.from(cards).map(c => c.dataset.pinyin).join(' ');
@@ -351,6 +354,32 @@ const initBuilder = () => {
         updateBuilderPreview();
         showToast('Caracteres agregados al constructor', 'success');
     });
+
+    // Clear all builder cards button ("eliminar de un porrazo")
+    const clearBtn = document.getElementById('btn-clear-builder');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            const cards = dropzone.querySelectorAll('.mini-card');
+            if (cards.length === 0 && pinyinQueue.length === 0 && (!pinyinInput || !pinyinInput.value)) return;
+
+            dropzone.innerHTML = '';
+            pinyinQueue = [];
+            if (pinyinInput) {
+                pinyinInput.value = '';
+                pinyinInput.placeholder = 'Escribe los caracteres o buscalos por significado, pinyin o zhuyin';
+            }
+            if (addPinyinBtn) addPinyinBtn.disabled = true;
+            if (suggestionsEl) {
+                suggestionsEl.classList.remove('visible');
+                suggestionsEl.innerHTML = '';
+            }
+            updateBuilderPreview();
+            showToast('Zona de construcción vaciada', 'info');
+        });
+    }
+
+    // Initial update to sync preview and clear button state
+    updateBuilderPreview();
 };
 
 /**
