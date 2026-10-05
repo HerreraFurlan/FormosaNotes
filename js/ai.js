@@ -26,20 +26,89 @@ const setGeminiApiKey = (key) => {
 };
 
 /**
- * Calls Gemini 1.5 Flash to analyze a sentence.
+ * Centralized caller for Gemini API.
+ * Uses /api/gemini (serverless proxy on Vercel) if available to protect API key,
+ * falling back to client-side localStorage key if running locally or standalone.
+ * 
+ * @param {object} body - Request payload with contents and generationConfig
+ * @param {string} model - Target Gemini model name
+ * @returns {Promise<string>} The raw text response from the first candidate
+ */
+const callGeminiAPI = async (body, model = 'gemini-3.1-flash-lite') => {
+    const localKey = getGeminiApiKey();
+    const isLocalFile = window.location.protocol === 'file:';
+
+    // 1. If not running directly from a file:// URL, try the /api/gemini proxy first
+    if (!isLocalFile) {
+        try {
+            const proxyHeaders = { 'Content-Type': 'application/json' };
+            if (localKey) {
+                proxyHeaders['x-gemini-key'] = localKey;
+            }
+
+            const response = await fetch(`/api/gemini?model=${encodeURIComponent(model)}`, {
+                method: 'POST',
+                headers: proxyHeaders,
+                body: JSON.stringify(body)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!text) {
+                    throw new Error("Respuesta inválida o vacía de Gemini.");
+                }
+                return text;
+            }
+
+            // If proxy responded with error, check if we have local fallback
+            const errData = await response.json().catch(() => ({}));
+            if (!localKey) {
+                throw new Error(errData.error || `Error en la API de Gemini: ${response.status}`);
+            }
+            console.warn("Proxy /api/gemini devolvió error, intentando con clave local:", errData.error || response.status);
+        } catch (err) {
+            if (!localKey) {
+                throw err;
+            }
+            console.warn("Fallo en proxy /api/gemini, usando clave local:", err.message);
+        }
+    }
+
+    // 2. Client-side direct fallback using localKey from localStorage
+    if (!localKey) {
+        throw new Error("No hay clave de API configurada. Configura la clave en Vercel o en tu navegador.");
+    }
+
+    const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${localKey}`;
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        console.error("Gemini API Error:", errorText);
+        throw new Error(`Error en la API de Gemini: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) {
+        throw new Error("Respuesta inválida o vacía de Gemini.");
+    }
+    return text;
+};
+
+/**
+ * Calls Gemini to analyze a sentence.
  * Enforces JSON mode for structured output.
  * 
  * @param {string} sentence - The traditional Chinese sentence to check
  * @returns {Promise<Object>} The parsed JSON result
  */
 const checkSentenceWithGemini = async (sentence) => {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
-    }
-
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
-
     const prompt = `Eres un profesor experto de chino mandarín tradicional (Taiwán). Revisa esta oración: "${sentence}"
 
     Devuelve ÚNICAMENTE un objeto JSON válido con las siguientes claves:
@@ -64,29 +133,8 @@ const checkSentenceWithGemini = async (sentence) => {
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Gemini API Error:", errorText);
-            throw new Error(`Error en la API de Gemini: ${response.status}`);
-        }
-
-        const data = await response.json();
-        
-        // Extract the text content from Gemini's response
-        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        
-        if (!candidate) {
-            throw new Error("Respuesta inválida o vacía de Gemini.");
-        }
-
+        const candidate = await callGeminiAPI(body);
         return JSON.parse(candidate);
-
     } catch (error) {
         console.error("Error checking sentence:", error);
         throw error;
@@ -102,13 +150,6 @@ const checkSentenceWithGemini = async (sentence) => {
  * @returns {Promise<Array<object>>} 5 challenge objects
  */
 const generatePracticeChallengesWithGemini = async (words, structures) => {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
-    }
-
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
-
     const prompt = `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Formula exactamente 5 retos breves de traducción al español para escribir en chino tradicional, asignando exactamente una estructura a cada reto.
 
@@ -145,24 +186,7 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Gemini API Error:", errorText);
-            throw new Error(`Error en la API de Gemini: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!candidate) {
-            throw new Error("Respuesta inválida o vacía de Gemini.");
-        }
-
+        const candidate = await callGeminiAPI(body);
         return JSON.parse(candidate);
     } catch (error) {
         console.error("Error generating practice challenges:", error);
@@ -177,13 +201,6 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
  * @returns {Promise<Array<object>>} Evaluation results
  */
 const evaluatePracticeAnswersWithGemini = async (submissions) => {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
-    }
-
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
-
     const prompt = `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Evalúa las respuestas de los siguientes ejercicios de construcción/traducción. Sé conciso y directo al grano (máximo 1-2 oraciones en explicación).
 
@@ -212,24 +229,7 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Gemini API Error:", errorText);
-            throw new Error(`Error en la API de Gemini: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!candidate) {
-            throw new Error("Respuesta inválida o vacía de Gemini.");
-        }
-
+        const candidate = await callGeminiAPI(body);
         return JSON.parse(candidate);
     } catch (error) {
         console.error("Error evaluating practice answers:", error);
@@ -247,13 +247,6 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
  * @returns {Promise<object>} Initial conversation setup and opening message
  */
 const startConversationWithGemini = async (words, structures, targetStructures = []) => {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
-    }
-
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
-
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
@@ -335,24 +328,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Gemini API Error:", errorText);
-            throw new Error(`Error en la API de Gemini: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!candidate) {
-            throw new Error("Respuesta inválida o vacía de Gemini.");
-        }
-
+        const candidate = await callGeminiAPI(body);
         return JSON.parse(candidate);
     } catch (error) {
         console.error("Error starting conversation with Gemini:", error);
@@ -373,11 +349,6 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
  * @returns {Promise<object>} Turn evaluation, next reply, and termination status
  */
 const continueConversationWithGemini = async (contexto, history, userReply, words, structures, targetStructures = []) => {
-    const apiKey = getGeminiApiKey();
-    if (!apiKey) {
-        throw new Error("No hay clave de API configurada. Por favor, configura tu clave de Gemini.");
-    }
-
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
@@ -400,8 +371,6 @@ MODO LIBRE:
 La conversación debe durar entre 3 y 5 intercambios del estudiante y llegar a una conclusión natural.
 `;
     }
-
-    const url = `https://generativelanguage.googleapis.com/v1/models/gemini-3.1-flash-lite:generateContent?key=${apiKey}`;
 
     const prompt = `Eres el interlocutor y tutor de chino mandarín tradicional (Taiwán - estándar MTC Dangdai).
 Estás en una conversación cotidiana con un estudiante.
@@ -486,24 +455,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
     };
 
     try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error("Gemini API Error:", errorText);
-            throw new Error(`Error en la API de Gemini: ${response.status}`);
-        }
-
-        const data = await response.json();
-        const candidate = data.candidates?.[0]?.content?.parts?.[0]?.text;
-        if (!candidate) {
-            throw new Error("Respuesta inválida o vacía de Gemini.");
-        }
-
+        const candidate = await callGeminiAPI(body);
         return JSON.parse(candidate);
     } catch (error) {
         console.error("Error continuing conversation with Gemini:", error);
