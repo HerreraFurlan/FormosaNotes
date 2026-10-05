@@ -155,6 +155,27 @@ const sanitizeAndMigrateData = (data) => {
         });
     }
 
+    // 7. Sync updated concise mnemonics and standardized radicals from SEED_DATA
+    if (typeof SEED_DATA !== 'undefined') {
+        const seedMap = new Map();
+        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+            if (Array.isArray(SEED_DATA[cat])) {
+                SEED_DATA[cat].forEach(w => seedMap.set(w.id, w));
+            }
+        }
+        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+            if (Array.isArray(data[cat])) {
+                data[cat].forEach(w => {
+                    const seedWord = seedMap.get(w.id);
+                    if (seedWord) {
+                        w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
+                        w.notas = seedWord.notas;
+                    }
+                });
+            }
+        }
+    }
+
     return data;
 };
 
