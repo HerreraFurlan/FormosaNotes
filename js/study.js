@@ -368,9 +368,23 @@ const renderStudyCard = () => {
             </button>
         </div>
 
-        <div class="study-actions-secondary">
+        <div class="study-bottom-bar">
+            <div class="study-modes-tabs">
+                <button class="study-mode-tab ${currentStudyMode === 'caracteres' ? 'active' : ''}" data-study-mode="caracteres" title="Frente: Carácter | Reverso: Pronunciación y Significado">
+                    <span class="tab-icon">🀄</span>
+                    <span class="tab-text">Ver Caracteres</span>
+                </button>
+                <button class="study-mode-tab ${currentStudyMode === 'pronunciacion' ? 'active' : ''}" data-study-mode="pronunciacion" title="Frente: Pinyin y Zhuyin | Reverso: Carácter y Significado">
+                    <span class="tab-icon">🗣️</span>
+                    <span class="tab-text">Ver Pronunciación</span>
+                </button>
+                <button class="study-mode-tab ${currentStudyMode === 'definicion' ? 'active' : ''}" data-study-mode="definicion" title="Frente: Significado en Español | Reverso: Carácter y Pronunciación">
+                    <span class="tab-icon">📖</span>
+                    <span class="tab-text">Ver Definición</span>
+                </button>
+            </div>
             <button class="btn btn-secondary btn-sm" id="study-shuffle" title="Mezclar tarjetas aleatoriamente">
-                🔀 Mezclar mazo
+                🔀 Mezclar
             </button>
         </div>
     `;
@@ -402,6 +416,14 @@ const renderStudyCard = () => {
         renderStudyCard();
     });
 
+    // Bottom bar modes tabs
+    container.querySelectorAll('.study-bottom-bar .study-mode-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const mode = tab.dataset.studyMode;
+            if (mode) setStudyMode(mode);
+        });
+    });
+
     document.getElementById('study-shuffle')?.addEventListener('click', () => {
         for (let i = studyDeck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -417,12 +439,12 @@ const renderStudyCard = () => {
  * Initializes listeners for study mode controls (called once).
  */
 const initStudyEventListeners = () => {
-    // Mode tabs
-    document.querySelectorAll('.study-mode-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            const mode = tab.dataset.studyMode;
-            if (mode) setStudyMode(mode);
-        });
+    // Mode tabs (delegated for dynamically rendered bottom bar)
+    document.addEventListener('click', (e) => {
+        const tab = e.target.closest('.study-mode-tab');
+        if (tab && tab.dataset.studyMode) {
+            setStudyMode(tab.dataset.studyMode);
+        }
     });
 
     // Option switches

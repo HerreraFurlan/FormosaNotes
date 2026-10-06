@@ -1811,11 +1811,16 @@ dialog:not([open]) {
 .study-card .card-category-badge {
     position: absolute;
     top: 0.65rem;
+    bottom: auto !important;
     left: 0.75rem;
+    height: auto !important;
+    max-height: 24px;
     margin: 0;
     z-index: 2;
     font-size: 0.72rem;
-    padding: 0.15rem 0.45rem;
+    padding: 0.15rem 0.55rem;
+    display: inline-block;
+    line-height: 1.2;
 }
 
 /* Centered Body inside Card Faces */
@@ -1961,15 +1966,34 @@ dialog:not([open]) {
     font-size: 0.88rem;
 }
 
-.study-actions-secondary {
+.study-bottom-bar {
     display: flex;
-    justify-content: center;
-    margin-top: 0.05rem;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 680px;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+    padding: 0.45rem 0.75rem;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    box-shadow: 0 1px 4px rgba(44, 24, 16, 0.03);
+    box-sizing: border-box;
 }
 
-.study-actions-secondary #study-shuffle {
-    padding: 0.25rem 0.65rem;
-    font-size: 0.78rem;
+.study-bottom-bar .study-modes-tabs {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.study-bottom-bar #study-shuffle {
+    margin-left: auto;
+    white-space: nowrap;
+    padding: 0.35rem 0.8rem;
+    font-size: 0.82rem;
 }
 
 /* =============================================
