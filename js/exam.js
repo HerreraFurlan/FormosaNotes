@@ -130,6 +130,7 @@ const generatePhase1Local = (allWords) => {
 
 /**
  * Generates Phase 2: 10 items (Hanzi -> type Pinyin with tones).
+ * Fully mechanized locally without AI.
  */
 const generatePhase2Local = (allWords) => {
     const validWords = allWords.filter(w => w.tradicional && w.pinyin);
@@ -143,9 +144,26 @@ const generatePhase2Local = (allWords) => {
         hanzi: w.tradicional,
         pinyin: w.pinyin,
         zhuyin: w.zhuyin || '',
-        espanol: w.espanol || '',
         categoria: w.categoria || ''
     }));
+};
+
+/**
+ * Mechanically verifies Phase 1 answer (exact Hanzi match).
+ */
+const verifyPhase1Answer = (targetHanzi, userAnswer) => {
+    if (!targetHanzi || !userAnswer) return false;
+    return userAnswer.trim() === targetHanzi.trim();
+};
+
+/**
+ * Mechanically verifies Phase 2 answer (normalized tone-marked pinyin).
+ */
+const verifyPhase2Answer = (expectedPinyin, userAnswer) => {
+    const normUser = normalizePinyinComparison((userAnswer || '').trim());
+    if (!normUser) return false;
+    const alternatives = (expectedPinyin || '').split('/').map(a => normalizePinyinComparison(a));
+    return alternatives.includes(normUser);
 };
 
 /**
@@ -231,7 +249,7 @@ const finishAndEvaluateExam = async () => {
         let scoreP1 = 0;
         const p1Details = examSession.data.phase1.map(q => {
             const userAns = examSession.userAnswers.phase1[q.id];
-            const isCorrect = userAns === q.correctHanzi;
+            const isCorrect = verifyPhase1Answer(q.correctHanzi, userAns);
             if (isCorrect) scoreP1 += 1;
             return {
                 id: q.id,
@@ -247,12 +265,8 @@ const finishAndEvaluateExam = async () => {
         let scoreP2 = 0;
         const p2Details = examSession.data.phase2.map(q => {
             const userAns = (examSession.userAnswers.phase2[q.id] || '').trim();
-            const normUser = normalizePinyinComparison(userAns);
             const expected = q.pinyin;
-            
-            // Allow multiple alternatives separated by '/' in card's pinyin
-            const alternatives = expected.split('/').map(a => normalizePinyinComparison(a));
-            const isCorrect = alternatives.includes(normUser);
+            const isCorrect = verifyPhase2Answer(expected, userAns);
             if (isCorrect) scoreP2 += 1;
 
             return {
@@ -276,9 +290,6 @@ const finishAndEvaluateExam = async () => {
                 oracion: q.oracion,
                 userAnswer: userAns || '(Sin respuesta)',
                 correctAnswer: expected,
-                pinyin: q.pinyin_completo,
-                traduccion: q.traduccion,
-                explicacion: q.explicacion || '',
                 isCorrect
             };
         });
@@ -295,9 +306,6 @@ const finishAndEvaluateExam = async () => {
                 oracion: q.oracion,
                 userAnswer: userAns || '(Sin respuesta)',
                 correctAnswer: expected,
-                pinyin: q.pinyin_completo,
-                traduccion: q.traduccion,
-                explicacion: q.explicacion || '',
                 isCorrect
             };
         });
@@ -312,11 +320,8 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 afirmacion: q.afirmacion,
-                pinyin: q.pinyin,
-                traduccion: q.traduccion,
                 userAnswer: userAns === undefined ? '(Sin respuesta)' : (userAns ? 'Verdadero' : 'Falso'),
                 correctAnswer: expected ? 'Verdadero' : 'Falso',
-                explicacion: q.explicacion,
                 isCorrect
             };
         });
@@ -330,11 +335,8 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 pregunta: q.pregunta,
-                pinyin: q.pinyin,
-                traduccion: q.traduccion,
                 userAnswer: userAns || '(Sin respuesta)',
                 correctAnswer: expected,
-                explicacion: q.explicacion,
                 isCorrect
             };
         });
@@ -874,7 +876,6 @@ const renderPhase2 = () => {
                             </div>
                             <div class="phase2-hanzi-banner">
                                 <div class="phase2-hanzi">${q.hanzi}</div>
-                                <div class="phase2-hint">Significado: ${q.espanol}</div>
                             </div>
                             <div class="phase2-input-wrapper">
                                 <label for="p2-input-${q.id}">Ingresa el Pinyin con tonos:</label>
@@ -903,15 +904,15 @@ const renderPhase2 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 3: Fill in the Blank (5 direct sentences)
+// PHASE 3: Fill in the Blank (5 direct sentences - 100% Traditional Chinese)
 // --------------------------------------------------------------------------
 const renderPhase3 = () => {
     const questions = examSession.data.phase3 || [];
     return `
         <div class="phase-container phase-3-container">
             <div class="phase-header-banner">
-                <h3>Fase 3: Rellenar Espacios en Blanco</h3>
-                <p>Completa las siguientes 5 oraciones directas escribiendo en el recuadro la palabra o carácter tradicional que falta.</p>
+                <h3>Fase 3: 填空題 (Completar Espacios en Blanco)</h3>
+                <p>請閱讀以下 5 個句子，並在空格 <code>[ ___ ]</code> 填入適當的漢字詞語。</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -919,24 +920,21 @@ const renderPhase3 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Oración ${idx + 1} de 5</span>
+                                <span class="q-number">第 ${idx + 1} 題（共 5 題）</span>
                             </div>
                             <div class="phase3-sentence-box">
                                 <div class="phase3-chinese-text">${q.oracion}</div>
-                                <div class="phase3-pinyin-text">${q.pinyin_completo || ''}</div>
-                                <div class="phase3-trans-text">Traducción: ${q.traduccion || ''}</div>
                             </div>
                             <div class="phase3-input-box">
-                                <label for="p3-input-${q.id}">Palabra / Carácter faltante:</label>
+                                <label for="p3-input-${q.id}">請輸入缺少的字詞：</label>
                                 <div style="display:flex; gap:0.5rem; max-width: 300px;">
                                     <input type="text" 
                                            class="form-control phase3-fill-input" 
                                            id="p3-input-${q.id}" 
                                            data-q-id="${q.id}" 
-                                           placeholder="Escribe aquí el carácter..." 
+                                           placeholder="請輸入漢字..." 
                                            value="${typed}">
                                 </div>
-                                ${q.pista ? `<div class="phase3-pista">💡 Pista: ${q.pista}</div>` : ''}
                             </div>
                         </div>
                     `;
@@ -947,15 +945,15 @@ const renderPhase3 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 4: Complex Sentences (10 sentences -> 3 options A, B, C)
+// PHASE 4: Complex Sentences (10 sentences -> 3 options A, B, C - 100% Traditional Chinese)
 // --------------------------------------------------------------------------
 const renderPhase4 = () => {
     const questions = examSession.data.phase4 || [];
     return `
         <div class="phase-container phase-4-container">
             <div class="phase-header-banner">
-                <h3>Fase 4: Gramática y Estructuras Complejas</h3>
-                <p>Las siguientes 10 oraciones utilizan patrones gramaticales avanzados. Elige entre las 3 opciones la que mejor complete el enunciado.</p>
+                <h3>Fase 4: 文法與句型選擇題 (Estructuras Complejas)</h3>
+                <p>請閱讀以下 10 個句子，並從 3 個選項中選出最合適的答案完成句子。</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -963,11 +961,10 @@ const renderPhase4 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Estructura ${idx + 1} de 10</span>
+                                <span class="q-number">第 ${idx + 1} 題（共 10 題）</span>
                             </div>
                             <div class="phase4-sentence-box">
                                 <div class="phase4-chinese-text">${q.oracion}</div>
-                                <div class="phase4-trans-text">${q.traduccion || ''}</div>
                             </div>
                             <div class="phase4-options-list">
                                 ${q.opciones.map((opt, optIdx) => {
@@ -993,15 +990,15 @@ const renderPhase4 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 5: Contextual Scenarios (5 open questions)
+// PHASE 5: Contextual Scenarios (5 open questions - 100% Traditional Chinese)
 // --------------------------------------------------------------------------
 const renderPhase5 = () => {
     const questions = examSession.data.phase5 || [];
     return `
         <div class="phase-container phase-5-container">
             <div class="phase-header-banner">
-                <h3>Fase 5: Respuestas en Situaciones Reales</h3>
-                <p>Imagina que estás en Taiwán en cada una de estas 5 situaciones cotidianas. Responde a la pregunta planteada con una oración simple y coherente en chino tradicional.</p>
+                <h3>Fase 5: 情境問答 (Situaciones Cotidianas)</h3>
+                <p>請根據各題情境，用完整的繁體中文句子回答問題。</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1009,23 +1006,21 @@ const renderPhase5 = () => {
                     return `
                         <div class="exam-question-card phase5-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Escenario ${idx + 1} de 5</span>
+                                <span class="q-number">情境 ${idx + 1}（共 5 題）</span>
                             </div>
                             <div class="phase5-scenario-desc">
-                                <strong>📍 Contexto:</strong> ${q.escenario}
+                                <strong>📍 情境：</strong> ${q.escenario}
                             </div>
                             <div class="phase5-question-box">
                                 <div class="phase5-chinese-q">${q.pregunta}</div>
-                                <div class="phase5-pinyin-q">${q.pinyin_pregunta || ''}</div>
-                                <div class="phase5-trans-q">${q.traduccion_pregunta || ''}</div>
                             </div>
                             <div class="phase5-input-box">
-                                <label for="p5-input-${q.id}">Tu respuesta en caracteres tradicionales:</label>
+                                <label for="p5-input-${q.id}">請用繁體中文回答：</label>
                                 <textarea class="form-control phase5-textarea" 
                                           id="p5-input-${q.id}" 
                                           data-q-id="${q.id}" 
                                           rows="2" 
-                                          placeholder="Escribe tu respuesta en chino tradicional...">${typed}</textarea>
+                                          placeholder="請在此輸入你的中文回答...">${typed}</textarea>
                             </div>
                         </div>
                     `;
@@ -1036,7 +1031,7 @@ const renderPhase5 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 6: Fixed Character Bank (Bank of 5 -> 5 questions forced usage)
+// PHASE 6: Fixed Character Bank (Bank of 5 -> 5 questions forced usage - 100% Chinese)
 // --------------------------------------------------------------------------
 const renderPhase6 = () => {
     const bank = examSession.data.phase6.banco_caracteres || [];
@@ -1044,13 +1039,13 @@ const renderPhase6 = () => {
     return `
         <div class="phase-container phase-6-container">
             <div class="phase-header-banner">
-                <h3>Fase 6: Desafío de Banco de Caracteres</h3>
-                <p>Dispones de un banco de 5 caracteres fijos. Debes responder a cada una de las 5 preguntas redactando una oración en chino que utilice obligatoriamente el carácter que le ha sido asignado.</p>
+                <h3>Fase 6: 指定字造句問答 (Banco de Caracteres Fijos)</h3>
+                <p>請使用指定的漢字回答以下問題，造句中必須包含該指定漢字。</p>
             </div>
 
             <!-- Fixed Character Bank Display -->
             <div class="phase6-bank-panel">
-                <div class="phase6-bank-title">🏷️ Banco de Caracteres Fijos Obligatorios:</div>
+                <div class="phase6-bank-title">🏷️ 本測驗指定字庫：</div>
                 <div class="phase6-bank-pills">
                     ${bank.map(char => `
                         <div class="bank-pill-char">${char}</div>
@@ -1064,21 +1059,19 @@ const renderPhase6 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Pregunta ${idx + 1} de 5</span>
-                                <span class="q-badge-required">Carácter obligatorio: <strong>${q.caracter_asignado}</strong></span>
+                                <span class="q-number">第 ${idx + 1} 題（共 5 題）</span>
+                                <span class="q-badge-required">必須包含漢字：<strong>${q.caracter_asignado}</strong></span>
                             </div>
                             <div class="phase6-q-box">
                                 <div class="phase6-chinese-q">${q.pregunta}</div>
-                                <div class="phase6-pinyin-q">${q.pinyin_pregunta || ''}</div>
-                                <div class="phase6-trans-q">${q.traduccion_pregunta || ''}</div>
                             </div>
                             <div class="phase6-input-box">
-                                <label for="p6-input-${q.id}">Tu respuesta (debe contener «${q.caracter_asignado}»):</label>
+                                <label for="p6-input-${q.id}">你的回答（造句必須使用「${q.caracter_asignado}」）：</label>
                                 <input type="text" 
                                        class="form-control phase6-input" 
                                        id="p6-input-${q.id}" 
                                        data-q-id="${q.id}" 
-                                       placeholder="Escribe tu oración usando ${q.caracter_asignado}..." 
+                                       placeholder="請用「${q.caracter_asignado}」寫出完整的句子..." 
                                        value="${typed}">
                             </div>
                         </div>
@@ -1090,62 +1083,55 @@ const renderPhase6 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 7: Reading Comprehension (Story + 5 T/F + 5 MCQ)
+// PHASE 7: Reading Comprehension (Story + 5 T/F + 5 MCQ - 100% Traditional Chinese)
 // --------------------------------------------------------------------------
 const renderPhase7 = () => {
     const p7 = examSession.data.phase7 || {};
     const story = p7.historia || '';
-    const storyPinyin = p7.pinyin_historia || '';
-    const storyTrans = p7.traduccion_historia || '';
     const vfList = p7.verdadero_falso || [];
     const mcqList = p7.opcion_multiple || [];
 
     return `
         <div class="phase-container phase-7-container">
             <div class="phase-header-banner">
-                <h3>Fase 7: Comprensión Lectora</h3>
-                <p>Lee atentamente la siguiente historia corta ambientada en Taiwán. A continuación responde a las 5 afirmaciones de Verdadero/Falso y a las 5 preguntas de selección múltiple.</p>
+                <h3>Fase 7: 閱讀理解測驗 (Comprensión Lectora)</h3>
+                <p>請仔細閱讀以下短文，並完成是非題與單選題。</p>
             </div>
 
             <!-- Story Card -->
             <div class="phase7-story-card">
                 <div class="phase7-story-header">
-                    <h4>📖 Texto de Lectura</h4>
-                    <button type="button" class="btn btn-secondary btn-sm" id="btn-toggle-story-pinyin">
-                        Mostrar/Ocultar Pinyin
-                    </button>
+                    <h4>📖 短文閱讀</h4>
                 </div>
                 <div class="phase7-story-body">
                     <p class="phase7-story-chinese">${story}</p>
-                    <p class="phase7-story-pinyin" id="phase7-story-pinyin" style="display:none;">${storyPinyin}</p>
                 </div>
             </div>
 
-            <!-- Part A: Verdadero o Falso -->
+            <!-- Part A: 是非題 (Verdadero o Falso) -->
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">Parte A: Verdadero o Falso (5 afirmaciones)</div>
+                <div class="phase7-sub-title">第一部分：是非題（請判斷是否符合短文內容，共 5 題）</div>
                 <div class="phase-questions-list">
                     ${vfList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_vf[q.id];
                         return `
                             <div class="exam-question-card" data-vf-id="${q.id}">
                                 <div class="q-header">
-                                    <span class="q-number">Afirmación ${idx + 1} de 5</span>
+                                    <span class="q-number">第 ${idx + 1} 題</span>
                                 </div>
                                 <div class="phase7-statement-text">${q.afirmacion}</div>
-                                <div class="phase7-statement-pinyin">${q.pinyin || ''}</div>
                                 <div class="phase7-vf-buttons">
                                     <button type="button" 
                                             class="btn-vf ${chosen === true ? 'selected-true' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="true">
-                                        ✓ Verdadero
+                                        ✓ 是 (正確)
                                     </button>
                                     <button type="button" 
                                             class="btn-vf ${chosen === false ? 'selected-false' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="false">
-                                        ✗ Falso
+                                        ✗ 否 (錯誤)
                                     </button>
                                 </div>
                             </div>
@@ -1154,19 +1140,18 @@ const renderPhase7 = () => {
                 </div>
             </div>
 
-            <!-- Part B: Selección Múltiple -->
+            <!-- Part B: 單選題 (Selección Múltiple) -->
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">Parte B: Selección Múltiple (5 preguntas)</div>
+                <div class="phase7-sub-title">第二部分：單選題（根據短文選出最佳答案，共 5 題）</div>
                 <div class="phase-questions-list">
                     ${mcqList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_mcq[q.id];
                         return `
                             <div class="exam-question-card" data-mcq-id="${q.id}">
                                 <div class="q-header">
-                                    <span class="q-number">Pregunta ${idx + 1} de 5</span>
+                                    <span class="q-number">第 ${idx + 1} 題</span>
                                 </div>
                                 <div class="phase7-mcq-prompt">${q.pregunta}</div>
-                                <div class="phase7-statement-pinyin">${q.pinyin || ''}</div>
                                 <div class="phase4-options-list">
                                     ${(q.opciones || []).map((opt, optIdx) => {
                                         const letter = String.fromCharCode(65 + optIdx);
@@ -1265,17 +1250,6 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
             });
         });
     } else if (phaseNum === 7) {
-        // Toggle Pinyin
-        const toggleBtn = container.querySelector('#btn-toggle-story-pinyin');
-        const pinyinElem = container.querySelector('#phase7-story-pinyin');
-        if (toggleBtn && pinyinElem) {
-            toggleBtn.addEventListener('click', () => {
-                const isHidden = pinyinElem.style.display === 'none';
-                pinyinElem.style.display = isHidden ? 'block' : 'none';
-                toggleBtn.textContent = isHidden ? 'Ocultar Pinyin' : 'Mostrar Pinyin';
-            });
-        }
-
         // True/False buttons
         container.querySelectorAll('.btn-vf').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1472,16 +1446,12 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return details.phase3.map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Oración: ${item.oracion}</span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span>題目：${item.oracion}</span>
+                        <span class="review-status">${item.isCorrect ? '✓ 正確 (+1 pt)' : '✗ 錯誤 (0 pts)'}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong>${item.userAnswer}</strong></div>
-                        <div>Palabra correcta: <strong>${item.correctAnswer}</strong></div>
-                    </div>
-                    <div class="review-extra-info">
-                        <small>Pinyin: ${item.pinyin} | Traducción: ${item.traduccion}</small>
-                        ${item.explicacion ? `<p>Explicación: ${item.explicacion}</p>` : ''}
+                        <div>你的答案：<strong>${item.userAnswer}</strong></div>
+                        <div>正確答案：<strong style="color:var(--accent);">${item.correctAnswer}</strong></div>
                     </div>
                 </div>
             `).join('');
@@ -1490,16 +1460,12 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return details.phase4.map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Oración: ${item.oracion}</span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span>題目：${item.oracion}</span>
+                        <span class="review-status">${item.isCorrect ? '✓ 正確 (+1 pt)' : '✗ 錯誤 (0 pts)'}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu opción: <strong>${item.userAnswer}</strong></div>
-                        <div>Opción correcta: <strong>${item.correctAnswer}</strong></div>
-                    </div>
-                    <div class="review-extra-info">
-                        <small>Pinyin: ${item.pinyin} | Traducción: ${item.traduccion}</small>
-                        ${item.explicacion ? `<p>Gramática: ${item.explicacion}</p>` : ''}
+                        <div>你的選擇：<strong>${item.userAnswer}</strong></div>
+                        <div>正確選項：<strong style="color:var(--accent);">${item.correctAnswer}</strong></div>
                     </div>
                 </div>
             `).join('');
@@ -1508,19 +1474,19 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return details.phase5.map((item, idx) => `
                 <div class="review-item ${item.eval.puntaje >= 1 ? 'correct' : item.eval.puntaje > 0 ? 'partial' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Escenario ${idx + 1}: ${item.escenario}</span>
+                        <span>情境 ${idx + 1}：${item.escenario}</span>
                         <span class="review-status">${item.eval.puntaje} / 1 pt</span>
                     </div>
                     <div class="review-q-prompt">
-                        <strong>Pregunta:</strong> ${item.pregunta} (${item.pinyin_pregunta}) &mdash; <em>${item.traduccion_pregunta}</em>
+                        <strong>問題：</strong> ${item.pregunta}
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
+                        <div>你的回答：<strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
                     </div>
                     <div class="review-ai-feedback">
-                        <p><strong>Comentario del profesor:</strong> ${item.eval.comentario || 'Evaluada por IA.'}</p>
+                        <p><strong>教師評語：</strong> ${item.eval.comentario || '已完成評估。'}</p>
                         ${item.eval.correccion_sugerida ? `
-                            <p><strong>Sugerencia ideal:</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span> <em>(${item.eval.pinyin_correccion || ''})</em></p>
+                            <p><strong>建議範例：</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
                         ` : ''}
                     </div>
                 </div>
@@ -1530,19 +1496,19 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return details.phase6.map((item, idx) => `
                 <div class="review-item ${item.eval.puntaje >= 1 ? 'correct' : item.eval.puntaje > 0 ? 'partial' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Carácter obligatorio: <strong style="color:var(--accent); font-size:1.15rem;">${item.caracter_asignado}</strong></span>
+                        <span>指定漢字：<strong style="color:var(--accent); font-size:1.15rem;">${item.caracter_asignado}</strong></span>
                         <span class="review-status">${item.eval.puntaje} / 1 pt</span>
                     </div>
                     <div class="review-q-prompt">
-                        <strong>Pregunta:</strong> ${item.pregunta} (${item.pinyin_pregunta}) &mdash; <em>${item.traduccion_pregunta}</em>
+                        <strong>問題：</strong> ${item.pregunta}
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
+                        <div>你的造句：<strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
                     </div>
                     <div class="review-ai-feedback">
-                        <p><strong>Comentario del profesor:</strong> ${item.eval.comentario || 'Evaluada por IA.'}</p>
+                        <p><strong>教師評語：</strong> ${item.eval.comentario || '已完成評估。'}</p>
                         ${item.eval.correccion_sugerida ? `
-                            <p><strong>Sugerencia ideal:</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span> <em>(${item.eval.pinyin_correccion || ''})</em></p>
+                            <p><strong>建議範例：</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
                         ` : ''}
                     </div>
                 </div>
@@ -1552,38 +1518,36 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             const vfHtml = details.phase7_vf.map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>V/F ${idx + 1}: ${item.afirmacion}</span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span>是非題 ${idx + 1}：${item.afirmacion}</span>
+                        <span class="review-status">${item.isCorrect ? '✓ 正確 (+1 pt)' : '✗ 錯誤 (0 pts)'}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong>${item.userAnswer}</strong></div>
-                        <div>Respuesta correcta: <strong>${item.correctAnswer}</strong></div>
+                        <div>你的答案：<strong>${item.userAnswer}</strong></div>
+                        <div>正確答案：<strong>${item.correctAnswer}</strong></div>
                     </div>
-                    ${item.explicacion ? `<div class="review-extra-info"><p>Motivo: ${item.explicacion}</p></div>` : ''}
                 </div>
             `).join('');
 
             const mcqHtml = details.phase7_mcq.map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Pregunta ${idx + 1}: ${item.pregunta}</span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span>單選題 ${idx + 1}：${item.pregunta}</span>
+                        <span class="review-status">${item.isCorrect ? '✓ 正確 (+1 pt)' : '✗ 錯誤 (0 pts)'}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu opción: <strong>${item.userAnswer}</strong></div>
-                        <div>Opción correcta: <strong>${item.correctAnswer}</strong></div>
+                        <div>你的選項：<strong>${item.userAnswer}</strong></div>
+                        <div>正確選項：<strong>${item.correctAnswer}</strong></div>
                     </div>
-                    ${item.explicacion ? `<div class="review-extra-info"><p>Justificación: ${item.explicacion}</p></div>` : ''}
                 </div>
             `).join('');
 
             return `
                 <div style="margin-bottom:1.5rem;">
-                    <h4 style="margin-bottom:0.75rem; color:var(--text-secondary);">Parte A: Verdadero o Falso</h4>
+                    <h4 style="margin-bottom:0.75rem; color:var(--text-secondary);">第一部分：是非題</h4>
                     ${vfHtml}
                 </div>
                 <div>
-                    <h4 style="margin-bottom:0.75rem; color:var(--text-secondary);">Parte B: Selección Múltiple</h4>
+                    <h4 style="margin-bottom:0.75rem; color:var(--text-secondary);">第二部分：單選題</h4>
                     ${mcqHtml}
                 </div>
             `;

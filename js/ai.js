@@ -670,15 +670,18 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
  * @returns {Promise<object>} Generated exam phases
  */
 const generateExamAIData = async (wordsList, structuresList) => {
-    const wordsSummary = wordsList.slice(0, 150).map(w => `${w.tradicional} (${w.pinyin || ''} - ${w.espanol || ''})`).join(', ');
-    const structuresSummary = structuresList.slice(0, 25).map(s => `- ${s.titulo}: ${s.patron} (${s.explicacion})`).join('\n');
+    const wordsSummary = wordsList.slice(0, 150).map(w => w.tradicional).join(', ');
+    const structuresSummary = structuresList.slice(0, 25).map(s => `- ${s.patron} (${s.explicacion})`).join('\n');
 
     const prompt = `Eres un profesor experto de chino mandarín tradicional de Taiwán (繁體中文).
-Estás diseñando una "Simulación de Examen" rigurosa pero justa para un estudiante, compuesta por 5 fases específicas de evaluación.
+Estás diseñando una "Simulación de Examen" rigurosa pero justa para un estudiante, compuesta por 5 fases de evaluación.
 
-REGLA ABSOLUTA DE VOCABULARIO Y GRAMÁTICA:
-- Todas las oraciones, preguntas, opciones e historias deben construirse usando EXCLUSIVAMENTE el vocabulario conocido del estudiante y las estructuras gramaticales aprendidas a continuación (o vocabulario elemental de cortesía taiwanés indispensable).
-- Usa caracteres tradicionales de Taiwán (繁體字).
+REGLAS ABSOLUTAS DE IDIOMA Y CONTENIDO:
+1. IDIOMA 100% EN CHINO TRADICIONAL (繁體中文):
+   - NO incluyas pinyin ni traducciones al español en ninguna de las oraciones, opciones, preguntas, historias o escenarios.
+   - El examen es de inmersión total en chino tradicional de Taiwán (繁體字), exactamente como un examen oficial (TOCFL).
+2. VOCABULARIO Y ESTRUCTURAS:
+   - Todas las oraciones, preguntas e historias deben construirse usando EXCLUSIVAMENTE el vocabulario conocido del estudiante y las estructuras aprendidas a continuación (o vocabulario elemental indispensable de cortesía en Taiwán).
 
 VOCABULARIO CONOCIDO:
 ${wordsSummary}
@@ -686,85 +689,66 @@ ${wordsSummary}
 ESTRUCTURAS GRAMATICALES APRENDIDAS:
 ${structuresSummary}
 
-DEBES GENERAR LAS SIGUIENTES 5 FASES DEL EXAMEN:
+DEBES GENERAR LAS SIGUIENTES 5 FASES DEL EXAMEN (TODO EXCLUSIVAMENTE EN CHINO TRADICIONAL, SIN PINYIN Y SIN ESPAÑOL):
 
 1. FASE 3 (Completar espacios en blanco - 5 oraciones directas):
-   - 5 oraciones simples o directas donde falta 1 palabra clave (carácter o término) que el alumno debe rellenar.
+   - 5 oraciones directas donde falta 1 palabra o carácter clave que el alumno debe escribir.
    - Marca el espacio faltante exactamente con "[ ___ ]".
    - Cada elemento debe tener:
      - "id": número 1 a 5
-     - "oracion": oración con "[ ___ ]" (ej. "我 [ ___ ] 喝茶。")
-     - "palabra_faltante": la palabra o caracter exacto faltante (ej. "想")
-     - "pinyin_completo": pinyin con marcas de tono de la oración completa
-     - "traduccion": traducción al español
-     - "pista": breve pista en español si es necesario
+     - "oracion": oración en chino tradicional con "[ ___ ]" (ej. "我想去夜市 [ ___ ] 珍珠奶茶。")
+     - "palabra_faltante": el carácter o palabra exacta faltante en chino tradicional (ej. "買")
 
 2. FASE 4 (Opción múltiple con oraciones complejas - 10 oraciones):
-   - 10 oraciones con partes faltantes en blanco "[ ___ ]", basadas en estructuras gramaticales más complejas o compuestas (ej. conectores como 因為...所以, 雖然...但是, clasificadores, adverbios o patrones modales).
-   - Ofrece exactamente 3 opciones de respuesta (A, B, C) por oración.
+   - 10 oraciones con "[ ___ ]", basadas en estructuras gramaticales más complejas o compuestas (ej. 因為...所以, 雖然...但是, clasificadores, adverbios o modales).
+   - Ofrece exactamente 3 opciones de respuesta en caracteres tradicionales (A, B, C) por oración.
    - Cada elemento debe tener:
      - "id": número 1 a 10
-     - "oracion": oración con "[ ___ ]"
+     - "oracion": oración en chino tradicional con "[ ___ ]"
      - "opciones": array de exactamente 3 opciones en caracteres tradicionales (ej. ["但是", "因為", "所以"])
      - "opcion_correcta": string idéntico a una de las 3 opciones
-     - "pinyin_completo": pinyin con tonos
-     - "traduccion": traducción al español
-     - "explicacion": explicación gramatical breve de por qué esa opción es la correcta
 
-3. FASE 5 (Preguntas abiertas contextuales en 5 escenarios):
-   - 5 escenarios realistas de la vida cotidiana en Taiwán (ej. pedir una bebida en una casa de té, consultar un precio en el mercado nocturno, hablar del clima, preguntar por el trabajo/estudio, presentarse).
-   - Para cada escenario, 1 pregunta en chino tradicional para que el usuario responda con una oración simple.
+3. FASE 5 (Preguntas abiertas contextuales en 5 escenarios cotidianos):
+   - 5 escenarios realistas de la vida cotidiana en Taiwán descritos brevemente en chino tradicional, y 1 pregunta en chino tradicional para que el usuario responda con una oración simple en chino tradicional.
    - Cada elemento debe tener:
      - "id": número 1 a 5
-     - "escenario": descripción en español del contexto
-     - "pregunta": pregunta en chino tradicional
-     - "pinyin_pregunta": pinyin con tonos
-     - "traduccion_pregunta": traducción de la pregunta al español
-     - "ejemplo_respuesta": una respuesta modelo esperada acorde al nivel
+     - "escenario": contexto breve en chino tradicional (ej. "在夜市飲料攤", "在茶藝館買茶", "在餐廳點菜", "跟朋友約週末時間", "在捷運站問路")
+     - "pregunta": pregunta en chino tradicional (ej. "請問你想喝冰的還是溫的？")
+     - "ejemplo_respuesta": respuesta modelo esperada en chino tradicional (ej. "我想喝冰的珍珠奶茶。")
 
-4. FASE 6 (Uso forzado de banco de caracteres fijos):
-   - Proporciona un banco de exactamente 5 caracteres fijos conocidos (ej. ["想", "很", "在", "不", "都"] u otros caracteres frecuentes de su biblioteca).
-   - Genera 5 preguntas en chino tradicional. En cada pregunta, el alumno deberá responder con una oración que utilice obligatoriamente uno de los caracteres del banco (idealmente cubriendo los 5).
+4. FASE 6 (Uso forzado de banco de 5 caracteres fijos):
+   - Proporciona un banco de exactamente 5 caracteres fijos conocidos (ej. ["想", "很", "在", "不", "都"]).
+   - Genera 5 preguntas en chino tradicional. En cada pregunta, el alumno deberá responder con una oración en chino tradicional que utilice obligatoriamente el carácter asignado.
    - "banco_caracteres": array de 5 strings con los caracteres elegidos
    - "preguntas": array de 5 objetos con:
      - "id": número 1 a 5
-     - "caracter_asignado": el carácter del banco que debe usar el estudiante en esta pregunta
+     - "caracter_asignado": el carácter del banco que debe usar el estudiante
      - "pregunta": pregunta en chino tradicional
-     - "pinyin_pregunta": pinyin con tonos
-     - "traduccion_pregunta": traducción al español
-     - "ejemplo_respuesta": respuesta modelo usando el carácter asignado
+     - "ejemplo_respuesta": respuesta modelo en chino tradicional usando el carácter asignado
 
 5. FASE 7 (Comprensión lectora - Historia corta + 5 V/F + 5 Opción múltiple):
    - Una historia corta y coherente (aprox. 80-140 caracteres) escrita en chino tradicional taiwanés sobre una situación cotidiana usando las palabras y estructuras del estudiante.
-   - 5 afirmaciones de Verdadero o Falso sobre la historia.
-   - 5 preguntas de selección múltiple (A, B, C) con 3 opciones sobre la historia.
+   - 5 afirmaciones de Verdadero o Falso en chino tradicional.
+   - 5 preguntas de selección múltiple (A, B, C) con 3 opciones en caracteres tradicionales.
    - "historia": texto de la historia en caracteres tradicionales
-   - "pinyin_historia": pinyin con tonos de toda la historia
-   - "traduccion_historia": traducción completa al español
    - "verdadero_falso": array de 5 objetos:
      - "id": número 1 a 5
      - "afirmacion": afirmación en chino tradicional
-     - "pinyin": pinyin con tonos
-     - "traduccion": traducción al español
      - "es_verdadera": boolean (true o false)
-     - "explicacion": por qué es verdadera o falsa según la historia
    - "opcion_multiple": array de 5 objetos:
      - "id": número 1 a 5
      - "pregunta": pregunta en chino tradicional
-     - "pinyin": pinyin con tonos
-     - "traduccion": traducción al español
-     - "opciones": array de exactamente 3 opciones (strings)
+     - "opciones": array de exactamente 3 opciones en caracteres tradicionales
      - "respuesta_correcta": string idéntico a una de las opciones
-     - "explicacion": breve justificación
 
 Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "fase5", "fase6", "fase7".
 
 REGLAS OBLIGATORIAS DE FORMATO JSON:
 1. Devuelve EXCLUSIVAMENTE el objeto JSON crudo, sin bloques de código markdown (\`\`\`json) ni texto introductorio o final.
-2. DENTRO DE LOS TEXTOS (como "pista", "explicacion", "oracion", "traduccion", etc.):
-   - NUNCA uses comillas dobles (") para citar palabras o caracteres chinos o españoles. Si necesitas citar, USA COMILLAS SIMPLES (' ') o COMILLAS ANGULARES (« ») o cítalo directamente (ejemplo: Usa la palabra '想' o Usa el término 想; NUNCA uses comillas dobles internas).
+2. DENTRO DE LOS TEXTOS:
+   - NUNCA uses comillas dobles (") para citar palabras o caracteres chinos. Si necesitas citar, usa comillas simples (' ') o comillas angulares (« »).
    - NUNCA escapes corchetes con barras invertidas (usa exactamente [ ___ ], NUNCA \\[ ___ \\]).
-   - NO insertes saltos de línea literales dentro de las cadenas; cada valor de texto debe ser una sola línea continua.
+   - NO insertes saltos de línea literales dentro de las cadenas.
 3. Asegúrate de que todas las propiedades, llaves y corchetes estén perfectamente cerrados.`;
 
     const body = {
