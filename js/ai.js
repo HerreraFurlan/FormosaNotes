@@ -34,9 +34,37 @@ const setGeminiApiKey = (key) => {
  * @param {string} model - Target Gemini model name
  * @returns {Promise<string>} The raw text response from the first candidate
  */
-const callGeminiAPI = async (body, model = 'gemini-2.0-flash') => {
+let clientCachedModel = null;
+
+const discoverClientWorkingModel = async (key) => {
+    try {
+        const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
+        const res = await fetch(listUrl);
+        if (!res.ok) return null;
+        const data = await res.json();
+        const available = (data.models || []).filter(m => 
+            Array.isArray(m.supportedGenerationMethods) && 
+            m.supportedGenerationMethods.includes('generateContent')
+        );
+
+        if (available.length === 0) return null;
+
+        const flash = available.find(m => m.name.includes('flash') && !m.name.includes('1.5') && !m.name.includes('2.0'));
+        if (flash) return flash.name.replace(/^models\//, '');
+
+        const anyFlash = available.find(m => m.name.includes('flash'));
+        if (anyFlash) return anyFlash.name.replace(/^models\//, '');
+
+        return available[0].name.replace(/^models\//, '');
+    } catch (e) {
+        return null;
+    }
+};
+
+const callGeminiAPI = async (body, model = 'gemini-2.5-flash') => {
     const localKey = getGeminiApiKey();
     const isLocalFile = window.location.protocol === 'file:';
+    const targetModel = clientCachedModel || model;
 
     // 1. If not running directly from a file:// URL, try the /api/gemini proxy first
     if (!isLocalFile) {
@@ -46,7 +74,7 @@ const callGeminiAPI = async (body, model = 'gemini-2.0-flash') => {
                 proxyHeaders['x-gemini-key'] = localKey;
             }
 
-            const response = await fetch(`/api/gemini?model=${encodeURIComponent(model)}`, {
+            const response = await fetch(`/api/gemini?model=${encodeURIComponent(targetModel)}`, {
                 method: 'POST',
                 headers: proxyHeaders,
                 body: JSON.stringify(body)
@@ -84,21 +112,27 @@ const callGeminiAPI = async (body, model = 'gemini-2.0-flash') => {
         throw new Error("No hay clave de API configurada. Configura la variable GEMINI_API_KEY en Vercel o en tu navegador.");
     }
 
-    let url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${localKey}`;
+    let currentModel = clientCachedModel || 'gemini-2.5-flash';
+    let url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${localKey}`;
     let response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     });
 
-    // Fallback to gemini-1.5-flash if 2.0-flash fails
-    if (!response.ok && response.status === 404 && model !== 'gemini-1.5-flash') {
-        url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${localKey}`;
-        response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        });
+    // Auto-discover if 404
+    if (!response.ok && response.status === 404) {
+        const discovered = await discoverClientWorkingModel(localKey);
+        if (discovered && discovered !== currentModel) {
+            clientCachedModel = discovered;
+            currentModel = discovered;
+            url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${localKey}`;
+            response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+        }
     }
 
     if (!response.ok) {
