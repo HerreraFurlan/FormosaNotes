@@ -3558,3 +3558,1089 @@ input:checked+.slider:before {
         width: 160px;
     }
 }
+
+/* ==========================================================
+   SIMULACIÓN DE EXAMEN (7 FASES) STYLES
+   ========================================================== */
+
+.exam-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+}
+
+/* Welcome Screen */
+.exam-welcome-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 2.5rem 2rem;
+    box-shadow: 0 4px 16px rgba(44, 24, 16, 0.05);
+}
+
+.exam-badge {
+    display: inline-block;
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+}
+
+.exam-title {
+    font-size: 2.2rem;
+    color: var(--text-primary);
+    margin: 0 0 0.75rem;
+    font-weight: 800;
+}
+
+.exam-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    max-width: 720px;
+}
+
+.exam-stats-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+}
+
+.exam-pill {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    padding: 0.4rem 0.85rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.exam-phases-preview {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.preview-phase-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    padding: 0.9rem 1.1rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.preview-phase-item:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+}
+
+.preview-phase-num {
+    background: var(--accent);
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.preview-phase-info h4 {
+    margin: 0 0 0.2rem;
+    font-size: 0.98rem;
+    color: var(--text-primary);
+}
+
+.preview-phase-info p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.exam-welcome-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.btn-lg {
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    gap: 0.6rem;
+}
+
+/* Loading Card */
+.exam-loading-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 3.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(44, 24, 16, 0.05);
+}
+
+.exam-spinner {
+    width: 50px;
+    height: 50px;
+    margin: 0 auto 1.5rem;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spinExam 0.9s linear infinite;
+}
+
+@keyframes spinExam {
+    to { transform: rotate(360deg); }
+}
+
+.exam-loading-title {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+}
+
+.exam-loading-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.exam-loading-tips {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0.85rem 1.25rem;
+    background: var(--bg-tertiary);
+    border-radius: 8px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+}
+
+/* Active Exam Layout */
+.exam-active-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.exam-active-header {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(44, 24, 16, 0.03);
+}
+
+.exam-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.exam-active-title h2 {
+    margin: 0 0 0.25rem;
+    font-size: 1.35rem;
+    color: var(--text-primary);
+}
+
+.exam-phase-indicator {
+    font-size: 0.92rem;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+/* Stepper Navigation */
+.exam-stepper {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.exam-step-btn {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.6rem 0.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.exam-step-btn:hover {
+    border-color: var(--text-muted);
+    background: var(--bg-tertiary);
+}
+
+.exam-step-btn.active {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+.exam-step-btn.completed:not(.active) {
+    border-color: var(--success);
+    background: #E8F8F0;
+}
+
+.exam-step-btn .step-num {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+}
+
+.exam-step-btn.active .step-num {
+    color: var(--accent);
+}
+
+.exam-step-btn .step-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.exam-step-btn.completed .step-label {
+    color: var(--success);
+    font-weight: 600;
+}
+
+/* Phase Container & Cards */
+.phase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.phase-header-banner {
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+}
+
+.phase-header-banner h3 {
+    margin: 0 0 0.35rem;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+}
+
+.phase-header-banner p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+.phase-questions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.exam-question-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem 1.5rem;
+    box-shadow: 0 2px 6px rgba(44, 24, 16, 0.02);
+}
+
+.q-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.9rem;
+    font-size: 0.85rem;
+}
+
+.q-number {
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.q-badge-cat {
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: 0.2rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Phase 1 styles */
+.q-prompt-center {
+    text-align: center;
+    padding: 1rem 0;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+}
+
+.q-pinyin-display {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+}
+
+.q-zhuyin-display {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-family: 'Noto Sans TC', sans-serif;
+    margin-top: 0.25rem;
+}
+
+.q-options-grid-10 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.6rem;
+}
+
+.option-btn-10 {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    padding: 0.85rem 0.5rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option-btn-10:hover {
+    border-color: var(--accent);
+    background: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.option-btn-10.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    color: var(--accent);
+    font-weight: 700;
+    box-shadow: 0 0 0 2px var(--accent);
+}
+
+/* Phase 2 styles */
+.phase2-hanzi-banner {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-primary);
+    border-radius: 6px;
+}
+
+.phase2-hanzi {
+    font-size: 2.2rem;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.phase2-hint {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.phase2-input-wrapper label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.phase2-pinyin-input {
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0.65rem 0.85rem;
+    width: 100%;
+    max-width: 320px;
+}
+
+.phase2-tone-helper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+}
+
+/* Phase 3 styles */
+.phase3-sentence-box {
+    background: var(--bg-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.phase3-chinese-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+    letter-spacing: 0.03em;
+}
+
+.phase3-pinyin-text {
+    font-size: 0.92rem;
+    color: var(--accent);
+    margin-bottom: 0.25rem;
+}
+
+.phase3-trans-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.phase3-input-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--text-secondary);
+}
+
+.phase3-fill-input {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.2rem;
+    padding: 0.6rem 0.85rem;
+    width: 100%;
+}
+
+.phase3-pista {
+    margin-top: 0.4rem;
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+/* Phase 4 styles */
+.phase4-sentence-box {
+    background: var(--bg-primary);
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.25rem;
+}
+
+.phase4-chinese-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.phase4-trans-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.phase4-options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.phase4-opt-btn {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s ease;
+}
+
+.phase4-opt-btn:hover {
+    border-color: var(--accent);
+    background: var(--bg-primary);
+}
+
+.phase4-opt-btn.selected {
+    border-color: var(--accent);
+    background: var(--accent-light);
+    box-shadow: 0 0 0 1px var(--accent);
+}
+
+.opt-letter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.88rem;
+}
+
+.phase4-opt-btn.selected .opt-letter {
+    background: var(--accent);
+    color: #fff;
+}
+
+.opt-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Phase 5 styles */
+.phase5-scenario-desc {
+    background: var(--bg-tertiary);
+    padding: 0.65rem 0.9rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.85rem;
+}
+
+.phase5-question-box {
+    margin-bottom: 1rem;
+}
+
+.phase5-chinese-q {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.phase5-pinyin-q {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+.phase5-trans-q {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.phase5-input-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.phase5-textarea {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.1rem;
+    padding: 0.75rem;
+    width: 100%;
+    resize: vertical;
+}
+
+/* Phase 6 styles */
+.phase6-bank-panel {
+    background: var(--bg-secondary);
+    border: 2px dashed var(--accent);
+    border-radius: 10px;
+    padding: 1.25rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.phase6-bank-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 0.75rem;
+}
+
+.phase6-bank-pills {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.bank-pill-char {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    background: var(--accent);
+    color: #fff;
+    width: 54px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgba(179, 58, 58, 0.25);
+}
+
+.q-badge-required {
+    background: var(--accent-light);
+    color: var(--accent);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.82rem;
+}
+
+.phase6-q-box {
+    margin-bottom: 1rem;
+}
+
+.phase6-chinese-q {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.phase6-pinyin-q {
+    font-size: 0.9rem;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+}
+
+.phase6-trans-q {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.phase6-input-box label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.phase6-input {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.15rem;
+    padding: 0.65rem 0.85rem;
+    width: 100%;
+}
+
+/* Phase 7 styles */
+.phase7-story-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: 0 3px 12px rgba(44, 24, 16, 0.04);
+}
+
+.phase7-story-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.phase7-story-header h4 {
+    margin: 0;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+}
+
+.phase7-story-chinese {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+    margin: 0 0 0.5rem;
+    letter-spacing: 0.04em;
+}
+
+.phase7-story-pinyin {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--accent);
+    margin: 0;
+}
+
+.phase7-sub-section {
+    margin-top: 1rem;
+}
+
+.phase7-sub-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.85rem;
+    padding-left: 0.5rem;
+    border-left: 3px solid var(--accent);
+}
+
+.phase7-statement-text {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.phase7-statement-pinyin {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.phase7-vf-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-vf {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    background: var(--bg-secondary);
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-vf:hover {
+    border-color: var(--text-secondary);
+}
+
+.btn-vf.selected-true {
+    border-color: var(--success);
+    background: #E8F8F0;
+    color: var(--success);
+    box-shadow: 0 0 0 1px var(--success);
+}
+
+.btn-vf.selected-false {
+    border-color: var(--danger);
+    background: var(--danger-light);
+    color: var(--danger);
+    box-shadow: 0 0 0 1px var(--danger);
+}
+
+.phase7-mcq-prompt {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+/* Active Footer */
+.exam-active-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 2px 8px rgba(44, 24, 16, 0.03);
+}
+
+.exam-footer-info {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.btn-submit-exam {
+    background: var(--success);
+    border-color: var(--success);
+}
+
+.btn-submit-exam:hover {
+    background: #176B46;
+}
+
+/* Results Screen */
+.exam-results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.exam-score-hero {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(44, 24, 16, 0.05);
+}
+
+.exam-score-hero.passing {
+    border-top: 6px solid var(--success);
+}
+
+.exam-score-hero.failing {
+    border-top: 6px solid var(--accent);
+}
+
+.score-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.25rem;
+}
+
+.exam-score-hero.passing .score-badge {
+    background: #E8F8F0;
+    color: var(--success);
+}
+
+.exam-score-hero.failing .score-badge {
+    background: var(--accent-light);
+    color: var(--accent);
+}
+
+.score-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+}
+
+.score-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.score-points {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+
+.score-feedback-text {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: 0 auto 1.75rem;
+    line-height: 1.6;
+}
+
+.results-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.exam-breakdown-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 0.75rem;
+}
+
+.breakdown-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+}
+
+.b-phase {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+.b-score {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Detailed Review Section */
+.exam-review-section {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg, 12px);
+    padding: 1.5rem 1.75rem;
+}
+
+.review-title {
+    margin: 0 0 1.25rem;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+}
+
+.review-tabs {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+}
+
+.review-tab-btn {
+    padding: 0.5rem 0.9rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-primary);
+    color: var(--text-secondary);
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.review-tab-btn:hover {
+    background: var(--bg-tertiary);
+}
+
+.review-tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.review-phase-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.review-item {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+    background: var(--bg-primary);
+}
+
+.review-item.correct {
+    border-left: 4px solid var(--success);
+}
+
+.review-item.partial {
+    border-left: 4px solid #D97706;
+}
+
+.review-item.incorrect {
+    border-left: 4px solid var(--danger);
+}
+
+.review-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    color: var(--text-secondary);
+}
+
+.review-item.correct .review-status {
+    color: var(--success);
+    font-weight: 700;
+}
+
+.review-item.partial .review-status {
+    color: #D97706;
+    font-weight: 700;
+}
+
+.review-item.incorrect .review-status {
+    color: var(--danger);
+    font-weight: 700;
+}
+
+.review-content-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+}
+
+.review-q-prompt {
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.review-extra-info {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.review-ai-feedback {
+    margin-top: 0.6rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-tertiary);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.review-ai-feedback p {
+    margin: 0 0 0.35rem;
+}
+
+.review-ai-feedback p:last-child {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .exam-stepper {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .q-options-grid-10 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .results-actions {
+        flex-direction: column;
+    }
+}

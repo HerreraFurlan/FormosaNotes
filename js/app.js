@@ -487,10 +487,10 @@ const convertPinyinSyllable = (syllable, toneNum) => {
 };
 
 /**
- * Attaches the number-to-tone converter exclusively to the #w-pinyin input.
+ * Attaches the number-to-tone converter to any input element.
+ * @param {HTMLInputElement} input
  */
-const initPinyinToneInput = () => {
-    const input = document.getElementById('w-pinyin');
+const attachPinyinToneInput = (input) => {
     if (!input) return;
 
     input.addEventListener('keydown', (e) => {
@@ -532,6 +532,17 @@ const initPinyinToneInput = () => {
 
         input.dispatchEvent(new Event('input', { bubbles: true }));
     });
+};
+window.attachPinyinToneInput = attachPinyinToneInput;
+window.convertPinyinSyllable = convertPinyinSyllable;
+
+/**
+ * Attaches the number-to-tone converter exclusively to the #w-pinyin input.
+ */
+const initPinyinToneInput = () => {
+    const input = document.getElementById('w-pinyin');
+    if (!input) return;
+    attachPinyinToneInput(input);
 };
 
 /**
@@ -631,6 +642,8 @@ const navigateTo = (sectionName) => {
         initStudyMode();
     } else if (sectionName === 'practica') {
         initPracticeMode();
+    } else if (sectionName === 'exam') {
+        if (typeof initExamMode === 'function') initExamMode();
     } else if (sectionName === 'exportar') {
         renderExportGrid();
     } else if (sectionName === 'estructuras') {

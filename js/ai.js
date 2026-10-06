@@ -463,3 +463,232 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
     }
 };
 
+/**
+ * ==========================================================
+ * SIMULACIÓN DE EXAMEN — AI GENERATION & EVALUATION
+ * ==========================================================
+ */
+
+/**
+ * Helper to clean and parse JSON from LLM responses
+ */
+const safeParseJSON = (text) => {
+    if (!text) return null;
+    let clean = text.trim();
+    if (clean.startsWith('```json')) {
+        clean = clean.substring(7);
+    } else if (clean.startsWith('```')) {
+        clean = clean.substring(3);
+    }
+    if (clean.endsWith('```')) {
+        clean = clean.substring(0, clean.length - 3);
+    }
+    clean = clean.trim();
+    return JSON.parse(clean);
+};
+
+/**
+ * Generates Phases 3, 4, 5, 6, and 7 of the Exam Simulation using Gemini.
+ * Strictly adheres to known words and structures.
+ * 
+ * @param {Array<object>} wordsList - Known words
+ * @param {Array<object>} structuresList - Known sentence structures
+ * @returns {Promise<object>} Generated exam phases
+ */
+const generateExamAIData = async (wordsList, structuresList) => {
+    const wordsSummary = wordsList.slice(0, 150).map(w => `${w.tradicional} (${w.pinyin || ''} - ${w.espanol || ''})`).join(', ');
+    const structuresSummary = structuresList.slice(0, 25).map(s => `- ${s.titulo}: ${s.patron} (${s.explicacion})`).join('\n');
+
+    const prompt = `Eres un profesor experto de chino mandarín tradicional de Taiwán (繁體中文).
+Estás diseñando una "Simulación de Examen" rigurosa pero justa para un estudiante, compuesta por 5 fases específicas de evaluación.
+
+REGLA ABSOLUTA DE VOCABULARIO Y GRAMÁTICA:
+- Todas las oraciones, preguntas, opciones e historias deben construirse usando EXCLUSIVAMENTE el vocabulario conocido del estudiante y las estructuras gramaticales aprendidas a continuación (o vocabulario elemental de cortesía taiwanés indispensable).
+- Usa caracteres tradicionales de Taiwán (繁體字).
+
+VOCABULARIO CONOCIDO:
+${wordsSummary}
+
+ESTRUCTURAS GRAMATICALES APRENDIDAS:
+${structuresSummary}
+
+DEBES GENERAR LAS SIGUIENTES 5 FASES DEL EXAMEN:
+
+1. FASE 3 (Completar espacios en blanco - 5 oraciones directas):
+   - 5 oraciones simples o directas donde falta 1 palabra clave (carácter o término) que el alumno debe rellenar.
+   - Marca el espacio faltante exactamente con "[ ___ ]".
+   - Cada elemento debe tener:
+     - "id": número 1 a 5
+     - "oracion": oración con "[ ___ ]" (ej. "我 [ ___ ] 喝茶。")
+     - "palabra_faltante": la palabra o caracter exacto faltante (ej. "想")
+     - "pinyin_completo": pinyin con marcas de tono de la oración completa
+     - "traduccion": traducción al español
+     - "pista": breve pista en español si es necesario
+
+2. FASE 4 (Opción múltiple con oraciones complejas - 10 oraciones):
+   - 10 oraciones con partes faltantes en blanco "[ ___ ]", basadas en estructuras gramaticales más complejas o compuestas (ej. conectores como 因為...所以, 雖然...但是, clasificadores, adverbios o patrones modales).
+   - Ofrece exactamente 3 opciones de respuesta (A, B, C) por oración.
+   - Cada elemento debe tener:
+     - "id": número 1 a 10
+     - "oracion": oración con "[ ___ ]"
+     - "opciones": array de exactamente 3 opciones en caracteres tradicionales (ej. ["但是", "因為", "所以"])
+     - "opcion_correcta": string idéntico a una de las 3 opciones
+     - "pinyin_completo": pinyin con tonos
+     - "traduccion": traducción al español
+     - "explicacion": explicación gramatical breve de por qué esa opción es la correcta
+
+3. FASE 5 (Preguntas abiertas contextuales en 5 escenarios):
+   - 5 escenarios realistas de la vida cotidiana en Taiwán (ej. pedir una bebida en una casa de té, consultar un precio en el mercado nocturno, hablar del clima, preguntar por el trabajo/estudio, presentarse).
+   - Para cada escenario, 1 pregunta en chino tradicional para que el usuario responda con una oración simple.
+   - Cada elemento debe tener:
+     - "id": número 1 a 5
+     - "escenario": descripción en español del contexto
+     - "pregunta": pregunta en chino tradicional
+     - "pinyin_pregunta": pinyin con tonos
+     - "traduccion_pregunta": traducción de la pregunta al español
+     - "ejemplo_respuesta": una respuesta modelo esperada acorde al nivel
+
+4. FASE 6 (Uso forzado de banco de caracteres fijos):
+   - Proporciona un banco de exactamente 5 caracteres fijos conocidos (ej. ["想", "很", "在", "不", "都"] u otros caracteres frecuentes de su biblioteca).
+   - Genera 5 preguntas en chino tradicional. En cada pregunta, el alumno deberá responder con una oración que utilice obligatoriamente uno de los caracteres del banco (idealmente cubriendo los 5).
+   - "banco_caracteres": array de 5 strings con los caracteres elegidos
+   - "preguntas": array de 5 objetos con:
+     - "id": número 1 a 5
+     - "caracter_asignado": el carácter del banco que debe usar el estudiante en esta pregunta
+     - "pregunta": pregunta en chino tradicional
+     - "pinyin_pregunta": pinyin con tonos
+     - "traduccion_pregunta": traducción al español
+     - "ejemplo_respuesta": respuesta modelo usando el carácter asignado
+
+5. FASE 7 (Comprensión lectora - Historia corta + 5 V/F + 5 Opción múltiple):
+   - Una historia corta y coherente (aprox. 80-140 caracteres) escrita en chino tradicional taiwanés sobre una situación cotidiana usando las palabras y estructuras del estudiante.
+   - 5 afirmaciones de Verdadero o Falso sobre la historia.
+   - 5 preguntas de selección múltiple (A, B, C) con 3 opciones sobre la historia.
+   - "historia": texto de la historia en caracteres tradicionales
+   - "pinyin_historia": pinyin con tonos de toda la historia
+   - "traduccion_historia": traducción completa al español
+   - "verdadero_falso": array de 5 objetos:
+     - "id": número 1 a 5
+     - "afirmacion": afirmación en chino tradicional
+     - "pinyin": pinyin con tonos
+     - "traduccion": traducción al español
+     - "es_verdadera": boolean (true o false)
+     - "explicacion": por qué es verdadera o falsa según la historia
+   - "opcion_multiple": array de 5 objetos:
+     - "id": número 1 a 5
+     - "pregunta": pregunta en chino tradicional
+     - "pinyin": pinyin con tonos
+     - "traduccion": traducción al español
+     - "opciones": array de exactamente 3 opciones (strings)
+     - "respuesta_correcta": string idéntico a una de las opciones
+     - "explicacion": breve justificación
+
+Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "fase5", "fase6", "fase7".`;
+
+    const body = {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.3,
+            maxOutputTokens: 3000
+        }
+    };
+
+    try {
+        const candidate = await callGeminiAPI(body);
+        const parsed = safeParseJSON(candidate);
+        if (!parsed || !parsed.fase3 || !parsed.fase4 || !parsed.fase5 || !parsed.fase6 || !parsed.fase7) {
+            throw new Error("El formato del examen generado por Gemini es incompleto.");
+        }
+        return parsed;
+    } catch (error) {
+        console.error("Error generating exam data with Gemini:", error);
+        throw error;
+    }
+};
+
+/**
+ * Evaluates the user's free-form answers for Phase 5 and Phase 6 using Gemini.
+ * 
+ * @param {Array<object>} phase5Submissions - Array of { id, escenario, pregunta, respuesta_usuario }
+ * @param {Array<object>} phase6Submissions - Array of { id, caracter_asignado, pregunta, respuesta_usuario }
+ * @returns {Promise<object>} Evaluation results with scores and pedagogical comments
+ */
+const evaluateExamAIAnswers = async (phase5Submissions, phase6Submissions) => {
+    const prompt = `Eres un profesor evaluador de chino mandarín tradicional de Taiwán (繁體中文).
+Debes evaluar las respuestas escritas por el alumno en dos fases abiertas de su examen.
+
+CRITERIOS DE CALIFICACIÓN:
+- Fase 5 (Respuestas simples en contexto):
+  - Verifica si la oración responde coherentemente a la pregunta del escenario.
+  - Verifica si es gramaticalmente correcta y natural en mandarín tradicional.
+  - Puntaje: 1.0 (correcta), 0.5 (comprensible pero con pequeños errores léxicos/gramaticales), 0.0 (ininteligible, incorrecta o no responde).
+
+- Fase 6 (Uso forzado de carácter del banco):
+  - Verifica si la oración responde coherentemente a la pregunta.
+  - OBLIGATORIO: Verifica si el estudiante incluyó y usó correctamente el "caracter_asignado".
+  - Puntaje: 1.0 (responde y usa correctamente el caracter asignado), 0.5 (responde pero olvidó el caracter o lo usó con error menor), 0.0 (no responde o totalmente incorrecta).
+
+ENTRADAS A EVALUAR:
+
+Fase 5 (Escenarios cotidianos):
+${JSON.stringify(phase5Submissions, null, 2)}
+
+Fase 6 (Uso de caracteres del banco):
+${JSON.stringify(phase6Submissions, null, 2)}
+
+TAREAS:
+1. Evalúa cada respuesta de la Fase 5.
+2. Evalúa cada respuesta de la Fase 6.
+3. Proporciona un breve balance general del desempeño del estudiante.
+
+Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
+{
+  "fase5_evaluacion": [
+    {
+      "id": 1,
+      "es_correcta": true,
+      "puntaje": 1.0,
+      "comentario": "Feedback constructivo en español (1-2 oraciones)",
+      "correccion_sugerida": "Oración en caracteres tradicionales",
+      "pinyin_correccion": "Pinyin con tonos",
+      "traduccion_correccion": "Traducción al español"
+    }
+  ],
+  "fase6_evaluacion": [
+    {
+      "id": 1,
+      "es_correcta": true,
+      "uso_caracter_banco": true,
+      "puntaje": 1.0,
+      "comentario": "Feedback constructivo en español",
+      "correccion_sugerida": "Oración en caracteres tradicionales",
+      "pinyin_correccion": "Pinyin con tonos",
+      "traduccion_correccion": "Traducción al español"
+    }
+  ],
+  "resumen_general": "Breve balance pedagógico general (2 oraciones)"
+}`;
+
+    const body = {
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: {
+            responseMimeType: "application/json",
+            temperature: 0.2,
+            maxOutputTokens: 2000
+        }
+    };
+
+    try {
+        const candidate = await callGeminiAPI(body);
+        const parsed = safeParseJSON(candidate);
+        if (!parsed || !parsed.fase5_evaluacion || !parsed.fase6_evaluacion) {
+            throw new Error("Respuesta incompleta de evaluación por Gemini.");
+        }
+        return parsed;
+    } catch (error) {
+        console.error("Error evaluating exam with Gemini:", error);
+        throw error;
+    }
+};
+

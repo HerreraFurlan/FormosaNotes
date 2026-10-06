@@ -101,6 +101,14 @@
                 </svg>
                 <span class="nav-text">Práctica de oraciones</span>
             </button>
+            <button class="nav-item" data-section="exam" data-tooltip="Simulación de examen" title="Simulación de examen">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <path d="M9 15l2 2 4-4" />
+                </svg>
+                <span class="nav-text">Simulación de examen</span>
+            </button>
 
             <div class="nav-divider"></div>
             <div class="nav-label">Herramientas</div>
@@ -315,6 +323,15 @@
             <div class="page-body">
                 <div class="practice-container" id="practice-container">
                     <!-- Contenido dinámico renderizado por practice.js -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== SECTION: Simulación de Examen ======== -->
+        <div class="section" id="section-exam">
+            <div class="page-body">
+                <div class="exam-container" id="exam-container">
+                    <!-- Contenido dinámico renderizado por exam.js -->
                 </div>
             </div>
         </div>
@@ -555,6 +572,7 @@
     <script src="js/study.js?v=3.10"></script>
     <script src="js/pdf.js?v=3.10"></script>
     <script src="js/practice.js?v=3.10"></script>
+    <script src="js/exam.js?v=3.10"></script>
     <script src="js/app.js?v=3.10"></script>
 
 </body>
