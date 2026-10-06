@@ -36,32 +36,14 @@ const setGeminiApiKey = (key) => {
  */
 let clientCachedModel = null;
 
-const discoverClientWorkingModel = async (key) => {
-    try {
-        const listUrl = `https://generativelanguage.googleapis.com/v1beta/models?key=${key}`;
-        const res = await fetch(listUrl);
-        if (!res.ok) return null;
-        const data = await res.json();
-        const available = (data.models || []).filter(m => 
-            Array.isArray(m.supportedGenerationMethods) && 
-            m.supportedGenerationMethods.includes('generateContent')
-        );
+const CLIENT_CANDIDATE_MODELS = [
+    'gemini-3.8-flash',
+    'gemini-3.5-flash-lite',
+    'gemini-3.1-flash-lite',
+    'gemini-2.5-flash-lite'
+];
 
-        if (available.length === 0) return null;
-
-        const flash = available.find(m => m.name.includes('flash') && !m.name.includes('1.5') && !m.name.includes('2.0'));
-        if (flash) return flash.name.replace(/^models\//, '');
-
-        const anyFlash = available.find(m => m.name.includes('flash'));
-        if (anyFlash) return anyFlash.name.replace(/^models\//, '');
-
-        return available[0].name.replace(/^models\//, '');
-    } catch (e) {
-        return null;
-    }
-};
-
-const callGeminiAPI = async (body, model = 'gemini-2.5-flash') => {
+const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
     const localKey = getGeminiApiKey();
     const isLocalFile = window.location.protocol === 'file:';
     const targetModel = clientCachedModel || model;
@@ -112,46 +94,48 @@ const callGeminiAPI = async (body, model = 'gemini-2.5-flash') => {
         throw new Error("No hay clave de API configurada. Configura la variable GEMINI_API_KEY en Vercel o en tu navegador.");
     }
 
-    let currentModel = clientCachedModel || 'gemini-2.5-flash';
-    let url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${localKey}`;
-    let response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    });
+    let initialModel = clientCachedModel || targetModel;
+    const clientQueue = [initialModel, ...CLIENT_CANDIDATE_MODELS.filter(m => m !== initialModel)];
 
-    // Auto-discover if 404
-    if (!response.ok && response.status === 404) {
-        const discovered = await discoverClientWorkingModel(localKey);
-        if (discovered && discovered !== currentModel) {
-            clientCachedModel = discovered;
-            currentModel = discovered;
-            url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${localKey}`;
-            response = await fetch(url, {
+    for (const currentModel of clientQueue) {
+        try {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent?key=${localKey}`;
+            const response = await fetch(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(body)
             });
+
+            const data = await response.json();
+            if (response.ok) {
+                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!text) throw new Error("Respuesta inválida o vacía de Gemini.");
+                clientCachedModel = currentModel;
+                return text;
+            }
+
+            const errMsg = data.error?.message || (typeof data.error === 'string' ? data.error : JSON.stringify(data.error || ''));
+            const match = errMsg.match(/use\s+models\/([\w\.\-]+)/i);
+            if (match && match[1] && !clientQueue.includes(match[1])) {
+                clientQueue.splice(clientQueue.indexOf(currentModel) + 1, 0, match[1]);
+            }
+
+            const isModelError = response.status === 404 || 
+                                 errMsg.toLowerCase().includes('not found') || 
+                                 errMsg.toLowerCase().includes('no longer available') ||
+                                 errMsg.toLowerCase().includes('update your code');
+
+            if (!isModelError) {
+                throw new Error(errMsg);
+            }
+        } catch (err) {
+            if (!err.message.includes('not found') && !err.message.includes('available') && !err.message.includes('update your code')) {
+                throw err;
+            }
         }
     }
 
-    if (!response.ok) {
-        const errorText = await response.text();
-        let parsedMsg = `Error en la API de Gemini: ${response.status}`;
-        try {
-            const p = JSON.parse(errorText);
-            if (p.error?.message) parsedMsg = p.error.message;
-        } catch (e) {}
-        console.error("Gemini API Error:", errorText);
-        throw new Error(parsedMsg);
-    }
-
-    const data = await response.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) {
-        throw new Error("Respuesta inválida o vacía de Gemini.");
-    }
-    return text;
+    throw new Error("No se pudo conectar con ningún modelo de Gemini disponible.");
 };
 
 /**
