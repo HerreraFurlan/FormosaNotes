@@ -139,6 +139,160 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
 };
 
 /**
+ * Robust helper to clean, repair, and parse JSON from LLM responses.
+ * Handles:
+ * - Markdown fences (```json ... ```) or conversational commentary
+ * - Unescaped literal control characters (newlines, carriage returns, tabs) inside strings
+ * - Invalid backslash escapes (e.g. \[ or \] or \ )
+ * - Unescaped double quotes inside string values (e.g. "pista": "Usa la palabra "我"...")
+ * - Trailing commas before closing brackets or braces
+ * - Truncated JSON recovery (automatically closes open quotes, brackets, and braces)
+ * 
+ * @param {string} text - Raw output from LLM
+ * @returns {object|null} Parsed JSON object
+ */
+const safeParseJSON = (text) => {
+    if (!text || typeof text !== 'string') return null;
+
+    let clean = text.trim();
+
+    // 1. Strip markdown fences if present
+    const fenceMatch = clean.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+    if (fenceMatch) {
+        clean = fenceMatch[1].trim();
+    } else {
+        clean = clean.replace(/^```(?:json)?/i, '').replace(/```$/i, '').trim();
+    }
+
+    // 2. Extract outermost JSON structure: from first { or [ to last } or ]
+    const firstBrace = clean.indexOf('{');
+    const firstBracket = clean.indexOf('[');
+    let startIdx = -1;
+    if (firstBrace !== -1 && firstBracket !== -1) {
+        startIdx = Math.min(firstBrace, firstBracket);
+    } else if (firstBrace !== -1) {
+        startIdx = firstBrace;
+    } else if (firstBracket !== -1) {
+        startIdx = firstBracket;
+    }
+
+    const lastBrace = clean.lastIndexOf('}');
+    const lastBracket = clean.lastIndexOf(']');
+    const endIdx = Math.max(lastBrace, lastBracket);
+
+    if (startIdx !== -1 && endIdx !== -1 && endIdx > startIdx) {
+        clean = clean.substring(startIdx, endIdx + 1);
+    }
+
+    // Attempt 1: Direct JSON.parse
+    try {
+        return JSON.parse(clean);
+    } catch (err1) {
+        console.warn("safeParseJSON: Intento directo falló, aplicando reparaciones:", err1.message);
+    }
+
+    // Attempt 2: Fix control characters inside strings & invalid backslash escapes
+    const repairedChars = [];
+    let inString = false;
+    let isEscaped = false;
+    let i = 0;
+    while (i < clean.length) {
+        const c = clean[i];
+        if (c === '"' && !isEscaped) {
+            inString = !inString;
+            repairedChars.push(c);
+        } else if (inString) {
+            if (c === '\\') {
+                if (i + 1 < clean.length) {
+                    const nextC = clean[i + 1];
+                    // Valid JSON escape characters: " \ / b f n r t u
+                    if (['"', '\\', '/', 'b', 'f', 'n', 'r', 't', 'u'].includes(nextC)) {
+                        repairedChars.push(c);
+                        repairedChars.push(nextC);
+                        i += 2;
+                        continue;
+                    } else {
+                        // Invalid escape sequence like \[ or \] - drop backslash
+                        repairedChars.push(nextC);
+                        i += 2;
+                        continue;
+                    }
+                }
+            } else if (c === '\n') {
+                repairedChars.push('\\n');
+            } else if (c === '\r') {
+                repairedChars.push('\\r');
+            } else if (c === '\t') {
+                repairedChars.push('\\t');
+            } else {
+                repairedChars.push(c);
+            }
+        } else {
+            repairedChars.push(c);
+        }
+        isEscaped = (c === '\\' && !isEscaped);
+        i++;
+    }
+
+    let cleanStep2 = repairedChars.join('');
+    // Remove trailing commas: ,] or ,}
+    cleanStep2 = cleanStep2.replace(/,\s*([\]}])/g, '$1');
+
+    try {
+        return JSON.parse(cleanStep2);
+    } catch (err2) {
+        console.warn("safeParseJSON: Intento 2 (escapes/saltos) falló:", err2.message);
+    }
+
+    // Attempt 3: Fix unescaped inner quotes on property lines
+    // Example: "pista": "Usa la palabra "我" para esto",
+    const lines = cleanStep2.split('\n');
+    const fixedLines = lines.map(line => {
+        const propMatch = line.match(/^(\s*"[^"]+"\s*:\s*")(.*)("\s*,?\s*)$/);
+        if (propMatch) {
+            const prefix = propMatch[1];
+            const inner = propMatch[2];
+            const suffix = propMatch[3];
+            // Replace any unescaped double quote inside inner with single quote
+            const fixedInner = inner.replace(/(?<!\\)"/g, "'");
+            return prefix + fixedInner + suffix;
+        }
+        return line;
+    });
+
+    let cleanStep3 = fixedLines.join('\n');
+    cleanStep3 = cleanStep3.replace(/,\s*([\]}])/g, '$1');
+
+    try {
+        return JSON.parse(cleanStep3);
+    } catch (err3) {
+        console.warn("safeParseJSON: Intento 3 (comillas internas) falló:", err3.message);
+    }
+
+    // Attempt 4: Truncated JSON recovery (close unclosed quotes, brackets, braces)
+    let cleanStep4 = cleanStep3.trim();
+    if (cleanStep4.endsWith(',')) {
+        cleanStep4 = cleanStep4.slice(0, -1).trim();
+    }
+    const quoteMatches = cleanStep4.match(/(?<!\\)"/g) || [];
+    if (quoteMatches.length % 2 !== 0) {
+        cleanStep4 += '"';
+    }
+    const openBrackets = (cleanStep4.match(/\[/g) || []).length - (cleanStep4.match(/\]/g) || []).length;
+    const openBraces = (cleanStep4.match(/\{/g) || []).length - (cleanStep4.match(/\}/g) || []).length;
+    cleanStep4 += ']'.repeat(Math.max(0, openBrackets));
+    cleanStep4 += '}'.repeat(Math.max(0, openBraces));
+    cleanStep4 = cleanStep4.replace(/,\s*([\]}])/g, '$1');
+
+    try {
+        return JSON.parse(cleanStep4);
+    } catch (err4) {
+        console.error("safeParseJSON: Fallaron todos los intentos de parseo y reparación.", err4.message, "\nTexto recibido:", text);
+        throw err4;
+    }
+};
+
+/**
  * Calls Gemini to analyze a sentence.
  * Enforces JSON mode for structured output.
  * 
@@ -154,6 +308,7 @@ const checkSentenceWithGemini = async (sentence) => {
     - "correccion": si es incorrecta o poco natural, proporciona la versión correcta en chino tradicional. Si es correcta, devuelve la misma oración original o una versión ligeramente más natural.
     - "traduccion": la traducción al español.
 
+    No incluyas comillas dobles sin escapar dentro de las explicaciones; si necesitas citar palabras usa comillas simples (' ').
     No incluyas formato markdown \`\`\`json, solo devuelve el objeto crudo.`;
 
     const body = {
@@ -171,7 +326,7 @@ const checkSentenceWithGemini = async (sentence) => {
 
     try {
         const candidate = await callGeminiAPI(body);
-        return JSON.parse(candidate);
+        return safeParseJSON(candidate);
     } catch (error) {
         console.error("Error checking sentence:", error);
         throw error;
@@ -224,7 +379,7 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
 
     try {
         const candidate = await callGeminiAPI(body);
-        return JSON.parse(candidate);
+        return safeParseJSON(candidate);
     } catch (error) {
         console.error("Error generating practice challenges:", error);
         throw error;
@@ -267,7 +422,7 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
 
     try {
         const candidate = await callGeminiAPI(body);
-        return JSON.parse(candidate);
+        return safeParseJSON(candidate);
     } catch (error) {
         console.error("Error evaluating practice answers:", error);
         throw error;
@@ -366,7 +521,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
 
     try {
         const candidate = await callGeminiAPI(body);
-        return JSON.parse(candidate);
+        return safeParseJSON(candidate);
     } catch (error) {
         console.error("Error starting conversation with Gemini:", error);
         throw error;
@@ -493,7 +648,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
 
     try {
         const candidate = await callGeminiAPI(body);
-        return JSON.parse(candidate);
+        return safeParseJSON(candidate);
     } catch (error) {
         console.error("Error continuing conversation with Gemini:", error);
         throw error;
@@ -505,24 +660,6 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
  * SIMULACIÓN DE EXAMEN — AI GENERATION & EVALUATION
  * ==========================================================
  */
-
-/**
- * Helper to clean and parse JSON from LLM responses
- */
-const safeParseJSON = (text) => {
-    if (!text) return null;
-    let clean = text.trim();
-    if (clean.startsWith('```json')) {
-        clean = clean.substring(7);
-    } else if (clean.startsWith('```')) {
-        clean = clean.substring(3);
-    }
-    if (clean.endsWith('```')) {
-        clean = clean.substring(0, clean.length - 3);
-    }
-    clean = clean.trim();
-    return JSON.parse(clean);
-};
 
 /**
  * Generates Phases 3, 4, 5, 6, and 7 of the Exam Simulation using Gemini.
@@ -620,23 +757,38 @@ DEBES GENERAR LAS SIGUIENTES 5 FASES DEL EXAMEN:
      - "respuesta_correcta": string idéntico a una de las opciones
      - "explicacion": breve justificación
 
-Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "fase5", "fase6", "fase7".`;
+Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "fase5", "fase6", "fase7".
+
+REGLAS OBLIGATORIAS DE FORMATO JSON:
+1. Devuelve EXCLUSIVAMENTE el objeto JSON crudo, sin bloques de código markdown (\`\`\`json) ni texto introductorio o final.
+2. DENTRO DE LOS TEXTOS (como "pista", "explicacion", "oracion", "traduccion", etc.):
+   - NUNCA uses comillas dobles (") para citar palabras o caracteres chinos o españoles. Si necesitas citar, USA COMILLAS SIMPLES (' ') o COMILLAS ANGULARES (« ») o cítalo directamente (ejemplo: Usa la palabra '想' o Usa el término 想; NUNCA uses comillas dobles internas).
+   - NUNCA escapes corchetes con barras invertidas (usa exactamente [ ___ ], NUNCA \\[ ___ \\]).
+   - NO insertes saltos de línea literales dentro de las cadenas; cada valor de texto debe ser una sola línea continua.
+3. Asegúrate de que todas las propiedades, llaves y corchetes estén perfectamente cerrados.`;
 
     const body = {
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.3,
-            maxOutputTokens: 4000
+            maxOutputTokens: 8192
         }
     };
 
     try {
         const candidate = await callGeminiAPI(body);
         const parsed = safeParseJSON(candidate);
-        if (!parsed || !parsed.fase3 || !parsed.fase4 || !parsed.fase5 || !parsed.fase6 || !parsed.fase7) {
+        if (!parsed || !parsed.fase3 || !parsed.fase4) {
             throw new Error("El formato del examen generado por Gemini es incompleto.");
         }
+        // Normalize phases to ensure safe defaults
+        parsed.fase3 = Array.isArray(parsed.fase3) ? parsed.fase3 : [];
+        parsed.fase4 = Array.isArray(parsed.fase4) ? parsed.fase4 : [];
+        parsed.fase5 = Array.isArray(parsed.fase5) ? parsed.fase5 : [];
+        parsed.fase6 = parsed.fase6 && Array.isArray(parsed.fase6.preguntas) ? parsed.fase6 : { banco_caracteres: [], preguntas: [] };
+        parsed.fase7 = parsed.fase7 && Array.isArray(parsed.fase7.verdadero_falso) ? parsed.fase7 : { historia: '', verdadero_falso: [], opcion_multiple: [] };
+
         return parsed;
     } catch (error) {
         console.error("Error generating exam data with Gemini:", error);
@@ -679,6 +831,11 @@ TAREAS:
 2. Evalúa cada respuesta de la Fase 6.
 3. Proporciona un breve balance general del desempeño del estudiante.
 
+REGLAS DE FORMATO JSON:
+- Devuelve únicamente el objeto JSON válido.
+- En comentarios o correcciones, nunca uses comillas dobles dentro del texto; usa comillas simples (' ').
+- No uses saltos de línea literales dentro de strings.
+
 Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
 {
   "fase5_evaluacion": [
@@ -712,7 +869,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.2,
-            maxOutputTokens: 2000
+            maxOutputTokens: 4000
         }
     };
 
