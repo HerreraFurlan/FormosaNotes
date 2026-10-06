@@ -29,19 +29,39 @@ module.exports = async (req, res) => {
         });
     }
 
-    const model = (req.query && req.query.model) || 'gemini-3.1-flash-lite';
-    const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
+    let model = (req.query && req.query.model) || 'gemini-2.0-flash';
+    // Normalize or fallback if invalid model name was passed
+    if (model.includes('3.1') || model.includes('lite')) {
+        model = 'gemini-2.0-flash';
+    }
+
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
     try {
         const payload = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
-        const response = await fetch(url, {
+        let response = await fetch(url, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: payload
         });
 
+        // If 2.0-flash is not available, fallback to 1.5-flash
+        if (!response.ok && response.status === 404 && model !== 'gemini-1.5-flash') {
+            const fallbackUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+            response = await fetch(fallbackUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload
+            });
+        }
+
         const data = await response.json();
-        return res.status(response.status).json(data);
+        if (!response.ok) {
+            const errMsg = data.error?.message || (typeof data.error === 'string' ? data.error : JSON.stringify(data.error || 'Error en Gemini API'));
+            return res.status(response.status).json({ error: errMsg, details: data });
+        }
+
+        return res.status(200).json(data);
     } catch (err) {
         console.error('Error in /api/gemini proxy:', err);
         return res.status(500).json({ error: err.message || 'Error de conexión con la API de Gemini' });

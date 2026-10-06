@@ -34,7 +34,7 @@ const setGeminiApiKey = (key) => {
  * @param {string} model - Target Gemini model name
  * @returns {Promise<string>} The raw text response from the first candidate
  */
-const callGeminiAPI = async (body, model = 'gemini-3.1-flash-lite') => {
+const callGeminiAPI = async (body, model = 'gemini-2.0-flash') => {
     const localKey = getGeminiApiKey();
     const isLocalFile = window.location.protocol === 'file:';
 
@@ -61,12 +61,16 @@ const callGeminiAPI = async (body, model = 'gemini-3.1-flash-lite') => {
                 return text;
             }
 
-            // If proxy responded with error, check if we have local fallback
+            // If proxy responded with error, extract meaningful error message
             const errData = await response.json().catch(() => ({}));
+            const errMsg = typeof errData.error === 'object'
+                ? (errData.error.message || JSON.stringify(errData.error))
+                : (errData.error || `Error en la API de Gemini: ${response.status}`);
+
             if (!localKey) {
-                throw new Error(errData.error || `Error en la API de Gemini: ${response.status}`);
+                throw new Error(errMsg);
             }
-            console.warn("Proxy /api/gemini devolvió error, intentando con clave local:", errData.error || response.status);
+            console.warn("Proxy /api/gemini devolvió error, intentando con clave local:", errMsg);
         } catch (err) {
             if (!localKey) {
                 throw err;
@@ -77,20 +81,35 @@ const callGeminiAPI = async (body, model = 'gemini-3.1-flash-lite') => {
 
     // 2. Client-side direct fallback using localKey from localStorage
     if (!localKey) {
-        throw new Error("No hay clave de API configurada. Configura la clave en Vercel o en tu navegador.");
+        throw new Error("No hay clave de API configurada. Configura la variable GEMINI_API_KEY en Vercel o en tu navegador.");
     }
 
-    const url = `https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${localKey}`;
-    const response = await fetch(url, {
+    let url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${localKey}`;
+    let response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body)
     });
 
+    // Fallback to gemini-1.5-flash if 2.0-flash fails
+    if (!response.ok && response.status === 404 && model !== 'gemini-1.5-flash') {
+        url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${localKey}`;
+        response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        });
+    }
+
     if (!response.ok) {
         const errorText = await response.text();
+        let parsedMsg = `Error en la API de Gemini: ${response.status}`;
+        try {
+            const p = JSON.parse(errorText);
+            if (p.error?.message) parsedMsg = p.error.message;
+        } catch (e) {}
         console.error("Gemini API Error:", errorText);
-        throw new Error(`Error en la API de Gemini: ${response.status}`);
+        throw new Error(parsedMsg);
     }
 
     const data = await response.json();
@@ -590,7 +609,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "f
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.3,
-            maxOutputTokens: 3000
+            maxOutputTokens: 4000
         }
     };
 
