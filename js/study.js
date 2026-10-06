@@ -214,7 +214,7 @@ const buildCardFacesHtml = (word) => {
         const frontHtml = `
             <div class="card-face card-front study-mode-caracteres-front">
                 ${categoryBadge}
-                <div class="study-main-display">
+                <div class="study-card-body">
                     <div class="chinese-char ${lenClass}">${word.tradicional}</div>
                 </div>
                 <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
@@ -224,12 +224,14 @@ const buildCardFacesHtml = (word) => {
         const backHtml = `
             <div class="card-face card-back study-mode-caracteres-back">
                 ${categoryBadge}
-                <div class="spanish-meaning">${word.espanol}</div>
-                <div class="study-pronunciation-block">
-                    <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-                    ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+                <div class="study-card-body">
+                    <div class="spanish-meaning">${word.espanol}</div>
+                    <div class="study-pronunciation-block">
+                        <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
+                        ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+                    </div>
+                    ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
                 </div>
-                ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
                 ${notesHtml}
             </div>
         `;
@@ -245,20 +247,22 @@ const buildCardFacesHtml = (word) => {
         const frontHtml = `
             <div class="card-face card-front study-mode-pronunciacion-front">
                 ${categoryBadge}
-                <div class="study-main-display">
+                <div class="study-card-body">
                     <div class="study-prompt-pinyin ${pinyinLenClass}">${word.pinyin}</div>
                     ${word.zhuyin ? `<div class="study-prompt-zhuyin">${word.zhuyin}</div>` : ''}
                 </div>
-                <div class="study-flip-hint">Toca o presiona espacio para ver carácter y significado</div>
+                <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
             </div>
         `;
 
         const backHtml = `
             <div class="card-face card-back study-mode-pronunciacion-back">
                 ${categoryBadge}
-                <div class="chinese-char ${lenClass}" style="margin-bottom:0.75rem;">${word.tradicional}</div>
-                <div class="spanish-meaning">${word.espanol}</div>
-                ${extraRowsHtml ? `<div class="details-list" style="margin-top:0.75rem;">${extraRowsHtml}</div>` : ''}
+                <div class="study-card-body">
+                    <div class="chinese-char ${lenClass}" style="margin-bottom:0.4rem;">${word.tradicional}</div>
+                    <div class="spanish-meaning">${word.espanol}</div>
+                    ${extraRowsHtml ? `<div class="details-list" style="margin-top:0.4rem;">${extraRowsHtml}</div>` : ''}
+                </div>
                 ${notesHtml}
             </div>
         `;
@@ -274,22 +278,24 @@ const buildCardFacesHtml = (word) => {
         const frontHtml = `
             <div class="card-face card-front study-mode-definicion-front">
                 ${categoryBadge}
-                <div class="study-main-display">
+                <div class="study-card-body">
                     <div class="study-prompt-definition">${word.espanol}</div>
                 </div>
-                <div class="study-flip-hint">Toca o presiona espacio para ver carácter y pronunciación</div>
+                <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
             </div>
         `;
 
         const backHtml = `
             <div class="card-face card-back study-mode-definicion-back">
                 ${categoryBadge}
-                <div class="chinese-char ${lenClass}" style="margin-bottom:0.5rem;">${word.tradicional}</div>
-                <div class="study-pronunciation-block">
-                    <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-                    ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+                <div class="study-card-body">
+                    <div class="chinese-char ${lenClass}" style="margin-bottom:0.35rem;">${word.tradicional}</div>
+                    <div class="study-pronunciation-block">
+                        <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
+                        ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+                    </div>
+                    ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
                 </div>
-                ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
                 ${notesHtml}
             </div>
         `;
@@ -321,7 +327,10 @@ const renderStudyCard = () => {
     }
 
     const word = studyDeck[studyIndex];
-    const color = (typeof CATEGORY_COLORS !== 'undefined' && CATEGORY_COLORS[word.categoria]) || 'var(--accent)';
+    // Neutral gray if category is hidden to prevent color clues
+    const color = studyShowCategory
+        ? ((typeof CATEGORY_COLORS !== 'undefined' && CATEGORY_COLORS[word.categoria]) || 'var(--accent)')
+        : '#9E948A';
     const { frontHtml, backHtml } = buildCardFacesHtml(word);
 
     container.innerHTML = `
