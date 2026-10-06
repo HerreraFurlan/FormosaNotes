@@ -780,48 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderWordBank(chip.dataset.filter);
     });
 
-    // --- Study mode filter chips ---
-    document.getElementById('study-filters').addEventListener('click', (e) => {
-        const chip = e.target.closest('.chip');
-        if (!chip) return;
-        document.querySelectorAll('#study-filters .chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        initStudyMode(chip.dataset.filter);
-    });
-
-    // --- Study Pinyin Toggle ---
-    const studyPinyinToggle = document.getElementById('study-toggle-pinyin');
-    if (studyPinyinToggle) {
-        studyPinyinToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-pinyin-study');
-            } else {
-                document.body.classList.add('hide-pinyin-study');
-            }
-        });
-    }
-
-    const studyZhuyinToggle = document.getElementById('study-toggle-zhuyin');
-    if (studyZhuyinToggle) {
-        studyZhuyinToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-zhuyin-study');
-            } else {
-                document.body.classList.add('hide-zhuyin-study');
-            }
-        });
-    }
-
-    const studyCategoriaToggle = document.getElementById('study-toggle-categoria');
-    if (studyCategoriaToggle) {
-        studyCategoriaToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-categoria-study');
-            } else {
-                document.body.classList.add('hide-categoria-study');
-            }
-        });
-    }
+    // --- Study mode filter chips handled in study.js ---
 
     // --- Category change listener (Word Dialog) ---
     const catSelect = document.getElementById('w-categoria');

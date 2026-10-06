@@ -277,43 +277,68 @@
         <!-- ======== SECTION: Estudio ======== -->
         <div class="section" id="section-estudio">
             <div class="page-body">
-                <div class="study-toolbar"
-                    style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
-                    <div class="study-filters" id="study-filters" style="margin-bottom: 0;">
-                        <button class="chip active" data-filter="todos">Todos</button>
-                        <button class="chip" data-filter="pronombre">Pronombres</button>
-                        <button class="chip" data-filter="sustantivo">Sustantivos</button>
-                        <button class="chip" data-filter="clasificador">Clasificadores</button>
-                        <button class="chip" data-filter="verbo">Verbos</button>
-                        <button class="chip" data-filter="adverbio">Adverbios</button>
-                        <button class="chip" data-filter="adjetivo">Adjetivos</button>
-                        <button class="chip" data-filter="expresion">Expresiones</button>
-                        <button class="chip" data-filter="particula">Partículas</button>
+                <div class="study-dashboard-panel">
+                    <!-- Modalidad de Estudio: 3 Modos -->
+                    <div class="study-modes-bar">
+                        <span class="study-bar-label">Modalidad:</span>
+                        <div class="study-modes-tabs">
+                            <button class="study-mode-tab active" data-study-mode="caracteres" title="Frente: Carácter | Reverso: Pronunciación y Significado">
+                                <span class="tab-icon">🀄</span>
+                                <span class="tab-text">Ver Caracteres</span>
+                            </button>
+                            <button class="study-mode-tab" data-study-mode="pronunciacion" title="Frente: Pinyin y Zhuyin | Reverso: Carácter y Significado">
+                                <span class="tab-icon">🗣️</span>
+                                <span class="tab-text">Ver Pronunciación</span>
+                            </button>
+                            <button class="study-mode-tab" data-study-mode="definicion" title="Frente: Significado en Español | Reverso: Carácter y Pronunciación">
+                                <span class="tab-icon">📖</span>
+                                <span class="tab-text">Ver Definición</span>
+                            </button>
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center; margin-bottom: 1rem;">
-                        <label class="switch-label">
-                            <span class="switch">
-                                <input type="checkbox" id="study-toggle-pinyin" checked>
-                                <span class="slider"></span>
-                            </span>
-                            Mostrar pinyin
-                        </label>
-                        <label class="switch-label">
-                            <span class="switch">
-                                <input type="checkbox" id="study-toggle-zhuyin" checked>
-                                <span class="slider"></span>
-                            </span>
-                            Mostrar Zhuyin
-                        </label>
-                        <label class="switch-label">
+
+                    <!-- Opciones de Visualización -->
+                    <div class="study-options-bar">
+                        <label class="switch-label" title="Mostrar badge de categoría gramatical en la tarjeta">
                             <span class="switch">
                                 <input type="checkbox" id="study-toggle-categoria" checked>
                                 <span class="slider"></span>
                             </span>
                             Mostrar categoría
                         </label>
+                        <label class="switch-label" title="Mostrar notas históricas y mnemotécnicas al voltear">
+                            <span class="switch">
+                                <input type="checkbox" id="study-toggle-notas" checked>
+                                <span class="slider"></span>
+                            </span>
+                            Mostrar notas (reverso)
+                        </label>
+                        <label class="switch-label" title="Mostrar descomposición de radicales al voltear">
+                            <span class="switch">
+                                <input type="checkbox" id="study-toggle-radicales" checked>
+                                <span class="slider"></span>
+                            </span>
+                            Mostrar radicales (reverso)
+                        </label>
+                    </div>
+
+                    <!-- Filtros por Categoría -->
+                    <div class="study-filters-bar">
+                        <span class="study-bar-label">Filtrar por:</span>
+                        <div class="study-filters" id="study-filters">
+                            <button class="chip active" data-filter="todos">Todos</button>
+                            <button class="chip" data-filter="pronombre">Pronombres</button>
+                            <button class="chip" data-filter="sustantivo">Sustantivos</button>
+                            <button class="chip" data-filter="clasificador">Clasificadores</button>
+                            <button class="chip" data-filter="verbo">Verbos</button>
+                            <button class="chip" data-filter="adverbio">Adverbios</button>
+                            <button class="chip" data-filter="adjetivo">Adjetivos</button>
+                            <button class="chip" data-filter="expresion">Expresiones</button>
+                            <button class="chip" data-filter="particula">Partículas</button>
+                        </div>
                     </div>
                 </div>
+
                 <div class="study-container" id="study-container"></div>
             </div>
         </div>
