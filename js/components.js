@@ -91,7 +91,7 @@ const createFlashcard = (word, options = {}) => {
         ${word.zhuyin ? `<span class="zhuyin-corner">${word.zhuyin}</span>` : ''}
         <div class="chinese-char ${lenClass}">${word.tradicional}</div>
         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-        <span class="card-category-badge badge badge-${word.categoria}">${CATEGORY_LABELS[word.categoria] || word.categoria}</span>
+        <span class="card-category-badge badge badge-${word.categoria}">${CATEGORY_LABELS[word.categoria] || word.categoria}${word.leccion ? ` · L${word.leccion}` : ''}</span>
     `;
 
     // --- BACK FACE ---
@@ -101,6 +101,9 @@ const createFlashcard = (word, options = {}) => {
         <div class="detail-row"><span class="detail-label">Pinyin</span><span class="detail-value">${word.pinyin}</span></div>
         <div class="detail-row"><span class="detail-label">Zhuyin</span><span class="detail-value zhuyin-val">${word.zhuyin || '—'}</span></div>
     `;
+    if (word.leccion) {
+        details += `<div class="detail-row"><span class="detail-label">Lección</span><span class="detail-value">Lección ${word.leccion}</span></div>`;
+    }
     if (word.clasificador) {
         const clf = getAllWords().find(w => w.id === word.clasificador);
         const clfDisplay = clf

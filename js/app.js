@@ -546,12 +546,32 @@ const initPinyinToneInput = () => {
 };
 
 /**
+ * Sets the active lesson pill in the Word Dialog.
+ * @param {string|number|null} lessonVal
+ */
+const setWordDialogLesson = (lessonVal) => {
+    const valStr = lessonVal ? String(lessonVal).trim() : '';
+    const hiddenInput = document.getElementById('w-leccion');
+    if (hiddenInput) {
+        hiddenInput.value = valStr;
+    }
+    document.querySelectorAll('#w-lesson-group .btn-lesson-pill').forEach(btn => {
+        if (btn.dataset.lesson === valStr) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+};
+
+/**
  * Opens the Add Word dialog.
  */
 const openAddDialog = () => {
     editingWordId = null;
     document.getElementById('word-dialog-title').textContent = 'Nueva Palabra';
     wordForm.reset();
+    setWordDialogLesson('');
     populateClassifierSelect('');
     const clfSelect = document.getElementById('w-clasificador');
     if (clfSelect) clfSelect.disabled = false;
@@ -580,6 +600,7 @@ const openEditDialog = (id) => {
     document.getElementById('w-tradicional').value  = word.tradicional || '';
     document.getElementById('w-pinyin').value       = word.pinyin || '';
     document.getElementById('w-zhuyin').value       = word.zhuyin || '';
+    setWordDialogLesson(word.leccion || '');
     populateClassifierSelect(word.clasificador || '');
     const clfSelect = document.getElementById('w-clasificador');
     if (clfSelect) {
@@ -796,6 +817,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Lesson picker pills listener (Word Dialog) ---
+    const lessonGroup = document.getElementById('w-lesson-group');
+    if (lessonGroup) {
+        lessonGroup.addEventListener('click', (e) => {
+            const btn = e.target.closest('.btn-lesson-pill');
+            if (!btn) return;
+            setWordDialogLesson(btn.dataset.lesson);
+        });
+    }
+
     // Tabs logic
     document.querySelectorAll('.radical-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
@@ -989,6 +1020,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Word form submit ---
     wordForm.addEventListener('submit', (e) => {
         e.preventDefault();
+        const leccionRaw = document.getElementById('w-leccion')?.value?.trim();
         const data = {
             espanol:      document.getElementById('w-espanol').value.trim(),
             tradicional:  document.getElementById('w-tradicional').value.trim(),
@@ -996,6 +1028,7 @@ document.addEventListener('DOMContentLoaded', () => {
             zhuyin:       document.getElementById('w-zhuyin').value.trim(),
             categoria:    document.getElementById('w-categoria').value,
             clasificador: document.getElementById('w-clasificador').value.trim(),
+            leccion:      leccionRaw ? parseInt(leccionRaw, 10) : null,
             radicales:    currentRadicals.length > 0 ? currentRadicals : '',
             notas:        document.getElementById('w-notas').value.trim()
         };

@@ -18,10 +18,12 @@ const STUDY_MODE_STORAGE_KEY = 'appchino_study_mode_v2';
 const STUDY_SHOW_CAT_KEY = 'appchino_study_show_cat_v2';
 const STUDY_SHOW_NOTES_KEY = 'appchino_study_show_notes_v2';
 const STUDY_SHOW_RADS_KEY = 'appchino_study_show_rads_v2';
+const STUDY_LESSON_FILTER_KEY = 'appchino_study_lesson_filter_v1';
 
 let studyDeck = [];
 let studyIndex = 0;
 let currentStudyFilter = 'todos';
+let currentStudyLessonFilter = 'todas';
 
 // Modes: 'caracteres' | 'pronunciacion' | 'definicion'
 let currentStudyMode = 'caracteres';
@@ -53,6 +55,11 @@ const loadStudyPreferences = () => {
         if (savedRads !== null) {
             studyShowRadicals = savedRads === 'true';
         }
+
+        const savedLesson = localStorage.getItem(STUDY_LESSON_FILTER_KEY);
+        if (savedLesson) {
+            currentStudyLessonFilter = savedLesson;
+        }
     } catch (e) {
         console.warn("No se pudieron cargar las preferencias de estudio:", e);
     }
@@ -67,6 +74,7 @@ const saveStudyPreferences = () => {
         localStorage.setItem(STUDY_SHOW_CAT_KEY, String(studyShowCategory));
         localStorage.setItem(STUDY_SHOW_NOTES_KEY, String(studyShowNotes));
         localStorage.setItem(STUDY_SHOW_RADS_KEY, String(studyShowRadicals));
+        localStorage.setItem(STUDY_LESSON_FILTER_KEY, currentStudyLessonFilter);
     } catch (e) {
         console.warn("No se pudieron guardar las preferencias de estudio:", e);
     }
@@ -74,15 +82,30 @@ const saveStudyPreferences = () => {
 
 /**
  * Initializes the study deck with filtered and shuffled words.
+ * Filtering by lesson is non-retroactive (exact match per lesson).
  * @param {string} filter - Category filter ('todos' or specific category)
+ * @param {string} lessonFilter - Lesson filter ('todas', '1'..'8', or 'ninguna')
  */
-const initStudyMode = (filter = currentStudyFilter) => {
+const initStudyMode = (filter = currentStudyFilter, lessonFilter = currentStudyLessonFilter) => {
     loadStudyPreferences();
     currentStudyFilter = filter;
+    currentStudyLessonFilter = lessonFilter;
+    saveStudyPreferences();
 
     let words = getAllWords();
+    // 1. Filter by category
     if (filter !== 'todos') {
         words = words.filter(w => w.categoria === filter);
+    }
+
+    // 2. Filter by lesson (non-retroactive)
+    if (lessonFilter !== 'todas') {
+        if (lessonFilter === 'ninguna') {
+            words = words.filter(w => !w.leccion);
+        } else {
+            const targetLesson = parseInt(lessonFilter, 10);
+            words = words.filter(w => Number(w.leccion) === targetLesson);
+        }
     }
 
     // Fisher-Yates shuffle
@@ -133,9 +156,18 @@ const updateStudyToolbarUI = () => {
     const toggleRads = document.getElementById('study-toggle-radicales');
     if (toggleRads) toggleRads.checked = studyShowRadicals;
 
-    // Filter chips
+    // Category filter chips
     document.querySelectorAll('#study-filters .chip').forEach(chip => {
         if (chip.dataset.filter === currentStudyFilter) {
+            chip.classList.add('active');
+        } else {
+            chip.classList.remove('active');
+        }
+    });
+
+    // Lesson filter chips
+    document.querySelectorAll('#study-lesson-filters .chip').forEach(chip => {
+        if (chip.dataset.lessonFilter === currentStudyLessonFilter) {
             chip.classList.add('active');
         } else {
             chip.classList.remove('active');
@@ -183,7 +215,7 @@ const buildCardFacesHtml = (word) => {
 
     const categoryBadge = studyShowCategory ? `
         <span class="card-category-badge badge badge-${word.categoria}">
-            ${CATEGORY_LABELS[word.categoria] || word.categoria}
+            ${CATEGORY_LABELS[word.categoria] || word.categoria}${word.leccion ? ` · L${word.leccion}` : ''}
         </span>
     ` : '';
 
@@ -192,6 +224,9 @@ const buildCardFacesHtml = (word) => {
 
     // Common extra details for back of the card
     let extraRowsHtml = '';
+    if (word.leccion) {
+        extraRowsHtml += `<div class="detail-row"><span class="detail-label">Lección</span><span class="detail-value">Lección ${word.leccion}</span></div>`;
+    }
     if (studyShowCategory && classifierHtml) {
         extraRowsHtml += `<div class="detail-row"><span class="detail-label">Clasificador</span><span class="detail-value">${classifierHtml}</span></div>`;
     }
@@ -482,7 +517,18 @@ const initStudyEventListeners = () => {
             const chip = e.target.closest('.chip');
             if (!chip) return;
             const filter = chip.dataset.filter || 'todos';
-            initStudyMode(filter);
+            initStudyMode(filter, currentStudyLessonFilter);
+        });
+    }
+
+    // Lesson filter chips (non-retroactive)
+    const lessonFiltersContainer = document.getElementById('study-lesson-filters');
+    if (lessonFiltersContainer) {
+        lessonFiltersContainer.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            const lessonFilter = chip.dataset.lessonFilter || 'todas';
+            initStudyMode(currentStudyFilter, lessonFilter);
         });
     }
 

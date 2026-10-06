@@ -69,6 +69,62 @@ const saveExamState = () => {
     }
 };
 
+// ==========================================================
+// EXAM LESSON CONFIGURATION (Cumulative / Retroactive)
+// ==========================================================
+const EXAM_MAX_LESSON_KEY = 'appchino_exam_max_lesson_v1';
+const EXAM_INC_UNASSIGNED_KEY = 'appchino_exam_inc_unassigned_v1';
+
+let examMaxLesson = 8;
+let examIncludeUnassigned = false;
+
+const loadExamLessonPrefs = () => {
+    try {
+        const saved = localStorage.getItem(EXAM_MAX_LESSON_KEY);
+        if (saved !== null) {
+            examMaxLesson = parseInt(saved, 10);
+        }
+        const savedInc = localStorage.getItem(EXAM_INC_UNASSIGNED_KEY);
+        if (savedInc !== null) {
+            examIncludeUnassigned = savedInc === 'true';
+        } else {
+            const allWords = getAllWords();
+            const hasAnyTagged = allWords.some(w => !!w.leccion);
+            if (!hasAnyTagged) {
+                examIncludeUnassigned = true;
+            }
+        }
+    } catch (e) {
+        console.warn("No se pudieron cargar las preferencias de lecciones para el examen:", e);
+    }
+};
+
+const saveExamLessonPrefs = () => {
+    try {
+        localStorage.setItem(EXAM_MAX_LESSON_KEY, String(examMaxLesson));
+        localStorage.setItem(EXAM_INC_UNASSIGNED_KEY, String(examIncludeUnassigned));
+    } catch (e) {
+        console.warn("No se pudieron guardar las preferencias de lecciones para el examen:", e);
+    }
+};
+
+/**
+ * Returns the pool of words matching current cumulative lesson selection.
+ * @returns {Array<object>}
+ */
+const getWordsForExam = () => {
+    const allWords = getAllWords();
+    return allWords.filter(w => {
+        if (w.leccion && Number(w.leccion) <= examMaxLesson) {
+            return true;
+        }
+        if (examIncludeUnassigned && !w.leccion) {
+            return true;
+        }
+        return false;
+    });
+};
+
 /**
  * Normalizes pinyin string for fair comparison (lowercase, trimmed, space collapsed).
  */
@@ -170,11 +226,12 @@ const verifyPhase2Answer = (expectedPinyin, userAnswer) => {
  * Initializes and starts generating a new Exam.
  */
 const startNewExam = async () => {
-    const allWords = getAllWords();
+    loadExamLessonPrefs();
+    const examWords = getWordsForExam();
     const allStructures = getAllStructures();
 
-    if (!allWords || allWords.length < 10) {
-        showToast("Se necesitan al menos 10 palabras registradas para realizar el examen.", "warning");
+    if (!examWords || examWords.length < 10) {
+        showToast(`Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${examWords ? examWords.length : 0}).`, "warning");
         return;
     }
 
@@ -197,11 +254,11 @@ const startNewExam = async () => {
 
     try {
         // 1. Generate local phases 1 & 2
-        const p1 = generatePhase1Local(allWords);
-        const p2 = generatePhase2Local(allWords);
+        const p1 = generatePhase1Local(examWords);
+        const p2 = generatePhase2Local(examWords);
 
         // 2. Generate AI phases (3, 4, 5, 6, 7)
-        const aiData = await generateExamAIData(allWords, allStructures);
+        const aiData = await generateExamAIData(examWords, allStructures);
 
         examSession.data = {
             phase1: p1,
@@ -548,10 +605,12 @@ const renderExam = () => {
  * Renders Welcome / Hero screen.
  */
 const renderExamWelcome = (container) => {
+    loadExamLessonPrefs();
     const allWords = getAllWords();
     const wordCount = allWords.length;
     const allStructs = getAllStructures();
     const structCount = allStructs.length;
+    const examWords = getWordsForExam();
 
     container.innerHTML = `
         <div class="exam-welcome-card">
@@ -563,9 +622,40 @@ const renderExamWelcome = (container) => {
                     generada dinámicamente con IA utilizando exclusivamente las palabras y estructuras de tu biblioteca personal.
                 </p>
                 <div class="exam-stats-pills">
-                    <span class="exam-pill">📚 ${wordCount} palabras disponibles</span>
+                    <span class="exam-pill">📚 ${wordCount} palabras registradas</span>
                     <span class="exam-pill">🧩 ${structCount} estructuras gramaticales</span>
                     <span class="exam-pill">🎯 55 preguntas en 7 fases</span>
+                </div>
+            </div>
+
+            <!-- Selector de Lecciones (Retroactivo / Acumulativo) -->
+            <div class="exam-lesson-selector-card">
+                <div class="exam-lesson-selector-title">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                    </svg>
+                    <span>Lecciones a evaluar en el examen</span>
+                </div>
+                <p class="exam-lesson-hint">
+                    <strong>Evaluación retroactiva y acumulativa:</strong> Al marcar una lección, se evalúa <em>hasta</em> esa lección (incluyendo el conocimiento previo de las lecciones anteriores).
+                </p>
+                <div class="exam-lesson-checkboxes" id="exam-lesson-checkboxes">
+                    ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => `
+                        <label class="exam-lesson-cb-card ${num <= examMaxLesson ? 'active' : ''}">
+                            <input type="checkbox" data-lesson="${num}" ${num <= examMaxLesson ? 'checked' : ''}>
+                            <span class="cb-label">Lección ${num}</span>
+                        </label>
+                    `).join('')}
+                </div>
+                <div class="exam-lesson-extra">
+                    <label class="exam-unassigned-checkbox-label">
+                        <input type="checkbox" id="exam-toggle-unassigned" ${examIncludeUnassigned ? 'checked' : ''}>
+                        <span>Incluir tarjetas sin lección asignada (/)</span>
+                    </label>
+                    <span class="exam-word-count-badge ${examWords.length < 10 ? 'warning' : ''}" id="exam-word-count-badge">
+                        ${examWords.length} palabras seleccionadas para el examen
+                    </span>
                 </div>
             </div>
 
@@ -631,6 +721,55 @@ const renderExamWelcome = (container) => {
             </div>
         </div>
     `;
+
+    const updateExamLessonUI = () => {
+        container.querySelectorAll('#exam-lesson-checkboxes input[type="checkbox"]').forEach(input => {
+            const num = parseInt(input.dataset.lesson, 10);
+            const isChecked = num <= examMaxLesson;
+            input.checked = isChecked;
+            const card = input.closest('.exam-lesson-cb-card');
+            if (card) {
+                card.classList.toggle('active', isChecked);
+            }
+        });
+
+        const unassignedInput = container.querySelector('#exam-toggle-unassigned');
+        if (unassignedInput) {
+            unassignedInput.checked = examIncludeUnassigned;
+        }
+
+        const currentExamWords = getWordsForExam();
+        const countBadge = container.querySelector('#exam-word-count-badge');
+        if (countBadge) {
+            countBadge.textContent = `${currentExamWords.length} palabras seleccionadas para el examen`;
+            countBadge.classList.toggle('warning', currentExamWords.length < 10);
+        }
+    };
+
+    const cbContainer = container.querySelector('#exam-lesson-checkboxes');
+    if (cbContainer) {
+        cbContainer.addEventListener('change', (e) => {
+            const target = e.target;
+            if (!target.matches('input[type="checkbox"]')) return;
+            const clickedNum = parseInt(target.dataset.lesson, 10);
+            if (target.checked) {
+                examMaxLesson = clickedNum;
+            } else {
+                examMaxLesson = clickedNum > 1 ? clickedNum - 1 : 0;
+            }
+            saveExamLessonPrefs();
+            updateExamLessonUI();
+        });
+    }
+
+    const unassignedToggle = container.querySelector('#exam-toggle-unassigned');
+    if (unassignedToggle) {
+        unassignedToggle.addEventListener('change', (e) => {
+            examIncludeUnassigned = e.target.checked;
+            saveExamLessonPrefs();
+            updateExamLessonUI();
+        });
+    }
 
     document.getElementById('btn-start-exam')?.addEventListener('click', startNewExam);
 };

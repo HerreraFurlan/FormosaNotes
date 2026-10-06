@@ -4933,3 +4933,168 @@ input:checked+.slider:before {
         flex-direction: column;
     }
 }
+
+/* =============================================
+   Lesson Picker & Filter Styles
+   ============================================= */
+
+/* Lesson Selector in Card Dialog */
+.lesson-btn-group {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.btn-lesson-pill {
+    flex: 1;
+    min-width: 32px;
+    height: 38px;
+    border-radius: var(--radius-sm, 6px);
+    border: 1px solid var(--border-color);
+    background: var(--bg-tertiary);
+    color: var(--text-secondary);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+}
+
+.btn-lesson-pill:hover {
+    border-color: var(--accent);
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+}
+
+.btn-lesson-pill.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(179, 58, 58, 0.25);
+}
+
+/* Exam Mode Lesson Selector Card */
+.exam-lesson-selector-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md, 8px);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.exam-lesson-selector-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.exam-lesson-selector-title svg {
+    color: var(--accent);
+}
+
+.exam-lesson-hint {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 1rem;
+    line-height: 1.4;
+}
+
+.exam-lesson-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .exam-lesson-checkboxes {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.exam-lesson-cb-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    padding: 0.6rem 0.4rem;
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.exam-lesson-cb-card:hover {
+    border-color: var(--accent);
+}
+
+.exam-lesson-cb-card.active {
+    background: var(--accent-light);
+    border-color: var(--accent);
+}
+
+.exam-lesson-cb-card input[type="checkbox"] {
+    cursor: pointer;
+    accent-color: var(--accent);
+    width: 16px;
+    height: 16px;
+    margin: 0;
+}
+
+.exam-lesson-cb-card .cb-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.exam-lesson-extra {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--border-color);
+}
+
+.exam-unassigned-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.exam-unassigned-checkbox-label input {
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.exam-word-count-badge {
+    font-size: 0.85rem;
+    font-weight: 600;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    color: var(--text-secondary);
+}
+
+.exam-word-count-badge.warning {
+    color: var(--danger);
+    border-color: var(--danger);
+    background: var(--accent-light);
+}

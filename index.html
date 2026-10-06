@@ -303,6 +303,23 @@
                         </label>
                     </div>
 
+                    <!-- Filtros por Lección -->
+                    <div class="study-filters-bar">
+                        <span class="study-bar-label">Lección:</span>
+                        <div class="study-filters" id="study-lesson-filters">
+                            <button class="chip active" data-lesson-filter="todas">Todas</button>
+                            <button class="chip" data-lesson-filter="1">L1</button>
+                            <button class="chip" data-lesson-filter="2">L2</button>
+                            <button class="chip" data-lesson-filter="3">L3</button>
+                            <button class="chip" data-lesson-filter="4">L4</button>
+                            <button class="chip" data-lesson-filter="5">L5</button>
+                            <button class="chip" data-lesson-filter="6">L6</button>
+                            <button class="chip" data-lesson-filter="7">L7</button>
+                            <button class="chip" data-lesson-filter="8">L8</button>
+                            <button class="chip" data-lesson-filter="ninguna">/</button>
+                        </div>
+                    </div>
+
                     <!-- Filtros por Categoría -->
                     <div class="study-filters-bar">
                         <span class="study-bar-label">Categoría:</span>
@@ -447,6 +464,21 @@
                             <option value="">Ninguno</option>
                         </select>
                     </div>
+                    <div class="form-group full-width">
+                        <label>Lección (1 a 8 o ninguna)</label>
+                        <div class="lesson-btn-group" id="w-lesson-group">
+                            <button type="button" class="btn-lesson-pill active" data-lesson="" title="Sin lección asignada">/</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="1" title="Lección 1">1</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="2" title="Lección 2">2</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="3" title="Lección 3">3</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="4" title="Lección 4">4</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="5" title="Lección 5">5</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="6" title="Lección 6">6</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="7" title="Lección 7">7</button>
+                            <button type="button" class="btn-lesson-pill" data-lesson="8" title="Lección 8">8</button>
+                        </div>
+                        <input type="hidden" id="w-leccion" value="">
+                    </div>
                     <div class="form-group full-width radical-builder">
                         <label>Radicales / Componentes</label>
                         <div class="radical-switch">
@@ -570,16 +602,16 @@
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
     <!-- Load order matters: data → storage → components → ai → builder → study → pdf → app -->
-    <script src="js/data.js?v=3.12"></script>
-    <script src="js/storage.js?v=3.12"></script>
-    <script src="js/components.js?v=3.12"></script>
-    <script src="js/ai.js?v=3.12"></script>
-    <script src="js/builder.js?v=3.12"></script>
-    <script src="js/study.js?v=3.12"></script>
-    <script src="js/pdf.js?v=3.12"></script>
-    <script src="js/practice.js?v=3.12"></script>
-    <script src="js/exam.js?v=3.12"></script>
-    <script src="js/app.js?v=3.12"></script>
+    <script src="js/data.js?v=3.13"></script>
+    <script src="js/storage.js?v=3.13"></script>
+    <script src="js/components.js?v=3.13"></script>
+    <script src="js/ai.js?v=3.13"></script>
+    <script src="js/builder.js?v=3.13"></script>
+    <script src="js/study.js?v=3.13"></script>
+    <script src="js/pdf.js?v=3.13"></script>
+    <script src="js/practice.js?v=3.13"></script>
+    <script src="js/exam.js?v=3.13"></script>
+    <script src="js/app.js?v=3.13"></script>
 
 </body>
 
