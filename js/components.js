@@ -138,7 +138,7 @@ const createFlashcard = (word, options = {}) => {
         </div>
         ${word.notas ? `
             <div class="card-notes-block" title="Notas">
-                <span class="notes-icon">📝</span> ${word.notas}
+                ${word.notas}
             </div>
         ` : ''}
     `;

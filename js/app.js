@@ -995,7 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                     ${word.notas ? `
                     <div class="card-notes-block" style="margin-top: 0.5rem;">
-                        <span class="notes-icon">📝</span> ${word.notas}
+                        ${word.notas}
                     </div>
                     ` : ''}
                 </div>

@@ -127,7 +127,7 @@ const buildBackCard = (word, showCategory = true) => {
 
             ${word.notas ? `
             <div style="font-size: 0.78rem; color: #64748B; text-align: center; margin-top: auto; padding: 6px 8px; line-height: 1.3; font-weight: 500; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; width: 100%; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-                📝 ${word.notas}
+                ${word.notas}
             </div>
             ` : ''}
         </div>

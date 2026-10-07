@@ -151,6 +151,135 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
  * @param {string} text - Raw output from LLM
  * @returns {object|null} Parsed JSON object
  */
+/**
+ * Advanced sanitizer for JSON produced by LLMs.
+ * Repairs:
+ * - Unescaped quotes inside string values (converts them to single quotes or escaped quotes)
+ * - Raw unescaped newlines/tabs inside string literals
+ * - Invalid escape characters (e.g. \', \?)
+ * - Trailing commas before } or ]
+ */
+const repairLlmJson = (input) => {
+    let out = '';
+    let i = 0;
+    const len = input.length;
+
+    // States: 'OUTSIDE', 'IN_KEY', 'AFTER_COLON', 'IN_STRING_VAL'
+    let state = 'OUTSIDE';
+
+    const isNextKeyOrEnd = (pos) => {
+        let p = pos;
+        while (p < len && /\s/.test(input[p])) p++;
+        if (p >= len) return true;
+        const c = input[p];
+        if (c === '}' || c === ']') return true;
+        if (c === ',') {
+            p++;
+            while (p < len && /\s/.test(input[p])) p++;
+            if (p >= len) return true;
+            if (input[p] === '}' || input[p] === ']') return true; // trailing comma
+            if (input[p] === '"') {
+                // Check if this quoted token is followed by ':' (a key) or in array
+                let q = p + 1;
+                while (q < len && input[q] !== '"') {
+                    if (input[q] === '\\') q++;
+                    q++;
+                }
+                if (q < len && input[q] === '"') {
+                    q++;
+                    while (q < len && /\s/.test(input[q])) q++;
+                    if (q < len && (input[q] === ':' || input[q] === ',' || input[q] === ']')) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    };
+
+    while (i < len) {
+        const c = input[i];
+
+        if (state === 'OUTSIDE') {
+            if (c === '"') {
+                state = 'IN_KEY';
+                out += c;
+            } else {
+                out += c;
+            }
+            i++;
+        } else if (state === 'IN_KEY') {
+            if (c === '\\') {
+                out += c;
+                if (i + 1 < len) {
+                    out += input[i + 1];
+                    i += 2;
+                    continue;
+                }
+            } else if (c === '"') {
+                state = 'AFTER_COLON';
+                out += c;
+            } else {
+                out += c;
+            }
+            i++;
+        } else if (state === 'AFTER_COLON') {
+            if (c === '"') {
+                state = 'IN_STRING_VAL';
+                out += c;
+            } else {
+                if (c === '{' || c === '[') {
+                    state = 'OUTSIDE';
+                } else if (c === ',' || c === '}' || c === ']') {
+                    state = 'OUTSIDE';
+                }
+                out += c;
+            }
+            i++;
+        } else if (state === 'IN_STRING_VAL') {
+            if (c === '\\') {
+                if (i + 1 < len) {
+                    const nextC = input[i + 1];
+                    if (['"', '\\', '/', 'b', 'f', 'n', 'r', 't', 'u'].includes(nextC)) {
+                        out += '\\' + nextC;
+                    } else if (nextC === "'") {
+                        out += "'"; // \' is not valid in standard JSON, replace with '
+                    } else {
+                        out += nextC; // drop invalid backslash
+                    }
+                    i += 2;
+                    continue;
+                } else {
+                    i++;
+                    continue;
+                }
+            } else if (c === '"') {
+                if (isNextKeyOrEnd(i + 1)) {
+                    // True closing quote of this string property
+                    state = 'OUTSIDE';
+                    out += c;
+                } else {
+                    // Unescaped inner quote: replace with single quote
+                    out += "'";
+                }
+            } else if (c === '\n') {
+                out += '\\n';
+            } else if (c === '\r') {
+                out += '\\r';
+            } else if (c === '\t') {
+                out += '\\t';
+            } else {
+                out += c;
+            }
+            i++;
+        }
+    }
+
+    // Clean trailing commas
+    out = out.replace(/,\s*([\]}])/g, '$1');
+    return out;
+};
+
 const safeParseJSON = (text) => {
     if (!text || typeof text !== 'string') return null;
 
@@ -188,85 +317,38 @@ const safeParseJSON = (text) => {
     try {
         return JSON.parse(clean);
     } catch (err1) {
-        console.warn("safeParseJSON: Intento directo falló, aplicando reparaciones:", err1.message);
+        console.warn("safeParseJSON: Intento directo falló, aplicando reparaciones avanzadas:", err1.message);
     }
 
-    // Attempt 2: Fix control characters inside strings & invalid backslash escapes
-    const repairedChars = [];
-    let inString = false;
-    let isEscaped = false;
-    let i = 0;
-    while (i < clean.length) {
-        const c = clean[i];
-        if (c === '"' && !isEscaped) {
-            inString = !inString;
-            repairedChars.push(c);
-        } else if (inString) {
-            if (c === '\\') {
-                if (i + 1 < clean.length) {
-                    const nextC = clean[i + 1];
-                    // Valid JSON escape characters: " \ / b f n r t u
-                    if (['"', '\\', '/', 'b', 'f', 'n', 'r', 't', 'u'].includes(nextC)) {
-                        repairedChars.push(c);
-                        repairedChars.push(nextC);
-                        i += 2;
-                        continue;
-                    } else {
-                        // Invalid escape sequence like \[ or \] - drop backslash
-                        repairedChars.push(nextC);
-                        i += 2;
-                        continue;
-                    }
-                }
-            } else if (c === '\n') {
-                repairedChars.push('\\n');
-            } else if (c === '\r') {
-                repairedChars.push('\\r');
-            } else if (c === '\t') {
-                repairedChars.push('\\t');
-            } else {
-                repairedChars.push(c);
-            }
-        } else {
-            repairedChars.push(c);
-        }
-        isEscaped = (c === '\\' && !isEscaped);
-        i++;
-    }
-
-    let cleanStep2 = repairedChars.join('');
-    // Remove trailing commas: ,] or ,}
-    cleanStep2 = cleanStep2.replace(/,\s*([\]}])/g, '$1');
-
+    // Attempt 2: Repair with scanner (unescaped quotes, control characters, trailing commas)
+    let repaired = '';
     try {
-        return JSON.parse(cleanStep2);
+        repaired = repairLlmJson(clean);
+        return JSON.parse(repaired);
     } catch (err2) {
-        console.warn("safeParseJSON: Intento 2 (escapes/saltos) falló:", err2.message);
+        console.warn("safeParseJSON: Intento 2 (scanner LLM) falló:", err2.message);
     }
 
-    // Attempt 3: Fix unescaped inner quotes on property lines
-    // Example: "pista": "Usa la palabra "我" para esto",
-    const lines = cleanStep2.split('\n');
+    // Attempt 3: Line-by-line regex property fixer (fallback)
+    const baseText = repaired || clean;
+    const lines = baseText.split('\n');
     const fixedLines = lines.map(line => {
         const propMatch = line.match(/^(\s*"[^"]+"\s*:\s*")(.*)("\s*,?\s*)$/);
         if (propMatch) {
             const prefix = propMatch[1];
             const inner = propMatch[2];
             const suffix = propMatch[3];
-            // Replace any unescaped double quote inside inner with single quote
             const fixedInner = inner.replace(/(?<!\\)"/g, "'");
             return prefix + fixedInner + suffix;
         }
         return line;
     });
 
-    let cleanStep3 = fixedLines.join('\n');
-    cleanStep3 = cleanStep3.replace(/,\s*([\]}])/g, '$1');
-
+    let cleanStep3 = fixedLines.join('\n').replace(/,\s*([\]}])/g, '$1');
     try {
         return JSON.parse(cleanStep3);
     } catch (err3) {
-        console.warn("safeParseJSON: Intento 3 (comillas internas) falló:", err3.message);
+        console.warn("safeParseJSON: Intento 3 (regex de líneas) falló:", err3.message);
     }
 
     // Attempt 4: Truncated JSON recovery (close unclosed quotes, brackets, braces)
@@ -293,8 +375,57 @@ const safeParseJSON = (text) => {
 };
 
 /**
+ * Resilient regex-based field extractor fallback for sentence verification
+ * if JSON parsing fails due to severely malformed LLM responses.
+ */
+const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
+    if (!rawText || typeof rawText !== 'string') return null;
+    try {
+        const text = rawText.replace(/```(?:json)?/gi, '').replace(/```/g, '').trim();
+
+        // 1. Correcta
+        const correctaMatch = text.match(/"correcta"\s*:\s*(true|false)/i);
+        const correcta = correctaMatch ? correctaMatch[1].toLowerCase() === 'true' : false;
+
+        // 2. Helper to extract string fields
+        const extractField = (fieldName) => {
+            const keyRegex = new RegExp(`"${fieldName}"\\s*:\\s*"`, 'i');
+            const match = text.match(keyRegex);
+            if (!match) return '';
+            const start = match.index + match[0].length;
+            const rest = text.slice(start);
+            const endMatch = rest.match(/"\s*(?:,\s*"[a-zA-Z0-9_-]+"\s*:|\s*})/);
+            if (endMatch) {
+                return rest.slice(0, endMatch.index).replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
+            }
+            const lastQuote = rest.lastIndexOf('"');
+            if (lastQuote > 0) {
+                return rest.slice(0, lastQuote).replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
+            }
+            return rest.replace(/\\"/g, '"').replace(/\\n/g, '\n').trim();
+        };
+
+        const explicacion = extractField('explicacion');
+        const correccion = extractField('correccion');
+        const traduccion = extractField('traduccion');
+
+        if (explicacion || correccion || correctaMatch) {
+            return {
+                correcta,
+                explicacion: explicacion || (correcta ? 'La oración es sintácticamente correcta.' : 'Se detectaron posibles errores sintácticos o de naturalidad.'),
+                correccion: correccion || defaultSentence,
+                traduccion: traduccion || ''
+            };
+        }
+    } catch (e) {
+        console.warn("parseSentenceCheckFallback error:", e);
+    }
+    return null;
+};
+
+/**
  * Calls Gemini to analyze a sentence.
- * Enforces JSON mode for structured output.
+ * Enforces JSON mode for structured output with multiple fallbacks.
  * 
  * @param {string} sentence - The traditional Chinese sentence to check
  * @returns {Promise<Object>} The parsed JSON result
@@ -302,14 +433,15 @@ const safeParseJSON = (text) => {
 const checkSentenceWithGemini = async (sentence) => {
     const prompt = `Eres un profesor experto de chino mandarín tradicional (Taiwán). Revisa esta oración: "${sentence}"
 
-    Devuelve ÚNICAMENTE un objeto JSON válido con las siguientes claves:
-    - "correcta": un booleano (true o false) indicando si la sintaxis y gramática son naturales y correctas.
-    - "explicacion": una cadena breve (máximo 2 oraciones) explicando por qué es correcta o qué errores tiene.
-    - "correccion": si es incorrecta o poco natural, proporciona la versión correcta en chino tradicional. Si es correcta, devuelve la misma oración original o una versión ligeramente más natural.
-    - "traduccion": la traducción al español.
+Devuelve ÚNICAMENTE un objeto JSON válido con las siguientes claves:
+- "correcta": un booleano (true o false) indicando si la sintaxis y gramática son naturales y correctas.
+- "explicacion": una cadena breve (máximo 2 oraciones) explicando por qué es correcta o qué errores tiene.
+- "correccion": si es incorrecta o poco natural, proporciona la versión correcta en chino tradicional. Si es correcta, devuelve la misma oración original o una versión ligeramente más natural.
+- "traduccion": la traducción al español.
 
-    No incluyas comillas dobles sin escapar dentro de las explicaciones; si necesitas citar palabras usa comillas simples (' ').
-    No incluyas formato markdown \`\`\`json, solo devuelve el objeto crudo.`;
+Importante:
+- No uses comillas dobles sin escapar dentro de las explicaciones; usa siempre comillas simples (' ') para citar palabras o caracteres.
+- Devuelve únicamente el objeto JSON crudo sin formato markdown.`;
 
     const body = {
         contents: [
@@ -320,13 +452,31 @@ const checkSentenceWithGemini = async (sentence) => {
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.2,
-            maxOutputTokens: 500
+            maxOutputTokens: 1000
         }
     };
 
     try {
         const candidate = await callGeminiAPI(body);
-        return safeParseJSON(candidate);
+        let parsed = null;
+        try {
+            parsed = safeParseJSON(candidate);
+        } catch (parseErr) {
+            console.warn("safeParseJSON falló en checkSentenceWithGemini, intentando extractor de emergencia:", parseErr);
+            parsed = parseSentenceCheckFallback(candidate, sentence);
+            if (!parsed) throw parseErr;
+        }
+
+        if (!parsed || typeof parsed !== 'object') {
+            parsed = parseSentenceCheckFallback(candidate, sentence) || {
+                correcta: false,
+                explicacion: 'No se pudo evaluar detalladamente la oración.',
+                correccion: sentence,
+                traduccion: ''
+            };
+        }
+
+        return parsed;
     } catch (error) {
         console.error("Error checking sentence:", error);
         throw error;
