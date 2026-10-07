@@ -54,6 +54,12 @@ const CLASSIFIER_MAPPING = {
     '號 hào': 'id_clf_hao',
     '些': 'id_clf_xie',
     '些 xiē': 'id_clf_xie',
+    '支': 'id_clf_zhi_phone',
+    '支 zhī': 'id_clf_zhi_phone',
+    '塊': 'id_clf_kuai',
+    '塊 kuài': 'id_clf_kuai',
+    '種': 'id_clf_zhong',
+    '種 zhǒng': 'id_clf_zhong',
 };
 
 /**
@@ -155,21 +161,27 @@ const sanitizeAndMigrateData = (data) => {
         });
     }
 
-    // 7. Sync updated concise mnemonics and standardized radicals from SEED_DATA
+    // 7. Sync updated concise mnemonics, standardized radicals, and leccion from SEED_DATA
     if (typeof SEED_DATA !== 'undefined') {
         const seedMap = new Map();
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
             if (Array.isArray(SEED_DATA[cat])) {
-                SEED_DATA[cat].forEach(w => seedMap.set(w.id, w));
+                SEED_DATA[cat].forEach(w => {
+                    seedMap.set(w.id, w);
+                    if (w.tradicional) seedMap.set(w.tradicional, w);
+                });
             }
         }
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => {
-                    const seedWord = seedMap.get(w.id);
+                    const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional);
                     if (seedWord) {
                         w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
                         w.notas = seedWord.notas;
+                        if (seedWord.leccion !== undefined) {
+                            w.leccion = seedWord.leccion;
+                        }
                     }
                 });
             }
@@ -189,10 +201,10 @@ const loadDB = () => {
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.4' || !data.clasificadores || data.clasificadores.length === 0) {
+            if (!data.meta || data.meta.migratedWordsVersion !== '3.14' || !data.clasificadores || data.clasificadores.length === 0) {
                 sanitizeAndMigrateData(data);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.4';
+                data.meta.migratedWordsVersion = '3.14';
                 saveDB(data);
             }
             return data;

@@ -86,7 +86,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是我的爸爸 — Él es mi papá",
                 "我爸爸愛喝烏龍茶 — A mi papá le encanta tomar té Oolong"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "id": "n2",
@@ -110,7 +111,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "她是我的媽媽 — Ella es mi mamá",
                 "我媽媽很漂亮 — Mi mamá es muy hermosa"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "id": "n3",
@@ -206,7 +208,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是美國人 — Él es estadounidense",
                 "王開文是美國人 — Wang Kaiwen es de EE.UU."
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "n7",
@@ -226,7 +229,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是好人 — Él es buena persona",
                 "你是哪國人？ — ¿De qué país eres?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "n8",
@@ -298,7 +302,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我是人 — Yo soy una persona",
                 "我是臺灣人 — Soy taiwanés/a"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "p2",
@@ -322,7 +327,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你好 — Hola",
                 "你要喝茶嗎？ — ¿Quieres tomar té?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "p3",
@@ -346,7 +352,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是我的爸爸 — Él es mi papá",
                 "他是美國人 — Él es estadounidense"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Hermano mayor",
@@ -371,7 +378,8 @@ const SEED_DATA = {
                 "我有兩個哥哥 — Tengo dos hermanos mayores"
             ],
             "id": "id_msik39qn_a7u9l",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2
         },
         {
             "espanol": "Hermano menor",
@@ -421,7 +429,8 @@ const SEED_DATA = {
                 "她是我姐姐 — Ella es mi hermana mayor"
             ],
             "id": "id_msik8oqu_qbhis",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2
         },
         {
             "espanol": "Hermana menor",
@@ -446,7 +455,8 @@ const SEED_DATA = {
                 "他沒有妹妹 — Él no tiene hermanas menores"
             ],
             "id": "id_msikblio_cwfgf",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2
         },
         {
             "espanol": "Panda",
@@ -764,7 +774,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?",
                 "臺灣的咖啡很好喝 — El café de Taiwán es muy rico"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Licor",
@@ -905,7 +916,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你叫什麼名字？ — ¿Cómo te llamas?",
                 "我的名字是陳月美 — Mi nombre es Chen Yuemei"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Uno",
@@ -972,7 +984,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我有兩個兄弟 — Tengo dos hermanos varones",
                 "請給我兩杯茶 — Por favor deme dos tazas de té"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Tres",
@@ -1038,7 +1051,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "五本書 — Cinco libros",
                 "我有五個家人 — En mi familia somos cinco personas"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Seis",
@@ -1168,7 +1182,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "一百 — Cien",
                 "一百塊 — Cien dólares / monedas"
-            ]
+            ],
+            "leccion": 4
         },
         {
             "espanol": "Mil",
@@ -1193,7 +1208,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "一千 — Mil",
                 "兩千 — Dos mil"
-            ]
+            ],
+            "leccion": 4
         },
         {
             "espanol": "Estudiante",
@@ -1264,7 +1280,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "老師好！ — ¡Buenos días, profesor!",
                 "他是我們的老師 — Él es nuestro profesor"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Señorita",
@@ -1289,7 +1306,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "陳月美小姐是越南人 — La señorita Chen Yuemei es de Vietnam",
                 "小姐，請喝茶 — Señorita, tome té por favor"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Señor",
@@ -1314,7 +1332,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "李明華先生是臺灣人 — El señor Li Minghua es taiwanés",
                 "先生，請進 — Señor, adelante por favor"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Apellido",
@@ -1331,7 +1350,8 @@ const SEED_DATA = {
             ],
             "notas": "Funciona como verbo ('apellidarse'): 我姓李 (Mi apellido es Li). Pregunta de cortesía: 您貴姓？",
             "id": "id_mtvgdcy9_754wt",
-            "fechaCreacion": "2026-09-10"
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1
         },
         {
             "espanol": "Plataforma",
@@ -1364,7 +1384,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "臺北 — Taipéi",
                 "在臺南 — En Tainan"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Bahía",
@@ -1418,7 +1439,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請喝茶 — Por favor toma té",
                 "臺灣茶很好喝 — El té de Taiwán es muy sabroso"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "id_mty013_wulongcha",
@@ -1447,7 +1469,8 @@ const SEED_DATA = {
                 "烏龍茶很好喝 — El té Oolong es muy rico",
                 "你要喝烏龍茶嗎？ — ¿Quieres tomar té Oolong?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty015_chenyuemei",
@@ -1556,7 +1579,8 @@ const SEED_DATA = {
                 "我們都是學生 — Todos nosotros somos estudiantes",
                 "我們都喝茶 — Todos nosotros tomamos té"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty006_nimen",
@@ -1581,7 +1605,8 @@ const SEED_DATA = {
                 "你們好 — Hola a todos / Hola a ustedes",
                 "你們要喝咖啡嗎？ — ¿Quieren tomar café?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty007_taiwan",
@@ -1606,7 +1631,8 @@ const SEED_DATA = {
                 "歡迎你來臺灣！ — ¡Bienvenido a Taiwán!",
                 "我是臺灣人 — Soy taiwanés/a"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty011_riben",
@@ -1631,7 +1657,8 @@ const SEED_DATA = {
                 "他是日本人 — Él es japonés",
                 "我不是日本人 — Yo no soy japonés"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty018_zhangyijun",
@@ -1718,7 +1745,8 @@ const SEED_DATA = {
                 "這是我家 — Esta es mi casa",
                 "我家在臺灣 — Mi hogar está en Taiwán"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty020_jiaren",
@@ -1743,7 +1771,8 @@ const SEED_DATA = {
                 "這是我的家人 — Esta es mi familia",
                 "你有幾個家人？ — ¿Cuántos miembros son en tu familia?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty024_zhaopian",
@@ -1772,7 +1801,8 @@ const SEED_DATA = {
                 "這是一張照片 — Esta es una foto",
                 "你的照片很漂亮 — Tu foto es muy linda"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty028_tianzhong",
@@ -1833,7 +1863,8 @@ const SEED_DATA = {
                 "伯母好！ — ¡Buenos días, señora!",
                 "她是王開文的伯母 — Ella es la tía/madre de amigo de Wang Kaiwen"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty030_nin",
@@ -1858,7 +1889,8 @@ const SEED_DATA = {
                 "您好！ — ¡Hola! (formal / con respeto)",
                 "伯母，您好嗎？ — Señora, ¿cómo está usted?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty002_shu",
@@ -1887,7 +1919,8 @@ const SEED_DATA = {
                 "這是一本書 — Este es un libro",
                 "我有很多中文書 — Tengo muchos libros en chino"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty033_xiongdi",
@@ -1912,7 +1945,8 @@ const SEED_DATA = {
                 "你有幾個兄弟？ — ¿Cuántos hermanos varones tienes?",
                 "我有兩個兄弟 — Tengo dos hermanos varones"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty034_jiemei",
@@ -1937,7 +1971,8 @@ const SEED_DATA = {
                 "你有幾個姐妹？ — ¿Cuántas hermanas tienes?",
                 "我沒有姐妹 — No tengo hermanas"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty035_fangzi",
@@ -1962,7 +1997,8 @@ const SEED_DATA = {
                 "這棟房子很漂亮 — Esta casa es muy bonita",
                 "那是他的房子 — Esa es su casa"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_voc_shijian",
@@ -2373,7 +2409,8 @@ const SEED_DATA = {
                 "我早上七點吃早飯 — Desayuno a las siete de la mañana",
                 "早上空氣真好 — El aire de la mañana temprano es verdaderamente agradable"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3
         },
         {
             "id": "id_voc_shangwu",
@@ -2473,7 +2510,8 @@ const SEED_DATA = {
                 "今天晚上我們去吃中國菜 — Esta noche vamos a comer comida china",
                 "晚上請早點休息 — Por favor descansa temprano en la noche"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3
         },
         {
             "id": "id_voc_nian",
@@ -3102,7 +3140,8 @@ const SEED_DATA = {
                 "今天是幾月幾日？ — ¿Qué fecha es hoy?",
                 "今天天氣真好 — Hoy el clima está verdaderamente bueno"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3
         },
         {
             "id": "id_voc_mingtian",
@@ -3127,7 +3166,8 @@ const SEED_DATA = {
                 "明天見！ — ¡Nos vemos mañana!",
                 "明天上午我有選修課 — Mañana por la mañana tengo materia electiva"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3
         },
         {
             "id": "id_voc_houtian",
@@ -3406,7 +3446,8 @@ const SEED_DATA = {
                 "我週末常運動 — Los fines de semana suelo hacer ejercicio",
                 "明天是週末，你要不要來我家？ — Mañana es fin de semana, ¿quieres venir a mi casa?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_yinyue",
@@ -3431,7 +3472,8 @@ const SEED_DATA = {
                 "我媽媽喜歡聽日本音樂 — A mi mamá le gusta escuchar música japonesa",
                 "你喜歡聽音樂嗎？ — ¿Te gusta escuchar música?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_wangqiu",
@@ -3456,7 +3498,8 @@ const SEED_DATA = {
                 "我姐姐週末常打網球 — Mi hermana mayor suele jugar al tenis los fines de semana",
                 "我不喜歡打網球 — No me gusta jugar al tenis"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_bangqiu",
@@ -3481,7 +3524,8 @@ const SEED_DATA = {
                 "網球、棒球，我都喜歡 — Me gustan tanto el tenis como el béisbol",
                 "田中喜歡打棒球 — A Tanaka le gusta jugar al béisbol"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_lanqiu",
@@ -3506,7 +3550,8 @@ const SEED_DATA = {
                 "安同常打籃球 — Antong juega a menudo al baloncesto",
                 "我們週末去打籃球，怎麼樣？ — ¿Qué te parece si vamos a jugar al baloncesto el fin de semana?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_zuqiu",
@@ -3531,7 +3576,8 @@ const SEED_DATA = {
                 "我覺得踢足球很好玩 — Pienso que jugar al fútbol es muy divertido",
                 "我們早上去踢足球，怎麼樣？ — ¿Qué tal si vamos a jugar al fútbol por la mañana?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_bairuyu",
@@ -3585,7 +3631,8 @@ const SEED_DATA = {
                 "今天晚上我們去看電影，好不好？ — Vamos al cine esta noche, ¿te parece bien?",
                 "臺灣電影和美國電影都很好看 — Tanto las películas taiwanesas como las estadounidenses son muy buenas"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_ni_fem",
@@ -3610,7 +3657,8 @@ const SEED_DATA = {
                 "請問妳是王小姐嗎？ — Disculpe, ¿usted es la señorita Wang?",
                 "妳想看美國電影還是臺灣電影？ — ¿Quieres ver una película estadounidense o una taiwanesa?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_zhongwen",
@@ -3635,7 +3683,8 @@ const SEED_DATA = {
                 "我覺得中文很好玩 — Pienso que el idioma chino es muy divertido y ameno",
                 "看電影可以學中文 — Ver películas sirve para aprender chino"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_wanfan",
@@ -3660,7 +3709,8 @@ const SEED_DATA = {
                 "我們今天一起吃晚飯，怎麼樣？ — ¿Qué te parece si cenamos juntos hoy?",
                 "晚上要不要一起吃晚飯？ — ¿Cenamos juntos esta noche?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_cai",
@@ -3685,7 +3735,8 @@ const SEED_DATA = {
                 "今天晚上我們吃越南菜吧！ — ¡Cenemos comida vietnamita esta noche!",
                 "妳喜歡吃哪國菜？ — ¿La comida de qué país te gusta?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_yuenan",
@@ -3710,7 +3761,145 @@ const SEED_DATA = {
                 "陳月美是越南人 — Chen Yuemei es vietnamita",
                 "我很喜歡吃越南菜 — Me gusta mucho comer comida vietnamita"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
+        },
+        {
+            "id": "id_l4_qian",
+            "espanol": "Dinero",
+            "tradicional": "錢",
+            "pinyin": "qián",
+            "zhuyin": "ㄑㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "金 / 釒(jīn - metal/oro)"
+                },
+                {
+                    "type": "text",
+                    "value": "戔 (jiān - pequeño/lanzas)"
+                }
+            ],
+            "notas": "Dinero o moneda. Con radical de metal (釒). Forma base de preguntas de precio: 多少錢？ (¿Cuánto cuesta?).",
+            "ejemplos": [
+                "我沒有很多錢。 — No tengo mucho dinero.",
+                "這支手機要多少錢？ — ¿Cuánto dinero cuesta este teléfono celular?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_laoban",
+            "espanol": "Dueño / Jefe / Propietario de tienda",
+            "tradicional": "老闆",
+            "pinyin": "lǎobǎn",
+            "zhuyin": "ㄌㄠˇ ㄅㄢˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "老 (lǎo - viejo/respetado)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - madera)"
+                },
+                {
+                    "type": "text",
+                    "value": "反 (fǎn - opuesto)"
+                }
+            ],
+            "notas": "Dueño o encargado de un negocio o puesto. Tratamiento cotidiano y amable al dirigirse al dependiente en Taiwán.",
+            "ejemplos": [
+                "老闆，我要一杯烏龍茶！ — ¡Jefe, quiero un té Oolong!",
+                "那個老闆人很好，常請我們吃東西。 — Ese dueño es muy amable, a menudo nos invita a comer algo."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_wan",
+            "espanol": "Diez mil (10.000)",
+            "tradicional": "萬",
+            "pinyin": "wàn",
+            "zhuyin": "ㄨㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - hierba)"
+                },
+                {
+                    "type": "text",
+                    "value": "禸 (róu - huella)"
+                }
+            ],
+            "notas": "Unidad numérica china fundamental: diez mil (10.000). En chino los números grandes se agrupan en múltiplos de cuatro ceros (一萬 = 10.000).",
+            "ejemplos": [
+                "這支新手機要一萬塊。 — Este celular nuevo cuesta diez mil dólares.",
+                "那間房子要兩千萬。 — Esa casa cuesta veinte millones."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_shouji",
+            "espanol": "Teléfono celular / Móvil",
+            "tradicional": "手機",
+            "pinyin": "shǒujī",
+            "zhuyin": "ㄕㄡˇ ㄐㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhi_phone",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "手 (shǒu - mano)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - madera)"
+                },
+                {
+                    "type": "text",
+                    "value": "幾 (jī - máquina/mesa)"
+                }
+            ],
+            "notas": "Literalmente 'máquina de mano': teléfono celular o smartphone. Su clasificador habitual es 支 (zhī).",
+            "ejemplos": [
+                "我的手機很舊，我想買新的。 — Mi teléfono móvil es muy viejo, quiero comprar uno nuevo.",
+                "這支手機能不能上網？ — ¿Puede este teléfono conectarse a internet?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_baozi",
+            "espanol": "Baozi (bollo al vapor relleno)",
+            "tradicional": "包子",
+            "pinyin": "bāozi",
+            "zhuyin": "ㄅㄠ ˙ㄗ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "勹 (bāo - envolver)"
+                },
+                {
+                    "type": "text",
+                    "value": "巳 (sì - serpiente)"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - semilla/niño)"
+                }
+            ],
+            "notas": "Bollo al vapor esponjoso relleno de carne o verduras. Desayuno o merienda clásica y muy popular en Taiwán.",
+            "ejemplos": [
+                "老闆，我要買三個熱包子。 — Jefe, quiero comprar tres baozis calientes.",
+                "這家店的包子非常好吃。 — Los baozis de este local son riquísimos."
+            ],
+            "leccion": 4
         }
     ],
     "verbos": [
@@ -3736,7 +3925,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我是學生 — Soy estudiante",
                 "他不是美國人 — Él no es estadounidense"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "v2",
@@ -3793,7 +3983,8 @@ const SEED_DATA = {
                 "你有沒有兄弟？ — ¿Tienes hermanos varones?"
             ],
             "id": "id_msikgc9s_g7seh",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2
         },
         {
             "espanol": "No tener",
@@ -3843,7 +4034,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你吃牛肉嗎？ — ¿Comes carne de res?",
                 "我不吃肉 — No como carne"
-            ]
+            ],
+            "leccion": 3
         },
         {
             "espanol": "Beber",
@@ -3868,7 +4060,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請喝茶 — Por favor toma té",
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Gustar",
@@ -3893,7 +4086,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我喜歡喝臺灣茶 — Me gusta tomar té de Taiwán",
                 "他喜歡看書 — A él le gusta leer"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Llegar",
@@ -3914,7 +4108,8 @@ const SEED_DATA = {
             ],
             "notas": "Pictograma arcaico de una espiga de trigo que llegó de tierras lejanas. Verbo de desplazamiento hacia donde está el hablante.",
             "id": "id_mtvfh8aa_8aaax",
-            "fechaCreacion": "2026-09-10"
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1
         },
         {
             "espanol": "Llamarse",
@@ -3939,7 +4134,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請問，你叫什麼名字？ — Disculpe, ¿cómo se llama usted?",
                 "我叫王開文 — Me llamo Wang Kaiwen"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Bienvenida",
@@ -3960,7 +4156,8 @@ const SEED_DATA = {
             ],
             "notas": "Salir al encuentro con alegría. Fórmula de acogida: 歡迎 + Sujeto + 來 + Lugar (ej. 歡迎你來臺灣！).",
             "id": "id_mtvgtotw_2spn1",
-            "fechaCreacion": "2026-09-10"
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1
         },
         {
             "espanol": "Invitar / Por favor",
@@ -3985,7 +4182,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請進，請坐 — Por favor pase, tome asiento",
                 "請喝烏龍茶 — Por favor tome té Oolong"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Querer",
@@ -4006,7 +4204,8 @@ const SEED_DATA = {
             ],
             "notas": "Pictograma de una mujer con las manos en la cintura señalando lo esencial. Expresa voluntad o futuro inmediato; negación: 不要.",
             "id": "id_mtvifgj8_j51mk",
-            "fechaCreacion": "2026-09-10"
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1
         },
         {
             "id": "id_mty001_kan",
@@ -4032,7 +4231,8 @@ const SEED_DATA = {
                 "我看書 — Yo leo un libro",
                 "我看書法展覽 — Miro la exposición de caligrafía"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 3
         },
         {
             "id": "id_mty022_zuo",
@@ -4061,7 +4261,8 @@ const SEED_DATA = {
                 "請坐 — Por favor, tome asiento / siéntese",
                 "請進，請坐 — Por favor pase, tome asiento"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty025_zhaoxiang",
@@ -4086,7 +4287,8 @@ const SEED_DATA = {
                 "我們要照相 — Queremos tomarnos fotos",
                 "照一張相 — Tomar una foto"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty031_kanshu",
@@ -4111,7 +4313,8 @@ const SEED_DATA = {
                 "我喜歡看書 — Me gusta leer",
                 "他在家看書 — Él lee libros en casa"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "espanol": "Recoger / Recibir (a una persona)",
@@ -4136,7 +4339,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我去機場接李先生 — Voy al aeropuerto a recoger al señor Li",
                 "謝謝你來接我 — Gracias por venir a recibirme"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "id_voc_xiuxi",
@@ -4240,7 +4444,8 @@ const SEED_DATA = {
                 "你要買什麼？ — ¿Qué deseas comprar?",
                 "我在書店買了一本漢字書 — Compré un libro de caracteres chinos en la librería"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4
         },
         {
             "id": "id_voc_zuo",
@@ -4365,7 +4570,8 @@ const SEED_DATA = {
                 "你去教室做什麼？ — ¿A qué vas al salón de clases?",
                 "我明天去臺灣 — Mañana voy a Taiwán"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "leccion": 3
         },
         {
             "id": "id_voc_zai_loc",
@@ -4508,7 +4714,8 @@ const SEED_DATA = {
                 "你覺得這本書怎麼樣？ — ¿Qué te parece este libro?",
                 "我覺得今天很冷 — Siento / pienso que hoy hace mucho frío"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_ting",
@@ -4533,7 +4740,8 @@ const SEED_DATA = {
                 "田中不喜歡聽音樂 — A Tanaka no le gusta escuchar música",
                 "我喜歡聽音樂和打網球 — Me gusta escuchar música y jugar al tenis"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_yundong",
@@ -4558,7 +4766,8 @@ const SEED_DATA = {
                 "我爸爸、媽媽都不喜歡運動 — A mi papá y a mi mamá no les gusta hacer ejercicio",
                 "我今天要去運動，不去你家 — Hoy voy a hacer ejercicio, no iré a tu casa"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_da",
@@ -4583,7 +4792,8 @@ const SEED_DATA = {
                 "田中喜歡打棒球 — A Tanaka le gusta jugar al béisbol",
                 "你喜歡打網球嗎？ — ¿Te gusta jugar al tenis?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_youyong",
@@ -4608,7 +4818,8 @@ const SEED_DATA = {
                 "我想學游泳，也想學打網球 — Quiero aprender a nadar y también aprender a jugar al tenis",
                 "你喜歡不喜歡游泳？ — ¿Te gusta nadar?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_ti",
@@ -4633,7 +4844,8 @@ const SEED_DATA = {
                 "他喜歡踢足球 — A él le gusta jugar al fútbol",
                 "李明華不常踢足球 — Li Minghua no juega al fútbol muy seguido"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_xiang",
@@ -4658,7 +4870,8 @@ const SEED_DATA = {
                 "今天晚上我想吃越南菜 — Esta noche tengo ganas de comer comida vietnamita",
                 "美國電影、臺灣電影，我都想看 — Quiero ver tanto películas estadounidenses como taiwanesas"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_keyi",
@@ -4683,7 +4896,8 @@ const SEED_DATA = {
                 "看電影可以學中文 — Ver películas sirve para aprender chino / se puede aprender chino viendo cine",
                 "月美覺得看臺灣電影可以學中文 — Yuemei piensa que viendo películas taiwanesas se puede aprender chino"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_xue",
@@ -4708,7 +4922,137 @@ const SEED_DATA = {
                 "我想學游泳，也想學打網球 — Quiero aprender a nadar y también aprender a jugar al tenis",
                 "看電影可以學中文 — Ver películas ayuda a aprender chino"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
+        },
+        {
+            "id": "id_l4_neng",
+            "espanol": "Poder / Ser capaz de (capacidad física o circunstancial)",
+            "tradicional": "能",
+            "pinyin": "néng",
+            "zhuyin": "ㄋㄥˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "月 (ròu - carne)"
+                },
+                {
+                    "type": "text",
+                    "value": "匕 (bǐ - cuchara/cuchillo)"
+                }
+            ],
+            "notas": "Verbo modal que denota capacidad física intrínseca o posibilidad por circunstancias externas (distinto a 會 que indica destreza aprendida).",
+            "ejemplos": [
+                "這支舊手機不能上網。 — Este celular viejo no puede navegar por internet.",
+                "你能幫我買一杯熱咖啡嗎？ — ¿Puedes ayudarme comprándome una taza de café caliente?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_shangwang",
+            "espanol": "Navegar por internet / Conectarse a internet",
+            "tradicional": "上網",
+            "pinyin": "shàngwǎng",
+            "zhuyin": "ㄕㄤˋ ㄨㄤˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - arriba/subir)"
+                },
+                {
+                    "type": "text",
+                    "value": "網 (wǎng - red/malla)"
+                }
+            ],
+            "notas": "Literalmente 'subir a la red'. Verbo separable que describe la acción de entrar o navegar en internet.",
+            "ejemplos": [
+                "我想上網買東西。 — Quiero conectarme a internet para comprar cosas.",
+                "他的手機可以在這裡上網。 — Su celular puede conectarse a internet aquí."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_mai_vender",
+            "espanol": "Vender",
+            "tradicional": "賣",
+            "pinyin": "mài",
+            "zhuyin": "ㄇㄞˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "士 (shì - erudito/caballero)"
+                },
+                {
+                    "type": "text",
+                    "value": "貝 (bèi - concha/dinero antiguo)"
+                }
+            ],
+            "notas": "Vender (tono 4: mài). Tiene una cruz/erudito arriba. No confundir con 買 (mǎi - tono 3, comprar).",
+            "ejemplos": [
+                "請問你們賣熱咖啡嗎？ — Disculpe, ¿ustedes venden café caliente?",
+                "這家店賣的手機很便宜。 — Los teléfonos que vende esta tienda son muy económicos."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_bang",
+            "espanol": "Ayudar / En favor de (por alguien)",
+            "tradicional": "幫",
+            "pinyin": "bāng",
+            "zhuyin": "ㄅㄤ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - tela/paño)"
+                },
+                {
+                    "type": "text",
+                    "value": "邦 (bāng - nación/estado)"
+                }
+            ],
+            "notas": "Significa ayudar a alguien o actuar como preposición de servicio: 幫 + Persona + Verbo (hacer algo por o en lugar de alguien).",
+            "ejemplos": [
+                "請幫我微波這個包子。 — Por favor ayúdame calentando este baozi en el microondas.",
+                "他常幫朋友買好喝的茶。 — Él suele ayudar a sus amigos comprándoles té delicioso."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_weibo",
+            "espanol": "Calentar en microondas / Microondas",
+            "tradicional": "微波",
+            "pinyin": "wéibō",
+            "zhuyin": "ㄨㄟˊ ㄅㄛ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - paso)"
+                },
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - agua)"
+                },
+                {
+                    "type": "text",
+                    "value": "皮 (pí - piel)"
+                }
+            ],
+            "notas": "Microondas o calentar con microondas. En las tiendas de conveniencia taiwanesas (7-Eleven, FamilyMart) es la frase reina: '要微波嗎？'.",
+            "ejemplos": [
+                "老闆，請幫我微波一下。 — Jefe, por favor caliéntemelo un momento en el microondas.",
+                "這個便當需要微波。 — Este bento necesita calentarse en microondas."
+            ],
+            "leccion": 4
         }
     ],
     "adverbios": [
@@ -4730,7 +5074,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我不是美國人 — Yo no soy estadounidense",
                 "他不喝咖啡 — Él no toma café"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "a2",
@@ -4754,7 +5099,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我們都愛臺灣 — Todos nosotros amamos Taiwán",
                 "他們都不喝咖啡 — Ninguno de ellos toma café"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "También",
@@ -4775,7 +5121,8 @@ const SEED_DATA = {
                 "他也愛喝茶 — A él también le encanta tomar té"
             ],
             "id": "id_msk0pp4g_bdeqd",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "leccion": 3
         },
         {
             "espanol": "Muy / [Estabilizador predicativo para adjetivos]",
@@ -4801,7 +5148,8 @@ const SEED_DATA = {
                 "他很好 — Él está muy bien / es bueno",
                 "這張照片很漂亮 — Esta foto es muy linda",
                 "這本書很貴 — Este libro es muy caro"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "id_mty032_mei",
@@ -4826,7 +5174,8 @@ const SEED_DATA = {
                 "我沒有書 — No tengo libros",
                 "他沒有照片 — Él no tiene fotos"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_voc_feichang",
@@ -4972,7 +5321,8 @@ const SEED_DATA = {
                 "我常打籃球，也常踢足球 — A menudo juego al baloncesto y también suelo jugar al fútbol",
                 "王開文常喝茶 — Kaiwen Wang bebe té a menudo"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_yiqi",
@@ -4997,7 +5347,33 @@ const SEED_DATA = {
                 "晚上要不要一起吃晚飯？ — ¿Quieres que cenemos juntos esta noche?",
                 "週末我們要不要一起看書？ — ¿Leemos libros juntos el fin de semana?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
+        },
+        {
+            "id": "id_l4_yigong",
+            "espanol": "En total / En conjunto",
+            "tradicional": "一共",
+            "pinyin": "yígòng",
+            "zhuyin": "ㄧˊ ㄍㄨㄥˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "text",
+                    "value": "共 (gòng - juntos/común)"
+                }
+            ],
+            "notas": "Indica suma global o total acumulado. Imprescindible para pedir la cuenta o calcular compras (一共多少錢？).",
+            "ejemplos": [
+                "三杯熱茶一共一百五十塊。 — Tres tazas de té caliente son en total ciento cincuenta dólares.",
+                "我們一共五個人去看電影。 — En total fuimos cinco personas a ver la película."
+            ],
+            "leccion": 4
         }
     ],
     "expresiones": [
@@ -5023,7 +5399,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你好！我是陳月美 — ¡Hola! Soy Chen Yuemei",
                 "你好，很高興認識你 — Hola, encantado de conocerte"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "e2",
@@ -5072,7 +5449,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "我和你 — Tú y yo",
                 "我有貓和狗 — Tengo gato y perro"
-            ]
+            ],
+            "leccion": 3
         },
         {
             "espanol": "Qué",
@@ -5101,7 +5479,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你要喝什麼？ — ¿Qué quieres beber?",
                 "你叫什麼名字？ — ¿Cómo te llamas?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Quién",
@@ -5126,7 +5505,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是誰？ — ¿Quién es él?",
                 "那是誰的書？ — ¿De quién es ese libro?"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Cuál",
@@ -5151,7 +5531,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你是哪國人？ — ¿De qué país eres?",
                 "哪張照片是你的？ — ¿Cuál foto es tuya?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Cuántos (Menor a 10 unidades)",
@@ -5176,7 +5557,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你有幾張照片？ — ¿Cuántas fotos tienes?",
                 "你有幾個兄弟？ — ¿Cuántos hermanos varones tienes?"
-            ]
+            ],
+            "leccion": 2
         },
         {
             "espanol": "Gracias",
@@ -5201,7 +5583,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "謝謝你的茶 — Gracias por tu té",
                 "謝謝大家 — Gracias a todos"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "De nada",
@@ -5229,7 +5612,8 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-31",
             "ejemplos": [
                 "謝謝你！ — 不客氣！ — ¡Muchas gracias! — ¡De nada!"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "¿Puedo preguntar?",
@@ -5254,7 +5638,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請問，你是哪國人？ — Disculpe, ¿de qué país es usted?",
                 "請問，這張照片是誰的？ — Disculpe, ¿de quién es esta foto?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "espanol": "Correcto",
@@ -5307,7 +5692,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "對不起，我不喝咖啡 — Lo siento, no tomo café"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty008_shide",
@@ -5332,7 +5718,8 @@ const SEED_DATA = {
                 "是的，我是學生 — Sí, soy estudiante",
                 "是的，他是王先生 — Sí, él es el señor Wang"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty012_naguo",
@@ -5357,7 +5744,8 @@ const SEED_DATA = {
                 "你是哪國人？ — ¿De qué país eres?",
                 "他是哪國人？ — ¿De qué país es él?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty027_qingjin",
@@ -5381,7 +5769,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "請進，請坐 — Por favor pase, tome asiento"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_voc_woyaowenwenti",
@@ -5609,7 +5998,8 @@ const SEED_DATA = {
                 "你去教室做什麼？ — ¿A qué vas al salón de clases?",
                 "你在做什麼？ — ¿Qué estás haciendo?"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "leccion": 3
         },
         {
             "id": "id_voc_shenmeshihou",
@@ -5746,7 +6136,8 @@ const SEED_DATA = {
                 "我們週末去打籃球，怎麼樣？ — ¿Qué tal si vamos a jugar al baloncesto el fin de semana?",
                 "你覺得這張照片怎麼樣？ — ¿Qué te parece esta foto?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_hao_a",
@@ -5767,7 +6158,8 @@ const SEED_DATA = {
                 "我們看臺灣電影吧！好啊！ — ¡Veamos cine taiwanés! ¡Claro que sí!",
                 "晚上要不要一起吃晚飯？好啊！ — ¿Cenamos juntos esta noche? ¡De acuerdo!"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_haobuhao",
@@ -5788,7 +6180,166 @@ const SEED_DATA = {
                 "今天晚上我們去看電影，好不好？ — Vamos al cine esta noche, ¿te parece bien?",
                 "我們週末晚上去看電影，好不好？ — ¿Vamos al cine el fin de semana por la noche, qué tal?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
+        },
+        {
+            "id": "id_l4_haode",
+            "espanol": "De acuerdo / Está bien / Vale",
+            "tradicional": "好的",
+            "pinyin": "hǎo de",
+            "zhuyin": "ㄏㄠˇ ˙ㄉㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "的 (de - posesión/afirmación)"
+                }
+            ],
+            "notas": "Respuesta cotidiana cortés de confirmación y conformidad ('Muy bien', 'De acuerdo', 'Entendido').",
+            "ejemplos": [
+                "好的，馬上為您準備。 — De acuerdo, enseguida se lo preparo.",
+                "好的，我們明天早上見。 — Muy bien, nos vemos mañana por la mañana."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_duoshao",
+            "espanol": "¿Cuánto? / ¿Cuántos?",
+            "tradicional": "多少",
+            "pinyin": "duōshǎo",
+            "zhuyin": "ㄉㄨㄛ ㄕㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "多 (duō - mucho)"
+                },
+                {
+                    "type": "text",
+                    "value": "少 (shǎo - poco)"
+                }
+            ],
+            "notas": "Palabra interrogativa para cantidades indefinidas o mayores a 10. Especialmente usada con 錢: 多少錢？ (¿Cuánto cuesta?).",
+            "ejemplos": [
+                "老闆，這支手機多少錢？ — Jefe, ¿cuánto cuesta este celular?",
+                "請問一共多少錢？ — Disculpe, ¿cuánto es en total?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_waidai",
+            "espanol": "Para llevar (comida o bebida)",
+            "tradicional": "外帶",
+            "pinyin": "wàidài",
+            "zhuyin": "ㄨㄞˋ ㄉㄞˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "外 (wài - afuera/exterior)"
+                },
+                {
+                    "type": "text",
+                    "value": "帶 (dài - llevar/cinturón)"
+                }
+            ],
+            "notas": "Para llevar. Pregunta típica en todos los comercios gastronómicos taiwaneses: '內用還是外帶？' (¿Para aquí o para llevar?).",
+            "ejemplos": [
+                "我要外帶兩杯大杯熱咖啡。 — Quiero dos tazas grandes de café caliente para llevar.",
+                "老闆，這三個包子外帶，謝謝！ — ¡Jefe, estos tres baozis para llevar, gracias!"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_neiyong",
+            "espanol": "Para comer aquí / Consumir en el local",
+            "tradicional": "內用",
+            "pinyin": "nèiyòng",
+            "zhuyin": "ㄋㄟˋ ㄩㄥˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "內 (nèi - dentro/interior)"
+                },
+                {
+                    "type": "text",
+                    "value": "用 (yòng - usar/consumir)"
+                }
+            ],
+            "notas": "Consumir dentro del restaurante o cafetería. Contraparte directa de 外帶 (para llevar).",
+            "ejemplos": [
+                "我們兩個人要內用。 — Nosotros dos vamos a comer aquí en el local.",
+                "請問您要內用還是外帶？ — ¿Desea consumir en el local o para llevar?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_weishenme",
+            "espanol": "¿Por qué?",
+            "tradicional": "為什麼",
+            "pinyin": "wèishénme",
+            "zhuyin": "ㄨㄟˋ ㄕㄣˊ ˙ㄇㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "為 (wèi - por/causa)"
+                },
+                {
+                    "type": "text",
+                    "value": "什 (shén - qué)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - sufijo interrogativo)"
+                }
+            ],
+            "notas": "Pronombre interrogativo que pregunta la causa o motivo. Se responde generalmente con 因為... (porque...).",
+            "ejemplos": [
+                "你為什麼想買那支新手機？ — ¿Por qué quieres comprar ese teléfono nuevo?",
+                "你為什麼不喜歡喝烏龍茶？ — ¿Por qué no te gusta tomar té Oolong?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_l4_tai_le",
+            "espanol": "Demasiado... / Extremadamente...",
+            "tradicional": "太…了",
+            "pinyin": "tài...le",
+            "zhuyin": "ㄊㄞˋ ... ˙ㄌㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "大 (dà - grande)"
+                },
+                {
+                    "type": "text",
+                    "value": "丶 (diǎn - punto)"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (le - partícula de cambio/exceso)"
+                }
+            ],
+            "notas": "Patrón enfático de grado superlativo o exceso: 太 + Adjetivo + 了 (ej. 太貴了 = demasiado caro; 太好了 = ¡fantástico!).",
+            "ejemplos": [
+                "這支手機太貴了，我不想買。 — Este teléfono móvil es demasiado caro, no quiero comprarlo.",
+                "太好了！明天我們一起去游泳。 — ¡Qué bien / genial! Mañana vamos a nadar juntos."
+            ],
+            "leccion": 4
         }
     ],
     "particulas": [
@@ -5839,7 +6390,8 @@ const SEED_DATA = {
                 "那是我爸爸的照片 — Aquella es la foto de mi papá"
             ],
             "id": "id_msk1glsh_kfv6m",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "leccion": 2
         },
         {
             "espanol": "(modificador de pregunta)",
@@ -5864,7 +6416,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "你好嗎？ — ¿Cómo estás?",
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "id_mty010_ne",
@@ -5889,7 +6442,8 @@ const SEED_DATA = {
                 "我是老師，你呢？ — Yo soy profesor, ¿y tú?",
                 "他呢？ — ¿Y él?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_l3_a",
@@ -5914,7 +6468,8 @@ const SEED_DATA = {
                 "好啊！ — ¡Claro que sí! / ¡De acuerdo!",
                 "這是什麼茶？烏龍茶啊！ — ¿Qué té es este? ¡Pues té Oolong!"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_haishi",
@@ -5939,7 +6494,8 @@ const SEED_DATA = {
                 "妳想看美國電影還是臺灣電影？ — ¿Quieres ver una película estadounidense o una taiwanesa?",
                 "今天晚上我們吃越南菜還是臺灣菜？ — ¿Esta noche comemos comida vietnamita o comida taiwanesa?"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         },
         {
             "id": "id_l3_ba",
@@ -5964,7 +6520,8 @@ const SEED_DATA = {
                 "我們看臺灣電影吧！ — ¡Veamos una película taiwanesa!",
                 "今天晚上我們吃越南菜吧！ — ¡Cenemos comida vietnamita esta noche!"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
         }
     ],
     "estructuras": [
@@ -6402,7 +6959,8 @@ const SEED_DATA = {
                 "這張照片很漂亮 — Esta foto es muy hermosa"
             ],
             "id": "id_msk0jitk_kr6cx",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "leccion": 1
         },
         {
             "espanol": "Ese / Esa / Eso",
@@ -6427,7 +6985,8 @@ const SEED_DATA = {
                 "那是誰的照片？ — ¿De quién es esa foto?"
             ],
             "id": "id_msk0mdne_r4neq",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "leccion": 4
         },
         {
             "espanol": "Pequeño",
@@ -6449,7 +7008,8 @@ const SEED_DATA = {
                 "那隻貓很小 — Ese gato es muy pequeño",
                 "小心！ — ¡Cuidado!",
                 "那間教室很小 — Aquella aula es muy pequeña"
-            ]
+            ],
+            "leccion": 4
         },
         {
             "espanol": "Grande",
@@ -6471,7 +7031,8 @@ const SEED_DATA = {
                 "這棟房子很大 — Esta casa es muy grande",
                 "大人 — Adulto",
                 "這間教室很大 — Esta aula es muy grande"
-            ]
+            ],
+            "leccion": 4
         },
         {
             "espanol": "Mediano / Centro",
@@ -6492,7 +7053,8 @@ const SEED_DATA = {
             "ejemplos": [
                 "中國 — China",
                 "中午 — Mediodía"
-            ]
+            ],
+            "leccion": 4
         },
         {
             "espanol": "Cuidado",
@@ -6539,7 +7101,8 @@ const SEED_DATA = {
                 "你好 — Hola",
                 "烏龍茶很好喝 — El té Oolong es muy rico",
                 "好，我們走 — Bien, vámonos"
-            ]
+            ],
+            "leccion": 1
         },
         {
             "id": "id_mty009_haohe",
@@ -6564,7 +7127,8 @@ const SEED_DATA = {
                 "臺灣烏龍茶很好喝 — El té Oolong de Taiwán es muy rico",
                 "咖啡好喝嗎？ — ¿El café está rico?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1
         },
         {
             "id": "id_mty021_piaoliang",
@@ -6593,7 +7157,8 @@ const SEED_DATA = {
                 "你家很漂亮 — Tu casa es muy linda",
                 "這張照片很漂亮 — Esta foto es muy hermosa"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty023_duo",
@@ -6618,7 +7183,8 @@ const SEED_DATA = {
                 "他有很多書 — Él tiene muchos libros",
                 "這裡人很多 — Aquí hay mucha gente"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mty026_haokan",
@@ -6643,7 +7209,8 @@ const SEED_DATA = {
                 "這張照片很好看 — Esta foto es muy linda",
                 "這本書很好看 — Este libro es muy bueno/interesante"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_voc_keai",
@@ -6693,7 +7260,8 @@ const SEED_DATA = {
                 "這本書很貴 — Este libro es muy caro",
                 "這棟房子太貴了 — Esta casa es demasiado costosa"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4
         },
         {
             "id": "id_voc_pianyi",
@@ -6722,7 +7290,8 @@ const SEED_DATA = {
                 "這杯茶很便宜 — Esta taza de té es muy barata",
                 "臺灣的水果又好吃又便宜 — Las frutas de Taiwán son ricas y además económicas"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4
         },
         {
             "id": "id_voc_gao",
@@ -6793,7 +7362,8 @@ const SEED_DATA = {
                 "這是一本新書 — Este es un libro nuevo",
                 "我們學校的教室都很新 — Las aulas de nuestra escuela son todas muy nuevas"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4
         },
         {
             "id": "id_voc_jiu",
@@ -6818,7 +7388,8 @@ const SEED_DATA = {
                 "這本書很舊，但是很有意思 — Este libro es viejo/usado, pero muy interesante",
                 "那棟舊房子在學校後面 — Aquella casa vieja está detrás de la escuela"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4
         },
         {
             "id": "id_voc_ban",
@@ -6918,7 +7489,33 @@ const SEED_DATA = {
                 "打棒球和踢足球都很好玩 — Tanto el béisbol como el fútbol son muy divertidos",
                 "我覺得中文很好玩 — Pienso que el idioma chino es muy divertido y entretenido"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3
+        },
+        {
+            "id": "id_l4_re",
+            "espanol": "Caliente (temperatura de alimentos o clima)",
+            "tradicional": "熱",
+            "pinyin": "rè",
+            "zhuyin": "ㄖㄜˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "灬 (huǒ - fuego en base)"
+                },
+                {
+                    "type": "text",
+                    "value": "執 (zhí - sostener/ejecutar)"
+                }
+            ],
+            "notas": "Caliente. Se usa tanto para clima (天氣很熱) como para bebidas y comida (熱咖啡, 熱茶, 熱包子). Opuesto a 冷 (lěng) o 冰 (bīng).",
+            "ejemplos": [
+                "我喜歡喝熱茶，不喜歡喝冰咖啡。 — Me gusta tomar té caliente, no me gusta tomar café helado.",
+                "今天的熱包子真好吃！ — ¡Los baozis calientes de hoy están verdaderamente ricos!"
+            ],
+            "leccion": 4
         }
     ],
     "clasificadores": [
@@ -6946,7 +7543,8 @@ const SEED_DATA = {
                 "這個人是老師 — Esta persona es profesor",
                 "一個學生 — Un estudiante"
             ],
-            "fechaCreacion": "2026-08-30"
+            "fechaCreacion": "2026-08-30",
+            "leccion": 2
         },
         {
             "id": "id_mty004_zhang",
@@ -6972,7 +7570,8 @@ const SEED_DATA = {
                 "你有幾張照片？ — ¿Cuántas fotos tienes?",
                 "請給我一張紙 — Por favor dame una hoja de papel"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2
         },
         {
             "id": "id_mtfigeht_eqxfj",
@@ -7050,7 +7649,8 @@ const SEED_DATA = {
                 "我喝了一杯烏龍茶 — Tomé una taza de té Oolong",
                 "你要喝幾杯咖啡？ — ¿Cuántas tazas de café quieres tomar?"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "leccion": 4
         },
         {
             "id": "id_clf_wei",
@@ -7427,6 +8027,81 @@ const SEED_DATA = {
                 "這些書都很新 — Estos libros son muy nuevos"
             ],
             "fechaCreacion": "2026-09-28"
+        },
+        {
+            "id": "id_clf_zhi_phone",
+            "espanol": "Clasificador para teléfonos celulares, bolígrafos y objetos delgados",
+            "tradicional": "支",
+            "pinyin": "zhī",
+            "zhuyin": "ㄓ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "十 (shí - diez)"
+                },
+                {
+                    "type": "text",
+                    "value": "又 (yòu - mano/otra vez)"
+                }
+            ],
+            "notas": "Clasificador fundamental en Taiwán para teléfonos móviles (手機), bolígrafos (筆) y botellas cilíndricas.",
+            "ejemplos": [
+                "我想買一支新手機。 — Quiero comprar un teléfono celular nuevo.",
+                "這支手機要多少錢？ — ¿Cuánto cuesta este teléfono móvil?"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_clf_kuai",
+            "espanol": "Clasificador coloquial de dinero (yuan / NT$) y trozos / pedazos",
+            "tradicional": "塊",
+            "pinyin": "kuài",
+            "zhuyin": "ㄎㄨㄞˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - tierra)"
+                },
+                {
+                    "type": "text",
+                    "value": "鬼 (guǐ - fantasma/espíritu)"
+                }
+            ],
+            "notas": "Clasificador por excelencia de la moneda hablada en Taiwán (equivalente a NT$ / dólares / pesos), y para trozos o pedazos (una porción de pastel: 一塊蛋糕).",
+            "ejemplos": [
+                "一杯熱茶三十五塊。 — Una taza de té caliente cuesta treinta y cinco dólares.",
+                "這本書兩百塊錢。 — Este libro cuesta doscientos dólares."
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_clf_zhong",
+            "espanol": "Clasificador para tipos, clases, especies o variedades",
+            "tradicional": "種",
+            "pinyin": "zhǒng",
+            "zhuyin": "ㄓㄨㄥˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禾 (hé - cereal/grano)"
+                },
+                {
+                    "type": "text",
+                    "value": "重 (zhòng - pesado)"
+                }
+            ],
+            "notas": "Clasificador para indicar tipos o clases de cosas o personas: 這種類 (este tipo), 很多種 (muchos tipos).",
+            "ejemplos": [
+                "這家咖啡店有五種茶。 — Esta cafetería tiene cinco tipos de té.",
+                "那種手機賣得非常好。 — Ese tipo de teléfono se vende muy bien."
+            ],
+            "leccion": 4
         }
     ]
 };
@@ -7446,4 +8121,5 @@ const NEW_STRUCTURE_WORDS = [
     ...(SEED_DATA.adverbios || []),
     ...(SEED_DATA.expresiones || []),
     ...(SEED_DATA.particulas || []),
+    ...(SEED_DATA.clasificadores || []),
 ];
