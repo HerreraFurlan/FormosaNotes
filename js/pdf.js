@@ -60,29 +60,15 @@ const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory
  */
 const buildBackCard = (word, showCategory = true) => {
     const color = showCategory ? (PDF_COLORS[word.categoria] || '#999') : '#94A3B8';
-    let detailRows = '';
-
-    detailRows += `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #E5E7EB;font-size:0.8rem;">
-        <span style="color:#94A3B8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Pinyin</span>
-        <span style="font-weight:600;color:#0F172A;">${word.pinyin}</span>
-    </div>`;
-
-    detailRows += `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #E5E7EB;font-size:0.8rem;">
-        <span style="color:#94A3B8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Zhuyin</span>
-        <span style="font-weight:600;color:#0F172A;font-family:'Noto Sans TC',sans-serif;">${word.zhuyin || '—'}</span>
-    </div>`;
-
+    
+    let clfText = '';
     if (word.clasificador) {
         const clf = getAllWords().find(w => w.id === word.clasificador);
-        const clfText = clf ? `${clf.tradicional} ${clf.pinyin}` : word.clasificador;
-        detailRows += `<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #E5E7EB;font-size:0.8rem;">
-            <span style="color:#94A3B8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Clasificador</span>
-            <span style="font-weight:600;color:#0F172A;">${clfText}</span>
-        </div>`;
+        clfText = clf ? `${clf.tradicional} (${clf.pinyin})` : word.clasificador;
     }
 
+    let radText = '';
     if (word.radicales) {
-        let radText = '';
         if (Array.isArray(word.radicales)) {
             radText = word.radicales.map(rad => {
                 if (rad.type === 'text') return rad.value;
@@ -91,15 +77,9 @@ const buildBackCard = (word, showCategory = true) => {
                     return refWord ? `${refWord.tradicional} (${refWord.espanol})` : '';
                 }
                 return '';
-            }).join(' + ');
+            }).filter(Boolean).join(' + ');
         } else {
             radText = word.radicales;
-        }
-        if (radText) {
-            detailRows += `<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:0.8rem;">
-                <span style="color:#94A3B8;font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Radical</span>
-                <span style="font-weight:600;color:#0F172A;">${radText}</span>
-            </div>`;
         }
     }
 
@@ -110,28 +90,44 @@ const buildBackCard = (word, showCategory = true) => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 20px 20px;
+            justify-content: center;
+            padding: 16px;
             position: relative;
             overflow: hidden;
             background: #fff;
             box-sizing: border-box;
-            gap: 8px;
             height: 100%;
+            text-align: center;
         ">
             <div style="position:absolute;top:0;left:0;right:0;height:6px;background:${color};border-radius:12px 12px 0 0;-webkit-print-color-adjust: exact;print-color-adjust: exact;"></div>
-            <div style="font-family:'Noto Sans TC',sans-serif;font-size:1.8rem;font-weight:700;color:#94A3B8;margin-bottom:0px;margin-top:16px;line-height:1;">
-                ${word.tradicional}
+            
+            <div style="margin: auto 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
+                <div style="font-size: 1.35rem; font-weight: 800; color: #0F172A; text-align: center; line-height: 1.25; word-break: break-word;">
+                    ${word.espanol}
+                </div>
+                
+                <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px;">
+                    <div style="font-size: 1.15rem; font-weight: 700; color: ${color}; line-height: 1.2; word-break: break-word; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                        ${word.pinyin}
+                    </div>
+                    ${word.zhuyin ? `
+                    <div style="font-family: 'Noto Sans TC', sans-serif; font-size: 0.85rem; color: #64748B; line-height: 1.2;">
+                        ${word.zhuyin}
+                    </div>
+                    ` : ''}
+                </div>
+
+                ${(clfText || radText) ? `
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 3px; margin-top: 4px; font-size: 0.82rem; text-align: center; width: 100%;">
+                    ${clfText ? `<div style="font-weight: 600; color: #334155;">${clfText}</div>` : ''}
+                    ${radText ? `<div style="font-family: 'Noto Sans TC', sans-serif; color: #64748B; font-size: 0.8rem;">${radText}</div>` : ''}
+                </div>
+                ` : ''}
             </div>
-            <div style="font-size:1.25rem;font-weight:800;color:#0F172A;margin-bottom:8px;text-align:center;">
-                ${word.espanol}
-            </div>
-            <div style="width:100%;display:flex;flex-direction:column;gap:4px;">
-                ${detailRows}
-            </div>
+
             ${word.notas ? `
-            <div style="font-size:0.85rem;color:#94A3B8;text-align:center;margin-top:auto;padding-top:8px;line-height:1.3;font-weight:500;">
-                ${word.notas}
+            <div style="font-size: 0.78rem; color: #64748B; text-align: center; margin-top: auto; padding: 6px 8px; line-height: 1.3; font-weight: 500; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; width: 100%; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
+                📝 ${word.notas}
             </div>
             ` : ''}
         </div>

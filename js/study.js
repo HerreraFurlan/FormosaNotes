@@ -223,15 +223,14 @@ const buildCardFacesHtml = (word) => {
     const radicalsHtml = getRadicalsHtml(word);
 
     // Common extra details for back of the card
-    let extraRowsHtml = '';
-    if (word.leccion) {
-        extraRowsHtml += `<div class="detail-row"><span class="detail-label">Lección</span><span class="detail-value">Lección ${word.leccion}</span></div>`;
-    }
-    if (studyShowCategory && classifierHtml) {
-        extraRowsHtml += `<div class="detail-row"><span class="detail-label">Clasificador</span><span class="detail-value">${classifierHtml}</span></div>`;
-    }
-    if (studyShowRadicals && radicalsHtml) {
-        extraRowsHtml += `<div class="detail-row"><span class="detail-label">Radicales</span><span class="detail-value">${radicalsHtml}</span></div>`;
+    let extraComponentsHtml = '';
+    if ((studyShowCategory && classifierHtml) || (studyShowRadicals && radicalsHtml)) {
+        extraComponentsHtml = `
+            <div class="card-components-block" style="margin-top:0.5rem; text-align:center;">
+                ${(studyShowCategory && classifierHtml) ? `<div class="card-clf-val">${classifierHtml}</div>` : ''}
+                ${(studyShowRadicals && radicalsHtml) ? `<div class="card-rad-val">${radicalsHtml}</div>` : ''}
+            </div>
+        `;
     }
 
     const notesHtml = (studyShowNotes && word.notas) ? `
@@ -265,7 +264,7 @@ const buildCardFacesHtml = (word) => {
                         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
                         ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
                     </div>
-                    ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
+                    ${extraComponentsHtml}
                 </div>
                 ${notesHtml}
             </div>
@@ -296,7 +295,7 @@ const buildCardFacesHtml = (word) => {
                 <div class="study-card-body">
                     <div class="chinese-char ${lenClass}" style="margin-bottom:0.4rem;">${word.tradicional}</div>
                     <div class="spanish-meaning">${word.espanol}</div>
-                    ${extraRowsHtml ? `<div class="details-list" style="margin-top:0.4rem;">${extraRowsHtml}</div>` : ''}
+                    ${extraComponentsHtml}
                 </div>
                 ${notesHtml}
             </div>
@@ -329,7 +328,7 @@ const buildCardFacesHtml = (word) => {
                         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
                         ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
                     </div>
-                    ${extraRowsHtml ? `<div class="details-list">${extraRowsHtml}</div>` : ''}
+                    ${extraComponentsHtml}
                 </div>
                 ${notesHtml}
             </div>

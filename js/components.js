@@ -97,20 +97,15 @@ const createFlashcard = (word, options = {}) => {
     // --- BACK FACE ---
     const back = document.createElement('div');
     back.className = 'card-face card-back';
-    let details = `
-        <div class="detail-row"><span class="detail-label">Pinyin</span><span class="detail-value">${word.pinyin}</span></div>
-        <div class="detail-row"><span class="detail-label">Zhuyin</span><span class="detail-value zhuyin-val">${word.zhuyin || '—'}</span></div>
-    `;
-    if (word.leccion) {
-        details += `<div class="detail-row"><span class="detail-label">Lección</span><span class="detail-value">Lección ${word.leccion}</span></div>`;
-    }
+
+    let clfDisplay = '';
     if (word.clasificador) {
         const clf = getAllWords().find(w => w.id === word.clasificador);
-        const clfDisplay = clf
+        clfDisplay = clf
             ? `<span class="radical-ref" data-ref-id="${clf.id}" data-level="0">${clf.tradicional} (${clf.pinyin})</span>`
             : word.clasificador;
-        details += `<div class="detail-row"><span class="detail-label">Clasificador</span><span class="detail-value">${clfDisplay}</span></div>`;
     }
+
     let radHtml = '';
     if (word.radicales) {
         if (Array.isArray(word.radicales)) {
@@ -126,12 +121,26 @@ const createFlashcard = (word, options = {}) => {
             radHtml = word.radicales;
         }
     }
-    if (radHtml) details += `<div class="detail-row"><span class="detail-label">Radicales</span><span class="detail-value">${radHtml}</span></div>`;
 
     back.innerHTML = `
-        <div class="spanish-meaning">${word.espanol}</div>
-        <div class="details-list">${details}</div>
-        ${word.notas ? `<div style="font-size:0.8rem;color:var(--text-muted);text-align:center;margin-top:auto;padding-top:0.5rem;line-height:1.3;">${word.notas}</div>` : ''}
+        <div class="card-back-body">
+            <div class="spanish-meaning">${word.espanol}</div>
+            <div class="card-pronunciation-block">
+                <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
+                ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+            </div>
+            ${(clfDisplay || radHtml) ? `
+                <div class="card-components-block">
+                    ${clfDisplay ? `<div class="card-clf-val" title="Clasificador">${clfDisplay}</div>` : ''}
+                    ${radHtml ? `<div class="card-rad-val" title="Radicales / Componentes">${radHtml}</div>` : ''}
+                </div>
+            ` : ''}
+        </div>
+        ${word.notas ? `
+            <div class="card-notes-block" title="Notas">
+                <span class="notes-icon">📝</span> ${word.notas}
+            </div>
+        ` : ''}
     `;
 
     card.appendChild(front);

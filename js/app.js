@@ -950,17 +950,12 @@ document.addEventListener('DOMContentLoaded', () => {
             popover.className = 'radical-popover';
             popover.dataset.refId = refId;
             
-            // We use the logic from createFlashcard's back face
-            let details = `
-                <div class="detail-row"><span class="detail-label">Pinyin</span><span class="detail-value">${word.pinyin}</span></div>
-                <div class="detail-row"><span class="detail-label">Zhuyin</span><span class="detail-value zhuyin-val">${word.zhuyin || '—'}</span></div>
-            `;
+            let clfDisplay = '';
             if (word.clasificador) {
                 const clf = getAllWords().find(w => w.id === word.clasificador);
-                const clfDisplay = clf
+                clfDisplay = clf
                     ? `<span class="radical-ref" data-ref-id="${clf.id}" data-level="${popoverLevel + 1}">${clf.tradicional} (${clf.pinyin})</span>`
                     : word.clasificador;
-                details += `<div class="detail-row"><span class="detail-label">Clasificador</span><span class="detail-value">${clfDisplay}</span></div>`;
             }
             
             // Custom radicals rendering for popover
@@ -974,18 +969,35 @@ document.addEventListener('DOMContentLoaded', () => {
                             return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="${popoverLevel + 1}">${refWord.tradicional} (${refWord.espanol})</span>` : '';
                         }
                         return '';
-                    }).join(' + ');
+                    }).filter(Boolean).join(' + ');
                 } else {
                     radHtml = word.radicales;
                 }
             }
-            if (radHtml) details += `<div class="detail-row"><span class="detail-label">Radicales</span><span class="detail-value">${radHtml}</span></div>`;
+
+            const popoverCatColor = CATEGORY_COLORS[word.categoria] || 'var(--accent)';
 
             popover.innerHTML = `
-                <div class="card-back">
-                    <div class="spanish-meaning">${word.espanol}</div>
-                    <div class="chinese-char" style="font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; color: ${CATEGORY_COLORS[word.categoria] || 'var(--accent)'}">${word.tradicional}</div>
-                    <div class="details-list">${details}</div>
+                <div class="card-back" style="padding: 1.25rem; min-width: 220px;">
+                    <div class="card-back-body" style="margin: auto 0; text-align: center;">
+                        <div class="spanish-meaning" style="margin-bottom: 0.5rem;">${word.espanol}</div>
+                        <div class="chinese-char" style="font-size: 2.2rem; line-height: 1.1; margin-bottom: 0.5rem; color: ${popoverCatColor};">${word.tradicional}</div>
+                        <div class="card-pronunciation-block" style="margin-bottom: 0.5rem;">
+                            <div class="pinyin-label">${word.pinyin}</div>
+                            ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
+                        </div>
+                        ${(clfDisplay || radHtml) ? `
+                        <div class="card-components-block" style="font-size: 0.8rem; border-top: 1px dashed var(--border-color); padding-top: 0.4rem;">
+                            ${clfDisplay ? `<div class="card-clf-val">${clfDisplay}</div>` : ''}
+                            ${radHtml ? `<div class="card-rad-val">${radHtml}</div>` : ''}
+                        </div>
+                        ` : ''}
+                    </div>
+                    ${word.notas ? `
+                    <div class="card-notes-block" style="margin-top: 0.5rem;">
+                        <span class="notes-icon">📝</span> ${word.notas}
+                    </div>
+                    ` : ''}
                 </div>
             `;
             
