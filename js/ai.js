@@ -64,7 +64,8 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
 
             if (response.ok) {
                 const data = await response.json();
-                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                const parts = data.candidates?.[0]?.content?.parts || [];
+                const text = parts.map(p => p.text || '').filter(Boolean).join('\n').trim();
                 if (!text) {
                     throw new Error("Respuesta inválida o vacía de Gemini.");
                 }
@@ -108,7 +109,8 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
 
             const data = await response.json();
             if (response.ok) {
-                const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                const parts = data.candidates?.[0]?.content?.parts || [];
+                const text = parts.map(p => p.text || '').filter(Boolean).join('\n').trim();
                 if (!text) throw new Error("Respuesta inválida o vacía de Gemini.");
                 clientCachedModel = currentModel;
                 return text;
@@ -241,7 +243,10 @@ const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
 const checkSentenceWithGemini = async (sentence) => {
     const prompt = `Profesor de chino mandarín tradicional (Taiwán). Evalúa brevemente esta oración: "${sentence}"
 
-Devuelve ÚNICAMENTE un objeto JSON con este formato exacto:
+Tu respuesta debe ser EXCLUSIVAMENTE el objeto JSON sin nada antes ni después.
+Comienza directamente con el carácter { y termina con }. NUNCA incluyas frases introductorias (como 'Here is the JSON') ni formato markdown.
+
+Formato requerido:
 {
   "correcta": true o false,
   "explicacion": "Una sola oración breve",
@@ -252,7 +257,7 @@ Devuelve ÚNICAMENTE un objeto JSON con este formato exacto:
 REGLAS ESTRICTAS:
 1. PROHIBIDO usar comillas (ni dobles " ni simples ') dentro de los valores de texto. Para mencionar palabras o caracteres escríbelos directamente sin comillas (ejemplo: La palabra 你 es innecesaria aquí).
 2. "explicacion" DEBE ser de UNA SOLA oración corta (máximo 15 palabras).
-3. No agregues introducciones, texto fuera del JSON ni formato markdown.`;
+3. Devuelve únicamente el objeto JSON sin nada más.`;
 
     const body = {
         contents: [
@@ -273,7 +278,7 @@ REGLAS ESTRICTAS:
                 required: ["correcta", "explicacion", "correccion", "traduccion"]
             },
             temperature: 0.1,
-            maxOutputTokens: 200
+            maxOutputTokens: 2048
         }
     };
 
@@ -344,7 +349,7 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.3,
-            maxOutputTokens: 700
+            maxOutputTokens: 2048
         }
     };
 
@@ -387,7 +392,7 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.1,
-            maxOutputTokens: 900
+            maxOutputTokens: 2048
         }
     };
 
@@ -486,7 +491,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.3,
-            maxOutputTokens: 600
+            maxOutputTokens: 2048
         }
     };
 
@@ -613,7 +618,7 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
         generationConfig: {
             responseMimeType: "application/json",
             temperature: 0.2,
-            maxOutputTokens: 700
+            maxOutputTokens: 2048
         }
     };
 
