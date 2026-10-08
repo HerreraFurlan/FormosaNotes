@@ -543,6 +543,77 @@ const convertPinyinSyllable = (syllable, toneNum) => {
     return res.replace(/v/g, 'ü').replace(/V/g, 'Ü');
 };
 
+const isPinyinVowel = (ch) => {
+    if (!ch) return false;
+    const base = PINYIN_UNACCENT_MAP[ch] || ch;
+    return /[aeiouüvAEIOUÜV]/.test(base);
+};
+
+const isPinyinConsonant = (ch) => {
+    if (!ch) return false;
+    return /[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z]/.test(ch) && ch.toLowerCase() !== 'v';
+};
+
+/**
+ * Extracts the single trailing pinyin syllable immediately preceding the cursor.
+ * Correctly boundaries contiguous words (like 'shangke' -> 'ke', 'shàngke' -> 'ke', 'taibei' -> 'bei')
+ * by tracing backwards from the cursor to find the syllable's coda, vowel nucleus, and onset consonant,
+ * preventing tone marks from being placed on preceding syllables in a connected chain.
+ * 
+ * @param {string} textBefore - Text before cursor
+ * @returns {{ syllable: string, prefix: string } | null}
+ */
+const extractLastPinyinSyllable = (textBefore) => {
+    if (!textBefore || textBefore.length === 0) return null;
+
+    let endIdx = textBefore.length - 1;
+    const lastChar = textBefore[endIdx];
+    if (!isPinyinVowel(lastChar) && !isPinyinConsonant(lastChar)) {
+        return null;
+    }
+
+    let i = endIdx;
+
+    // 1. Check optional coda at the end: 'ng', 'n', or 'r'
+    if (i >= 2 && textBefore.slice(i - 1, i + 1).toLowerCase() === 'ng' && isPinyinVowel(textBefore[i - 2])) {
+        i -= 2;
+    } else if (i >= 1 && textBefore[i].toLowerCase() === 'n' && isPinyinVowel(textBefore[i - 1])) {
+        i -= 1;
+    } else if (i >= 1 && textBefore[i].toLowerCase() === 'r' && isPinyinVowel(textBefore[i - 1])) {
+        i -= 1;
+    }
+
+    // 2. Collect 1 to 3 vowels (nucleus)
+    const vowelEnd = i;
+    while (i >= 0 && isPinyinVowel(textBefore[i])) {
+        i--;
+    }
+    const vowelStart = i + 1;
+
+    // Must contain at least one vowel to be toneable
+    if (vowelStart > vowelEnd) {
+        return null;
+    }
+
+    // 3. Check optional initial consonant(s) (onset) immediately before vowels
+    let onsetStart = vowelStart;
+    if (i >= 1) {
+        const twoChar = textBefore.slice(i - 1, i + 1).toLowerCase();
+        if (twoChar === 'zh' || twoChar === 'ch' || twoChar === 'sh') {
+            onsetStart = i - 1;
+        } else if (isPinyinConsonant(textBefore[i])) {
+            onsetStart = i;
+        }
+    } else if (i === 0 && isPinyinConsonant(textBefore[0])) {
+        onsetStart = 0;
+    }
+
+    const syllable = textBefore.slice(onsetStart);
+    const prefix = textBefore.slice(0, onsetStart);
+
+    return { syllable, prefix };
+};
+
 /**
  * Attaches the number-to-tone converter to any input element.
  * @param {HTMLInputElement} input
@@ -570,17 +641,16 @@ const attachPinyinToneInput = (input) => {
         const textBefore = val.slice(0, cursorPos);
         const textAfter = val.slice(selEnd);
 
-        // Find trailing syllable or letters right before the cursor
-        const match = textBefore.match(/([a-zA-ZüÜvVāáǎàēéěèīíǐìōóǒòūúǔùǖǘǚǜĀÁǍÀĒÉĚÈĪÍǏÌŌÓǑÒŪÚǓÙǕǗǙǛ]+)$/);
-        if (!match) return;
+        // Find trailing syllable right before the cursor
+        const extracted = extractLastPinyinSyllable(textBefore);
+        if (!extracted) return;
 
-        const syllable = match[1];
+        const { syllable, prefix } = extracted;
         const converted = convertPinyinSyllable(syllable, toneNum);
         if (!converted) return;
 
         e.preventDefault();
 
-        const prefix = textBefore.slice(0, textBefore.length - syllable.length);
         const newTextBefore = prefix + converted;
         input.value = newTextBefore + textAfter;
 
@@ -592,6 +662,7 @@ const attachPinyinToneInput = (input) => {
 };
 window.attachPinyinToneInput = attachPinyinToneInput;
 window.convertPinyinSyllable = convertPinyinSyllable;
+window.extractLastPinyinSyllable = extractLastPinyinSyllable;
 
 /**
  * Attaches the number-to-tone converter exclusively to the #w-pinyin input.
