@@ -613,7 +613,7 @@ const SEED_DATA = {
             ]
         },
         {
-            "espanol": "Gallina / Gallo",
+            "espanol": "Pollo",
             "tradicional": "雞",
             "pinyin": "jī",
             "zhuyin": "ㄐㄧ",
@@ -802,7 +802,7 @@ const SEED_DATA = {
             ]
         },
         {
-            "espanol": "Jugo de frutas (Zumo)",
+            "espanol": "Jugo",
             "tradicional": "果汁",
             "pinyin": "guǒzhī",
             "zhuyin": "ㄍㄨㄛˇ",
@@ -830,7 +830,7 @@ const SEED_DATA = {
             ]
         },
         {
-            "espanol": "Cola (refresco)",
+            "espanol": "Refresco de cola",
             "tradicional": "可樂",
             "pinyin": "kělè",
             "zhuyin": "ㄎㄜˇ ㄌㄜˋ",
@@ -1474,7 +1474,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty015_chenyuemei",
-            "espanol": "Chen Yuemei (persona: mujer de Vietnam)",
+            "espanol": "Chen Yuemei",
             "tradicional": "陳月美",
             "pinyin": "Chén Yuèměi",
             "zhuyin": "ㄔㄣˊ ㄩㄝˋ ㄇㄟˇ",
@@ -1502,7 +1502,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty016_liminghua",
-            "espanol": "Li Minghua (persona: hombre de Taiwán)",
+            "espanol": "Li Minghua",
             "tradicional": "李明華",
             "pinyin": "Lǐ Mínghuá",
             "zhuyin": "ㄌㄧˇ ㄇㄧㄥˊ ㄏㄨㄚˊ",
@@ -1530,7 +1530,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty017_wangkaiwen",
-            "espanol": "Wang Kaiwen (persona: hombre de EE.UU.)",
+            "espanol": "Wang Kaiwen",
             "tradicional": "王開文",
             "pinyin": "Wáng Kāiwén",
             "zhuyin": "ㄨㄤˊ ㄎㄞ ㄨㄣˊ",
@@ -1558,7 +1558,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty005_women",
-            "espanol": "Nosotros / Nosotras",
+            "espanol": "Nosotros",
             "tradicional": "我們",
             "pinyin": "wǒmen",
             "zhuyin": "ㄨㄛˇ ㄇㄣ˙",
@@ -1584,7 +1584,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty006_nimen",
-            "espanol": "Ustedes / Vosotros",
+            "espanol": "Ustedes",
             "tradicional": "你們",
             "pinyin": "nǐmen",
             "zhuyin": "ㄋㄧˇ ㄇㄣ˙",
@@ -1662,7 +1662,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty018_zhangyijun",
-            "espanol": "Zhang Yijun (persona: mujer de Taiwán)",
+            "espanol": "Zhang Yijun",
             "tradicional": "張怡君",
             "pinyin": "Zhāng Yíjūn",
             "zhuyin": "ㄓㄤ ㄧˊ ㄐㄩㄣ",
@@ -1695,7 +1695,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty019_maantong",
-            "espanol": "Ma Antong (persona: hombre de Honduras)",
+            "espanol": "Ma Antong",
             "tradicional": "馬安同",
             "pinyin": "Mǎ Āntóng",
             "zhuyin": "ㄇㄚˇ ㄢ ㄊㄨㄥˊ",
@@ -1724,7 +1724,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty003_jia",
-            "espanol": "Casa / Hogar / Familia",
+            "espanol": "Casa",
             "tradicional": "家",
             "pinyin": "jiā",
             "zhuyin": "ㄐㄧㄚ",
@@ -1750,7 +1750,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty020_jiaren",
-            "espanol": "Familia / Miembros de la familia",
+            "espanol": "Familia",
             "tradicional": "家人",
             "pinyin": "jiārén",
             "zhuyin": "ㄐㄧㄚ ㄖㄣˊ",
@@ -1776,7 +1776,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty024_zhaopian",
-            "espanol": "Foto / Fotografía",
+            "espanol": "Foto",
             "tradicional": "照片",
             "pinyin": "zhàopiàn",
             "zhuyin": "ㄓㄠˋ ㄆㄧㄢˋ",
@@ -1806,7 +1806,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty028_tianzhong",
-            "espanol": "Tanaka Seiichi (persona: hombre de Japón)",
+            "espanol": "Tanaka Seiichi",
             "tradicional": "田中誠一",
             "pinyin": "Tiánzhōng Chéngyī",
             "zhuyin": "ㄊㄧㄢˊ ㄓㄨㄥ ㄔㄥˊ ㄧ",
@@ -1838,7 +1838,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty029_bomu",
-            "espanol": "Tía / Señora (madre de un amigo/a)",
+            "espanol": "Tía (madre de amigo)",
             "tradicional": "伯母",
             "pinyin": "bómǔ",
             "zhuyin": "ㄅㄛˊ ㄇㄨˇ",
@@ -1868,7 +1868,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty030_nin",
-            "espanol": "Usted (pronombre honorífico)",
+            "espanol": "Usted (formal)",
             "tradicional": "您",
             "pinyin": "nín",
             "zhuyin": "ㄋㄧㄣˊ",
@@ -1924,7 +1924,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty033_xiongdi",
-            "espanol": "Hermanos (varones)",
+            "espanol": "Hermanos",
             "tradicional": "兄弟",
             "pinyin": "xiōngdì",
             "zhuyin": "ㄒㄩㄥ ㄉㄧˋ",
@@ -1950,7 +1950,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty034_jiemei",
-            "espanol": "Hermanas (mujeres)",
+            "espanol": "Hermanas",
             "tradicional": "姐妹",
             "pinyin": "jiěmèi",
             "zhuyin": "ㄐㄧㄝˇ ㄇㄟˋ",
@@ -1976,7 +1976,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty035_fangzi",
-            "espanol": "Casa / Edificio / Vivienda",
+            "espanol": "Casa",
             "tradicional": "房子",
             "pinyin": "fángzi",
             "zhuyin": "ㄈㄤˊ ㄗ˙",
@@ -2002,7 +2002,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shijian",
-            "espanol": "Tiempo / Hora",
+            "espanol": "Tiempo",
             "tradicional": "時間",
             "pinyin": "shíjiān",
             "zhuyin": "ㄕˊ ㄐㄧㄢ",
@@ -2035,7 +2035,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_jiaoshi",
-            "espanol": "Salón de clases / Aula",
+            "espanol": "Aula",
             "tradicional": "教室",
             "pinyin": "jiàoshì",
             "zhuyin": "ㄐㄧㄠˋ ㄕˋ",
@@ -2085,7 +2085,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_ke",
-            "espanol": "Clase / Lección / Asignatura",
+            "espanol": "Clase",
             "tradicional": "課",
             "pinyin": "kè",
             "zhuyin": "ㄎㄜˋ",
@@ -2110,7 +2110,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xuanxiuke",
-            "espanol": "Clases electivas / Asignatura optativa",
+            "espanol": "Clase optativa",
             "tradicional": "選修課",
             "pinyin": "xuǎnxiūkè",
             "zhuyin": "ㄒㄩㄢˇ ㄒㄧㄡ ㄎㄜˋ",
@@ -2313,7 +2313,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_wushu",
-            "espanol": "Artes marciales / Kung fu",
+            "espanol": "Artes marciales",
             "tradicional": "武術",
             "pinyin": "wǔshù",
             "zhuyin": "ㄨˇ ㄕㄨˋ",
@@ -2363,7 +2363,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_banye",
-            "espanol": "Madrugada (medianoche profunda)",
+            "espanol": "Madrugada",
             "tradicional": "半夜",
             "pinyin": "bànyè",
             "zhuyin": "ㄅㄢˋ ㄧㄝˋ",
@@ -2414,7 +2414,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shangwu",
-            "espanol": "Mañana (media mañana, antes de las 12:00)",
+            "espanol": "Media mañana",
             "tradicional": "上午",
             "pinyin": "shàngwǔ",
             "zhuyin": "ㄕㄤˋ ㄨˇ",
@@ -2439,7 +2439,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zhongwu",
-            "espanol": "Mediodía (12:00 a 13:00)",
+            "espanol": "Mediodía",
             "tradicional": "中午",
             "pinyin": "zhōngwǔ",
             "zhuyin": "ㄓㄨㄥ ㄨˇ",
@@ -2464,7 +2464,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xiawu",
-            "espanol": "Tarde (después de las 12:00 hasta el atardecer)",
+            "espanol": "Tarde",
             "tradicional": "下午",
             "pinyin": "xiàwǔ",
             "zhuyin": "ㄒㄧㄚˋ ㄨˇ",
@@ -2536,7 +2536,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_daqiannian",
-            "espanol": "Año anteantepasado (hace 3 años)",
+            "espanol": "Hace 3 años",
             "tradicional": "大前年",
             "pinyin": "dàqiánnián",
             "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄋㄧㄢˊ",
@@ -2565,7 +2565,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_qiannian",
-            "espanol": "Año antepasado (hace 2 años)",
+            "espanol": "Hace 2 años",
             "tradicional": "前年",
             "pinyin": "qiánnián",
             "zhuyin": "ㄑㄧㄢˊ ㄋㄧㄢˊ",
@@ -2665,7 +2665,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_hounian",
-            "espanol": "El año subsiguiente (en 2 años)",
+            "espanol": "En 2 años",
             "tradicional": "後年",
             "pinyin": "hòunián",
             "zhuyin": "ㄏㄡˋ ㄋㄧㄢˊ",
@@ -2690,7 +2690,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_dahounian",
-            "espanol": "En 3 años (año posterior al subsiguiente)",
+            "espanol": "En 3 años",
             "tradicional": "大後年",
             "pinyin": "dàhòunián",
             "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄋㄧㄢˊ",
@@ -2719,7 +2719,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_yue",
-            "espanol": "Mes / Luna",
+            "espanol": "Mes",
             "tradicional": "月",
             "pinyin": "yuè",
             "zhuyin": "ㄩㄝˋ",
@@ -2840,7 +2840,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xiaxiageyue",
-            "espanol": "El mes subsiguiente (en 2 meses)",
+            "espanol": "En 2 meses",
             "tradicional": "下下個月",
             "pinyin": "xià xià ge yuè",
             "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ",
@@ -2990,7 +2990,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xiaxiagexingqi",
-            "espanol": "La semana subsiguiente (en 2 semanas)",
+            "espanol": "En 2 semanas",
             "tradicional": "下下個星期",
             "pinyin": "xià xià ge xīngqī",
             "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
@@ -3015,7 +3015,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_tian",
-            "espanol": "Día / Cielo",
+            "espanol": "Día",
             "tradicional": "天",
             "pinyin": "tiān",
             "zhuyin": "ㄊㄧㄢ",
@@ -3040,7 +3040,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_daqiantian",
-            "espanol": "Anteanteayer (hace 3 días)",
+            "espanol": "Hace 3 días",
             "tradicional": "大前天",
             "pinyin": "dàqiántiān",
             "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄊㄧㄢ",
@@ -3145,7 +3145,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_mingtian",
-            "espanol": "Mañana (día siguiente)",
+            "espanol": "Mañana",
             "tradicional": "明天",
             "pinyin": "míngtiān",
             "zhuyin": "ㄇㄧㄥˊ ㄊㄧㄢ",
@@ -3196,7 +3196,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_dahoutian",
-            "espanol": "En 3 días (día posterior a pasado mañana)",
+            "espanol": "En 3 días",
             "tradicional": "大後天",
             "pinyin": "dàhòutiān",
             "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄊㄧㄢ",
@@ -3225,7 +3225,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shihou",
-            "espanol": "Momento / tiempo / ocasión / cuando...",
+            "espanol": "Momento",
             "tradicional": "時候",
             "pinyin": "shíhòu",
             "zhuyin": "ㄕˊ ㄏㄡˋ",
@@ -3250,7 +3250,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_fenzhong",
-            "espanol": "Minuto (duración o lapso de tiempo)",
+            "espanol": "Minuto (duración)",
             "tradicional": "分鐘",
             "pinyin": "fēnzhōng",
             "zhuyin": "ㄈㄣ ㄓㄨㄥ",
@@ -3275,7 +3275,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_minguo",
-            "espanol": "República de China (calendario Minguo de Taiwán)",
+            "espanol": "Calendario Minguo",
             "tradicional": "民國",
             "pinyin": "Mínguó",
             "zhuyin": "ㄇㄧㄣˊ ㄍㄨㄛˊ",
@@ -3300,7 +3300,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_libai",
-            "espanol": "Semana (coloquial en Taiwán) / culto",
+            "espanol": "Semana",
             "tradicional": "禮拜",
             "pinyin": "lǐbài",
             "zhuyin": "ㄌㄧˇ ㄅㄞˋ",
@@ -3325,7 +3325,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xuexiao",
-            "espanol": "Escuela / colegio / centro educativo",
+            "espanol": "Escuela",
             "tradicional": "學校",
             "pinyin": "xuéxiào",
             "zhuyin": "ㄒㄩㄝˊ ㄒㄧㄠˋ",
@@ -3350,7 +3350,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_nali",
-            "espanol": "¿Dónde? / ¿Adónde? / En qué lugar",
+            "espanol": "¿Dónde?",
             "tradicional": "哪裡",
             "pinyin": "nǎlǐ",
             "zhuyin": "ㄋㄚˇ ㄌㄧˇ",
@@ -3375,7 +3375,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zhexie",
-            "espanol": "Estos / estas",
+            "espanol": "Estos",
             "tradicional": "這些",
             "pinyin": "zhèxiē",
             "zhuyin": "ㄓㄜˋ ㄒㄧㄝ",
@@ -3400,7 +3400,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_naxie",
-            "espanol": "Esos / esas / aquellos / aquellas",
+            "espanol": "Esos",
             "tradicional": "那些",
             "pinyin": "nàxiē",
             "zhuyin": "ㄋㄚˋ ㄒㄧㄝ",
@@ -3529,7 +3529,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_lanqiu",
-            "espanol": "Baloncesto / básquetbol",
+            "espanol": "Baloncesto",
             "tradicional": "籃球",
             "pinyin": "lánqiú",
             "zhuyin": "ㄌㄢˊ ㄑㄧㄡˊ",
@@ -3581,7 +3581,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_bairuyu",
-            "espanol": "Bai Ruyu (nombre propio: mujer de EE.UU.)",
+            "espanol": "Bai Ruyu",
             "tradicional": "白如玉",
             "pinyin": "Bái Rúyù",
             "zhuyin": "ㄅㄞˊ ㄖㄨˊ ㄩˋ",
@@ -3610,7 +3610,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_dianying",
-            "espanol": "Película / cine",
+            "espanol": "Película",
             "tradicional": "電影",
             "pinyin": "diànyǐng",
             "zhuyin": "ㄉㄧㄢˋ ㄧㄥˇ",
@@ -3636,7 +3636,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_ni_fem",
-            "espanol": "Tú / usted (femenino)",
+            "espanol": "Tú (femenino)",
             "tradicional": "妳",
             "pinyin": "nǐ",
             "zhuyin": "ㄋㄧˇ",
@@ -3662,7 +3662,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_zhongwen",
-            "espanol": "Idioma chino / lengua china",
+            "espanol": "Chino",
             "tradicional": "中文",
             "pinyin": "Zhōngwén",
             "zhuyin": "ㄓㄨㄥ ㄨㄣˊ",
@@ -3714,7 +3714,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_cai",
-            "espanol": "Comida / platillo / cocina (de un país) / verdura",
+            "espanol": "Platillo",
             "tradicional": "菜",
             "pinyin": "cài",
             "zhuyin": "ㄘㄞˋ",
@@ -3791,7 +3791,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_laoban",
-            "espanol": "Dueño / Jefe / Propietario de tienda",
+            "espanol": "Jefe / Dueño",
             "tradicional": "老闆",
             "pinyin": "lǎobǎn",
             "zhuyin": "ㄌㄠˇ ㄅㄢˇ",
@@ -3820,7 +3820,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_wan",
-            "espanol": "Diez mil (10.000)",
+            "espanol": "Diez mil",
             "tradicional": "萬",
             "pinyin": "wàn",
             "zhuyin": "ㄨㄢˋ",
@@ -3845,7 +3845,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_shouji",
-            "espanol": "Teléfono celular / Móvil",
+            "espanol": "Celular",
             "tradicional": "手機",
             "pinyin": "shǒujī",
             "zhuyin": "ㄕㄡˇ ㄐㄧ",
@@ -3874,7 +3874,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_baozi",
-            "espanol": "Baozi (bollo al vapor relleno)",
+            "espanol": "Baozi (bollo al vapor)",
             "tradicional": "包子",
             "pinyin": "bāozi",
             "zhuyin": "ㄅㄠ ˙ㄗ",
@@ -3900,12 +3900,60 @@ const SEED_DATA = {
                 "這家店的包子非常好吃。 — Los baozis de este local son riquísimos."
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_n_weibo_micro",
+            "espanol": "Microondas",
+            "tradicional": "微波",
+            "pinyin": "wéibō",
+            "zhuyin": "ㄨㄟˊ ㄅㄛ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - paso)"
+                },
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - agua)"
+                }
+            ],
+            "notas": "Sustantivo: microondas u ondas electromagnéticas.",
+            "ejemplos": [
+                "超商有微波 — La tienda de conveniencia tiene microondas"
+            ],
+            "leccion": 4
+        },
+        {
+            "id": "id_n_yundong_sport",
+            "espanol": "Deporte",
+            "tradicional": "運動",
+            "pinyin": "yùndòng",
+            "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - caminar)"
+                },
+                {
+                    "type": "text",
+                    "value": "力 (lì - fuerza)"
+                }
+            ],
+            "notas": "Sustantivo: deporte o actividad física.",
+            "ejemplos": [
+                "你喜歡什麼運動？ — ¿Qué deporte te gusta?"
+            ],
+            "leccion": 3
         }
     ],
     "verbos": [
         {
             "id": "v1",
-            "espanol": "Ser / Estar",
+            "espanol": "Ser",
             "tradicional": "是",
             "pinyin": "shì",
             "zhuyin": "ㄕˋ",
@@ -4209,7 +4257,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty001_kan",
-            "espanol": "Ver / Mirar / Leer",
+            "espanol": "Ver / Mirar",
             "tradicional": "看",
             "pinyin": "kàn",
             "zhuyin": "ㄎㄢˋ",
@@ -4266,7 +4314,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty025_zhaoxiang",
-            "espanol": "Tomar fotos / Fotografiar",
+            "espanol": "Tomar fotos",
             "tradicional": "照相",
             "pinyin": "zhàoxiàng",
             "zhuyin": "ㄓㄠˋ ㄒㄧㄤˋ",
@@ -4292,7 +4340,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty031_kanshu",
-            "espanol": "Leer / Leer un libro",
+            "espanol": "Leer",
             "tradicional": "看書",
             "pinyin": "kànshū",
             "zhuyin": "ㄎㄢˋ ㄕㄨ",
@@ -4317,7 +4365,7 @@ const SEED_DATA = {
             "leccion": 2
         },
         {
-            "espanol": "Recoger / Recibir (a una persona)",
+            "espanol": "Recoger (a alguien)",
             "tradicional": "接",
             "pinyin": "jiē",
             "zhuyin": "ㄐㄧㄝ",
@@ -4344,7 +4392,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xiuxi",
-            "espanol": "Descansar / Descanso / Receso",
+            "espanol": "Descansar",
             "tradicional": "休息",
             "pinyin": "xiūxí",
             "zhuyin": "ㄒㄧㄡ ㄒㄧˊ",
@@ -4373,7 +4421,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xiake",
-            "espanol": "Terminar la clase / Salir de clase / Receso",
+            "espanol": "Terminar la clase",
             "tradicional": "下課",
             "pinyin": "xiàkè",
             "zhuyin": "ㄒㄧㄚˋ ㄎㄜˋ",
@@ -4398,7 +4446,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shuo",
-            "espanol": "Hablar / Decir",
+            "espanol": "Hablar",
             "tradicional": "說",
             "pinyin": "shuō",
             "zhuyin": "ㄕㄨㄛ",
@@ -4449,7 +4497,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zuo",
-            "espanol": "Hacer / elaborar / dedicarse a",
+            "espanol": "Hacer",
             "tradicional": "做",
             "pinyin": "zuò",
             "zhuyin": "ㄗㄨㄛˋ",
@@ -4474,7 +4522,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_cha",
-            "espanol": "Faltar (para la hora) / deficiente / menos",
+            "espanol": "Faltar (para la hora)",
             "tradicional": "差",
             "pinyin": "chà",
             "zhuyin": "ㄔㄚ",
@@ -4499,7 +4547,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_jian_see",
-            "espanol": "Ver / encontrarse con / verse",
+            "espanol": "Verse",
             "tradicional": "見",
             "pinyin": "jiàn",
             "zhuyin": "ㄐㄧㄢˋ",
@@ -4524,7 +4572,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_wen",
-            "espanol": "Preguntar / consultar",
+            "espanol": "Preguntar",
             "tradicional": "問",
             "pinyin": "wèn",
             "zhuyin": "ㄨㄣˋ",
@@ -4549,7 +4597,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_qu",
-            "espanol": "Ir / dirigirse hacia",
+            "espanol": "Ir",
             "tradicional": "去",
             "pinyin": "qù",
             "zhuyin": "ㄑㄩˋ",
@@ -4575,7 +4623,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zai_loc",
-            "espanol": "Estar en / en (ubicación espacial o temporal)",
+            "espanol": "Estar en",
             "tradicional": "在",
             "pinyin": "zài",
             "zhuyin": "ㄗㄞˋ",
@@ -4600,7 +4648,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_chibao",
-            "espanol": "Comer hasta llenarse / quedar satisfecho",
+            "espanol": "Llenarse (comer)",
             "tradicional": "吃飽",
             "pinyin": "chī bǎo",
             "zhuyin": "ㄔ ㄅㄠˇ",
@@ -4625,7 +4673,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shangke",
-            "espanol": "Asistir a clase / tener clase / empezar la clase",
+            "espanol": "Tener clase",
             "tradicional": "上課",
             "pinyin": "shàngkè",
             "zhuyin": "ㄕㄤˋ ㄎㄜˋ",
@@ -4650,7 +4698,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shang",
-            "espanol": "Tomar / cursar (clase) / subir / anterior / arriba",
+            "espanol": "Subir / Cursar",
             "tradicional": "上",
             "pinyin": "shàng",
             "zhuyin": "ㄕㄤˋ",
@@ -4671,7 +4719,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xia",
-            "espanol": "Terminar (clase) / bajar / siguiente / abajo",
+            "espanol": "Bajar / Terminar",
             "tradicional": "下",
             "pinyin": "xià",
             "zhuyin": "ㄒㄧㄚˋ",
@@ -4692,7 +4740,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_juede",
-            "espanol": "Pensar que algo es / creer / parecer / sentir",
+            "espanol": "Parecer / Creer",
             "tradicional": "覺得",
             "pinyin": "juéde",
             "zhuyin": "ㄐㄩㄝˊ ˙ㄉㄜ",
@@ -4719,7 +4767,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_ting",
-            "espanol": "Escuchar / oír",
+            "espanol": "Escuchar",
             "tradicional": "聽",
             "pinyin": "tīng",
             "zhuyin": "ㄊㄧㄥ",
@@ -4745,7 +4793,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_yundong",
-            "espanol": "Hacer ejercicio / deporte / ejercitarse",
+            "espanol": "Hacer ejercicio",
             "tradicional": "運動",
             "pinyin": "yùndòng",
             "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
@@ -4771,7 +4819,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_da",
-            "espanol": "Jugar (deportes de pelota con manos) / golpear",
+            "espanol": "Jugar (deportes de mano)",
             "tradicional": "打",
             "pinyin": "dǎ",
             "zhuyin": "ㄉㄚˇ",
@@ -4797,7 +4845,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_youyong",
-            "espanol": "Nadar / natación",
+            "espanol": "Nadar",
             "tradicional": "游泳",
             "pinyin": "yóuyǒng",
             "zhuyin": "ㄧㄡˊ ㄩㄥˇ",
@@ -4823,7 +4871,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_ti",
-            "espanol": "Patear / jugar (fútbol)",
+            "espanol": "Patear",
             "tradicional": "踢",
             "pinyin": "tī",
             "zhuyin": "ㄊㄧ",
@@ -4849,7 +4897,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_xiang",
-            "espanol": "Querer / tener ganas de / desear / pensar",
+            "espanol": "Querer / Pensar",
             "tradicional": "想",
             "pinyin": "xiǎng",
             "zhuyin": "ㄒㄧㄤˇ",
@@ -4875,7 +4923,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_keyi",
-            "espanol": "Poder / ser posible / poderse (posibilidad o permiso)",
+            "espanol": "Poder (permiso)",
             "tradicional": "可以",
             "pinyin": "kěyǐ",
             "zhuyin": "ㄎㄜˇ ㄧˇ",
@@ -4901,7 +4949,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_xue",
-            "espanol": "Aprender / estudiar",
+            "espanol": "Aprender",
             "tradicional": "學",
             "pinyin": "xué",
             "zhuyin": "ㄒㄩㄝˊ",
@@ -4927,7 +4975,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_neng",
-            "espanol": "Poder / Ser capaz de (capacidad física o circunstancial)",
+            "espanol": "Poder (capacidad)",
             "tradicional": "能",
             "pinyin": "néng",
             "zhuyin": "ㄋㄥˊ",
@@ -4952,7 +5000,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_shangwang",
-            "espanol": "Navegar por internet / Conectarse a internet",
+            "espanol": "Navegar en internet",
             "tradicional": "上網",
             "pinyin": "shàngwǎng",
             "zhuyin": "ㄕㄤˋ ㄨㄤˇ",
@@ -5002,7 +5050,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_bang",
-            "espanol": "Ayudar / En favor de (por alguien)",
+            "espanol": "Ayudar",
             "tradicional": "幫",
             "pinyin": "bāng",
             "zhuyin": "ㄅㄤ",
@@ -5027,7 +5075,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_weibo",
-            "espanol": "Calentar en microondas / Microondas",
+            "espanol": "Calentar en microondas",
             "tradicional": "微波",
             "pinyin": "wéibō",
             "zhuyin": "ㄨㄟˊ ㄅㄛ",
@@ -5053,12 +5101,36 @@ const SEED_DATA = {
                 "這個便當需要微波。 — Este bento necesita calentarse en microondas."
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_v_dian_order",
+            "espanol": "Pedir (comida)",
+            "tradicional": "點",
+            "pinyin": "diǎn",
+            "zhuyin": "ㄉㄧㄢˇ",
+            "categoria": "verbo",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "黑 (hēi - negro)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhàn - adivinar)"
+                }
+            ],
+            "notas": "Verbo para pedir u ordenar platos o bebidas (ej. 點菜).",
+            "ejemplos": [
+                "我們點菜吧 — Vamos a pedir platos",
+                "你想點什麼？ — ¿Qué quieres pedir?"
+            ],
+            "leccion": 4
         }
     ],
     "adverbios": [
         {
             "id": "a1",
-            "espanol": "No (negación)",
+            "espanol": "No",
             "tradicional": "不",
             "pinyin": "bù",
             "zhuyin": "ㄅㄨˋ",
@@ -5079,7 +5151,7 @@ const SEED_DATA = {
         },
         {
             "id": "a2",
-            "espanol": "Todos / Ambos",
+            "espanol": "Todos",
             "tradicional": "都",
             "pinyin": "dōu",
             "zhuyin": "ㄉㄡ",
@@ -5125,7 +5197,7 @@ const SEED_DATA = {
             "leccion": 3
         },
         {
-            "espanol": "Muy / [Estabilizador predicativo para adjetivos]",
+            "espanol": "Muy",
             "tradicional": "很",
             "pinyin": "hěn",
             "zhuyin": "ㄏㄣˇ",
@@ -5153,7 +5225,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty032_mei",
-            "espanol": "No (negación de haber/tener o pasado)",
+            "espanol": "No (haber/pasado)",
             "tradicional": "沒",
             "pinyin": "méi",
             "zhuyin": "ㄇㄟˊ",
@@ -5179,7 +5251,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_feichang",
-            "espanol": "Extremadamente / Muy muy / Extraordinario",
+            "espanol": "Extremadamente",
             "tradicional": "非常",
             "pinyin": "fēicháng",
             "zhuyin": "ㄈㄟ ㄔㄤˊ",
@@ -5204,7 +5276,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_henduo",
-            "espanol": "Muchos / Muchas / Abundante (很多 + N)",
+            "espanol": "Muchos",
             "tradicional": "很多",
             "pinyin": "hěn duō",
             "zhuyin": "ㄏㄣˇ ㄉㄨㄛ",
@@ -5229,7 +5301,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xianzai",
-            "espanol": "Ahora / en este momento / en la actualidad",
+            "espanol": "Ahora",
             "tradicional": "現在",
             "pinyin": "xiànzài",
             "zhuyin": "ㄒㄧㄢˋ ㄗㄞˋ",
@@ -5254,7 +5326,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zai_again",
-            "espanol": "Otra vez / de nuevo / volver a (hacia el futuro)",
+            "espanol": "Otra vez",
             "tradicional": "再",
             "pinyin": "zài",
             "zhuyin": "ㄗㄞˋ",
@@ -5275,7 +5347,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zenme",
-            "espanol": "¿Cómo? / ¿De qué manera? / ¿Por qué?",
+            "espanol": "¿Cómo?",
             "tradicional": "怎麼",
             "pinyin": "zěnme",
             "zhuyin": "ㄗㄣˇ ㄇㄜ˙",
@@ -5300,7 +5372,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_chang",
-            "espanol": "A menudo / frecuentemente / seguido",
+            "espanol": "A menudo",
             "tradicional": "常",
             "pinyin": "cháng",
             "zhuyin": "ㄔㄤˊ",
@@ -5326,7 +5398,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_yiqi",
-            "espanol": "Juntos / conjuntamente",
+            "espanol": "Juntos",
             "tradicional": "一起",
             "pinyin": "yìqǐ",
             "zhuyin": "ㄧˋ ㄑㄧˇ",
@@ -5352,7 +5424,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_yigong",
-            "espanol": "En total / En conjunto",
+            "espanol": "En total",
             "tradicional": "一共",
             "pinyin": "yígòng",
             "zhuyin": "ㄧˊ ㄍㄨㄥˋ",
@@ -5535,7 +5607,7 @@ const SEED_DATA = {
             "leccion": 1
         },
         {
-            "espanol": "Cuántos (Menor a 10 unidades)",
+            "espanol": "¿Cuántos? (<10)",
             "tradicional": "幾",
             "pinyin": "jǐ",
             "zhuyin": "ㄐㄧˇ",
@@ -5668,7 +5740,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty014_duibuqi",
-            "espanol": "Lo siento / Disculpa / Perdón",
+            "espanol": "Lo siento",
             "tradicional": "對不起",
             "pinyin": "duìbùqǐ",
             "zhuyin": "ㄉㄨㄟˋ ㄅㄨˋ ㄑㄧˇ",
@@ -5697,7 +5769,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty008_shide",
-            "espanol": "Sí / Así es",
+            "espanol": "Sí",
             "tradicional": "是的",
             "pinyin": "shìde",
             "zhuyin": "ㄕˋ ㄉㄜ˙",
@@ -5723,7 +5795,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty012_naguo",
-            "espanol": "¿Qué país? / ¿De qué país?",
+            "espanol": "¿De qué país?",
             "tradicional": "哪國",
             "pinyin": "nǎguó",
             "zhuyin": "ㄋㄚˇ ㄍㄨㄛˊ",
@@ -5749,7 +5821,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty027_qingjin",
-            "espanol": "¡Adelante! / ¡Pase, por favor!",
+            "espanol": "¡Adelante!",
             "tradicional": "請進",
             "pinyin": "qǐngjìn",
             "zhuyin": "ㄑㄧㄥˇ ㄐㄧㄣˋ",
@@ -5803,7 +5875,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_haolema",
-            "espanol": "¿Estás listo? / ¿Ya está listo?",
+            "espanol": "¿Listo?",
             "tradicional": "好了嗎？",
             "pinyin": "hǎo le ma?",
             "zhuyin": "ㄏㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
@@ -5915,7 +5987,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_chibaolema",
-            "espanol": "¿Ya comiste? / ¿Quedaste satisfecho? (saludo)",
+            "espanol": "¿Ya comiste?",
             "tradicional": "吃飽了嗎？",
             "pinyin": "chī bǎo le ma?",
             "zhuyin": "ㄔ ㄅㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
@@ -5944,7 +6016,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_nichilema",
-            "espanol": "¿Ya comiste? (saludo)",
+            "espanol": "¿Ya comiste?",
             "tradicional": "你吃了嗎？",
             "pinyin": "nǐ chī le ma?",
             "zhuyin": "ㄋㄧˇ ㄔ ˙ㄌㄜ ˙ㄇㄚ",
@@ -5973,7 +6045,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_zuoshenme",
-            "espanol": "¿Qué hacer? / ¿A qué? / ¿Para qué?",
+            "espanol": "¿Para qué?",
             "tradicional": "做什麼",
             "pinyin": "zuò shénme",
             "zhuyin": "ㄗㄨㄛˋ ㄕㄣˊ ㄇㄜ˙",
@@ -6003,7 +6075,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shenmeshihou",
-            "espanol": "¿Cuándo? / ¿En qué momento?",
+            "espanol": "¿Cuándo?",
             "tradicional": "什麼時候",
             "pinyin": "shénme shíhòu",
             "zhuyin": "ㄕㄣˊ ㄇㄜ˙ ㄕˊ ㄏㄡˋ",
@@ -6036,7 +6108,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_jidian",
-            "espanol": "¿Qué hora? / ¿A qué hora?",
+            "espanol": "¿A qué hora?",
             "tradicional": "幾點",
             "pinyin": "jǐ diǎn",
             "zhuyin": "ㄐㄧˇ ㄉㄧㄢˇ",
@@ -6061,7 +6133,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_wenwenti",
-            "espanol": "Hacer una pregunta / formular dudas",
+            "espanol": "Hacer preguntas",
             "tradicional": "問問題",
             "pinyin": "wèn wèntí",
             "zhuyin": "ㄨㄣˋ ㄨㄣˋ ㄊㄧˊ",
@@ -6111,7 +6183,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_zenmeyang",
-            "espanol": "¿Qué tal? / ¿Qué te parece? / ¿Cómo está?",
+            "espanol": "¿Qué tal?",
             "tradicional": "怎麼樣",
             "pinyin": "zěnmeyàng",
             "zhuyin": "ㄗㄣˇ ˙ㄇㄜ ㄧㄤˋ",
@@ -6141,7 +6213,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_hao_a",
-            "espanol": "¡De acuerdo! / ¡Está bien! / ¡Por supuesto! / ¡Vale!",
+            "espanol": "¡De acuerdo!",
             "tradicional": "好啊",
             "pinyin": "hǎo a",
             "zhuyin": "ㄏㄠˇ ˙ㄚ",
@@ -6163,7 +6235,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_haobuhao",
-            "espanol": "¿Te parece bien? / ¿De acuerdo? / ¿Qué tal si...?",
+            "espanol": "¿Te parece bien?",
             "tradicional": "好不好",
             "pinyin": "hǎo bù hǎo",
             "zhuyin": "ㄏㄠˇ ㄅㄨˋ ㄏㄠˇ",
@@ -6185,7 +6257,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_haode",
-            "espanol": "De acuerdo / Está bien / Vale",
+            "espanol": "De acuerdo",
             "tradicional": "好的",
             "pinyin": "hǎo de",
             "zhuyin": "ㄏㄠˇ ˙ㄉㄜ",
@@ -6210,7 +6282,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_duoshao",
-            "espanol": "¿Cuánto? / ¿Cuántos?",
+            "espanol": "¿Cuánto?",
             "tradicional": "多少",
             "pinyin": "duōshǎo",
             "zhuyin": "ㄉㄨㄛ ㄕㄠˇ",
@@ -6235,7 +6307,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_waidai",
-            "espanol": "Para llevar (comida o bebida)",
+            "espanol": "Para llevar",
             "tradicional": "外帶",
             "pinyin": "wàidài",
             "zhuyin": "ㄨㄞˋ ㄉㄞˋ",
@@ -6260,7 +6332,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_neiyong",
-            "espanol": "Para comer aquí / Consumir en el local",
+            "espanol": "Para comer aquí",
             "tradicional": "內用",
             "pinyin": "nèiyòng",
             "zhuyin": "ㄋㄟˋ ㄩㄥˋ",
@@ -6314,7 +6386,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_tai_le",
-            "espanol": "Demasiado... / Extremadamente...",
+            "espanol": "Demasiado...",
             "tradicional": "太…了",
             "pinyin": "tài...le",
             "zhuyin": "ㄊㄞˋ ... ˙ㄌㄜ",
@@ -6345,7 +6417,7 @@ const SEED_DATA = {
     "particulas": [
         {
             "id": "pt1",
-            "espanol": "(sufijo plural)",
+            "espanol": "(plural)",
             "tradicional": "們",
             "pinyin": "men",
             "zhuyin": "ㄇㄣ˙",
@@ -6368,7 +6440,7 @@ const SEED_DATA = {
             ]
         },
         {
-            "espanol": "(sufijo de posesión)",
+            "espanol": "(posesivo)",
             "tradicional": "的",
             "pinyin": "de",
             "zhuyin": "ㄉㄜ˙",
@@ -6394,7 +6466,7 @@ const SEED_DATA = {
             "leccion": 2
         },
         {
-            "espanol": "(modificador de pregunta)",
+            "espanol": "(pregunta sí/no)",
             "tradicional": "嗎",
             "pinyin": "ma",
             "zhuyin": "ㄇㄚ˙",
@@ -6421,7 +6493,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty010_ne",
-            "espanol": "¿Y...? / Partícula modal de rebote",
+            "espanol": "¿Y...?",
             "tradicional": "呢",
             "pinyin": "ne",
             "zhuyin": "ㄋㄜ˙",
@@ -6447,7 +6519,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_a",
-            "espanol": "Partícula final enfática / de afirmación o acuerdo",
+            "espanol": "(énfasis/acuerdo)",
             "tradicional": "啊",
             "pinyin": "a",
             "zhuyin": "˙ㄚ",
@@ -6473,7 +6545,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_haishi",
-            "espanol": "¿O? (en preguntas alternativas disyuntivas)",
+            "espanol": "¿O? (opción)",
             "tradicional": "還是",
             "pinyin": "háishì",
             "zhuyin": "ㄏㄞˊ ㄕˋ",
@@ -6499,7 +6571,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_ba",
-            "espanol": "Partícula final de sugerencia / propuesta / exhortación",
+            "espanol": "(sugerencia)",
             "tradicional": "吧",
             "pinyin": "ba",
             "zhuyin": "˙ㄅㄚ",
@@ -6937,7 +7009,7 @@ const SEED_DATA = {
     },
     "adjetivos": [
         {
-            "espanol": "Este / Esto / Esta",
+            "espanol": "Este",
             "tradicional": "這",
             "pinyin": "zhè",
             "zhuyin": "ㄓㄜˋ",
@@ -6963,7 +7035,7 @@ const SEED_DATA = {
             "leccion": 1
         },
         {
-            "espanol": "Ese / Esa / Eso",
+            "espanol": "Ese",
             "tradicional": "那",
             "pinyin": "nà",
             "zhuyin": "ㄋㄚˋ",
@@ -7035,7 +7107,7 @@ const SEED_DATA = {
             "leccion": 4
         },
         {
-            "espanol": "Mediano / Centro",
+            "espanol": "Mediano",
             "tradicional": "中",
             "pinyin": "zhōng",
             "zhuyin": "ㄓㄨㄥ",
@@ -7106,7 +7178,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty009_haohe",
-            "espanol": "Rico / Sabroso (para bebidas)",
+            "espanol": "Rico (bebida)",
             "tradicional": "好喝",
             "pinyin": "hǎohē",
             "zhuyin": "ㄏㄠˇ ㄏㄜ",
@@ -7132,7 +7204,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty021_piaoliang",
-            "espanol": "Bonito/a / Hermoso/a / Lindo/a",
+            "espanol": "Hermoso",
             "tradicional": "漂亮",
             "pinyin": "piàoliang",
             "zhuyin": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
@@ -7162,7 +7234,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty023_duo",
-            "espanol": "Mucho / Muchos / Numeroso",
+            "espanol": "Mucho",
             "tradicional": "多",
             "pinyin": "duō",
             "zhuyin": "ㄉㄨㄛ",
@@ -7188,7 +7260,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty026_haokan",
-            "espanol": "Bonito / De buen ver / Atractivo",
+            "espanol": "Bonito",
             "tradicional": "好看",
             "pinyin": "hǎokàn",
             "zhuyin": "ㄏㄠˇ ㄎㄢˋ",
@@ -7214,7 +7286,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_keai",
-            "espanol": "Tierno / Lindo / Adorable",
+            "espanol": "Tierno",
             "tradicional": "可愛",
             "pinyin": "kě'ài",
             "zhuyin": "ㄎㄜˇ ㄞˋ",
@@ -7239,7 +7311,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_gui",
-            "espanol": "Caro / Costoso (很貴)",
+            "espanol": "Caro",
             "tradicional": "貴",
             "pinyin": "guì",
             "zhuyin": "ㄍㄨㄟˋ",
@@ -7265,7 +7337,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_pianyi",
-            "espanol": "Barato / Económico",
+            "espanol": "Barato",
             "tradicional": "便宜",
             "pinyin": "piányí",
             "zhuyin": "ㄆㄧㄢˊ ㄧˊ",
@@ -7295,7 +7367,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_gao",
-            "espanol": "Alto (estatura / altura) (很高)",
+            "espanol": "Alto",
             "tradicional": "高",
             "pinyin": "gāo",
             "zhuyin": "ㄍㄠ",
@@ -7316,7 +7388,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_ai",
-            "espanol": "Bajo (de estatura) (很矮)",
+            "espanol": "Bajo (estatura)",
             "tradicional": "矮",
             "pinyin": "ǎi",
             "zhuyin": "ㄞˇ",
@@ -7341,7 +7413,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_xin",
-            "espanol": "Nuevo (很新)",
+            "espanol": "Nuevo",
             "tradicional": "新",
             "pinyin": "xīn",
             "zhuyin": "ㄒㄧㄣ",
@@ -7367,7 +7439,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_jiu",
-            "espanol": "Viejo / Usado (para objetos) (很舊)",
+            "espanol": "Viejo",
             "tradicional": "舊",
             "pinyin": "jiù",
             "zhuyin": "ㄐㄧㄡˋ",
@@ -7393,7 +7465,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_ban",
-            "espanol": "Y media (en horas) / mitad / medio",
+            "espanol": "Y media (hora)",
             "tradicional": "半",
             "pinyin": "bàn",
             "zhuyin": "ㄅㄢˋ",
@@ -7418,7 +7490,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_bao",
-            "espanol": "Lleno / saciado / satisfecho (de comida)",
+            "espanol": "Lleno (comida)",
             "tradicional": "飽",
             "pinyin": "bǎo",
             "zhuyin": "ㄅㄠˇ",
@@ -7443,7 +7515,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_voc_shao",
-            "espanol": "Poco / pocos / escaso",
+            "espanol": "Poco",
             "tradicional": "少",
             "pinyin": "shǎo",
             "zhuyin": "ㄕㄠˇ",
@@ -7468,7 +7540,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l3_haowan",
-            "espanol": "Divertido / entretenido / interesante",
+            "espanol": "Divertido",
             "tradicional": "好玩",
             "pinyin": "hǎowán",
             "zhuyin": "ㄏㄠˇ ㄨㄢˊ",
@@ -7494,7 +7566,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_l4_re",
-            "espanol": "Caliente (temperatura de alimentos o clima)",
+            "espanol": "Caliente",
             "tradicional": "熱",
             "pinyin": "rè",
             "zhuyin": "ㄖㄜˋ",
@@ -7521,7 +7593,7 @@ const SEED_DATA = {
     "clasificadores": [
         {
             "id": "id_mtfhewfx_gtw3b",
-            "espanol": "Clasificador universal (personas, objetos generales)",
+            "espanol": "Clasificador universal",
             "tradicional": "個",
             "pinyin": "ge",
             "zhuyin": "ㄍㄜ˙",
@@ -7548,7 +7620,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mty004_zhang",
-            "espanol": "Clasificador para objetos planos (fotos, hojas, mesas, billetes)",
+            "espanol": "Clasificador de objetos planos",
             "tradicional": "張",
             "pinyin": "zhāng",
             "zhuyin": "ㄓㄤ",
@@ -7627,7 +7699,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_bei",
-            "espanol": "Clasificador para tazas o vasos de líquido (té, café, agua)",
+            "espanol": "Clasificador de vasos/tazas",
             "tradicional": "杯",
             "pinyin": "bēi",
             "zhuyin": "ㄅㄟ",
@@ -7654,7 +7726,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_wei",
-            "espanol": "Clasificador cortés / formal para personas",
+            "espanol": "Clasificador formal de personas",
             "tradicional": "位",
             "pinyin": "wèi",
             "zhuyin": "ㄨㄟˋ",
@@ -7732,7 +7804,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_mtgn2mv8_7ji91",
-            "espanol": "Años de edad (clasificador de edad)",
+            "espanol": "Años de edad",
             "tradicional": "歲",
             "pinyin": "suì",
             "zhuyin": "ㄙㄨㄟˋ",
@@ -7762,7 +7834,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_ke",
-            "espanol": "Clasificador para objetos pequeños y redondos (perlas, semillas, dientes, corazón)",
+            "espanol": "Clasificador de objetos redondos",
             "tradicional": "顆",
             "pinyin": "kē",
             "zhuyin": "ㄎㄜ",
@@ -7859,7 +7931,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_ci",
-            "espanol": "Clasificador verbal de frecuencia (veces / repeticiones)",
+            "espanol": "Veces (clasificador)",
             "tradicional": "次",
             "pinyin": "cì",
             "zhuyin": "ㄘˋ",
@@ -7884,7 +7956,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_dian",
-            "espanol": "Clasificador de horas (hora en punto) / punto / pedir comida",
+            "espanol": "Hora en punto",
             "tradicional": "點",
             "pinyin": "diǎn",
             "zhuyin": "ㄉㄧㄢˇ",
@@ -7909,7 +7981,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_fen",
-            "espanol": "Clasificador de minutos / dividir / punto (calificación)",
+            "espanol": "Minuto (hora)",
             "tradicional": "分",
             "pinyin": "fēn",
             "zhuyin": "ㄈㄣ",
@@ -7934,7 +8006,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_ke_time",
-            "espanol": "Clasificador de cuarto de hora (15 minutos)",
+            "espanol": "Cuarto de hora (15 min)",
             "tradicional": "刻",
             "pinyin": "kè",
             "zhuyin": "ㄎㄜˋ",
@@ -7959,7 +8031,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_ri",
-            "espanol": "Clasificador de día (calendario formal y escrito) / sol",
+            "espanol": "Día (calendario)",
             "tradicional": "日",
             "pinyin": "rì",
             "zhuyin": "ㄖˋ",
@@ -7980,7 +8052,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_hao",
-            "espanol": "Clasificador de día del mes (lenguaje hablado) / número",
+            "espanol": "Día del mes",
             "tradicional": "號",
             "pinyin": "hào",
             "zhuyin": "ㄏㄠˋ",
@@ -8005,7 +8077,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_xie",
-            "espanol": "Clasificador de plural indefinido (algunos / unos pocos)",
+            "espanol": "Unos pocos (plural)",
             "tradicional": "些",
             "pinyin": "xiē",
             "zhuyin": "ㄒㄧㄝ",
@@ -8055,7 +8127,7 @@ const SEED_DATA = {
         },
         {
             "id": "id_clf_kuai",
-            "espanol": "Clasificador coloquial de dinero (yuan / NT$) y trozos / pedazos",
+            "espanol": "Clasificador de dinero (NT$)",
             "tradicional": "塊",
             "pinyin": "kuài",
             "zhuyin": "ㄎㄨㄞˋ",
@@ -8105,6 +8177,7 @@ const SEED_DATA = {
         }
     ]
 };
+
 
 /**
  * Default classifiers for migration and validation.

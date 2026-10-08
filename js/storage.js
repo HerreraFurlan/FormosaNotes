@@ -161,7 +161,7 @@ const sanitizeAndMigrateData = (data) => {
         });
     }
 
-    // 7. Sync updated concise mnemonics, standardized radicals, and leccion from SEED_DATA
+    // 7. Sync updated concise mnemonics, standardized radicals, leccion, and simplified espanol from SEED_DATA
     if (typeof SEED_DATA !== 'undefined') {
         const seedMap = new Map();
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
@@ -179,9 +179,26 @@ const sanitizeAndMigrateData = (data) => {
                     if (seedWord) {
                         w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
                         w.notas = seedWord.notas;
+                        if (seedWord.espanol) {
+                            w.espanol = seedWord.espanol;
+                        }
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
                         }
+                    }
+                });
+            }
+        }
+
+        // 8. Ensure all cards from SEED_DATA exist in data (including split cards)
+        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+            if (Array.isArray(SEED_DATA[cat])) {
+                if (!Array.isArray(data[cat])) data[cat] = [];
+                const existingIds = new Set(data[cat].map(w => w.id));
+                SEED_DATA[cat].forEach(seedWord => {
+                    if (!existingIds.has(seedWord.id)) {
+                        data[cat].push(JSON.parse(JSON.stringify(seedWord)));
+                        existingIds.add(seedWord.id);
                     }
                 });
             }
@@ -201,10 +218,10 @@ const loadDB = () => {
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.14' || !data.clasificadores || data.clasificadores.length === 0) {
+            if (!data.meta || data.meta.migratedWordsVersion !== '3.19' || !data.clasificadores || data.clasificadores.length === 0) {
                 sanitizeAndMigrateData(data);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.14';
+                data.meta.migratedWordsVersion = '3.19';
                 saveDB(data);
             }
             return data;
