@@ -11,9 +11,9 @@
 // ==========================================================
 
 const CHINESE_FONTS = {
-    kaiti: "'LXGW WenKai TC', 'DFKai-SB', 'BiauKai', 'KaiTi', 'STKaiti', serif",
-    serif: "'Noto Serif TC', 'PMingLiU', serif",
-    sans: "'Noto Sans TC', 'Microsoft JhengHei', sans-serif"
+    kaiti: "'DFKai-SB', '標楷體', 'BiauKai', 'BiauKai TC', 'KaiTi', 'STKaiti', serif",
+    serif: "'Noto Serif TC', 'PMingLiU', '新細明體', serif",
+    sans: "'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif"
 };
 
 const CHINESE_FONT_STORAGE_KEY = 'appchino_chinese_font';

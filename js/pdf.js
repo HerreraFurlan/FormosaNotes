@@ -17,7 +17,7 @@ const CARDS_PER_PAGE = 6;
  * Gets active Chinese font stack for PDF rendering
  */
 const getPdfChineseFont = () => {
-    return getComputedStyle(document.documentElement).getPropertyValue('--font-chinese').trim() || "'LXGW WenKai TC', 'DFKai-SB', 'BiauKai', 'KaiTi', serif";
+    return getComputedStyle(document.documentElement).getPropertyValue('--font-chinese').trim() || "'DFKai-SB', '標楷體', 'BiauKai', 'KaiTi', serif";
 };
 
 /**
