@@ -7,11 +7,57 @@
  */
 
 // ==========================================================
+// CONFIGURACIÓN (SETTINGS) & FUENTES
+// ==========================================================
+
+const CHINESE_FONTS = {
+    kaiti: "'LXGW WenKai TC', 'DFKai-SB', 'BiauKai', 'KaiTi', 'STKaiti', serif",
+    serif: "'Noto Serif TC', 'PMingLiU', serif",
+    sans: "'Noto Sans TC', 'Microsoft JhengHei', sans-serif"
+};
+
+const CHINESE_FONT_STORAGE_KEY = 'appchino_chinese_font';
+
+/**
+ * Applies the selected Chinese font stack globally.
+ */
+const applyChineseFont = (fontKey) => {
+    const validKey = CHINESE_FONTS[fontKey] ? fontKey : 'kaiti';
+    const fontStack = CHINESE_FONTS[validKey];
+    document.documentElement.style.setProperty('--font-chinese', fontStack);
+    localStorage.setItem(CHINESE_FONT_STORAGE_KEY, validKey);
+
+    // Update settings dialog cards if present
+    document.querySelectorAll('.settings-font-card').forEach(card => {
+        const val = card.dataset.font;
+        const radio = card.querySelector('input[type="radio"]');
+        const isActive = val === validKey;
+        card.classList.toggle('active', isActive);
+        if (radio) radio.checked = isActive;
+    });
+};
+
+// Apply font immediately on script execution to avoid layout shift
+try {
+    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+    applyChineseFont(savedFont);
+} catch (e) {
+    console.warn("Could not load initial font preference:", e);
+}
+
+// ==========================================================
 // RENDERING
 // ==========================================================
 
-let currentFilter = 'todos';
+let currentCategoriesFilter = ['todos'];
+let currentLessonFilter = ['todas'];
 let currentSearch = '';
+
+// Backward compatibility properties
+Object.defineProperty(window, 'currentFilter', {
+    get: () => currentCategoriesFilter[0] || 'todos',
+    set: (val) => { currentCategoriesFilter = val ? [val] : ['todos']; }
+});
 
 /**
  * Strips tone marks from pinyin and standardizes string.
@@ -206,8 +252,19 @@ const renderGrid = () => {
     gridEl.innerHTML = '';
     let words = getAllWords();
 
-    if (currentFilter !== 'todos') {
-        words = words.filter(w => w.categoria === currentFilter);
+    // 1. Filter by category (stackable)
+    if (!currentCategoriesFilter.includes('todos') && currentCategoriesFilter.length > 0) {
+        words = words.filter(w => currentCategoriesFilter.includes(w.categoria));
+    }
+
+    // 2. Filter by lesson (stackable)
+    if (!currentLessonFilter.includes('todas') && currentLessonFilter.length > 0) {
+        words = words.filter(w => {
+            if (!w.leccion) {
+                return currentLessonFilter.includes('ninguna');
+            }
+            return currentLessonFilter.includes(String(w.leccion));
+        });
     }
 
     if (currentSearch) {
@@ -782,15 +839,69 @@ document.addEventListener('DOMContentLoaded', () => {
         renderGrid();
     });
 
-    // --- Library filter chips ---
-    document.getElementById('filter-chips').addEventListener('click', (e) => {
-        const chip = e.target.closest('.chip');
-        if (!chip) return;
-        document.querySelectorAll('#filter-chips .chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        currentFilter = chip.dataset.filter;
-        renderGrid();
-    });
+    // --- Library lesson filter chips (stackable multi-selection) ---
+    const libraryLessonChips = document.getElementById('library-lesson-chips');
+    if (libraryLessonChips) {
+        libraryLessonChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            const lessonVal = chip.dataset.lessonFilter || 'todas';
+
+            if (lessonVal === 'todas') {
+                currentLessonFilter = ['todas'];
+            } else {
+                let lessons = currentLessonFilter.filter(l => l !== 'todas');
+                if (lessons.includes(lessonVal)) {
+                    lessons = lessons.filter(l => l !== lessonVal);
+                } else {
+                    lessons.push(lessonVal);
+                }
+                if (lessons.length === 0) {
+                    lessons = ['todas'];
+                }
+                currentLessonFilter = lessons;
+            }
+
+            document.querySelectorAll('#library-lesson-chips .chip').forEach(c => {
+                const val = c.dataset.lessonFilter;
+                c.classList.toggle('active', currentLessonFilter.includes(val));
+            });
+
+            renderGrid();
+        });
+    }
+
+    // --- Library category filter chips (stackable multi-selection) ---
+    const libraryCatChips = document.getElementById('filter-chips');
+    if (libraryCatChips) {
+        libraryCatChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            const catVal = chip.dataset.filter || 'todos';
+
+            if (catVal === 'todos') {
+                currentCategoriesFilter = ['todos'];
+            } else {
+                let cats = currentCategoriesFilter.filter(c => c !== 'todos');
+                if (cats.includes(catVal)) {
+                    cats = cats.filter(c => c !== catVal);
+                } else {
+                    cats.push(catVal);
+                }
+                if (cats.length === 0) {
+                    cats = ['todos'];
+                }
+                currentCategoriesFilter = cats;
+            }
+
+            document.querySelectorAll('#filter-chips .chip').forEach(c => {
+                const val = c.dataset.filter;
+                c.classList.toggle('active', currentCategoriesFilter.includes(val));
+            });
+
+            renderGrid();
+        });
+    }
 
     // --- Builder bank filter chips ---
     document.getElementById('bank-filter-chips').addEventListener('click', (e) => {
@@ -1133,7 +1244,86 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target.files.length > 0) handleImportJSON(e.target.files[0]);
     });
 
+    // --- Settings initialization ---
+    initSettings();
+
     // --- Initialize ---
     refreshAll();
     initBuilder();
 });
+
+/**
+ * Initializes settings dialog and font preferences.
+ */
+const initSettings = () => {
+    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+    applyChineseFont(savedFont);
+
+    const settingsDialog = document.getElementById('settings-dialog');
+    const openSettingsBtn = document.getElementById('btn-open-settings');
+    const closeSettingsBtn = document.getElementById('settings-dialog-close');
+    const cancelSettingsBtn = document.getElementById('settings-dialog-cancel');
+    const saveSettingsBtn = document.getElementById('settings-dialog-save');
+    const geminiKeyInput = document.getElementById('settings-gemini-key');
+    const toggleGeminiKeyBtn = document.getElementById('btn-toggle-gemini-key');
+
+    if (!settingsDialog) return;
+
+    // Open settings
+    if (openSettingsBtn) {
+        openSettingsBtn.addEventListener('click', () => {
+            const currentFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+            applyChineseFont(currentFont);
+
+            if (geminiKeyInput && typeof getGeminiApiKey === 'function') {
+                geminiKeyInput.value = getGeminiApiKey() || '';
+            }
+
+            settingsDialog.showModal();
+        });
+    }
+
+    // Close / Cancel
+    const closeDialog = () => {
+        const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+        applyChineseFont(savedFont);
+        settingsDialog.close();
+    };
+
+    if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeDialog);
+    if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', closeDialog);
+
+    // Font card selection in dialog
+    document.querySelectorAll('.settings-font-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const fontKey = card.dataset.font;
+            if (fontKey) {
+                applyChineseFont(fontKey);
+            }
+        });
+    });
+
+    // Toggle password visibility
+    if (toggleGeminiKeyBtn && geminiKeyInput) {
+        toggleGeminiKeyBtn.addEventListener('click', () => {
+            geminiKeyInput.type = geminiKeyInput.type === 'password' ? 'text' : 'password';
+        });
+    }
+
+    // Save changes
+    if (saveSettingsBtn) {
+        saveSettingsBtn.addEventListener('click', () => {
+            const selectedRadio = document.querySelector('input[name="chinese-font-choice"]:checked');
+            const fontKey = selectedRadio ? selectedRadio.value : 'kaiti';
+            applyChineseFont(fontKey);
+
+            if (geminiKeyInput && typeof setGeminiApiKey === 'function') {
+                const newKey = geminiKeyInput.value.trim();
+                setGeminiApiKey(newKey);
+            }
+
+            showToast('Configuración guardada correctamente', 'success');
+            settingsDialog.close();
+        });
+    }
+};

@@ -14,6 +14,13 @@
 const CARDS_PER_PAGE = 6;
 
 /**
+ * Gets active Chinese font stack for PDF rendering
+ */
+const getPdfChineseFont = () => {
+    return getComputedStyle(document.documentElement).getPropertyValue('--font-chinese').trim() || "'LXGW WenKai TC', 'DFKai-SB', 'BiauKai', 'KaiTi', serif";
+};
+
+/**
  * Builds a single front-side PDF card as an HTML string.
  */
 const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory = true) => {
@@ -21,6 +28,7 @@ const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory
     const charLen = (word.tradicional || '').length;
     const pdfCharSize = charLen <= 1 ? '3.5rem' : charLen === 2 ? '2.8rem' : charLen === 3 ? '2.2rem' : charLen === 4 ? '1.75rem' : '1.4rem';
     const pdfPinyinSize = (word.pinyin || '').length > 16 ? '0.9rem' : '1.1rem';
+    const chineseFont = getPdfChineseFont();
     return `
         <div style="
             border: 2px solid #D1D5DB;
@@ -38,7 +46,7 @@ const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory
             text-align: center;
         ">
             <div style="position:absolute;top:0;left:0;right:0;height:6px;background:${color};border-radius:12px 12px 0 0;-webkit-print-color-adjust: exact;print-color-adjust: exact;"></div>
-            <div style="font-family:'Noto Sans TC',sans-serif;font-size:${pdfCharSize};font-weight:700;color:#0F172A;line-height:1.2;margin-bottom:8px;text-align:center;width:100%;word-break:break-word;">
+            <div style="font-family:${chineseFont};font-size:${pdfCharSize};font-weight:700;color:#0F172A;line-height:1.2;margin-bottom:8px;text-align:center;width:100%;word-break:break-word;">
                 ${word.tradicional}
             </div>
             ${showPinyin ? `
@@ -47,7 +55,7 @@ const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory
             </div>
             ` : ''}
             ${showZhuyin && word.zhuyin ? `
-            <div style="font-family:'Noto Sans TC',sans-serif;font-size:0.85rem;color:#94A3B8;margin-top:4px;text-align:center;">
+            <div style="font-family:${chineseFont};font-size:0.85rem;color:#94A3B8;margin-top:4px;text-align:center;">
                 ${word.zhuyin}
             </div>
             ` : ''}
@@ -83,6 +91,7 @@ const buildBackCard = (word, showCategory = true) => {
         }
     }
 
+    const chineseFont = getPdfChineseFont();
     return `
         <div style="
             border: 2px solid #D1D5DB;
@@ -111,7 +120,7 @@ const buildBackCard = (word, showCategory = true) => {
                         ${word.pinyin}
                     </div>
                     ${word.zhuyin ? `
-                    <div style="font-family: 'Noto Sans TC', sans-serif; font-size: 0.85rem; color: #64748B; line-height: 1.2;">
+                    <div style="font-family: ${chineseFont}; font-size: 0.85rem; color: #64748B; line-height: 1.2;">
                         ${word.zhuyin}
                     </div>
                     ` : ''}
@@ -120,7 +129,7 @@ const buildBackCard = (word, showCategory = true) => {
                 ${(clfText || radText) ? `
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 3px; margin-top: 4px; font-size: 0.82rem; text-align: center; width: 100%;">
                     ${clfText ? `<div style="font-weight: 600; color: #334155;">${clfText}</div>` : ''}
-                    ${radText ? `<div style="font-family: 'Noto Sans TC', sans-serif; color: #64748B; font-size: 0.8rem;">${radText}</div>` : ''}
+                    ${radText ? `<div style="font-family: ${chineseFont}; color: #64748B; font-size: 0.8rem;">${radText}</div>` : ''}
                 </div>
                 ` : ''}
             </div>

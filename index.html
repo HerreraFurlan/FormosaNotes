@@ -12,11 +12,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=LXGW+WenKai+TC&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@500;700&display=swap"
         rel="stylesheet">
 
     <!-- App Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=3.19">
+    <link rel="stylesheet" href="css/styles.css?v=3.20">
 
     <!-- CDN Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -123,6 +123,13 @@
         </nav>
 
         <div class="sidebar-footer">
+            <button class="nav-item" id="btn-open-settings" data-tooltip="Configuración" title="Configuración">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+                <span class="nav-text">Configuración</span>
+            </button>
             <button class="nav-item" id="btn-export-json" data-tooltip="Exportar Datos" title="Exportar Datos">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
@@ -163,16 +170,39 @@
                         </svg>
                         Nueva Palabra
                     </button>
-                    <div class="filter-chips" id="filter-chips">
-                        <button class="chip active" data-filter="todos">Todos</button>
-                        <button class="chip" data-filter="pronombre">🔘 Pronombres</button>
-                        <button class="chip" data-filter="sustantivo">🔵 Sustantivos</button>
-                        <button class="chip" data-filter="clasificador">🟤 Clasificadores</button>
-                        <button class="chip" data-filter="verbo">🟠 Verbos</button>
-                        <button class="chip" data-filter="adverbio">🟢 Adverbios</button>
-                        <button class="chip" data-filter="adjetivo">🟡 Adjetivos</button>
-                        <button class="chip" data-filter="expresion">🔴 Expresiones</button>
-                        <button class="chip" data-filter="particula">🟣 Partículas</button>
+                    <div class="library-filter-bars">
+                        <!-- Filtros por Lección -->
+                        <div class="library-filter-bar">
+                            <span class="filter-bar-label">Lección:</span>
+                            <div class="filter-chips" id="library-lesson-chips">
+                                <button class="chip active" data-lesson-filter="todas">Todas</button>
+                                <button class="chip" data-lesson-filter="1">L1</button>
+                                <button class="chip" data-lesson-filter="2">L2</button>
+                                <button class="chip" data-lesson-filter="3">L3</button>
+                                <button class="chip" data-lesson-filter="4">L4</button>
+                                <button class="chip" data-lesson-filter="5">L5</button>
+                                <button class="chip" data-lesson-filter="6">L6</button>
+                                <button class="chip" data-lesson-filter="7">L7</button>
+                                <button class="chip" data-lesson-filter="8">L8</button>
+                                <button class="chip" data-lesson-filter="ninguna">/</button>
+                            </div>
+                        </div>
+
+                        <!-- Filtros por Categoría -->
+                        <div class="library-filter-bar">
+                            <span class="filter-bar-label">Categoría:</span>
+                            <div class="filter-chips" id="filter-chips">
+                                <button class="chip active" data-filter="todos">Todos</button>
+                                <button class="chip" data-filter="pronombre">🔘 Pronombres</button>
+                                <button class="chip" data-filter="sustantivo">🔵 Sustantivos</button>
+                                <button class="chip" data-filter="clasificador">🟤 Clasificadores</button>
+                                <button class="chip" data-filter="verbo">🟠 Verbos</button>
+                                <button class="chip" data-filter="adverbio">🟢 Adverbios</button>
+                                <button class="chip" data-filter="adjetivo">🟡 Adjetivos</button>
+                                <button class="chip" data-filter="expresion">🔴 Expresiones</button>
+                                <button class="chip" data-filter="particula">🟣 Partículas</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-grid" id="card-grid"></div>
@@ -578,7 +608,7 @@
                         style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;">
                         Versión sugerida</div>
                     <div id="ai-correction"
-                        style="font-size: 1.5rem; font-family: 'Noto Sans TC', sans-serif; color: var(--text-primary);">
+                        style="font-size: 1.5rem; font-family: var(--font-chinese); color: var(--text-primary);">
                     </div>
                 </div>
                 <div>
@@ -594,6 +624,88 @@
         </div>
     </dialog>
 
+    <!-- Settings Dialog -->
+    <dialog id="settings-dialog">
+        <div class="dialog-header">
+            <h3 style="display:flex; align-items:center; gap:0.5rem;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <circle cx="12" cy="12" r="3" />
+                    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
+                </svg>
+                Configuración
+            </h3>
+            <button class="btn-ghost btn-icon" id="settings-dialog-close" title="Cerrar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                </svg>
+            </button>
+        </div>
+        <div class="dialog-body">
+            <div class="settings-section">
+                <label class="settings-section-title">
+                    Fuente de caracteres chinos
+                    <span class="settings-section-subtitle">Selecciona cómo ver los caracteres en tarjetas, constructor, examen y estudio:</span>
+                </label>
+                <div class="settings-font-options">
+                    <label class="settings-font-card active" data-font="kaiti">
+                        <input type="radio" name="chinese-font-choice" value="kaiti" checked>
+                        <div class="settings-font-preview font-sample-kaiti">永繁華</div>
+                        <div class="settings-font-info">
+                            <div class="settings-font-name">
+                                <strong>Trazos completos / Caligráfica (楷體)</strong>
+                                <span class="settings-font-badge">Recomendado</span>
+                            </div>
+                            <p class="settings-font-desc">Muestra los trazos caligráficos pincelados exactos con sus ganchos y remates reales para aprender a escribir correctamente.</p>
+                        </div>
+                    </label>
+
+                    <label class="settings-font-card" data-font="serif">
+                        <input type="radio" name="chinese-font-choice" value="serif">
+                        <div class="settings-font-preview font-sample-serif">永繁華</div>
+                        <div class="settings-font-info">
+                            <div class="settings-font-name">
+                                <strong>Con remates / Estilo libro (明體 · 宋體)</strong>
+                            </div>
+                            <p class="settings-font-desc">Tipografía clásica impresa tradicional con remates estructurados (MingTi / SongTi).</p>
+                        </div>
+                    </label>
+
+                    <label class="settings-font-card" data-font="sans">
+                        <input type="radio" name="chinese-font-choice" value="sans">
+                        <div class="settings-font-preview font-sample-sans">永繁華</div>
+                        <div class="settings-font-info">
+                            <div class="settings-font-name">
+                                <strong>Sin remates / Computadora (黑體)</strong>
+                            </div>
+                            <p class="settings-font-desc">Fuente estándar digital geométrica de pantalla (HeiTi / Noto Sans).</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section" style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-color);">
+                <label class="settings-section-title" for="settings-gemini-key">
+                    Clave API de Gemini (Opcional)
+                    <span class="settings-section-subtitle">Para análisis pedagógico con IA y simulación de examen con Gemini</span>
+                </label>
+                <div style="position:relative; margin-top: 0.35rem;">
+                    <input type="password" id="settings-gemini-key" placeholder="AIzaSy..." style="width:100%; padding-right:2.5rem; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); padding-left: 0.75rem;">
+                    <button type="button" id="btn-toggle-gemini-key" class="btn-ghost" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); padding:4px; border:none; background:transparent; cursor:pointer; color:var(--text-muted);" title="Mostrar u ocultar clave">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="dialog-footer">
+            <button class="btn btn-secondary" id="settings-dialog-cancel">Cancelar</button>
+            <button class="btn btn-primary" id="settings-dialog-save">Guardar Cambios</button>
+        </div>
+    </dialog>
+
     <!-- Hidden file input for JSON import -->
     <input type="file" id="json-file-input" accept=".json" style="display:none;">
 
@@ -602,16 +714,16 @@
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
     <!-- Load order matters: data → storage → components → ai → builder → study → pdf → app -->
-    <script src="js/data.js?v=3.19"></script>
-    <script src="js/storage.js?v=3.19"></script>
-    <script src="js/components.js?v=3.19"></script>
-    <script src="js/ai.js?v=3.19"></script>
-    <script src="js/builder.js?v=3.19"></script>
-    <script src="js/study.js?v=3.19"></script>
-    <script src="js/pdf.js?v=3.19"></script>
-    <script src="js/practice.js?v=3.19"></script>
-    <script src="js/exam.js?v=3.19"></script>
-    <script src="js/app.js?v=3.19"></script>
+    <script src="js/data.js?v=3.20"></script>
+    <script src="js/storage.js?v=3.20"></script>
+    <script src="js/components.js?v=3.20"></script>
+    <script src="js/ai.js?v=3.20"></script>
+    <script src="js/builder.js?v=3.20"></script>
+    <script src="js/study.js?v=3.20"></script>
+    <script src="js/pdf.js?v=3.20"></script>
+    <script src="js/practice.js?v=3.20"></script>
+    <script src="js/exam.js?v=3.20"></script>
+    <script src="js/app.js?v=3.20"></script>
 
 </body>
 
