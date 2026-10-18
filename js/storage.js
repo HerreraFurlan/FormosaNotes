@@ -60,6 +60,10 @@ const CLASSIFIER_MAPPING = {
     '塊 kuài': 'id_clf_kuai',
     '種': 'id_clf_zhong',
     '種 zhǒng': 'id_clf_zhong',
+    '家': 'id_clf_jia_shop',
+    '家 jiā': 'id_clf_jia_shop',
+    '碗': 'id_clf_wan',
+    '碗 wǎn': 'id_clf_wan',
 };
 
 /**
@@ -168,14 +172,19 @@ const sanitizeAndMigrateData = (data) => {
             if (Array.isArray(SEED_DATA[cat])) {
                 SEED_DATA[cat].forEach(w => {
                     seedMap.set(w.id, w);
-                    if (w.tradicional) seedMap.set(w.tradicional, w);
+                    if (w.tradicional) {
+                        seedMap.set(w.tradicional + '_' + (w.categoria || cat), w);
+                        if (!seedMap.has(w.tradicional)) {
+                            seedMap.set(w.tradicional, w);
+                        }
+                    }
                 });
             }
         }
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => {
-                    const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional);
+                    const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
                     if (seedWord) {
                         w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
                         w.notas = seedWord.notas;
@@ -218,10 +227,10 @@ const loadDB = () => {
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.19' || !data.clasificadores || data.clasificadores.length === 0) {
+            if (!data.meta || data.meta.migratedWordsVersion !== '3.22' || !data.clasificadores || data.clasificadores.length === 0) {
                 sanitizeAndMigrateData(data);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.19';
+                data.meta.migratedWordsVersion = '3.22';
                 saveDB(data);
             }
             return data;

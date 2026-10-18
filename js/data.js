@@ -3115,7 +3115,8 @@ const SEED_DATA = {
                 "昨天下午你在家嗎？ — ¿Estabas en casa ayer por la tarde?",
                 "昨天的漢字課很有意思 — La clase de caracteres de ayer fue muy interesante"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 5
         },
         {
             "id": "id_voc_jintian",
@@ -3948,6 +3949,274 @@ const SEED_DATA = {
                 "你喜歡什麼運動？ — ¿Qué deporte te gusta?"
             ],
             "leccion": 3
+        },
+        {
+            "id": "id_l5_niurou",
+            "espanol": "Carne de res",
+            "tradicional": "牛肉",
+            "pinyin": "niúròu",
+            "zhuyin": "ㄋㄧㄡˊ ㄖㄡˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "牛 (niú - buey/vaca)"
+                },
+                {
+                    "type": "text",
+                    "value": "肉 (ròu - carne)"
+                }
+            ],
+            "notas": "Sustantivo para la carne de vaca o buey.",
+            "ejemplos": [
+                "這碗牛肉麵真好吃 — Este tazón de fideos con carne de res es realmente delicioso",
+                "你不吃牛肉嗎？ — ¿No comes carne de res?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_mian",
+            "espanol": "Fideos",
+            "tradicional": "麵",
+            "pinyin": "miàn",
+            "zhuyin": "ㄇㄧㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "麥 (mài - trigo)"
+                },
+                {
+                    "type": "text",
+                    "value": "丏 (miǎn - cubrir)"
+                }
+            ],
+            "notas": "Sustantivo para fideos de trigo.",
+            "ejemplos": [
+                "我想吃一碗麵 — Quiero comer un tazón de fideos",
+                "這家店的麵很有名 — Los fideos de este restaurante son muy famosos"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_xiaochi",
+            "espanol": "Aperitivo",
+            "tradicional": "小吃",
+            "pinyin": "xiǎochī",
+            "zhuyin": "ㄒㄧㄠˇ ㄔ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - pequeño)"
+                },
+                {
+                    "type": "text",
+                    "value": "吃 (chī - comer)"
+                }
+            ],
+            "notas": "Plato callejero o bocadillo típico tradicional.",
+            "ejemplos": [
+                "夜市有很多臺灣小吃 — En el mercado nocturno hay muchos aperitivos taiwaneses",
+                "你想吃什麼小吃？ — ¿Qué aperitivo quieres comer?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_tang",
+            "espanol": "Sopa",
+            "tradicional": "湯",
+            "pinyin": "tāng",
+            "zhuyin": "ㄊㄤ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - agua)"
+                },
+                {
+                    "type": "text",
+                    "value": "昜 (yáng - sol/brillante)"
+                }
+            ],
+            "notas": "Sustantivo para sopa o caldo.",
+            "ejemplos": [
+                "這碗牛肉湯太好喝了 — Este tazón de sopa de carne de res está riquísimo",
+                "你想喝什麼湯？ — ¿Qué sopa quieres tomar?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_dian",
+            "espanol": "Tienda",
+            "tradicional": "店",
+            "pinyin": "diàn",
+            "zhuyin": "ㄉㄧㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "广 (yǎn - cobijo/edificio)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhàn - ocupar)"
+                }
+            ],
+            "notas": "Local comercial o tienda pequeña.",
+            "ejemplos": [
+                "這家店賣很好喝的茶 — Esta tienda vende un té muy rico",
+                "我們去那家店點菜吧 — Vayamos a esa tienda a pedir platos"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_xiaolongbao",
+            "espanol": "Xiaolongbao",
+            "tradicional": "小籠包",
+            "pinyin": "xiǎolóngbāo",
+            "zhuyin": "ㄒㄧㄠˇ ㄌㄨㄥˊ ㄅㄠ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - pequeño)"
+                },
+                {
+                    "type": "text",
+                    "value": "籠 (lóng - cesta de bambú)"
+                },
+                {
+                    "type": "text",
+                    "value": "包 (bāo - bollo)"
+                }
+            ],
+            "notas": "Bollitos al vapor rellenos de carne y caldo cocidos en cesta de bambú.",
+            "ejemplos": [
+                "這家餐廳的小籠包很有名 — Los xiaolongbao de este restaurante son muy famosos",
+                "我們點兩籠小籠包吧 — Pidamos dos canastas de xiaolongbao"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_choudoufu",
+            "espanol": "Tofu apestoso",
+            "tradicional": "臭豆腐",
+            "pinyin": "chòu dòufǔ",
+            "zhuyin": "ㄔㄡˋ ㄉㄡˋ ㄈㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_kuai",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "臭 (chòu - olor fuerte)"
+                },
+                {
+                    "type": "text",
+                    "value": "豆 (dòu - soja)"
+                },
+                {
+                    "type": "text",
+                    "value": "腐 (fǔ - fermentado)"
+                }
+            ],
+            "notas": "Plato callejero tradicional taiwanés de tofu fermentado.",
+            "ejemplos": [
+                "臺灣夜市的臭豆腐很好吃 — El tofu apestoso de los mercados nocturnos de Taiwán es muy rico",
+                "你敢吃臭豆腐嗎？ — ¿Te atreves a comer tofu apestoso?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_canting",
+            "espanol": "Restaurante",
+            "tradicional": "餐廳",
+            "pinyin": "cāntīng",
+            "zhuyin": "ㄘㄢ ㄊㄧㄥ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "餐 (cān - comida/alimento)"
+                },
+                {
+                    "type": "text",
+                    "value": "廳 (tīng - sala/pabellón)"
+                }
+            ],
+            "notas": "Restaurante o comedor formal.",
+            "ejemplos": [
+                "昨天我們去那家餐廳吃飯 — Ayer fuimos a ese restaurante a comer",
+                "這家餐廳的菜非常辣 — La comida de este restaurante es sumamente picante"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_ziji",
+            "espanol": "Uno mismo",
+            "tradicional": "自己",
+            "pinyin": "zìjǐ",
+            "zhuyin": "ㄗˋ ㄐㄧˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "自 (zì - propio)"
+                },
+                {
+                    "type": "text",
+                    "value": "己 (jǐ - uno mismo)"
+                }
+            ],
+            "notas": "Pronombre reflexivo enfático (yo mismo / por su propia cuenta).",
+            "ejemplos": [
+                "我喜歡自己做飯 — Me gusta cocinar yo mismo",
+                "他自己一個人去臺灣旅行 — Él fue solo de viaje a Taiwán por su cuenta"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_tiandian",
+            "espanol": "Postre",
+            "tradicional": "甜點",
+            "pinyin": "tiándiǎn",
+            "zhuyin": "ㄊㄧㄢˊ ㄉㄧㄢˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "甜 (tián - dulce)"
+                },
+                {
+                    "type": "text",
+                    "value": "點 (diǎn - bocado)"
+                }
+            ],
+            "notas": "Dulce o postre servido tras la comida.",
+            "ejemplos": [
+                "你喜歡吃什麼甜點？ — ¿Qué postre te gusta comer?",
+                "這家餐廳的甜點很有名 — Los postres de este restaurante son muy famosos"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "verbos": [
@@ -4467,7 +4736,8 @@ const SEED_DATA = {
                 "請說中文 — Por favor hable en chino",
                 "他說得很清楚 — Él lo dice muy claramente"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "leccion": 5
         },
         {
             "id": "id_voc_mai",
@@ -5124,7 +5394,189 @@ const SEED_DATA = {
                 "我們點菜吧 — Vamos a pedir platos",
                 "你想點什麼？ — ¿Qué quieres pedir?"
             ],
-            "leccion": 4
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_zhidao",
+            "espanol": "Saber",
+            "tradicional": "知道",
+            "pinyin": "zhīdào",
+            "zhuyin": "ㄓ ㄉㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "知 (zhī - conocer)"
+                },
+                {
+                    "type": "text",
+                    "value": "道 (dào - camino/verdad)"
+                }
+            ],
+            "notas": "Verbo transitivo para saber información o tener conocimiento de algo.",
+            "ejemplos": [
+                "你知道這家店在哪裡嗎？ — ¿Sabes dónde queda esta tienda?",
+                "我不知道他明天來不來 — No sé si él vendrá mañana"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_pa",
+            "espanol": "Temer",
+            "tradicional": "怕",
+            "pinyin": "pà",
+            "zhuyin": "ㄆㄚˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "忄 (xīn - corazón)"
+                },
+                {
+                    "type": "text",
+                    "value": "白 (bái - blanco)"
+                }
+            ],
+            "notas": "Verbo de estado psicológico: temer o no gustarle algo (ej. 怕辣 = no tolerar el picante).",
+            "ejemplos": [
+                "我很怕辣，不能吃這個菜 — Le temo mucho al picante, no puedo comer este plato",
+                "你怕冷還是怕熱？ — ¿Le temes al frío o al calor?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_zuofan",
+            "espanol": "Cocinar",
+            "tradicional": "做飯",
+            "pinyin": "zuòfàn",
+            "zhuyin": "ㄗㄨㄛˋ ㄈㄢˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "做 (zuò - hacer)"
+                },
+                {
+                    "type": "text",
+                    "value": "飯 (fàn - comida/arroz)"
+                }
+            ],
+            "notas": "Verbo separable (V-sep): preparar comida o cocinar.",
+            "ejemplos": [
+                "你會做飯嗎？ — ¿Sabes cocinar?",
+                "他做飯做得很不錯 — Él cocina bastante bien"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_hui",
+            "espanol": "Saber (habilidad)",
+            "tradicional": "會",
+            "pinyin": "huì",
+            "zhuyin": "ㄏㄨㄟˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "人 (rén - persona)"
+                },
+                {
+                    "type": "text",
+                    "value": "云 (yún - decir/nube)"
+                }
+            ],
+            "notas": "Verbo auxiliar modal que denota una habilidad adquirida por aprendizaje o práctica.",
+            "ejemplos": [
+                "你會做臺灣菜嗎？ — ¿Sabes cocinar comida taiwanesa?",
+                "我會說一點中文 — Sé hablar un poco de chino"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_keyi",
+            "espanol": "Poder (posibilidad)",
+            "tradicional": "可以",
+            "pinyin": "kěyǐ",
+            "zhuyin": "ㄎㄜˇ ㄧˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - poder)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - mediante)"
+                }
+            ],
+            "notas": "Auxiliar modal que expresa posibilidad o solicitud cortés ('¿podrías...?').",
+            "ejemplos": [
+                "你可以教我做飯嗎？ — ¿Podrías enseñarme a cocinar?",
+                "有空的話我們可以去夜市 — Si tienes tiempo libre podemos ir al mercado nocturno"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_jiao",
+            "espanol": "Enseñar",
+            "tradicional": "教",
+            "pinyin": "jiāo",
+            "zhuyin": "ㄐㄧㄠ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "孝 (xiào - piedad filial)"
+                },
+                {
+                    "type": "text",
+                    "value": "攵 (pū - acción/golpecito)"
+                }
+            ],
+            "notas": "Verbo transitivo para impartir conocimientos o habilidades a alguien.",
+            "ejemplos": [
+                "請你教我做牛肉麵 — Por favor enséñame a preparar fideos con carne de res",
+                "李老師在大學教中文 — El profesor Li enseña chino en la universidad"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_dao",
+            "espanol": "Llegar a",
+            "tradicional": "到",
+            "pinyin": "dào",
+            "zhuyin": "ㄉㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "至 (zhì - llegar)"
+                },
+                {
+                    "type": "text",
+                    "value": "刂 (dāo - cuchillo/límite)"
+                }
+            ],
+            "notas": "Verbo o preposición de destino: llegar a un lugar o ir hasta un sitio.",
+            "ejemplos": [
+                "明天你到我家來做飯吧 — Mañana ven a mi casa a cocinar",
+                "坐捷運可以到那家餐廳 — Tomando el metro se puede llegar a ese restaurante"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "adverbios": [
@@ -5446,6 +5898,140 @@ const SEED_DATA = {
                 "我們一共五個人去看電影。 — En total fuimos cinco personas a ver la película."
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_l5_zhen",
+            "espanol": "Realmente",
+            "tradicional": "真",
+            "pinyin": "zhēn",
+            "zhuyin": "ㄓㄣ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "目 (mù - ojo)"
+                },
+                {
+                    "type": "text",
+                    "value": "十 (shí - diez)"
+                }
+            ],
+            "notas": "Adverbio enfático ante adjetivos (真 + Adjetivo = '¡realmente...!').",
+            "ejemplos": [
+                "臺灣的小吃真好吃 — Los aperitivos de Taiwán son realmente deliciosos",
+                "你做飯做得真好 — Cocinas realmente bien"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_zui",
+            "espanol": "El más",
+            "tradicional": "最",
+            "pinyin": "zuì",
+            "zhuyin": "ㄗㄨㄟˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sol)"
+                },
+                {
+                    "type": "text",
+                    "value": "取 (qǔ - tomar)"
+                }
+            ],
+            "notas": "Adverbio superlativo antepuesto a adjetivos o verbos de agrado.",
+            "ejemplos": [
+                "哪一家餐廳的菜最好吃？ — ¿La comida de qué restaurante es la más deliciosa?",
+                "我最喜歡吃小籠包 — Lo que más me gusta comer son los xiaolongbao"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_zheme",
+            "espanol": "Tan",
+            "tradicional": "這麼",
+            "pinyin": "zhème",
+            "zhuyin": "ㄓㄜˋ ˙ㄇㄜ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "這 (zhè - este)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - partícula)"
+                }
+            ],
+            "notas": "Adverbio demostrativo de grado (這麼 + Adjetivo = 'tan...').",
+            "ejemplos": [
+                "這家店的菜怎麼這麼好吃！ — ¡Por qué la comida de esta tienda es tan deliciosa!",
+                "牛肉麵這麼貴嗎？ — ¿Los fideos con carne de res son así de caros?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_yiding",
+            "espanol": "Definitivamente",
+            "tradicional": "一定",
+            "pinyin": "yídìng",
+            "zhuyin": "ㄧˊ ㄉㄧㄥˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "text",
+                    "value": "定 (dìng - fijar/seguro)"
+                }
+            ],
+            "notas": "Adverbio modal de certeza o necesidad ('seguramente', 'sin falta').",
+            "ejemplos": [
+                "你一定要吃這家的小籠包 — Sin falta tienes que comer los xiaolongbao de este lugar",
+                "明天他不一定會來 — No necesariamente vendrá mañana"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_youyidian",
+            "espanol": "Un poco",
+            "tradicional": "有一點",
+            "pinyin": "yǒu yì diǎn",
+            "zhuyin": "ㄧㄡˇ ㄧˋ ㄉㄧㄢˇ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - haber)"
+                },
+                {
+                    "type": "text",
+                    "value": "一 (yī - un)"
+                },
+                {
+                    "type": "text",
+                    "value": "點 (diǎn - poco/gota)"
+                }
+            ],
+            "notas": "Adverbio antepuesto a adjetivos que denota moderado exceso o disgusto.",
+            "ejemplos": [
+                "這碗湯有一點辣 — Este tazón de sopa está un poco picante",
+                "我今天有一點累 — Hoy estoy un poco cansado"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "expresiones": [
@@ -6412,6 +6998,140 @@ const SEED_DATA = {
                 "太好了！明天我們一起去游泳。 — ¡Qué bien / genial! Mañana vamos a nadar juntos."
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_l5_shia",
+            "espanol": "Así es",
+            "tradicional": "是啊",
+            "pinyin": "shì a",
+            "zhuyin": "ㄕˋ ㄚ˙",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "是 (shì - ser/así)"
+                },
+                {
+                    "type": "text",
+                    "value": "啊 (a - partícula de asenso)"
+                }
+            ],
+            "notas": "Expresión para asentir o confirmar lo dicho por el interlocutor.",
+            "ejemplos": [
+                "這家店很有名吧？是啊！ — ¿Esta tienda es muy famosa, verdad? ¡Así es!",
+                "小籠包真好吃！是啊，我很喜歡 — ¡Los xiaolongbao son riquísimos! Así es, me encantan"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_taihaole",
+            "espanol": "¡Qué bien!",
+            "tradicional": "太好了",
+            "pinyin": "tài hǎo le",
+            "zhuyin": "ㄊㄞˋ ㄏㄠˇ ˙ㄌㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "太 (tài - muy/demasiado)"
+                },
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (partícula)"
+                }
+            ],
+            "notas": "Expresión de entusiasmo y satisfacción ante una buena noticia.",
+            "ejemplos": [
+                "明天我們一起去吃牛肉麵！太好了！ — ¡Mañana vamos juntos a comer fideos con carne de res! ¡Qué bien!",
+                "你可以教我做飯嗎？太好了 — ¿Puedes enseñarme a cocinar? ¡Excelente!"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_keshi",
+            "espanol": "Pero",
+            "tradicional": "可是",
+            "pinyin": "kěshì",
+            "zhuyin": "ㄎㄜˇ ㄕˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - poder/permitir)"
+                },
+                {
+                    "type": "text",
+                    "value": "是 (shì - ser)"
+                }
+            ],
+            "notas": "Conjunción adversativa que introduce un contraste suave ('pero', 'sin embargo').",
+            "ejemplos": [
+                "這家餐廳很好吃，可是有一點貴 — Este restaurante es muy rico, pero es un poco caro",
+                "我想去，可是今天沒有時間 — Quiero ir, pero hoy no tengo tiempo"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_suoyi",
+            "espanol": "Por lo tanto",
+            "tradicional": "所以",
+            "pinyin": "suǒyǐ",
+            "zhuyin": "ㄙㄨㄛˇ ㄧˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "所 (suǒ - lugar/lo que)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - mediante)"
+                }
+            ],
+            "notas": "Conjunción consecutiva empleada a menudo con 因為 (porque... por lo tanto...).",
+            "ejemplos": [
+                "因為我很怕辣，所以不吃牛肉麵 — Porque le temo al picante, por eso no como fideos con carne de res",
+                "他喜歡臺灣，所以來學中文 — Le gusta Taiwán, por lo tanto vino a aprender chino"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_buhao",
+            "espanol": "Mal",
+            "tradicional": "不好",
+            "pinyin": "bù hǎo",
+            "zhuyin": "ㄅㄨˋ ㄏㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - no)"
+                },
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                }
+            ],
+            "notas": "Expresión de valoración negativa: no estar bien o desempeñarse de forma deficiente.",
+            "ejemplos": [
+                "我做飯做得很不好 — Cocino muy mal",
+                "這個味道不太好 — Este sabor no está muy bueno"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "particulas": [
@@ -6594,6 +7314,36 @@ const SEED_DATA = {
             ],
             "fechaCreacion": "2026-09-30",
             "leccion": 3
+        },
+        {
+            "id": "id_l5_de",
+            "espanol": "Partícula de grado",
+            "tradicional": "得",
+            "pinyin": "de",
+            "zhuyin": "ㄉㄜ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - paso)"
+                },
+                {
+                    "type": "text",
+                    "value": "旦 (dàn - amanecer)"
+                },
+                {
+                    "type": "text",
+                    "value": "寸 (cùn - regla)"
+                }
+            ],
+            "notas": "Partícula estructural de complemento de grado o evaluación (Verbo + 得 + Adjetivo).",
+            "ejemplos": [
+                "他中文說得很好 — Él habla chino muy bien",
+                "這道菜做得很不錯 — Este plato está preparado bastante bien"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "estructuras": [
@@ -7536,7 +8286,8 @@ const SEED_DATA = {
                 "今天教室裡的學生很少 — Hoy hay pocos estudiantes en el salón",
                 "你喝很少茶 — Bebes muy poco té"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "leccion": 5
         },
         {
             "id": "id_l3_haowan",
@@ -7588,6 +8339,110 @@ const SEED_DATA = {
                 "今天的熱包子真好吃！ — ¡Los baozis calientes de hoy están verdaderamente ricos!"
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_l5_haochi",
+            "espanol": "Delicioso",
+            "tradicional": "好吃",
+            "pinyin": "hǎochī",
+            "zhuyin": "ㄏㄠˇ ㄔ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "吃 (comer)"
+                }
+            ],
+            "notas": "Adjetivo para comida sabrosa o deliciosa.",
+            "ejemplos": [
+                "臭豆腐非常好吃 — El tofu apestoso es sumamente delicioso",
+                "小籠包好吃嗎？ — ¿Están deliciosos los xiaolongbao?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_youming",
+            "espanol": "Famoso",
+            "tradicional": "有名",
+            "pinyin": "yǒumíng",
+            "zhuyin": "ㄧㄡˇ ㄇㄧㄥˊ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - tener)"
+                },
+                {
+                    "type": "text",
+                    "value": "名 (míng - nombre/fama)"
+                }
+            ],
+            "notas": "Adjetivo para lugares, personas o platos célebres.",
+            "ejemplos": [
+                "這家餐廳在臺北很有名 — Este restaurante es muy famoso en Taipéi",
+                "臺灣什麼小吃最有名？ — ¿Qué bocadillo de Taiwán es el más famoso?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_la",
+            "espanol": "Picante",
+            "tradicional": "辣",
+            "pinyin": "là",
+            "zhuyin": "ㄌㄚˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辛 (xīn - picante)"
+                },
+                {
+                    "type": "text",
+                    "value": "束 (shù - atar)"
+                }
+            ],
+            "notas": "Adjetivo descriptivo del sabor picante.",
+            "ejemplos": [
+                "這個牛肉麵太辣了！ — ¡Estos fideos con carne de res están demasiado picantes!",
+                "你怕辣嗎？我不怕辣 — ¿Le temes al picante? No le temo al picante"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_l5_bucuo",
+            "espanol": "Bueno",
+            "tradicional": "不錯",
+            "pinyin": "búcuò",
+            "zhuyin": "ㄅㄨˊ ㄘㄨㄛˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - no)"
+                },
+                {
+                    "type": "text",
+                    "value": "錯 (cuò - error)"
+                }
+            ],
+            "notas": "Adjetivo de evaluación positiva: bueno o bastante bien.",
+            "ejemplos": [
+                "他的廚藝很不錯 — Sus habilidades culinarias son bastante buenas",
+                "這家店的麵真不錯 — Los fideos de esta tienda están muy buenos"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ],
     "clasificadores": [
@@ -8174,6 +9029,58 @@ const SEED_DATA = {
                 "那種手機賣得非常好。 — Ese tipo de teléfono se vende muy bien."
             ],
             "leccion": 4
+        },
+        {
+            "id": "id_clf_jia_shop",
+            "espanol": "Tiendas o restaurantes",
+            "tradicional": "家",
+            "pinyin": "jiā",
+            "zhuyin": "ㄐㄧㄚ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "宀 (mián - techo)"
+                },
+                {
+                    "type": "text",
+                    "value": "豕 (shǐ - cerdo)"
+                }
+            ],
+            "notas": "Clasificador para establecimientos comerciales, empresas, tiendas y restaurantes.",
+            "ejemplos": [
+                "這家餐廳的小吃很有名 — Los aperitivos de este restaurante son muy famosos",
+                "我想去那家店買茶 — Quiero ir a esa tienda a comprar té"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
+        },
+        {
+            "id": "id_clf_wan",
+            "espanol": "Tazón",
+            "tradicional": "碗",
+            "pinyin": "wǎn",
+            "zhuyin": "ㄨㄢˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "石 (shí - piedra)"
+                },
+                {
+                    "type": "text",
+                    "value": "宛 (wǎn - cuenco)"
+                }
+            ],
+            "notas": "Clasificador contenedor para porciones de comida o sopa servidas en cuencos o tazones.",
+            "ejemplos": [
+                "我要一碗牛肉麵 — Quiero un tazón de fideos con carne de res",
+                "請給他一碗熱湯 — Por favor dale un tazón de sopa caliente"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5
         }
     ]
 };
