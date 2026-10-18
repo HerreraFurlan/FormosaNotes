@@ -7751,6 +7751,123 @@ const SEED_DATA = {
             "ejemplo_pinyin": "wǒ cháng dǎ lánqiú, yě cháng tī zúqiú",
             "ejemplo_espanol": "Juego seguido al baloncesto y también suelo jugar al fútbol",
             "notas": "常 expresa habitualidad positiva ('a menudo / con frecuencia'). Cuando se suman dos actividades habituales se combina con 也 (también): 也常. Su opuesto es 不常 (rara vez / no muy seguido)."
+        },
+        {
+            "id": "struct_l5_zui_superlativo",
+            "nombre": "Superlativo de grado y preferencia con 最 (El más / Lo que más)",
+            "formula": "S + 最 + V-ps / Vs (+ O)",
+            "ejemplo_tradicional": "你最喜歡吃什麼？我最喜歡吃牛肉麵",
+            "ejemplo_pinyin": "Nǐ zuì xǐhuān chī shénme? Wǒ zuì xǐhuān chī niúròu miàn",
+            "ejemplo_espanol": "¿Qué es lo que más te gusta comer? Lo que más me gusta comer son los fideos con carne de res",
+            "notas": "El adverbio superlativo 最 (zuì) se antepone directamente a verbos afectivos o psicológicos (ej. 最喜歡, 最想, 最怕) o adjetivos de estado (ej. 最好吃, 最有名, 最貴) para señalar el grado máximo ('el más...', 'lo que más...')."
+        },
+        {
+            "id": "struct_l5_zheme_grado",
+            "nombre": "Adverbio demostrativo enfático de grado con 這麼 (Tan... / Así de...)",
+            "formula": "這麼 + Vs (+ ，S + ...)",
+            "ejemplo_tradicional": "這家店的菜這麼好吃，我很想去吃",
+            "ejemplo_pinyin": "Zhè jiā diàn de cài zhème hǎochī, wǒ hěn xiǎng qù chī",
+            "ejemplo_espanol": "La comida de esta tienda es tan deliciosa que tengo muchas ganas de ir a comer",
+            "notas": "這麼 (zhème) precede a adjetivos descriptivos para expresar un grado elevado y evidente o recientemente mencionado en la conversación ('tan sabroso', 'tan caro'). En oraciones causales-consecutivas abre con frecuencia la primera cláusula para justificar el deseo o reacción posterior."
+        },
+        {
+            "id": "struct_l5_yiding_yao",
+            "nombre": "Determinación o recomendación imprescindible con 一定要 (Sin falta hay que...)",
+            "formula": "S + 一定(要) + V (+ O)",
+            "ejemplo_tradicional": "我們明天去，一定要點大碗的",
+            "ejemplo_pinyin": "Wǒmen míngtiān qù, yídìng yào diǎn dà wǎn de",
+            "ejemplo_espanol": "Vamos mañana; sin falta tenemos que pedir el tazón grande",
+            "notas": "一定 (yídìng = definitivamente / sin duda) combinado con 要 (yào) expresa una firme resolución o un consejo imperioso ('sin falta hay que...', 'es indispensable...'). Su forma negativa para 'no necesariamente' es 不一定 (bù yídìng)."
+        },
+        {
+            "id": "struct_l5_de_nominalizacion",
+            "nombre": "Nominalización descriptiva y elipsis con 的 (El / la [adjetivo])",
+            "formula": "Modificador / Clasificador + 的 (+ [Sustantivo elidido])",
+            "ejemplo_tradicional": "這家店的牛肉麵很好吃，請給我一碗大碗的",
+            "ejemplo_pinyin": "Zhè jiā diàn de niúròu miàn hěn hǎochī, qǐng gěi wǒ yì wǎn dà wǎn de",
+            "ejemplo_espanol": "Los fideos con carne de res de esta tienda son deliciosos, por favor deme un tazón grande",
+            "notas": "Cuando el objeto ya ha sido introducido en el contexto de la conversación (como 'fideos' o 'plato'), la partícula 的 permite omitir el sustantivo, creando un sintagma nominal autónomo equivalente a 'el grande', 'el picante' o 'el de carne' (ej. 大碗的 = el tazón grande)."
+        },
+        {
+            "id": "struct_l5_keshi_contraste",
+            "nombre": "Contraste u objeción suave con la conjunción 可是 (Pero / Sin embargo)",
+            "formula": "Cláusula 1，可是 + Cláusula 2",
+            "ejemplo_tradicional": "那家餐廳的菜很好吃，可是有一點辣",
+            "ejemplo_pinyin": "Nà jiā cāntīng de cài hěn hǎochī, kěshì yǒu yìdiǎn là",
+            "ejemplo_espanol": "La comida de ese restaurante es muy rica, pero está un poco picante",
+            "notas": "可是 (kěshì) introduce una segunda cláusula que matiza, restringe o contrasta suavemente la información previa. Es sumamente habitual en el habla coloquial para expresar objeciones atenuadas o peros corteses."
+        },
+        {
+            "id": "struct_l5_youyidian_grado",
+            "nombre": "Grado moderado con connotación desfavorable con 有一點 (Un poco [demasiado])",
+            "formula": "S + 有一點 + Vs",
+            "ejemplo_tradicional": "這碗湯有一點辣，我喝很少",
+            "ejemplo_pinyin": "Zhè wǎn tāng yǒu yìdiǎn là, wǒ hē hěn shǎo",
+            "ejemplo_espanol": "Esta sopa está un poco picante, tomo muy poco",
+            "notas": "有一點 (yǒu yì diǎn) antecede a adjetivos descriptivos indicando un grado leve de una cualidad, generalmente con sentido negativo, exceso molesto o disconformidad ('un poco caro', 'un poco picante', 'un poco cansado'). Se distingue de 一點 (yìdiǎn) en que este último modifica a sustantivos como cantidad (ej. 吃一點菜 = comer un poco de comida)."
+        },
+        {
+            "id": "struct_l5_suoyi_consecuencia",
+            "nombre": "Consecuencia y resultado con la conjunción 所以 (Por lo tanto / Así que)",
+            "formula": "(因為 + Causa，) S + 所以 + Consecuencia",
+            "ejemplo_tradicional": "我也怕辣，所以我喜歡自己做飯",
+            "ejemplo_pinyin": "Wǒ yě pà là, suǒyǐ wǒ xǐhuān zìjǐ zuòfàn",
+            "ejemplo_espanol": "A mí también me da miedo el picante, por eso me gusta cocinar yo mismo",
+            "notas": "所以 (suǒyǐ) introduce la consecuencia de la premisa anterior. En conversaciones diarias a menudo se omite la cláusula causal introducida por 因為 (yīnwèi), comenzando la segunda oración directamente con 所以 para hilar causas cotidianas."
+        },
+        {
+            "id": "struct_l5_ziji_accion",
+            "nombre": "Acción personal y autónoma con 自己 (Hacer algo uno mismo / por su cuenta)",
+            "formula": "S + 自己 (+ 一個人) + V (+ O)",
+            "ejemplo_tradicional": "週末我常常自己做飯，不常去餐廳",
+            "ejemplo_pinyin": "Zhōumò wǒ chángcháng zìjǐ zuòfàn, bù cháng qù cāntīng",
+            "ejemplo_espanol": "Los fines de semana suelo cocinar yo mismo, no suelo ir a restaurantes",
+            "notas": "自己 (zìjǐ) se antepone directamente al verbo para resaltar que el sujeto realiza la acción por iniciativa propia, de manera personal o sin requerir la intervención de terceros ('yo mismo', 'por su cuenta')."
+        },
+        {
+            "id": "struct_l5_de_zenmeyang",
+            "nombre": "Preguntar por la calidad o evaluación de una acción con 得怎麼樣",
+            "formula": "S (+ O) + V + 得 + 怎麼樣？ / S + V-O + V + 得 + 怎麼樣？",
+            "ejemplo_tradicional": "你做飯做得怎麼樣？",
+            "ejemplo_pinyin": "Nǐ zuòfàn zuò de zěnmeyàng?",
+            "ejemplo_espanol": "¿Qué tal cocinas? / ¿Cómo te queda la comida al cocinar?",
+            "notas": "Estructura interrogativa clásica con la partícula de grado 得 (de). Si el verbo lleva objeto o es un verbo separable como 做飯 (zuòfàn), el verbo se puede repetir después del objeto (做飯做得怎麼樣？) o el objeto se puede colocar al inicio como tema (飯你做得怎麼樣？)."
+        },
+        {
+            "id": "struct_l5_de_evaluacion",
+            "nombre": "Complemento de grado y evaluación verbal con 得 (Verbo + 得 + Adjetivo)",
+            "formula": "S (+ O) + V + 得 + [Adverbio] + Vs / S + V + 得 + 不 + Vs",
+            "ejemplo_tradicional": "我做飯做得不好，可是甜點做得不錯",
+            "ejemplo_pinyin": "Wǒ zuòfàn zuò de bù hǎo, kěshì tiándiǎn zuò de búcuò",
+            "ejemplo_espanol": "Cocino mal, pero los postres los preparo bastante bien",
+            "notas": "La partícula 得 conecta un verbo con un complemento que describe el modo, grado o calidad con que se ejecuta la acción. En oraciones afirmativas requiere un adverbio modificador (很, 真, 相當, 不錯) antes del adjetivo. En la negación, la partícula 不 se sitúa obligatoriamente DESPUÉS de 得 (ej. 做得不好, no *不做得到)."
+        },
+        {
+            "id": "struct_l5_hui_habilidad",
+            "nombre": "Capacidad o habilidad aprendida con el auxiliar modal 會 (Saber + V)",
+            "formula": "S + 會 (+ 不會) + V (+ O) (+ 嗎？) — (S +) 會 / 不會",
+            "ejemplo_tradicional": "妳會做飯嗎？ — 會，我會做飯",
+            "ejemplo_pinyin": "Nǐ huì zuòfàn ma? — Huì, wǒ huì zuòfàn",
+            "ejemplo_espanol": "¿Sabes cocinar? — Sí, sé cocinar",
+            "notas": "會 (huì) expresa habilidades que se aprenden mediante estudio, entrenamiento o práctica constante (idiomas, cocina, deportes). Para negar se utiliza 不會 (bú huì). Para preguntas directas se puede usar la partícula 嗎 o la forma afirmativa-negativa 會不會."
+        },
+        {
+            "id": "struct_l5_keyi_jiao",
+            "nombre": "Petición cortés de enseñanza con 教 (¿Podrías enseñarme a...?)",
+            "formula": "S + 可以 + 教 + O1 (persona) + O2 (habilidad / V) + 嗎？",
+            "ejemplo_tradicional": "我最喜歡吃甜點，妳可以教我做甜點嗎？",
+            "ejemplo_pinyin": "Wǒ zuì xǐhuān chī tiándiǎn, nǐ kěyǐ jiāo wǒ zuò tiándiǎn ma?",
+            "ejemplo_espanol": "Lo que más me gusta comer son los postres, ¿podrías enseñarme a preparar postres?",
+            "notas": "Combina el verbo auxiliar modal 可以 (posibilidad y solicitud cortés) con el verbo de doble objeto 教 (jiāo = enseñar). El primer objeto es la persona a quien se enseña y el segundo objeto es la materia o acción que se enseña."
+        },
+        {
+            "id": "struct_l5_dao_lugar_laiqu",
+            "nombre": "Desplazamiento a un destino con 到 ... 來 / 去 (Llegar / ir a un lugar)",
+            "formula": "S (+ Tiempo) + 到 + Lugar + 來 / 去 (+ V)",
+            "ejemplo_tradicional": "這個週末，你到我家來做飯",
+            "ejemplo_pinyin": "Zhè ge zhōumò, nǐ dào wǒ jiā lái zuòfàn",
+            "ejemplo_espanol": "Este fin de semana ven a mi casa a cocinar",
+            "notas": "到 (dào) introduce el destino espacial ('hacia / a'). Se combina con los verbos de movimiento deícticos 來 (lái = venir hacia el hablante) o 去 (qù = ir alejándose del hablante). Además, puede encadenarse con un segundo verbo para indicar el propósito de la visita."
         }
     ],
     "meta": {

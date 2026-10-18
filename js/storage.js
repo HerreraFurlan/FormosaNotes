@@ -227,10 +227,10 @@ const loadDB = () => {
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.22' || !data.clasificadores || data.clasificadores.length === 0) {
+            if (!data.meta || data.meta.migratedWordsVersion !== '3.23' || !data.clasificadores || data.clasificadores.length === 0) {
                 sanitizeAndMigrateData(data);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.22';
+                data.meta.migratedWordsVersion = '3.23';
                 saveDB(data);
             }
             return data;
