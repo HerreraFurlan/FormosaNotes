@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- App Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=3.21">
+    <link rel="stylesheet" href="css/styles.css?v=3.24">
 
     <!-- CDN Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -47,7 +47,7 @@
                 </div>
                 <div class="brand-text">
                     <h1>Formosa Notes</h1>
-                    <small>Mandarín Tradicional</small>
+                    <small data-i18n="appSubtitle">Mandarín Tradicional</small>
                 </div>
             </div>
             <button class="sidebar-collapse-btn" id="sidebar-collapse-btn" data-tooltip="Colapsar menú" title="Colapsar menú" aria-label="Colapsar o expandir menú">
@@ -58,13 +58,13 @@
         </div>
 
         <nav class="sidebar-nav">
-            <div class="nav-label">Principal</div>
+            <div class="nav-label" data-i18n="navMain">Principal</div>
             <button class="nav-item active" data-section="biblioteca" data-tooltip="Biblioteca" title="Biblioteca">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M4 19.5A2.5 2.5 0 016.5 17H20" />
                     <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" />
                 </svg>
-                <span class="nav-text">Biblioteca</span>
+                <span class="nav-text" data-i18n="navLibrary">Biblioteca</span>
             </button>
             <button class="nav-item" data-section="constructor" data-tooltip="Constructor" title="Constructor">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -73,7 +73,7 @@
                     <rect x="3" y="14" width="7" height="7" />
                     <rect x="14" y="14" width="7" height="7" />
                 </svg>
-                <span class="nav-text">Constructor</span>
+                <span class="nav-text" data-i18n="navBuilder">Constructor</span>
             </button>
             <button class="nav-item" data-section="estructuras" data-tooltip="Estructuras" title="Estructuras">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -82,24 +82,24 @@
                     <line x1="16" y1="13" x2="8" y2="13" />
                     <line x1="16" y1="17" x2="8" y2="17" />
                 </svg>
-                <span class="nav-text">Estructuras</span>
+                <span class="nav-text" data-i18n="navStructures">Estructuras</span>
             </button>
 
             <div class="nav-divider"></div>
-            <div class="nav-label">Estudio</div>
+            <div class="nav-label" data-i18n="navStudyHeader">Estudio</div>
             <button class="nav-item" data-section="estudio" data-tooltip="Modo Estudio" title="Modo Estudio">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                 </svg>
-                <span class="nav-text">Modo Estudio</span>
+                <span class="nav-text" data-i18n="navStudy">Modo Estudio</span>
             </button>
             <button class="nav-item" data-section="practica" data-tooltip="Práctica de oraciones" title="Práctica de oraciones">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M12 20h9" />
                     <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
                 </svg>
-                <span class="nav-text">Práctica de oraciones</span>
+                <span class="nav-text" data-i18n="navPractice">Práctica de oraciones</span>
             </button>
             <button class="nav-item" data-section="exam" data-tooltip="Simulación de examen" title="Simulación de examen">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -107,28 +107,36 @@
                     <polyline points="14 2 14 8 20 8" />
                     <path d="M9 15l2 2 4-4" />
                 </svg>
-                <span class="nav-text">Simulación de examen</span>
+                <span class="nav-text" data-i18n="navExam">Simulación de examen</span>
             </button>
 
             <div class="nav-divider"></div>
-            <div class="nav-label">Herramientas</div>
+            <div class="nav-label" data-i18n="navTools">Herramientas</div>
             <button class="nav-item" data-section="exportar" data-tooltip="Imprimir Flashcards" title="Imprimir Flashcards">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span class="nav-text">Imprimir Flashcards</span>
+                <span class="nav-text" data-i18n="navExport">Imprimir Flashcards</span>
             </button>
         </nav>
 
         <div class="sidebar-footer">
+            <button class="nav-item" id="btn-toggle-lang" data-tooltip="Cambiar Idioma / Switch Language" title="Cambiar Idioma">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span class="nav-text" id="lang-toggle-text">Español</span>
+            </button>
             <button class="nav-item" id="btn-open-settings" data-tooltip="Configuración" title="Configuración">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
                 </svg>
-                <span class="nav-text">Configuración</span>
+                <span class="nav-text" data-i18n="navSettings">Configuración</span>
             </button>
             <button class="nav-item" id="btn-export-json" data-tooltip="Exportar Datos" title="Exportar Datos">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -136,7 +144,7 @@
                     <polyline points="17 8 12 3 7 8" />
                     <line x1="12" y1="3" x2="12" y2="15" />
                 </svg>
-                <span class="nav-text">Exportar Datos</span>
+                <span class="nav-text" data-i18n="navExportJson">Exportar Datos</span>
             </button>
             <button class="nav-item" id="btn-import-json" data-tooltip="Importar Datos" title="Importar Datos">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -144,7 +152,7 @@
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
-                <span class="nav-text">Importar Datos</span>
+                <span class="nav-text" data-i18n="navImportJson">Importar Datos</span>
             </button>
         </div>
     </aside>
@@ -161,21 +169,21 @@
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
-                        <input type="search" id="search-input" placeholder="Buscar tarjetas">
+                        <input type="search" id="search-input" placeholder="Buscar tarjetas" data-i18n-ph="searchPlaceholder">
                     </div>
                     <button class="btn btn-primary" id="btn-add-word" style="height: 42px;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
                         </svg>
-                        Nueva Palabra
+                        <span data-i18n="newWordBtn">Nueva Palabra</span>
                     </button>
                     <div class="library-filter-bars">
                         <!-- Filtros por Lección -->
                         <div class="library-filter-bar">
-                            <span class="filter-bar-label">Lección:</span>
+                            <span class="filter-bar-label" data-i18n="lessonLabel">Lección:</span>
                             <div class="filter-chips" id="library-lesson-chips">
-                                <button class="chip active" data-lesson-filter="todas">Todas</button>
+                                <button class="chip active" data-lesson-filter="todas" data-i18n="allLessons">Todas</button>
                                 <button class="chip" data-lesson-filter="1">L1</button>
                                 <button class="chip" data-lesson-filter="2">L2</button>
                                 <button class="chip" data-lesson-filter="3">L3</button>
@@ -190,17 +198,17 @@
 
                         <!-- Filtros por Categoría -->
                         <div class="library-filter-bar">
-                            <span class="filter-bar-label">Categoría:</span>
+                            <span class="filter-bar-label" data-i18n="categoryLabel">Categoría:</span>
                             <div class="filter-chips" id="filter-chips">
-                                <button class="chip active" data-filter="todos">Todos</button>
-                                <button class="chip" data-filter="pronombre">🔘 Pronombres</button>
-                                <button class="chip" data-filter="sustantivo">🔵 Sustantivos</button>
-                                <button class="chip" data-filter="clasificador">🟤 Clasificadores</button>
-                                <button class="chip" data-filter="verbo">🟠 Verbos</button>
-                                <button class="chip" data-filter="adverbio">🟢 Adverbios</button>
-                                <button class="chip" data-filter="adjetivo">🟡 Adjetivos</button>
-                                <button class="chip" data-filter="expresion">🔴 Expresiones</button>
-                                <button class="chip" data-filter="particula">🟣 Partículas</button>
+                                <button class="chip active" data-filter="todos" data-i18n="allCategories">Todos</button>
+                                <button class="chip" data-filter="pronombre">🔘 <span data-i18n="catPronoun">Pronombres</span></button>
+                                <button class="chip" data-filter="sustantivo">🔵 <span data-i18n="catNoun">Sustantivos</span></button>
+                                <button class="chip" data-filter="clasificador">🟤 <span data-i18n="catClassifier">Clasificadores</span></button>
+                                <button class="chip" data-filter="verbo">🟠 <span data-i18n="catVerb">Verbos</span></button>
+                                <button class="chip" data-filter="adverbio">🟢 <span data-i18n="catAdverb">Adverbios</span></button>
+                                <button class="chip" data-filter="adjetivo">🟡 <span data-i18n="catAdjective">Adjetivos</span></button>
+                                <button class="chip" data-filter="expresion">🔴 <span data-i18n="catExpression">Expresiones</span></button>
+                                <button class="chip" data-filter="particula">🟣 <span data-i18n="catParticle">Partículas</span></button>
                             </div>
                         </div>
                     </div>
@@ -214,13 +222,13 @@
             <div class="page-body">
                 <div class="builder-area">
                     <div class="builder-header">
-                        <h3>Zona de Construcción</h3>
+                        <h3 data-i18n="builderHeader">Zona de Construcción</h3>
                         <button class="btn btn-ghost btn-sm" id="btn-clear-builder" title="Eliminar todas las fichas de la zona de construcción" disabled>
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15">
                                 <polyline points="3 6 5 6 21 6"></polyline>
                                 <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                             </svg>
-                            <span>Limpiar zona</span>
+                            <span data-i18n="builderClear">Limpiar zona</span>
                         </button>
                     </div>
                     <div class="builder-dropzone is-empty" id="builder-dropzone"></div>
@@ -234,7 +242,7 @@
                                 <path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
                             </svg>
                             <input type="text" id="pinyin-quick-input"
-                                placeholder="Escribe los caracteres o buscalos por significado, pinyin o zhuyin" autocomplete="off">
+                                placeholder="Escribe los caracteres o buscalos por significado, pinyin o zhuyin" data-i18n-ph="builderQuickInputPlaceholder" autocomplete="off">
                             <div class="pinyin-suggestions" id="pinyin-suggestions"></div>
                         </div>
                         <button class="btn btn-primary btn-sm" id="btn-add-pinyin" disabled>
@@ -243,7 +251,7 @@
                                 <line x1="12" y1="5" x2="12" y2="19" />
                                 <line x1="5" y1="12" x2="19" y2="12" />
                             </svg>
-                            Agregar
+                            <span data-i18n="builderAdd">Agregar</span>
                         </button>
                     </div>
                     <div class="builder-preview" id="builder-preview" style="display:none;">
@@ -252,20 +260,20 @@
                     </div>
                     <div class="builder-save-row" id="builder-save-row" style="display:none;">
                         <div class="form-group">
-                            <label>Nombre de la estructura</label>
-                            <input type="text" id="structure-name" placeholder="Ej: Afirmación con 是">
+                            <label data-i18n="builderStructureName">Nombre de la estructura</label>
+                            <input type="text" id="structure-name" placeholder="Ej: Afirmación con 是" data-i18n-ph="builderStructureNamePh">
                         </div>
                         <div class="form-group">
-                            <label>Fórmula</label>
-                            <input type="text" id="structure-formula" placeholder="Ej: S + 是 + N">
+                            <label data-i18n="builderFormula">Fórmula</label>
+                            <input type="text" id="structure-formula" placeholder="Ej: S + 是 + N" data-i18n-ph="builderFormulaPh">
                         </div>
                         <div class="form-group">
-                            <label>Traducción al español</label>
-                            <input type="text" id="structure-spanish" placeholder="Ej: Yo soy una persona">
+                            <label data-i18n="builderTranslation">Traducción al español</label>
+                            <input type="text" id="structure-spanish" placeholder="Ej: Yo soy una persona" data-i18n-ph="builderTranslationPh">
                         </div>
                         <div style="display: flex; gap: 0.5rem;">
                             <button class="btn btn-secondary" id="btn-examine-sentence"
-                                style="background: var(--color-particle-light); color: var(--color-particle); border-color: var(--color-particle-light);">
+                                style="background: var(--color-particle-light); color: var(--color-particle); border-color: var(--color-particle-light);" data-i18n="builderExamineBtn">
                                 🪄 Examinar Oración
                             </button>
                             <button class="btn btn-primary" id="btn-save-structure" style="flex: 1;">
@@ -274,15 +282,15 @@
                                     <polyline points="17 21 17 13 7 13 7 21" />
                                     <polyline points="7 3 7 8 15 8" />
                                 </svg>
-                                Guardar Estructura
+                                <span data-i18n="builderSaveBtn">Guardar Estructura</span>
                             </button>
                         </div>
                     </div>
                 </div>
                 <div class="word-bank">
-                    <h4>Banco de Palabras</h4>
+                    <h4 data-i18n="builderBankTitle">Banco de Palabras</h4>
                     <div class="filter-chips" id="bank-filter-chips" style="margin-bottom: 0.75rem;">
-                        <button class="chip active" data-filter="todos">Todos</button>
+                        <button class="chip active" data-filter="todos" data-i18n="allCategories">Todos</button>
                         <button class="chip" data-filter="pronombre">Pronombres</button>
                         <button class="chip" data-filter="sustantivo">Sustantivos</button>
                         <button class="chip" data-filter="clasificador">Clasificadores</button>
@@ -315,29 +323,29 @@
                                 <input type="checkbox" id="study-toggle-categoria" checked>
                                 <span class="slider"></span>
                             </span>
-                            Mostrar categoría
+                            <span data-i18n="studyShowCategory">Mostrar categoría</span>
                         </label>
                         <label class="switch-label" title="Mostrar notas históricas y mnemotécnicas al voltear">
                             <span class="switch">
                                 <input type="checkbox" id="study-toggle-notas" checked>
                                 <span class="slider"></span>
                             </span>
-                            Mostrar notas (reverso)
+                            <span data-i18n="studyShowNotes">Mostrar notas (reverso)</span>
                         </label>
                         <label class="switch-label" title="Mostrar descomposición de radicales al voltear">
                             <span class="switch">
                                 <input type="checkbox" id="study-toggle-radicales" checked>
                                 <span class="slider"></span>
                             </span>
-                            Mostrar radicales (reverso)
+                            <span data-i18n="studyShowRadicals">Mostrar radicales (reverso)</span>
                         </label>
                     </div>
 
                     <!-- Filtros por Lección -->
                     <div class="study-filters-bar">
-                        <span class="study-bar-label">Lección:</span>
+                        <span class="study-bar-label" data-i18n="lessonLabel">Lección:</span>
                         <div class="study-filters" id="study-lesson-filters">
-                            <button class="chip active" data-lesson-filter="todas">Todas</button>
+                            <button class="chip active" data-lesson-filter="todas" data-i18n="allLessons">Todas</button>
                             <button class="chip" data-lesson-filter="1">L1</button>
                             <button class="chip" data-lesson-filter="2">L2</button>
                             <button class="chip" data-lesson-filter="3">L3</button>
@@ -352,9 +360,9 @@
 
                     <!-- Filtros por Categoría -->
                     <div class="study-filters-bar">
-                        <span class="study-bar-label">Categoría:</span>
+                        <span class="study-bar-label" data-i18n="categoryLabel">Categoría:</span>
                         <div class="study-filters" id="study-filters">
-                            <button class="chip active" data-filter="todos">Todos</button>
+                            <button class="chip active" data-filter="todos" data-i18n="allCategories">Todos</button>
                             <button class="chip" data-filter="pronombre">Pronombres</button>
                             <button class="chip" data-filter="sustantivo">Sustantivos</button>
                             <button class="chip" data-filter="clasificador">Clasificadores</button>
@@ -398,11 +406,11 @@
                             <circle cx="11" cy="11" r="8" />
                             <line x1="21" y1="21" x2="16.65" y2="16.65" />
                         </svg>
-                        <input type="search" id="print-search-input" placeholder="Buscar tarjetas">
+                        <input type="search" id="print-search-input" placeholder="Buscar tarjetas" data-i18n-ph="printSearchPlaceholder">
                     </div>
 
-                    <button class="btn btn-secondary btn-sm" id="btn-select-all">Seleccionar todas</button>
-                    <button class="btn btn-secondary btn-sm" id="btn-deselect-all">Deseleccionar todas</button>
+                    <button class="btn btn-secondary btn-sm" id="btn-select-all" data-i18n="printSelectAll">Seleccionar todas</button>
+                    <button class="btn btn-secondary btn-sm" id="btn-deselect-all" data-i18n="printDeselectAll">Deseleccionar todas</button>
                     <span class="study-progress" id="export-count">0 seleccionadas</span>
                     <button class="btn btn-primary" id="btn-export-pdf" style="margin-left:auto;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -410,7 +418,7 @@
                             <polyline points="7 10 12 15 17 10" />
                             <line x1="12" y1="15" x2="12" y2="3" />
                         </svg>
-                        Imprimir Flashcards
+                        <span data-i18n="printBtn">Imprimir Flashcards</span>
                     </button>
                     <div style="display: flex; gap: 1rem; align-items: center; margin-left: 1rem; flex-wrap: wrap;">
                         <label class="switch-label">
@@ -418,21 +426,21 @@
                                 <input type="checkbox" id="print-toggle-pinyin" checked>
                                 <span class="slider"></span>
                             </span>
-                            Pinyin
+                            <span data-i18n="printPinyin">Pinyin</span>
                         </label>
                         <label class="switch-label">
                             <span class="switch">
                                 <input type="checkbox" id="print-toggle-zhuyin" checked>
                                 <span class="slider"></span>
                             </span>
-                            Zhuyin
+                            <span data-i18n="printZhuyin">Zhuyin</span>
                         </label>
                         <label class="switch-label">
                             <span class="switch">
                                 <input type="checkbox" id="print-toggle-categoria" checked>
                                 <span class="slider"></span>
                             </span>
-                            Categoría
+                            <span data-i18n="printCategory">Categoría</span>
                         </label>
                     </div>
                 </div>
@@ -447,7 +455,7 @@
     <!-- Add/Edit Word -->
     <dialog id="word-dialog">
         <div class="dialog-header">
-            <h3 id="word-dialog-title">Nueva Palabra</h3>
+            <h3 id="word-dialog-title" data-i18n="wordDialogNewTitle">Nueva Palabra</h3>
             <button class="btn-ghost btn-icon" id="word-dialog-close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -459,43 +467,43 @@
             <div class="dialog-body">
                 <div class="form-grid">
                     <div class="form-group">
-                        <label for="w-espanol">Significado en español *</label>
-                        <input type="text" id="w-espanol" required placeholder="Ej: Gato">
+                        <label for="w-espanol" data-i18n="wordDialogMeaning">Significado en español *</label>
+                        <input type="text" id="w-espanol" required placeholder="Ej: Gato" data-i18n-ph="wordDialogMeaningPh">
                     </div>
                     <div class="form-group">
-                        <label for="w-categoria">Categoría *</label>
+                        <label for="w-categoria" data-i18n="wordDialogCategory">Categoría *</label>
                         <select id="w-categoria" required>
-                            <option value="sustantivo">Sustantivo</option>
-                            <option value="pronombre">Pronombre</option>
-                            <option value="clasificador">Clasificador</option>
-                            <option value="verbo">Verbo</option>
-                            <option value="adjetivo">Adjetivo</option>
-                            <option value="adverbio">Adverbio</option>
-                            <option value="expresion">Expresión</option>
-                            <option value="particula">Partícula</option>
+                            <option value="sustantivo" data-i18n="cat_sustantivo">Sustantivo</option>
+                            <option value="pronombre" data-i18n="cat_pronombre">Pronombre</option>
+                            <option value="clasificador" data-i18n="cat_clasificador">Clasificador</option>
+                            <option value="verbo" data-i18n="cat_verbo">Verbo</option>
+                            <option value="adjetivo" data-i18n="cat_adjetivo">Adjetivo</option>
+                            <option value="adverbio" data-i18n="cat_adverbio">Adverbio</option>
+                            <option value="expresion" data-i18n="cat_expresion">Expresión</option>
+                            <option value="particula" data-i18n="cat_particula">Partícula</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="w-tradicional">Caracteres tradicionales *</label>
-                        <input type="text" id="w-tradicional" required placeholder="Ej: 貓">
+                        <label for="w-tradicional" data-i18n="wordDialogTrad">Caracteres tradicionales *</label>
+                        <input type="text" id="w-tradicional" required placeholder="Ej: 貓" data-i18n-ph="wordDialogTradPh">
                     </div>
                     <div class="form-group">
-                        <label for="w-pinyin">Pinyin *</label>
-                        <input type="text" id="w-pinyin" required placeholder="Ej: māo">
-                        <span class="hint" style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;">Escribe tonos con números (ej: a2 &rarr; á, hao3 &rarr; hǎo)</span>
+                        <label for="w-pinyin" data-i18n="wordDialogPinyin">Pinyin *</label>
+                        <input type="text" id="w-pinyin" required placeholder="Ej: māo" data-i18n-ph="wordDialogPinyinPh">
+                        <span class="hint" style="font-size:0.75rem; color:var(--text-muted); margin-top:0.25rem;"><span data-i18n="wordDialogPinyinHint">Escribe tonos con números (ej: a2 &rarr; á, hao3 &rarr; hǎo)</span></span>
                     </div>
                     <div class="form-group">
-                        <label for="w-zhuyin">Zhuyin (Bopomofo)</label>
-                        <input type="text" id="w-zhuyin" placeholder="Ej: ㄇㄠ">
+                        <label for="w-zhuyin" data-i18n="wordDialogZhuyin">Zhuyin (Bopomofo)</label>
+                        <input type="text" id="w-zhuyin" placeholder="Ej: ㄇㄠ" data-i18n-ph="wordDialogZhuyinPh">
                     </div>
                     <div class="form-group">
-                        <label for="w-clasificador">Clasificador</label>
+                        <label for="w-clasificador" data-i18n="wordDialogClassifier">Clasificador</label>
                         <select id="w-clasificador">
-                            <option value="">Ninguno</option>
+                            <option value="" data-i18n="wordDialogNone">Ninguno</option>
                         </select>
                     </div>
                     <div class="form-group full-width">
-                        <label>Lección (1 a 8 o ninguna)</label>
+                        <label data-i18n="wordDialogLesson">Lección (1 a 8 o ninguna)</label>
                         <div class="lesson-btn-group" id="w-lesson-group">
                             <button type="button" class="btn-lesson-pill active" data-lesson="" title="Sin lección asignada">/</button>
                             <button type="button" class="btn-lesson-pill" data-lesson="1" title="Lección 1">1</button>
@@ -510,17 +518,17 @@
                         <input type="hidden" id="w-leccion" value="">
                     </div>
                     <div class="form-group full-width radical-builder">
-                        <label>Radicales / Componentes</label>
+                        <label data-i18n="wordDialogRadicals">Radicales / Componentes</label>
                         <div class="radical-switch">
-                            <button type="button" class="radical-tab active" data-type="text">Texto Libre</button>
-                            <button type="button" class="radical-tab" data-type="library">Biblioteca</button>
+                            <button type="button" class="radical-tab active" data-type="text" data-i18n="wordDialogFreeText">Texto Libre</button>
+                            <button type="button" class="radical-tab" data-type="library" data-i18n="wordDialogLibrary">Biblioteca</button>
                         </div>
 
                         <div class="radical-input-area" id="radical-text-area">
                             <div style="display: flex; gap: 0.5rem; width: 100%;">
                                 <input type="text" id="w-radicales-text" placeholder="Ej: 火" style="flex: 1;">
                                 <button type="button" class="btn btn-secondary btn-sm" id="btn-add-radical-text"
-                                    style="padding: 0 1rem;">Agregar</button>
+                                    style="padding: 0 1rem;" data-i18n="builderAdd">Agregar</button>
                             </div>
                         </div>
 
@@ -533,7 +541,7 @@
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
                                 <input type="text" id="w-radicales-search"
-                                    placeholder="Buscar tarjetas" autocomplete="off">
+                                    placeholder="Buscar tarjetas" data-i18n-ph="wordDialogRadicalSearchPh" autocomplete="off">
                                 <div class="pinyin-suggestions" id="radical-suggestions"></div>
                             </div>
                         </div>
@@ -541,18 +549,18 @@
                         <div class="radical-chips" id="radical-chips-container">
                             <!-- Chips will be appended here -->
                         </div>
-                        <span class="hint">Agrega las partes que forman el carácter, en orden</span>
+                        <span class="hint" data-i18n="wordDialogRadicalHint">Agrega las partes que forman el carácter, en orden</span>
                     </div>
                     <div class="form-group full-width">
-                        <label for="w-notas">Notas personales</label>
-                        <textarea id="w-notas"
+                        <label for="w-notas" data-i18n="wordDialogNotes">Notas personales</label>
+                        <textarea id="w-notas" data-i18n-ph="wordDialogNotesPh"
                             placeholder="Escribe cualquier regla mnemotécnica, contexto o anotación..."></textarea>
                     </div>
                 </div>
             </div>
             <div class="dialog-footer">
-                <button type="button" class="btn btn-secondary" id="word-dialog-cancel">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="word-dialog-save">Guardar</button>
+                <button type="button" class="btn btn-secondary" id="word-dialog-cancel" data-i18n="btnCancel">Cancelar</button>
+                <button type="submit" class="btn btn-primary" id="word-dialog-save" data-i18n="btnSave">Guardar</button>
             </div>
         </form>
     </dialog>
@@ -560,7 +568,7 @@
     <!-- Delete Confirmation -->
     <dialog id="delete-dialog">
         <div class="dialog-header">
-            <h3>Confirmar eliminación</h3>
+            <h3 data-i18n="deleteTitle">Confirmar eliminación</h3>
             <button class="btn-ghost btn-icon" id="delete-dialog-close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -570,20 +578,19 @@
         </div>
         <div class="dialog-body">
             <p>¿Estás seguro de que deseas eliminar <strong id="delete-item-name"></strong>?</p>
-            <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;">Esta acción no se puede deshacer.
+            <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;" data-i18n="deleteWarning">Esta acción no se puede deshacer.
             </p>
         </div>
         <div class="dialog-footer">
-            <button class="btn btn-secondary" id="delete-dialog-cancel">Cancelar</button>
-            <button class="btn btn-danger" id="delete-dialog-confirm">Eliminar</button>
+            <button class="btn btn-secondary" id="delete-dialog-cancel" data-i18n="btnCancel">Cancelar</button>
+            <button class="btn btn-danger" id="delete-dialog-confirm" data-i18n="btnDelete">Eliminar</button>
         </div>
     </dialog>
 
     <!-- AI Result Dialog -->
     <dialog id="ai-result-dialog">
         <div class="dialog-header">
-            <h3 id="ai-dialog-title" style="display:flex; align-items:center; gap:0.5rem;">🪄 Resultado del Análisis
-            </h3>
+            <h3 id="ai-dialog-title" style="display:flex; align-items:center; gap:0.5rem;"><span data-i18n="aiTitle">🪄 Resultado del Análisis</span></h3>
             <button class="btn-ghost btn-icon" id="ai-dialog-close">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                     <line x1="18" y1="6" x2="6" y2="18" />
@@ -599,13 +606,13 @@
                 </div>
                 <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: var(--radius-md);">
                     <div
-                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;">
+                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;" data-i18n="aiExplanation">
                         Explicación</div>
                     <p id="ai-explanation" style="line-height:1.5; color:var(--text-primary); margin:0;"></p>
                 </div>
                 <div>
                     <div
-                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;">
+                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;" data-i18n="aiSuggested">
                         Versión sugerida</div>
                     <div id="ai-correction"
                         style="font-size: 1.5rem; font-family: var(--font-chinese); color: var(--text-primary);">
@@ -613,14 +620,14 @@
                 </div>
                 <div>
                     <div
-                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;">
+                        style="font-size:0.85rem; color:var(--text-secondary); text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.25rem; font-weight:600;" data-i18n="aiTranslation">
                         Traducción</div>
                     <div id="ai-translation" style="font-size: 1rem; color: var(--text-primary);"></div>
                 </div>
             </div>
         </div>
         <div class="dialog-footer">
-            <button class="btn btn-secondary" id="ai-dialog-ok" style="width:100%;">Entendido</button>
+            <button class="btn btn-secondary" id="ai-dialog-ok" style="width:100%;" data-i18n="btnOk">Entendido</button>
         </div>
     </dialog>
 
@@ -632,7 +639,7 @@
                     <circle cx="12" cy="12" r="3" />
                     <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
                 </svg>
-                Configuración
+                <span data-i18n="settingsTitle">Configuración</span>
             </h3>
             <button class="btn-ghost btn-icon" id="settings-dialog-close" title="Cerrar">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
@@ -642,10 +649,27 @@
             </button>
         </div>
         <div class="dialog-body">
+            <div class="settings-section" style="margin-bottom: 1.25rem; padding-bottom: 1.15rem; border-bottom: 1px solid var(--border-color);">
+                <label class="settings-section-title">
+                    <span data-i18n="settingsLanguageTitle">Idioma de la aplicación</span>
+                    <span class="settings-section-subtitle" data-i18n="settingsLanguageSubtitle">Selecciona el idioma de la interfaz y los datos de estudio:</span>
+                </label>
+                <div style="display: flex; gap: 0.75rem; margin-top: 0.5rem;">
+                    <button type="button" class="btn btn-secondary lang-choice-btn active" data-lang="es" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 42px;">
+                        <span>🇪🇸</span>
+                        <strong data-i18n="langSpanish">Español</strong>
+                    </button>
+                    <button type="button" class="btn btn-secondary lang-choice-btn" data-lang="en" style="flex: 1; display: flex; align-items: center; justify-content: center; gap: 0.5rem; height: 42px;">
+                        <span>🇺🇸</span>
+                        <strong data-i18n="langEnglish">English</strong>
+                    </button>
+                </div>
+            </div>
+
             <div class="settings-section">
                 <label class="settings-section-title">
-                    Fuente de caracteres chinos
-                    <span class="settings-section-subtitle">Selecciona cómo ver los caracteres en tarjetas, constructor, examen y estudio:</span>
+                    <span data-i18n="settingsFontTitle">Fuente de caracteres chinos</span>
+                    <span class="settings-section-subtitle" data-i18n="settingsFontSubtitle">Selecciona cómo ver los caracteres en tarjetas, constructor, examen y estudio:</span>
                 </label>
                 <div class="settings-font-options">
                     <label class="settings-font-card active" data-font="kaiti">
@@ -653,10 +677,10 @@
                         <div class="settings-font-preview font-sample-kaiti">臺灣繁</div>
                         <div class="settings-font-info">
                             <div class="settings-font-name">
-                                <strong>DFKai / 標楷體 · Trazos completos (楷體)</strong>
-                                <span class="settings-font-badge">Recomendado</span>
+                                <strong data-i18n="settingsFontKaitiName">DFKai / 標楷體 · Trazos completos (楷體)</strong>
+                                <span class="settings-font-badge" data-i18n="settingsFontKaitiBadge">Recomendado</span>
                             </div>
-                            <p class="settings-font-desc">Tipografía oficial estándar de Taiwán (DFKai-SB / 標楷體). Proporciones clásicas nítidas, ideal para caracteres densos y complejos como 臺 y 灣.</p>
+                            <p class="settings-font-desc" data-i18n="settingsFontKaitiDesc">Tipografía oficial estándar de Taiwán (DFKai-SB / 標楷體). Proporciones clásicas nítidas, ideal para caracteres densos y complejos como 臺 y 灣.</p>
                         </div>
                     </label>
 
@@ -665,9 +689,9 @@
                         <div class="settings-font-preview font-sample-serif">臺灣繁</div>
                         <div class="settings-font-info">
                             <div class="settings-font-name">
-                                <strong>Con remates / Estilo libro (明體 · 宋體)</strong>
+                                <strong data-i18n="settingsFontSerifName">Con remates / Estilo libro (明體 · 宋體)</strong>
                             </div>
-                            <p class="settings-font-desc">Tipografía clásica impresa tradicional con remates estructurados (MingTi / SongTi).</p>
+                            <p class="settings-font-desc" data-i18n="settingsFontSerifDesc">Tipografía clásica impresa tradicional con remates estructurados (MingTi / SongTi).</p>
                         </div>
                     </label>
 
@@ -676,9 +700,9 @@
                         <div class="settings-font-preview font-sample-sans">臺灣繁</div>
                         <div class="settings-font-info">
                             <div class="settings-font-name">
-                                <strong>Sin remates / Computadora (黑體)</strong>
+                                <strong data-i18n="settingsFontSansName">Sin remates / Computadora (黑體)</strong>
                             </div>
-                            <p class="settings-font-desc">Fuente estándar digital geométrica de pantalla (HeiTi / Noto Sans).</p>
+                            <p class="settings-font-desc" data-i18n="settingsFontSansDesc">Fuente estándar digital geométrica de pantalla (HeiTi / Noto Sans).</p>
                         </div>
                     </label>
                 </div>
@@ -686,8 +710,8 @@
 
             <div class="settings-section" style="margin-top: 1.25rem; padding-top: 1.15rem; border-top: 1px solid var(--border-color);">
                 <label class="settings-section-title" for="settings-gemini-key">
-                    Clave API de Gemini (Opcional)
-                    <span class="settings-section-subtitle">Para análisis pedagógico con IA y simulación de examen con Gemini</span>
+                    <span data-i18n="settingsGeminiTitle">Clave API de Gemini (Opcional)</span>
+                    <span class="settings-section-subtitle" data-i18n="settingsGeminiSubtitle">Para análisis pedagógico con IA y simulación de examen con Gemini</span>
                 </label>
                 <div style="position:relative; margin-top: 0.35rem;">
                     <input type="password" id="settings-gemini-key" placeholder="AIzaSy..." style="width:100%; padding-right:2.5rem; height: 40px; border-radius: var(--radius-sm); border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-primary); padding-left: 0.75rem;">
@@ -701,8 +725,8 @@
             </div>
         </div>
         <div class="dialog-footer">
-            <button class="btn btn-secondary" id="settings-dialog-cancel">Cancelar</button>
-            <button class="btn btn-primary" id="settings-dialog-save">Guardar Cambios</button>
+            <button class="btn btn-secondary" id="settings-dialog-cancel" data-i18n="btnCancel">Cancelar</button>
+            <button class="btn btn-primary" id="settings-dialog-save" data-i18n="settingsSaveBtn">Guardar Cambios</button>
         </div>
     </dialog>
 
@@ -714,16 +738,18 @@
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
     <!-- Load order matters: data → storage → components → ai → builder → study → pdf → app -->
-    <script src="js/data.js?v=3.23"></script>
-    <script src="js/storage.js?v=3.23"></script>
-    <script src="js/components.js?v=3.23"></script>
-    <script src="js/ai.js?v=3.23"></script>
-    <script src="js/builder.js?v=3.23"></script>
-    <script src="js/study.js?v=3.23"></script>
-    <script src="js/pdf.js?v=3.23"></script>
-    <script src="js/practice.js?v=3.23"></script>
-    <script src="js/exam.js?v=3.23"></script>
-    <script src="js/app.js?v=3.23"></script>
+    <script src="js/data.js?v=3.24"></script>
+    <script src="js/data_en.js?v=3.24"></script>
+    <script src="js/i18n.js?v=3.24"></script>
+    <script src="js/storage.js?v=3.24"></script>
+    <script src="js/components.js?v=3.24"></script>
+    <script src="js/ai.js?v=3.24"></script>
+    <script src="js/builder.js?v=3.24"></script>
+    <script src="js/study.js?v=3.24"></script>
+    <script src="js/pdf.js?v=3.24"></script>
+    <script src="js/practice.js?v=3.24"></script>
+    <script src="js/exam.js?v=3.24"></script>
+    <script src="js/app.js?v=3.24"></script>
 
 </body>
 

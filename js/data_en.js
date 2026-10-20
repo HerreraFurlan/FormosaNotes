@@ -1,0 +1,11301 @@
+/**
+ * AppChino — data_en.js
+ * English copy of SEED_DATA with complete translations.
+ */
+const SEED_DATA_EN = {
+    "palabras": [
+        {
+            "id": "n1",
+            "espanol": "Dad",
+            "tradicional": "爸爸",
+            "pinyin": "bàba",
+            "zhuyin": "ㄅㄚˋ ㄅㄚ˙",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "父 (fù - father)"
+                },
+                {
+                    "type": "text",
+                    "value": "巴 (bā - snake)"
+                }
+            ],
+            "notas": "Composed of 父 (father) and 巴 (phonetic bā). Formal: 父親 (fùqīn).",
+            "ejemplos": [
+                "他是我的爸爸 — He is my dad",
+                "我爸爸愛喝烏龍茶 — My dad loves to drink Oolong tea"
+            ],
+            "leccion": 2,
+            "english": "Dad",
+            "notas_en": "Composed of 父 (father) and 巴 (phonetic bā). Formal: 父親 (fùqīn).",
+            "ejemplos_en": [
+                "他是我的爸爸 — He is my dad",
+                "我爸爸愛喝烏龍茶 — My dad loves to drink Oolong tea"
+            ]
+        },
+        {
+            "id": "n2",
+            "espanol": "Mom",
+            "tradicional": "媽媽",
+            "pinyin": "māma",
+            "zhuyin": "ㄇㄚ ㄇㄚ˙",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "馬 (mǎ - horse)"
+                }
+            ],
+            "notas": "Composed of the semantic 女 (woman) and the phonetic 馬 (mǎ → mā). Formal: 母親 (mǔqīn).",
+            "ejemplos": [
+                "她是我的媽媽 — She is my mom",
+                "我媽媽很漂亮 — My mom is very beautiful"
+            ],
+            "leccion": 2,
+            "english": "Mom",
+            "notas_en": "Composed of the semantic 女 (woman) and the phonetic 馬 (mǎ → mā). Formal: 母親 (mǔqīn).",
+            "ejemplos_en": [
+                "她是我的媽媽 — She is my mom",
+                "我媽媽很漂亮 — My mom is very beautiful"
+            ]
+        },
+        {
+            "id": "n3",
+            "espanol": "Son",
+            "tradicional": "兒子",
+            "pinyin": "érzi",
+            "zhuyin": "ㄦˊ ㄗ˙",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "兒 (ér - child)"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - son)"
+                }
+            ],
+            "notas": "儿 represents an infant with the fontanel open on his legs, along with 子 (son).",
+            "ejemplos": [
+                "他是我的兒子 — He is my son",
+                "李先生有一個兒子 — Mr. Li has a son"
+            ],
+            "english": "Son",
+            "notas_en": "儿 represents an infant with the fontanel open on his legs, along with 子 (son).",
+            "ejemplos_en": [
+                "他是我的兒子 — He is my son",
+                "李先生有一個兒子 — Mr. Li has a son"
+            ]
+        },
+        {
+            "id": "n4",
+            "espanol": "Daughter",
+            "tradicional": "女兒",
+            "pinyin": "nǚ'ér",
+            "zhuyin": "ㄋㄩˇ ㄦˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "兒 (ér - child)"
+                }
+            ],
+            "notas": "Composed of 女 (woman) and 兒 (infant/son).",
+            "ejemplos": [
+                "她是我的女兒 — She is my daughter",
+                "陳小姐有兩個女兒 — Miss Chen has two daughters"
+            ],
+            "english": "Daughter",
+            "notas_en": "Composed of 女 (woman) and 兒 (infant/son).",
+            "ejemplos_en": [
+                "她是我的女兒 — She is my daughter",
+                "陳小姐有兩個女兒 — Miss Chen has two daughters"
+            ]
+        },
+        {
+            "id": "n5",
+            "espanol": "China",
+            "tradicional": "中國",
+            "pinyin": "Zhōngguó",
+            "zhuyin": "ㄓㄨㄥ ㄍㄨㄛˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn2p70_9qg74"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - country)"
+                }
+            ],
+            "notas": "Literally 'The Country of the Center'. 中 represents the center and 國 the walled territory.",
+            "ejemplos": [
+                "他是中國人 — He is Chinese",
+                "我不是中國人 — I am not Chinese"
+            ],
+            "english": "China",
+            "notas_en": "Literally 'The Country of the Center'. 中 represents the center and 國 the walled territory.",
+            "ejemplos_en": [
+                "他是中國人 — He is Chinese",
+                "我不是中國人 — I am not Chinese"
+            ]
+        },
+        {
+            "id": "n6",
+            "espanol": "United States",
+            "tradicional": "美國",
+            "pinyin": "Měiguó",
+            "zhuyin": "ㄇㄟˇ ㄍㄨㄛˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "美 (měi - beautiful)"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - country)"
+                }
+            ],
+            "notas": "Literally 'Beautiful Country'. Phonetic loanword from 'America' that chose the auspicious character 美.",
+            "ejemplos": [
+                "他是美國人 — He is American",
+                "王開文是美國人 — Wang Kaiwen is from the USA."
+            ],
+            "leccion": 1,
+            "english": "United States",
+            "notas_en": "Literally 'Beautiful Country'. Phonetic loanword from 'America' that chose the auspicious character 美.",
+            "ejemplos_en": [
+                "他是美國人 — He is American",
+                "王開文是美國人 — Wang Kaiwen is from the USA."
+            ]
+        },
+        {
+            "id": "n7",
+            "espanol": "Person",
+            "tradicional": "人",
+            "pinyin": "rén",
+            "zhuyin": "ㄖㄣˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                }
+            ],
+            "notas": "Pictogram of a person standing in profile. As a lateral radical it is compressed into 亻.",
+            "ejemplos": [
+                "他是好人 — He is a good person",
+                "你是哪國人？ — What country are you from?"
+            ],
+            "leccion": 1,
+            "english": "Person",
+            "notas_en": "Pictogram of a person standing in profile. As a lateral radical it is compressed into 亻.",
+            "ejemplos_en": [
+                "他是好人 — He is a good person",
+                "你是哪國人？ — What country are you from?"
+            ]
+        },
+        {
+            "id": "n8",
+            "espanol": "Cat",
+            "tradicional": "貓",
+            "pinyin": "māo",
+            "zhuyin": "ㄇㄠ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfigeht_eqxfj",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n9"
+                },
+                {
+                    "type": "text",
+                    "value": "苗 (miáo - outbreak)"
+                }
+            ],
+            "notas": "It has the animal radical 犭 and 苗 (miáo), which provides the onomatopoeic pronunciation of the meow.",
+            "ejemplos": [
+                "我愛貓 — I love cats",
+                "這隻貓很漂亮 — This cat is very cute"
+            ],
+            "english": "Cat",
+            "notas_en": "It has the animal radical 犭 and 苗 (miáo), which provides the onomatopoeic pronunciation of the meow.",
+            "ejemplos_en": [
+                "我愛貓 — I love cats",
+                "這隻貓很漂亮 — This cat is very cute"
+            ]
+        },
+        {
+            "id": "n9",
+            "espanol": "Dog",
+            "tradicional": "狗",
+            "pinyin": "gǒu",
+            "zhuyin": "ㄍㄡˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfigeht_eqxfj",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n9"
+                },
+                {
+                    "type": "text",
+                    "value": "句 (jù - phrase)"
+                }
+            ],
+            "notas": "It carries the animal radical 犭 and 句 (jù) as a phonetic component.",
+            "ejemplos": [
+                "他愛狗 — He loves dogs",
+                "我家有一隻狗 — There is a dog in my house"
+            ],
+            "english": "Dog",
+            "notas_en": "It carries the animal radical 犭 and 句 (jù) as a phonetic component.",
+            "ejemplos_en": [
+                "他愛狗 — He loves dogs",
+                "我家有一隻狗 — There is a dog in my house"
+            ]
+        },
+        {
+            "id": "p1",
+            "espanol": "I / Me",
+            "tradicional": "我",
+            "pinyin": "wǒ",
+            "zhuyin": "ㄨㄛˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "手 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "戈 (gē - halberd)"
+                }
+            ],
+            "notas": "It represents a hand wielding a bladed weapon, symbolizing the warrior defending himself.",
+            "ejemplos": [
+                "我是人 — I am a person",
+                "我是臺灣人 — I am Taiwanese"
+            ],
+            "leccion": 1,
+            "english": "I / Me",
+            "notas_en": "It represents a hand wielding a bladed weapon, symbolizing the warrior defending himself.",
+            "ejemplos_en": [
+                "我是人 — I am a person",
+                "我是臺灣人 — I am Taiwanese"
+            ]
+        },
+        {
+            "id": "p2",
+            "espanol": "You",
+            "tradicional": "你",
+            "pinyin": "nǐ",
+            "zhuyin": "ㄋㄧˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "尔 (ěr - you)"
+                }
+            ],
+            "notas": "Person 亻 next to 尔 (you). Register of respect and courtesy with elders: 您 (nín).",
+            "ejemplos": [
+                "你好 — Hello",
+                "你要喝茶嗎？ — Do you want to drink tea?"
+            ],
+            "leccion": 1,
+            "english": "You",
+            "notas_en": "Person 亻 next to 尔 (you). Register of respect and courtesy with elders: 您 (nín).",
+            "ejemplos_en": [
+                "你好 — Hello",
+                "你要喝茶嗎？ — Do you want to drink tea?"
+            ]
+        },
+        {
+            "id": "p3",
+            "espanol": "He / Him",
+            "tradicional": "他",
+            "pinyin": "tā",
+            "zhuyin": "ㄊㄚ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk0pp4g_bdeqd"
+                }
+            ],
+            "notas": "Person 亻 next to 也 (phonetic). In spoken language 他 (he) and 她 (she) sound identical (tā).",
+            "ejemplos": [
+                "他是我的爸爸 — He is my dad",
+                "他是美國人 — He is American"
+            ],
+            "leccion": 1,
+            "english": "He / Him",
+            "notas_en": "Person 亻 next to 也 (phonetic). In spoken language 他 (he) and 她 (she) sound identical (tā).",
+            "ejemplos_en": [
+                "他是我的爸爸 — He is my dad",
+                "他是美國人 — He is American"
+            ]
+        },
+        {
+            "espanol": "Older brother",
+            "tradicional": "哥哥",
+            "pinyin": "gēge",
+            "zhuyin": "ㄍㄜ ˙ㄍㄜ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                },
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                }
+            ],
+            "notas": "Doubling of 可 (sing/approval) representing the authority of the elder brother.",
+            "ejemplos": [
+                "他是我哥哥 — He is my older brother",
+                "我有兩個哥哥 — I have two older brothers"
+            ],
+            "id": "id_msik39qn_a7u9l",
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2,
+            "english": "Older brother",
+            "notas_en": "Doubling of 可 (sing/approval) representing the authority of the elder brother.",
+            "ejemplos_en": [
+                "他是我哥哥 — He is my older brother",
+                "我有兩個哥哥 — I have two older brothers"
+            ]
+        },
+        {
+            "espanol": "Younger brother",
+            "tradicional": "弟弟",
+            "pinyin": "dìdi",
+            "zhuyin": "ㄉㄧˋ ㄉㄧ˙",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "弓 (gōng - bow)"
+                },
+                {
+                    "type": "text",
+                    "value": "丨 (gǔn - vertical line)"
+                }
+            ],
+            "notas": "It represents a rope wound around a central axis that descends.",
+            "ejemplos": [
+                "這是我弟弟 — This is my little brother",
+                "我弟弟愛喝咖啡 — My little brother loves coffee"
+            ],
+            "id": "id_msik5odg_jbtys",
+            "fechaCreacion": "2026-08-07",
+            "english": "Younger brother",
+            "notas_en": "It represents a rope wound around a central axis that descends.",
+            "ejemplos_en": [
+                "這是我弟弟 — This is my little brother",
+                "我弟弟愛喝咖啡 — My little brother loves coffee"
+            ]
+        },
+        {
+            "espanol": "Older sister",
+            "tradicional": "姐姐",
+            "pinyin": "jiějie",
+            "zhuyin": "ㄐㄧㄝˇ ˙ㄐㄧㄝ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "且 (qiě - pedestal)"
+                }
+            ],
+            "notas": "Composed of 女 (woman) and 且 (pedestal with ceremonial offering).",
+            "ejemplos": [
+                "我姐姐很漂亮 — My older sister is very beautiful",
+                "她是我姐姐 — She is my older sister"
+            ],
+            "id": "id_msik8oqu_qbhis",
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2,
+            "english": "Older sister",
+            "notas_en": "Composed of 女 (woman) and 且 (pedestal with ceremonial offering).",
+            "ejemplos_en": [
+                "我姐姐很漂亮 — My older sister is very beautiful",
+                "她是我姐姐 — She is my older sister"
+            ]
+        },
+        {
+            "espanol": "Younger sister",
+            "tradicional": "妹妹",
+            "pinyin": "mèimei",
+            "zhuyin": "ㄇㄟˋ ˙ㄇㄟ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "未 (wèi - not yet)"
+                }
+            ],
+            "notas": "Composed of 女 (woman) and 未 (still young tree whose branches have not finished sprouting).",
+            "ejemplos": [
+                "我妹妹愛吃麵包 — My little sister loves to eat bread",
+                "他沒有妹妹 — He doesn't have younger sisters"
+            ],
+            "id": "id_msikblio_cwfgf",
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2,
+            "english": "Younger sister",
+            "notas_en": "Composed of 女 (woman) and 未 (still young tree whose branches have not finished sprouting).",
+            "ejemplos_en": [
+                "我妹妹愛吃麵包 — My little sister loves to eat bread",
+                "他沒有妹妹 — He doesn't have younger sisters"
+            ]
+        },
+        {
+            "espanol": "Panda",
+            "tradicional": "熊貓",
+            "pinyin": "xióngmāo",
+            "zhuyin": "ㄒㄩㄥˊ ㄇㄠ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk03o1q_bn3lq"
+                },
+                {
+                    "type": "ref",
+                    "id": "n8"
+                }
+            ],
+            "notas": "In Taiwan it is formally called 貓熊 (māoxióng = bear with a feline face).",
+            "ejemplos": [
+                "臺灣有熊貓 — There are pandas in Taiwan",
+                "熊貓很可愛 — Panda bears are very cute"
+            ],
+            "id": "id_msk017n8_4gul2",
+            "fechaCreacion": "2026-08-08",
+            "english": "Panda",
+            "notas_en": "In Taiwan it is formally called 貓熊 (māoxióng = bear with a feline face).",
+            "ejemplos_en": [
+                "臺灣有熊貓 — There are pandas in Taiwan",
+                "熊貓很可愛 — Panda bears are very cute"
+            ]
+        },
+        {
+            "espanol": "Bear",
+            "tradicional": "熊",
+            "pinyin": "xióng",
+            "zhuyin": "ㄒㄩㄥˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "能 (néng - powerful)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk0536g_z9es3"
+                }
+            ],
+            "notas": "Archaic bear 能 with four points of fire 灬 at the base that represent its paws.",
+            "ejemplos": [
+                "山上有熊 — There are bears in the mountains"
+            ],
+            "id": "id_msk03o1q_bn3lq",
+            "fechaCreacion": "2026-08-08",
+            "english": "Bear",
+            "notas_en": "Archaic bear 能 with four points of fire 灬 at the base that represent its paws.",
+            "ejemplos_en": [
+                "山上有熊 — There are bears in the mountains"
+            ]
+        },
+        {
+            "espanol": "Fire",
+            "tradicional": "火",
+            "pinyin": "huǒ",
+            "zhuyin": "ㄏㄨㄛˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "火 (huǒ - fire)"
+                }
+            ],
+            "notas": "Rising flames pictogram. At the base of other characters it becomes four dots 灬.",
+            "ejemplos": [
+                "小心火 — Be careful with fire"
+            ],
+            "id": "id_msk0536g_z9es3",
+            "fechaCreacion": "2026-08-08",
+            "english": "Fire",
+            "notas_en": "Rising flames pictogram. At the base of other characters it becomes four dots 灬.",
+            "ejemplos_en": [
+                "小心火 — Be careful with fire"
+            ]
+        },
+        {
+            "espanol": "Pig",
+            "tradicional": "豬",
+            "pinyin": "zhū",
+            "zhuyin": "ㄓㄨ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n9"
+                },
+                {
+                    "type": "text",
+                    "value": "者 (zhě - person)"
+                }
+            ],
+            "notas": "It takes the animal radical 犭 and 者 (zhě) as phonetic support.",
+            "ejemplos": [
+                "他不吃豬肉 — He doesn't eat pork"
+            ],
+            "id": "id_msk1t99s_rmiqu",
+            "fechaCreacion": "2026-08-08",
+            "english": "Pig",
+            "notas_en": "It takes the animal radical 犭 and 者 (zhě) as phonetic support.",
+            "ejemplos_en": [
+                "他不吃豬肉 — He doesn't eat pork"
+            ]
+        },
+        {
+            "espanol": "Cow",
+            "tradicional": "牛",
+            "pinyin": "niú",
+            "zhuyin": "ㄋㄧㄡˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "牛 (niú - ox/cow)"
+                }
+            ],
+            "notas": "Frontal pictogram of the head of a cattle with its two horns curved upwards.",
+            "id": "id_msm92gg0_0itxa",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "我不吃牛肉 — I don't eat beef",
+                "那是一頭牛 — That's a cow"
+            ],
+            "english": "Cow",
+            "notas_en": "Frontal pictogram of the head of a cattle with its two horns curved upwards.",
+            "ejemplos_en": [
+                "我不吃牛肉 — I don't eat beef",
+                "那是一頭牛 — That's a cow"
+            ]
+        },
+        {
+            "espanol": "Sheep",
+            "tradicional": "羊",
+            "pinyin": "yáng",
+            "zhuyin": "ㄧㄤˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "羊 (yáng - sheep)"
+                }
+            ],
+            "notas": "Ram's head with horns. Traditional symbol of goodness and beauty (base of 美 and 善).",
+            "id": "id_msm94o21_akw2l",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "草原上有很多羊 — There are many sheep on the meadow"
+            ],
+            "english": "Sheep",
+            "notas_en": "Ram's head with horns. Traditional symbol of goodness and beauty (base of 美 and 善).",
+            "ejemplos_en": [
+                "草原上有很多羊 — There are many sheep on the meadow"
+            ]
+        },
+        {
+            "espanol": "Fish",
+            "tradicional": "魚",
+            "pinyin": "yú",
+            "zhuyin": "ㄩˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "魚 (yú - fish)"
+                }
+            ],
+            "notas": "Pictogram of a fish: head ⺈, body with scales 田 and tail or fins 灬.",
+            "id": "id_msm9k01h_l204m",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "貓愛吃魚 — Cats love to eat fish"
+            ],
+            "english": "Fish",
+            "notas_en": "Pictogram of a fish: head ⺈, body with scales 田 and tail or fins 灬.",
+            "ejemplos_en": [
+                "貓愛吃魚 — Cats love to eat fish"
+            ]
+        },
+        {
+            "espanol": "Chicken",
+            "tradicional": "雞",
+            "pinyin": "jī",
+            "zhuyin": "ㄐㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "奚 (xī - servant)"
+                },
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - bird)"
+                }
+            ],
+            "notas": "It has 隹 (short-tailed bird) on the right and 奚 as phonetic support.",
+            "id": "id_msm9pack_0z89c",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "他喜歡吃雞肉 — He likes to eat chicken meat"
+            ],
+            "english": "Chicken",
+            "notas_en": "It has 隹 (short-tailed bird) on the right and 奚 as phonetic support.",
+            "ejemplos_en": [
+                "他喜歡吃雞肉 — He likes to eat chicken meat"
+            ]
+        },
+        {
+            "espanol": "Bird",
+            "tradicional": "鳥",
+            "pinyin": "niǎo",
+            "zhuyin": "ㄋㄧㄠˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "鳥 (niǎo - bird)"
+                }
+            ],
+            "notas": "Pictogram of a bird in profile with eye, beak, plumage and claws. Especially long-tailed birds.",
+            "id": "id_msm9v3ja_lt8zj",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "這隻鳥很漂亮 — This bird is very beautiful"
+            ],
+            "english": "Bird",
+            "notas_en": "Pictogram of a bird in profile with eye, beak, plumage and claws. Especially long-tailed birds.",
+            "ejemplos_en": [
+                "這隻鳥很漂亮 — This bird is very beautiful"
+            ]
+        },
+        {
+            "espanol": "She / Her",
+            "tradicional": "她",
+            "pinyin": "tā",
+            "zhuyin": "ㄊㄚ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk0pp4g_bdeqd"
+                }
+            ],
+            "notas": "It has the female radical 女 on the left. It sounds exactly the same as 他 (tā).",
+            "id": "id_mso0qqz5_dsqug",
+            "fechaCreacion": "2026-08-11",
+            "ejemplos": [
+                "她是我的媽媽 — She is my mom",
+                "她是陳月美 — This is Chen Yuemei"
+            ],
+            "english": "She / Her",
+            "notas_en": "It has the female radical 女 on the left. It sounds exactly the same as 他 (tā).",
+            "ejemplos_en": [
+                "她是我的媽媽 — She is my mom",
+                "她是陳月美 — This is Chen Yuemei"
+            ]
+        },
+        {
+            "espanol": "Meat",
+            "tradicional": "肉",
+            "pinyin": "ròu",
+            "zhuyin": "ㄖㄡˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "肉 (ròu - meat)"
+                }
+            ],
+            "notas": "Pictogram of a piece of fresh meat with its veins and ribs. As a lateral radical it is written 月.",
+            "id": "id_mspmf6ea_rlqzs",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "你吃肉嗎？ — Do you eat meat?",
+                "牛肉很好吃 — The beef is very delicious"
+            ],
+            "english": "Meat",
+            "notas_en": "Pictogram of a piece of fresh meat with its veins and ribs. As a lateral radical it is written 月.",
+            "ejemplos_en": [
+                "你吃肉嗎？ — Do you eat meat?",
+                "牛肉很好吃 — The beef is very delicious"
+            ]
+        },
+        {
+            "espanol": "Bread",
+            "tradicional": "麵包",
+            "pinyin": "miànbāo",
+            "zhuyin": "ㄇㄧㄢˋ ㄅㄠ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "麵 (miàn - flour)"
+                },
+                {
+                    "type": "text",
+                    "value": "包 (bāo - wrap)"
+                }
+            ],
+            "notas": "Composed of 麵 (wheat flour) and 包 (wrapping).",
+            "id": "id_mspmi8yb_9hq62",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "我早餐吃麵包 — breakfast bread",
+                "這個麵包很好吃 — This bread is very tasty"
+            ],
+            "english": "Bread",
+            "notas_en": "Composed of 麵 (wheat flour) and 包 (wrapping).",
+            "ejemplos_en": [
+                "我早餐吃麵包 — breakfast bread",
+                "這個麵包很好吃 — This bread is very tasty"
+            ]
+        },
+        {
+            "espanol": "Vegetables",
+            "tradicional": "蔬菜",
+            "pinyin": "shūcài",
+            "zhuyin": "ㄕㄨ ㄘㄞˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "蔬 (shū - vegetable)"
+                },
+                {
+                    "type": "text",
+                    "value": "菜 (cài - vegetable)"
+                }
+            ],
+            "notas": "Both characters carry the upper grass stem 艹 (cǎozìtóu).",
+            "id": "id_mspmlm3v_ima5f",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "多吃蔬菜很好 — Eating lots of vegetables is very good"
+            ],
+            "english": "Vegetables",
+            "notas_en": "Both characters carry the upper grass stem 艹 (cǎozìtóu).",
+            "ejemplos_en": [
+                "多吃蔬菜很好 — Eating lots of vegetables is very good"
+            ]
+        },
+        {
+            "espanol": "Coffee",
+            "tradicional": "咖啡",
+            "pinyin": "kāfēi",
+            "zhuyin": "ㄎㄚ ㄈㄟ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "咖 (kā - coffee)"
+                },
+                {
+                    "type": "text",
+                    "value": "啡 (fēi - coffee)"
+                }
+            ],
+            "notas": "International phonetic loan with mouth radical 口 to indicate ingested drink.",
+            "id": "id_msr3f6bq_8lytq",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "你要喝咖啡嗎？ — Do you want to drink coffee?",
+                "臺灣的咖啡很好喝 — Taiwan coffee is very delicious"
+            ],
+            "leccion": 1,
+            "english": "Coffee",
+            "notas_en": "International phonetic loan with mouth radical 口 to indicate ingested drink.",
+            "ejemplos_en": [
+                "你要喝咖啡嗎？ — Do you want to drink coffee?",
+                "臺灣的咖啡很好喝 — Taiwan coffee is very delicious"
+            ]
+        },
+        {
+            "espanol": "Liqueur",
+            "tradicional": "酒",
+            "pinyin": "jiǔ",
+            "zhuyin": "ㄐㄧㄡˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "酉 (yǒu - vessel)"
+                }
+            ],
+            "notas": "Water 氵 next to a ceremonial fermentation vessel or amphora 酉.",
+            "id": "id_msr3ohuy_nkysq",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "我不喝酒 — I don't drink alcohol"
+            ],
+            "english": "Liqueur",
+            "notas_en": "Water 氵 next to a ceremonial fermentation vessel or amphora 酉.",
+            "ejemplos_en": [
+                "我不喝酒 — I don't drink alcohol"
+            ]
+        },
+        {
+            "espanol": "Juice",
+            "tradicional": "果汁",
+            "pinyin": "guǒzhī",
+            "zhuyin": "ㄍㄨㄛˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "果 (guǒ - fruit)"
+                },
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtfikvkd_74gu4"
+                }
+            ],
+            "notas": "汁 combines water 氵 with the number ten 十 (all concentrated liquid).",
+            "id": "id_msr3ttke_nrbsn",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "請給我一杯果汁 — Please give me a glass of fruit juice"
+            ],
+            "english": "Juice",
+            "notas_en": "汁 combines water 氵 with the number ten 十 (all concentrated liquid).",
+            "ejemplos_en": [
+                "請給我一杯果汁 — Please give me a glass of fruit juice"
+            ]
+        },
+        {
+            "espanol": "cola soft drink",
+            "tradicional": "可樂",
+            "pinyin": "kělè",
+            "zhuyin": "ㄎㄜˇ ㄌㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                },
+                {
+                    "type": "text",
+                    "value": "樂 (lè - happiness)"
+                }
+            ],
+            "notas": "Abbreviation of 可口可樂 (kěkǒu kělè = delicious and joyful).",
+            "id": "id_msr402cu_y0b6d",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "你要喝可樂嗎？ — Do you want to drink cola?"
+            ],
+            "english": "cola soft drink",
+            "notas_en": "Abbreviation of 可口可樂 (kěkǒu kělè = delicious and joyful).",
+            "ejemplos_en": [
+                "你要喝可樂嗎？ — Do you want to drink cola?"
+            ]
+        },
+        {
+            "id": "rad_mujer_1786603351443",
+            "espanol": "Women",
+            "tradicional": "女",
+            "pinyin": "nǚ",
+            "zhuyin": "ㄋㄩˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "女 (nǚ - women)"
+                }
+            ],
+            "notas": "Pictogram of a woman kneeling with her hands crossed. Radical from 媽媽, 她, 姐, 妹, 好, 安.",
+            "ejemplos": [
+                "女性 — Woman/feminine gender",
+                "她是一位女老師 — She is a teacher"
+            ],
+            "english": "Women",
+            "notas_en": "Pictogram of a woman kneeling with her hands crossed. Radical from 媽媽, 她, 姐, 妹, 好, 安.",
+            "ejemplos_en": [
+                "女性 — Woman/feminine gender",
+                "她是一位女老師 — She is a teacher"
+            ]
+        },
+        {
+            "id": "rad_agua_1786603351443",
+            "espanol": "Water",
+            "tradicional": "水",
+            "pinyin": "shuǐ",
+            "zhuyin": "ㄕㄨㄟˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "水 (shuǐ - water)"
+                }
+            ],
+            "notas": "Flowing water stream. As a left lateral radical it adopts the shape of three drops 氵.",
+            "ejemplos": [
+                "請喝水 — Please drink water",
+                "我要喝水 — I want to drink water"
+            ],
+            "english": "Water",
+            "notas_en": "Flowing water stream. As a left lateral radical it adopts the shape of three drops 氵.",
+            "ejemplos_en": [
+                "請喝水 — Please drink water",
+                "我要喝水 — I want to drink water"
+            ]
+        },
+        {
+            "espanol": "Name",
+            "tradicional": "名字",
+            "pinyin": "míngzì",
+            "zhuyin": "ㄇㄧㄥˊ ㄗˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "名 (míng - name)"
+                },
+                {
+                    "type": "text",
+                    "value": "字 (zì - character)"
+                }
+            ],
+            "notas": "名 is to shout through the mouth 口 at night 夕 to identify oneself; 字 is raising children 子 indoors 宀.",
+            "id": "id_mtfh6c1j_t4fct",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "你叫什麼名字？ — What is your name?",
+                "我的名字是陳月美 — My name is Chen Yuemei"
+            ],
+            "leccion": 2,
+            "english": "Name",
+            "notas_en": "名 is to shout through the mouth 口 at night 夕 to identify oneself; 字 is raising children 子 indoors 宀.",
+            "ejemplos_en": [
+                "你叫什麼名字？ — What is your name?",
+                "我的名字是陳月美 — My name is Chen Yuemei"
+            ]
+        },
+        {
+            "espanol": "One",
+            "tradicional": "一",
+            "pinyin": "yī",
+            "zhuyin": "ㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                }
+            ],
+            "notas": "Changes to 4th tone (yì) before tones 1, 2 and 3; and changes to 2nd tone (yí) before another 4th tone (一個 yí ge).",
+            "id": "id_mtfhl7d1_9g4op",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一個人 — a person",
+                "一張照片 — a photo"
+            ],
+            "english": "One",
+            "notas_en": "Changes to 4th tone (yì) before tones 1, 2 and 3; and changes to 2nd tone (yí) before another 4th tone (一個 yí ge).",
+            "ejemplos_en": [
+                "一個人 — a person",
+                "一張照片 — a photo"
+            ]
+        },
+        {
+            "espanol": "Two",
+            "tradicional": "二",
+            "pinyin": "èr",
+            "zhuyin": "ㄦˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "二 (èr - two)"
+                }
+            ],
+            "notas": "To count or abstract numbers (二月, 第二). For quantities with a classifier, 兩 (liǎng) is used.",
+            "id": "id_mtfhmm38_dxhfq",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "第二課 — Lesson two",
+                "二月 — February"
+            ],
+            "english": "Two",
+            "notas_en": "To count or abstract numbers (二月, 第二). For quantities with a classifier, 兩 (liǎng) is used.",
+            "ejemplos_en": [
+                "第二課 — Lesson two",
+                "二月 — February"
+            ]
+        },
+        {
+            "espanol": "Two",
+            "tradicional": "兩",
+            "pinyin": "liǎng",
+            "zhuyin": "ㄌㄧㄤˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                },
+                {
+                    "type": "text",
+                    "value": "兩 (liǎng - two)"
+                }
+            ],
+            "notas": "Balance of two weights in balance. It is obligatorily used before classifiers: 兩個人, 兩張照片.",
+            "id": "id_mtfhneyq_qzbbd",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "我有兩個兄弟 — I have two brothers",
+                "請給我兩杯茶 — Please give me two cups of tea"
+            ],
+            "leccion": 2,
+            "english": "Two",
+            "notas_en": "Balance of two weights in balance. It is obligatorily used before classifiers: 兩個人, 兩張照片.",
+            "ejemplos_en": [
+                "我有兩個兄弟 — I have two brothers",
+                "請給我兩杯茶 — Please give me two cups of tea"
+            ]
+        },
+        {
+            "espanol": "Three",
+            "tradicional": "三",
+            "pinyin": "sān",
+            "zhuyin": "ㄙㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "三 (sān - three)"
+                }
+            ],
+            "notas": "It represents the traditional Chinese triad: Heaven (top), Man (center) and Earth (bottom).",
+            "id": "id_mtfho0pr_vvcsx",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "三個家人 — three relatives",
+                "三本書 — three books"
+            ],
+            "english": "Three",
+            "notas_en": "It represents the traditional Chinese triad: Heaven (top), Man (center) and Earth (bottom).",
+            "ejemplos_en": [
+                "三個家人 — three relatives",
+                "三本書 — three books"
+            ]
+        },
+        {
+            "espanol": "Four",
+            "tradicional": "四",
+            "pinyin": "sì",
+            "zhuyin": "ㄙˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "四 (sì - four)"
+                }
+            ],
+            "notas": "Breath 八 that escapes within a closed enclosure 囗.",
+            "id": "id_mtfhola6_hpc0l",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "我家有四個人 — There are four people in my house"
+            ],
+            "english": "Four",
+            "notas_en": "Breath 八 that escapes within a closed enclosure 囗.",
+            "ejemplos_en": [
+                "我家有四個人 — There are four people in my house"
+            ]
+        },
+        {
+            "espanol": "Five",
+            "tradicional": "五",
+            "pinyin": "wǔ",
+            "zhuyin": "ㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhmm38_dxhfq"
+                },
+                {
+                    "type": "text",
+                    "value": "乂 (yì - crossing)"
+                }
+            ],
+            "notas": "The two lines 二 represent heaven and earth, and 乂 the harmonic crossing of the 5 elements.",
+            "id": "id_mtfhp4rg_j765n",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "五本書 — five books",
+                "我有五個家人 — In my family we are five people"
+            ],
+            "leccion": 2,
+            "english": "Five",
+            "notas_en": "The two lines 二 represent heaven and earth, and 乂 the harmonic crossing of the 5 elements.",
+            "ejemplos_en": [
+                "五本書 — five books",
+                "我有五個家人 — In my family we are five people"
+            ]
+        },
+        {
+            "espanol": "Six",
+            "tradicional": "六",
+            "pinyin": "liù",
+            "zhuyin": "ㄌㄧㄡˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "六 (liù - six)"
+                }
+            ],
+            "notas": "Great fortune number in Chinese culture because it sounds similar to 流 (liú = flow smoothly).",
+            "id": "id_mtfhppx6_xkjcv",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "六本書 — six books",
+                "六個人 — six people"
+            ],
+            "english": "Six",
+            "notas_en": "Great fortune number in Chinese culture because it sounds similar to 流 (liú = flow smoothly).",
+            "ejemplos_en": [
+                "六本書 — six books",
+                "六個人 — six people"
+            ]
+        },
+        {
+            "espanol": "Seven",
+            "tradicional": "七",
+            "pinyin": "qī",
+            "zhuyin": "ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "七 (qī - seven)"
+                }
+            ],
+            "notas": "Archaic pictogram of a cross section with a sword.",
+            "id": "id_mtfhql3k_jx2ub",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "七天 — seven days",
+                "七杯茶 — Seven cups of tea"
+            ],
+            "english": "Seven",
+            "notas_en": "Archaic pictogram of a cross section with a sword.",
+            "ejemplos_en": [
+                "七天 — seven days",
+                "七杯茶 — Seven cups of tea"
+            ]
+        },
+        {
+            "espanol": "Eight",
+            "tradicional": "八",
+            "pinyin": "bā",
+            "zhuyin": "ㄅㄚ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - eight)"
+                }
+            ],
+            "notas": "Two lines that open. Maximum prosperity number because 八 (bā) sounds similar to 發 (fā = prosper).",
+            "id": "id_mtfhr3n5_6xcbj",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "八張照片 — eight photos",
+                "八個人 — eight people"
+            ],
+            "english": "Eight",
+            "notas_en": "Two lines that open. Maximum prosperity number because 八 (bā) sounds similar to 發 (fā = prosper).",
+            "ejemplos_en": [
+                "八張照片 — eight photos",
+                "八個人 — eight people"
+            ]
+        },
+        {
+            "espanol": "Nine",
+            "tradicional": "九",
+            "pinyin": "jiǔ",
+            "zhuyin": "ㄐㄧㄡˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "九 (jiǔ - nine)"
+                }
+            ],
+            "notas": "Arm bent tightly. Associated with longevity and the emperor because it sounds the same as 久 (jiǔ = lasting).",
+            "id": "id_mtfhrrgs_bcgj8",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "九本書 — nine books",
+                "九個月 — nine months"
+            ],
+            "english": "Nine",
+            "notas_en": "Arm bent tightly. Associated with longevity and the emperor because it sounds the same as 久 (jiǔ = lasting).",
+            "ejemplos_en": [
+                "九本書 — nine books",
+                "九個月 — nine months"
+            ]
+        },
+        {
+            "espanol": "Ten",
+            "tradicional": "十",
+            "pinyin": "shí",
+            "zhuyin": "ㄕˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "十 (shí - ten)"
+                }
+            ],
+            "notas": "Perfect crossing of the horizontal and vertical line symbolizing fullness and totality.",
+            "id": "id_mtfikvkd_74gu4",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "十個人 — ten people",
+                "十本書 — ten books"
+            ],
+            "english": "Ten",
+            "notas_en": "Perfect crossing of the horizontal and vertical line symbolizing fullness and totality.",
+            "ejemplos_en": [
+                "十個人 — ten people",
+                "十本書 — ten books"
+            ]
+        },
+        {
+            "espanol": "Hundred",
+            "tradicional": "百",
+            "pinyin": "bǎi",
+            "zhuyin": "ㄅㄞˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                },
+                {
+                    "type": "text",
+                    "value": "白 (bái - white)"
+                }
+            ],
+            "notas": "Composed of 一 (one) and 白 (bái = speak clearly / white).",
+            "id": "id_mtfimiho_d6pa7",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一百 — Hundred",
+                "一百塊 — One hundred dollars/coins"
+            ],
+            "leccion": 4,
+            "english": "Hundred",
+            "notas_en": "Composed of 一 (one) and 白 (bái = speak clearly / white).",
+            "ejemplos_en": [
+                "一百 — Hundred",
+                "一百塊 — One hundred dollars/coins"
+            ]
+        },
+        {
+            "espanol": "Thousand",
+            "tradicional": "千",
+            "pinyin": "qiān",
+            "zhuyin": "ㄑㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfikvkd_74gu4"
+                },
+                {
+                    "type": "text",
+                    "value": "丿 (piě - streak)"
+                }
+            ],
+            "notas": "Composed of 十 (ten) with an upper oblique stroke 丿 that multiplies the figure.",
+            "id": "id_mtfiof0b_eq6u5",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一千 — Thousand",
+                "兩千 — two thousand"
+            ],
+            "leccion": 4,
+            "english": "Thousand",
+            "notas_en": "Composed of 十 (ten) with an upper oblique stroke 丿 that multiplies the figure.",
+            "ejemplos_en": [
+                "一千 — Thousand",
+                "兩千 — two thousand"
+            ]
+        },
+        {
+            "espanol": "Student",
+            "tradicional": "學生",
+            "pinyin": "xuéshēng",
+            "zhuyin": "ㄒㄩㄝˊ ㄕㄥ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "學 (xué - study)"
+                },
+                {
+                    "type": "text",
+                    "value": "生 (shēng - be born)"
+                }
+            ],
+            "notas": "Literally 'learner born to knowledge'. 學 (study) + 生 (born).",
+            "id": "id_mtjm882n_ocqu8",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "我們都是學生 — We are all students",
+                "他是中文學生 — He is a Chinese student"
+            ],
+            "english": "Student",
+            "notas_en": "Literally 'learner born to knowledge'. 學 (study) + 生 (born).",
+            "ejemplos_en": [
+                "我們都是學生 — We are all students",
+                "他是中文學生 — He is a Chinese student"
+            ]
+        },
+        {
+            "espanol": "Heart",
+            "tradicional": "心",
+            "pinyin": "xīn",
+            "zhuyin": "ㄒㄧㄣ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ke",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "心 (xīn - heart)"
+                }
+            ],
+            "notas": "Center of thought and emotions. At the base it appears in 愛, 您, 想; to the left like 忄.",
+            "id": "id_mtlt07kj_ddod0",
+            "fechaCreacion": "2026-09-03",
+            "ejemplos": [
+                "小心 — Care (lit. \"little heart/attentive heart\")",
+                "好心 — good hearted/kind"
+            ],
+            "english": "Heart",
+            "notas_en": "Center of thought and emotions. At the base it appears in 愛, 您, 想; to the left like 忄.",
+            "ejemplos_en": [
+                "小心 — Care (lit. \"little heart/attentive heart\")",
+                "好心 — good hearted/kind"
+            ]
+        },
+        {
+            "espanol": "Teacher",
+            "tradicional": "老師",
+            "pinyin": "lǎoshī",
+            "zhuyin": "ㄌㄠˇ ㄕ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "老 (lǎo - old man)"
+                },
+                {
+                    "type": "text",
+                    "value": "師 (shī - teacher)"
+                }
+            ],
+            "notas": "The wise old man who guides. In Chinese the title always comes after the surname: 王老師 (Professor Wang).",
+            "id": "id_mto9fp6y_kejd4",
+            "fechaCreacion": "2026-09-05",
+            "ejemplos": [
+                "老師好！ — Good morning, teacher!",
+                "他是我們的老師 — He is our teacher"
+            ],
+            "leccion": 2,
+            "english": "Teacher",
+            "notas_en": "The wise old man who guides. In Chinese the title always comes after the surname: 王老師 (Professor Wang).",
+            "ejemplos_en": [
+                "老師好！ — Good morning, teacher!",
+                "他是我們的老師 — He is our teacher"
+            ]
+        },
+        {
+            "espanol": "Miss",
+            "tradicional": "小姐",
+            "pinyin": "xiǎojiě",
+            "zhuyin": "ㄒㄧㄠˇ ㄐㄧㄝˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn1fxk_bdhc0"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msik8oqu_qbhis"
+                }
+            ],
+            "notas": "Respectful formal treatment for young women in Taiwan. It is postponed to the surname: 陳小姐.",
+            "id": "id_mtvfka7n_09ee8",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "陳月美小姐是越南人 — Miss Chen Yuemei is from Vietnam",
+                "小姐，請喝茶 — Miss, have tea please"
+            ],
+            "leccion": 1,
+            "english": "Miss",
+            "notas_en": "Respectful formal treatment for young women in Taiwan. It is postponed to the surname: 陳小姐.",
+            "ejemplos_en": [
+                "陳月美小姐是越南人 — Miss Chen Yuemei is from Vietnam",
+                "小姐，請喝茶 — Miss, have tea please"
+            ]
+        },
+        {
+            "espanol": "Mister",
+            "tradicional": "先生",
+            "pinyin": "xiānsheng",
+            "zhuyin": "ㄒㄧㄢ ㄕㄥ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "先 (xiān - first)"
+                },
+                {
+                    "type": "text",
+                    "value": "生 (shēng - be born)"
+                }
+            ],
+            "notas": "Literally 'born before', symbolizing respect. It is postponed to the surname: 王先生. Colloquial: husband.",
+            "id": "id_mtvg65wr_t275m",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "李明華先生是臺灣人 — Mr. Li Minghua is Taiwanese",
+                "先生，請進 — Sir, please go ahead"
+            ],
+            "leccion": 1,
+            "english": "Mister",
+            "notas_en": "Literally 'born before', symbolizing respect. It is postponed to the surname: 王先生. Colloquial: husband.",
+            "ejemplos_en": [
+                "李明華先生是臺灣人 — Mr. Li Minghua is Taiwanese",
+                "先生，請進 — Sir, please go ahead"
+            ]
+        },
+        {
+            "espanol": "Last name",
+            "tradicional": "姓",
+            "pinyin": "xìng",
+            "zhuyin": "ㄒㄧㄥˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                }
+            ],
+            "notas": "It works as a verb ('last name'): 我姓李 (My last name is Li). Courtesy question: 您貴姓？",
+            "id": "id_mtvgdcy9_754wt",
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1,
+            "english": "Last name",
+            "notas_en": "It works as a verb ('last name'): 我姓李 (My last name is Li). Courtesy question: 您貴姓？"
+        },
+        {
+            "espanol": "Platform",
+            "tradicional": "臺 / 台",
+            "pinyin": "tái",
+            "zhuyin": "ㄊㄞˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "至 (zhì - arrive)"
+                },
+                {
+                    "type": "text",
+                    "value": "士 (shì - scholar)"
+                },
+                {
+                    "type": "text",
+                    "value": "冖 (mì - deck)"
+                },
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                }
+            ],
+            "notas": "Raised platform or pedestal. Historical character of 臺灣, 台北, 台中. In daily use it is written 台.",
+            "id": "id_mtvgjyyx_mz8uu",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "臺北 — Taipei",
+                "在臺南 — In Tainan"
+            ],
+            "leccion": 1,
+            "english": "Platform",
+            "notas_en": "Raised platform or pedestal. Historical character of 臺灣, 台北, 台中. In daily use it is written 台.",
+            "ejemplos_en": [
+                "臺北 — Taipei",
+                "在臺南 — In Tainan"
+            ]
+        },
+        {
+            "espanol": "Bay",
+            "tradicional": "灣",
+            "pinyin": "wān",
+            "zhuyin": "ㄨㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "彎 (wān - curve)"
+                }
+            ],
+            "notas": "Bay where the water 氵 curves (彎).",
+            "id": "id_mtvgqtnc_k29b9",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "臺灣 — Taiwan",
+                "海灣 — sea ​​bay"
+            ],
+            "english": "Bay",
+            "notas_en": "Bay where the water 氵 curves (彎).",
+            "ejemplos_en": [
+                "臺灣 — Taiwan",
+                "海灣 — sea ​​bay"
+            ]
+        },
+        {
+            "espanol": "Tea",
+            "tradicional": "茶",
+            "pinyin": "chá",
+            "zhuyin": "ㄔㄚˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_bei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - grass)"
+                },
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - tree)"
+                }
+            ],
+            "notas": "Grass 艹 above, man 人 in the center and wood 木 at the base: the human being in harmony with nature.",
+            "id": "id_mtvh97ru_97ysy",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "請喝茶 — Please have tea",
+                "臺灣茶很好喝 — Taiwan tea is very tasty"
+            ],
+            "leccion": 1,
+            "english": "Tea",
+            "notas_en": "Grass 艹 above, man 人 in the center and wood 木 at the base: the human being in harmony with nature.",
+            "ejemplos_en": [
+                "請喝茶 — Please have tea",
+                "臺灣茶很好喝 — Taiwan tea is very tasty"
+            ]
+        },
+        {
+            "id": "id_mty013_wulongcha",
+            "espanol": "Oolong Tea",
+            "tradicional": "烏龍茶",
+            "pinyin": "wūlóngchá",
+            "zhuyin": "ㄨ ㄌㄨㄥˊ ㄔㄚˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_bei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "烏 (wū - raven)"
+                },
+                {
+                    "type": "text",
+                    "value": "龍 (lóng - dragon)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtvh97ru_97ysy"
+                }
+            ],
+            "notas": "Literally 'Black Dragon Tea'. Iconic semi-fermented tea from the mountains of Taiwan.",
+            "ejemplos": [
+                "烏龍茶很好喝 — Oolong tea is very delicious",
+                "你要喝烏龍茶嗎？ — Do you want to drink Oolong tea?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Oolong Tea",
+            "notas_en": "Literally 'Black Dragon Tea'. Iconic semi-fermented tea from the mountains of Taiwan.",
+            "ejemplos_en": [
+                "烏龍茶很好喝 — Oolong tea is very delicious",
+                "你要喝烏龍茶嗎？ — Do you want to drink Oolong tea?"
+            ]
+        },
+        {
+            "id": "id_mty015_chenyuemei",
+            "espanol": "Chen Yuemei",
+            "tradicional": "陳月美",
+            "pinyin": "Chén Yuèměi",
+            "zhuyin": "ㄔㄣˊ ㄩㄝˋ ㄇㄟˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "陳 (Chén - last name)"
+                },
+                {
+                    "type": "text",
+                    "value": "月 (yuè - moon/month)"
+                },
+                {
+                    "type": "text",
+                    "value": "美 (měi - beautiful)"
+                }
+            ],
+            "notas": "Character from the MTC textbook, student originally from Vietnam.",
+            "ejemplos": [
+                "她是陳月美 — This is Chen Yuemei"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Chen Yuemei",
+            "notas_en": "Character from the MTC textbook, student originally from Vietnam.",
+            "ejemplos_en": [
+                "她是陳月美 — This is Chen Yuemei"
+            ]
+        },
+        {
+            "id": "id_mty016_liminghua",
+            "espanol": "Li Minghua",
+            "tradicional": "李明華",
+            "pinyin": "Lǐ Mínghuá",
+            "zhuyin": "ㄌㄧˇ ㄇㄧㄥˊ ㄏㄨㄚˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "李 (lǐ - plum)"
+                },
+                {
+                    "type": "text",
+                    "value": "明 (míng - bright)"
+                },
+                {
+                    "type": "text",
+                    "value": "華 (huá - flourishing)"
+                }
+            ],
+            "notas": "TCM textbook character, Taiwanese student.",
+            "ejemplos": [
+                "李明華是臺灣人 — Li Minghua is Taiwanese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Li Minghua",
+            "notas_en": "TCM textbook character, Taiwanese student.",
+            "ejemplos_en": [
+                "李明華是臺灣人 — Li Minghua is Taiwanese"
+            ]
+        },
+        {
+            "id": "id_mty017_wangkaiwen",
+            "espanol": "Wang Kaiwen",
+            "tradicional": "王開文",
+            "pinyin": "Wáng Kāiwén",
+            "zhuyin": "ㄨㄤˊ ㄎㄞ ㄨㄣˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "王 (wáng - king)"
+                },
+                {
+                    "type": "text",
+                    "value": "開 (kāi - open)"
+                },
+                {
+                    "type": "text",
+                    "value": "文 (wén - text)"
+                }
+            ],
+            "notas": "Character from the MTC textbook, student originally from the United States.",
+            "ejemplos": [
+                "王開文是美國人 — Wang Kaiwen is American"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Wang Kaiwen",
+            "notas_en": "Character from the MTC textbook, student originally from the United States.",
+            "ejemplos_en": [
+                "王開文是美國人 — Wang Kaiwen is American"
+            ]
+        },
+        {
+            "id": "id_mty005_women",
+            "espanol": "Us",
+            "tradicional": "我們",
+            "pinyin": "wǒmen",
+            "zhuyin": "ㄨㄛˇ ㄇㄣ˙",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p1"
+                },
+                {
+                    "type": "ref",
+                    "id": "pt1"
+                }
+            ],
+            "notas": "1st person plural pronoun: 我 (I) + 們 (plural suffix).",
+            "ejemplos": [
+                "我們都是學生 — We are all students",
+                "我們都喝茶 — We all drink tea"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Us",
+            "notas_en": "1st person plural pronoun: 我 (I) + 們 (plural suffix).",
+            "ejemplos_en": [
+                "我們都是學生 — We are all students",
+                "我們都喝茶 — We all drink tea"
+            ]
+        },
+        {
+            "id": "id_mty006_nimen",
+            "espanol": "You",
+            "tradicional": "你們",
+            "pinyin": "nǐmen",
+            "zhuyin": "ㄋㄧˇ ㄇㄣ˙",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p2"
+                },
+                {
+                    "type": "ref",
+                    "id": "pt1"
+                }
+            ],
+            "notas": "2nd person plural pronoun: 你 (you) + 們 (plural suffix).",
+            "ejemplos": [
+                "你們好 — Hello everyone / Hello to you",
+                "你們要喝咖啡嗎？ — Do you want to drink coffee?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "You",
+            "notas_en": "2nd person plural pronoun: 你 (you) + 們 (plural suffix).",
+            "ejemplos_en": [
+                "你們好 — Hello everyone / Hello to you",
+                "你們要喝咖啡嗎？ — Do you want to drink coffee?"
+            ]
+        },
+        {
+            "id": "id_mty007_taiwan",
+            "espanol": "Taiwan",
+            "tradicional": "臺灣",
+            "pinyin": "Táiwān",
+            "zhuyin": "ㄊㄞˊ ㄨㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvgjyyx_mz8uu"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtvgqtnc_k29b9"
+                }
+            ],
+            "notas": "Official name of the island. It is also commonly written 台灣.",
+            "ejemplos": [
+                "歡迎你來臺灣！ — Welcome to Taiwan!",
+                "我是臺灣人 — I am Taiwanese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Taiwan",
+            "notas_en": "Official name of the island. It is also commonly written 台灣.",
+            "ejemplos_en": [
+                "歡迎你來臺灣！ — Welcome to Taiwan!",
+                "我是臺灣人 — I am Taiwanese"
+            ]
+        },
+        {
+            "id": "id_mty011_riben",
+            "espanol": "Japan",
+            "tradicional": "日本",
+            "pinyin": "Rìběn",
+            "zhuyin": "ㄖˋ ㄅㄣˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                },
+                {
+                    "type": "text",
+                    "value": "本 (běn - root)"
+                }
+            ],
+            "notas": "Literally 'the origin of the sun' (日 sun + 本 root), from which comes the expression 'country of the rising sun'.",
+            "ejemplos": [
+                "他是日本人 — He is Japanese",
+                "我不是日本人 — I am not Japanese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Japan",
+            "notas_en": "Literally 'the origin of the sun' (日 sun + 本 root), from which comes the expression 'country of the rising sun'.",
+            "ejemplos_en": [
+                "他是日本人 — He is Japanese",
+                "我不是日本人 — I am not Japanese"
+            ]
+        },
+        {
+            "id": "id_mty018_zhangyijun",
+            "espanol": "Zhang Yijun",
+            "tradicional": "張怡君",
+            "pinyin": "Zhāng Yíjūn",
+            "zhuyin": "ㄓㄤ ㄧˊ ㄐㄩㄣ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "張 (zhāng - bow)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtvgjyyx_mz8uu"
+                },
+                {
+                    "type": "text",
+                    "value": "君 (jūn - Sir)"
+                }
+            ],
+            "notas": "Character from the TCM textbook. 怡 contains heart 忄 and means serene joy.",
+            "ejemplos": [
+                "張怡君是臺灣人 — Zhang Yijun is from Taiwan",
+                "張怡君請馬安同喝茶 — Zhang Yijun invites Ma Antong for tea"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Zhang Yijun",
+            "notas_en": "Character from the TCM textbook. 怡 contains heart 忄 and means serene joy.",
+            "ejemplos_en": [
+                "張怡君是臺灣人 — Zhang Yijun is from Taiwan",
+                "張怡君請馬安同喝茶 — Zhang Yijun invites Ma Antong for tea"
+            ]
+        },
+        {
+            "id": "id_mty019_maantong",
+            "espanol": "Ma Antong",
+            "tradicional": "馬安同",
+            "pinyin": "Mǎ Āntóng",
+            "zhuyin": "ㄇㄚˇ ㄢ ㄊㄨㄥˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "馬 (mǎ - horse)"
+                },
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "同 (tóng - same)"
+                }
+            ],
+            "notas": "Character from the MTC book, student from Honduras. 安 is a woman 女 under a roof 宀 (peace at home).",
+            "ejemplos": [
+                "馬安同是宏都拉斯人 — Ma Antong is Honduran",
+                "馬安同來臺灣學中文 — Ma Antong comes to Taiwan to study Chinese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Ma Antong",
+            "notas_en": "Character from the MTC book, student from Honduras. 安 is a woman 女 under a roof 宀 (peace at home).",
+            "ejemplos_en": [
+                "馬安同是宏都拉斯人 — Ma Antong is Honduran",
+                "馬安同來臺灣學中文 — Ma Antong comes to Taiwan to study Chinese"
+            ]
+        },
+        {
+            "id": "id_mty003_jia",
+            "espanol": "Shops and restaurants classifier",
+            "tradicional": "家",
+            "pinyin": "jiā",
+            "zhuyin": "ㄐㄧㄚ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "宀 (mián - ceiling)"
+                },
+                {
+                    "type": "text",
+                    "value": "豕 (shǐ - pig)"
+                }
+            ],
+            "notas": "A pig 豕 under a roof 宀: traditional symbol of prosperity, sustenance and home in archaic China.",
+            "ejemplos": [
+                "這是我家 — This is my house",
+                "我家在臺灣 — My home is in Taiwan"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Shops and restaurants classifier",
+            "notas_en": "A pig 豕 under a roof 宀: traditional symbol of prosperity, sustenance and home in archaic China.",
+            "ejemplos_en": [
+                "這是我家 — This is my house",
+                "我家在臺灣 — My home is in Taiwan"
+            ]
+        },
+        {
+            "id": "id_mty020_jiaren",
+            "espanol": "Family",
+            "tradicional": "家人",
+            "pinyin": "jiārén",
+            "zhuyin": "ㄐㄧㄚ ㄖㄣˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mty003_jia"
+                },
+                {
+                    "type": "ref",
+                    "id": "n7"
+                }
+            ],
+            "notas": "Literally 'people of the house'. Refers to members of the close family unit.",
+            "ejemplos": [
+                "這是我的家人 — This is my family",
+                "你有幾個家人？ — How many members are there in your family?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Family",
+            "notas_en": "Literally 'people of the house'. Refers to members of the close family unit.",
+            "ejemplos_en": [
+                "這是我的家人 — This is my family",
+                "你有幾個家人？ — How many members are there in your family?"
+            ]
+        },
+        {
+            "id": "id_mty024_zhaopian",
+            "espanol": "Photo",
+            "tradicional": "照片",
+            "pinyin": "zhàopiàn",
+            "zhuyin": "ㄓㄠˋ ㄆㄧㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mty004_zhang",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0536g_z9es3"
+                },
+                {
+                    "type": "text",
+                    "value": "照 (zhào - glow up)"
+                },
+                {
+                    "type": "text",
+                    "value": "片 (piàn - leaf)"
+                }
+            ],
+            "notas": "照 carries fire 灬 (light) and 片 is a thin slice or sheet. Classifier: 張 (zhāng).",
+            "ejemplos": [
+                "這是一張照片 — This is a photo",
+                "你的照片很漂亮 — Your photo is very nice"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Photo",
+            "notas_en": "照 carries fire 灬 (light) and 片 is a thin slice or sheet. Classifier: 張 (zhāng).",
+            "ejemplos_en": [
+                "這是一張照片 — This is a photo",
+                "你的照片很漂亮 — Your photo is very nice"
+            ]
+        },
+        {
+            "id": "id_mty028_tianzhong",
+            "espanol": "Tanaka Seiichi",
+            "tradicional": "田中誠一",
+            "pinyin": "Tiánzhōng Chéngyī",
+            "zhuyin": "ㄊㄧㄢˊ ㄓㄨㄥ ㄔㄥˊ ㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "田 (tián - field)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtjn2p70_9qg74"
+                },
+                {
+                    "type": "text",
+                    "value": "誠 (chéng - sincere)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                }
+            ],
+            "notas": "TCM textbook character, Japanese student.",
+            "ejemplos": [
+                "田中誠一是日本人 — Tanaka Seiichi is Japanese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Tanaka Seiichi",
+            "notas_en": "TCM textbook character, Japanese student.",
+            "ejemplos_en": [
+                "田中誠一是日本人 — Tanaka Seiichi is Japanese"
+            ]
+        },
+        {
+            "id": "id_mty029_bomu",
+            "espanol": "Aunt (friend's mother)",
+            "tradicional": "伯母",
+            "pinyin": "bómǔ",
+            "zhuyin": "ㄅㄛˊ ㄇㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "白 (bái - white)"
+                },
+                {
+                    "type": "text",
+                    "value": "母 (mǔ - mother)"
+                }
+            ],
+            "notas": "Respectful and affectionate treatment for a friend's mother, regardless of age.",
+            "ejemplos": [
+                "伯母好！ — Good morning, madam!",
+                "她是王開文的伯母 — She is the aunt/mother of Wang Kaiwen's friend."
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Aunt (friend's mother)",
+            "notas_en": "Respectful and affectionate treatment for a friend's mother, regardless of age.",
+            "ejemplos_en": [
+                "伯母好！ — Good morning, madam!",
+                "她是王開文的伯母 — She is the aunt/mother of Wang Kaiwen's friend."
+            ]
+        },
+        {
+            "id": "id_mty030_nin",
+            "espanol": "you (formal)",
+            "tradicional": "您",
+            "pinyin": "nín",
+            "zhuyin": "ㄋㄧㄣˊ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p2"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                }
+            ],
+            "notas": "It represents having the person 你 in your heart 心. Courtesy registration with elders or figures of respect.",
+            "ejemplos": [
+                "您好！ — Hello! (formal / respectfully)",
+                "伯母，您好嗎？ — Madam, how are you?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "you (formal)",
+            "notas_en": "It represents having the person 你 in your heart 心. Courtesy registration with elders or figures of respect.",
+            "ejemplos_en": [
+                "您好！ — Hello! (formal / respectfully)",
+                "伯母，您好嗎？ — Madam, how are you?"
+            ]
+        },
+        {
+            "id": "id_mty002_shu",
+            "espanol": "Book",
+            "tradicional": "書",
+            "pinyin": "shū",
+            "zhuyin": "ㄕㄨ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ben",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "聿 (yù - brush)"
+                },
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                }
+            ],
+            "notas": "A hand holding a paintbrush 聿 on a paper support 日. Classifier: 本 (běn).",
+            "ejemplos": [
+                "這是一本書 — This is a book",
+                "我有很多中文書 — I have many books in Chinese"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Book",
+            "notas_en": "A hand holding a paintbrush 聿 on a paper support 日. Classifier: 本 (běn).",
+            "ejemplos_en": [
+                "這是一本書 — This is a book",
+                "我有很多中文書 — I have many books in Chinese"
+            ]
+        },
+        {
+            "id": "id_mty033_xiongdi",
+            "espanol": "Siblings",
+            "tradicional": "兄弟",
+            "pinyin": "xiōngdì",
+            "zhuyin": "ㄒㄩㄥ ㄉㄧˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "兄 (xiōng - older brother)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msik5odg_jbtys"
+                }
+            ],
+            "notas": "Collective term for male brothers (older and younger brother).",
+            "ejemplos": [
+                "你有幾個兄弟？ — How many male brothers do you have?",
+                "我有兩個兄弟 — I have two brothers"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Siblings",
+            "notas_en": "Collective term for male brothers (older and younger brother).",
+            "ejemplos_en": [
+                "你有幾個兄弟？ — How many male brothers do you have?",
+                "我有兩個兄弟 — I have two brothers"
+            ]
+        },
+        {
+            "id": "id_mty034_jiemei",
+            "espanol": "Sisters",
+            "tradicional": "姐妹",
+            "pinyin": "jiěmèi",
+            "zhuyin": "ㄐㄧㄝˇ ㄇㄟˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msik8oqu_qbhis"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msikblio_cwfgf"
+                }
+            ],
+            "notas": "Collective term for female sisters (older and younger sister).",
+            "ejemplos": [
+                "你有幾個姐妹？ — How many sisters do you have?",
+                "我沒有姐妹 — I don't have sisters"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Sisters",
+            "notas_en": "Collective term for female sisters (older and younger sister).",
+            "ejemplos_en": [
+                "你有幾個姐妹？ — How many sisters do you have?",
+                "我沒有姐妹 — I don't have sisters"
+            ]
+        },
+        {
+            "id": "id_mty035_fangzi",
+            "espanol": "Home",
+            "tradicional": "房子",
+            "pinyin": "fángzi",
+            "zhuyin": "ㄈㄤˊ ㄗ˙",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_dong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "房 (fáng - home)"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - son)"
+                }
+            ],
+            "notas": "It refers to the physical construction of a home. Architectural classifier: 棟 (dòng).",
+            "ejemplos": [
+                "這棟房子很漂亮 — This house is very beautiful",
+                "那是他的房子 — That's your house"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Home",
+            "notas_en": "It refers to the physical construction of a home. Architectural classifier: 棟 (dòng).",
+            "ejemplos_en": [
+                "這棟房子很漂亮 — This house is very beautiful",
+                "那是他的房子 — That's your house"
+            ]
+        },
+        {
+            "id": "id_voc_shijian",
+            "espanol": "Time",
+            "tradicional": "時間",
+            "pinyin": "shíjiān",
+            "zhuyin": "ㄕˊ ㄐㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                },
+                {
+                    "type": "text",
+                    "value": "寸 (cùn - inch)"
+                },
+                {
+                    "type": "text",
+                    "value": "門 (mén - door)"
+                },
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                }
+            ],
+            "notas": "Abstract concept of available time or duration (有時間). Not to be confused with 點 (clock time).",
+            "ejemplos": [
+                "你明天有時間嗎？ — Do you have time tomorrow?",
+                "時間過得真快 — Time goes really fast"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Time",
+            "notas_en": "Abstract concept of available time or duration (有時間). Not to be confused with 點 (clock time).",
+            "ejemplos_en": [
+                "你明天有時間嗎？ — Do you have time tomorrow?",
+                "時間過得真快 — Time goes really fast"
+            ]
+        },
+        {
+            "id": "id_voc_jiaoshi",
+            "espanol": "Classroom",
+            "tradicional": "教室",
+            "pinyin": "jiàoshì",
+            "zhuyin": "ㄐㄧㄠˋ ㄕˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_jian",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "教 (jiào - teach)"
+                },
+                {
+                    "type": "text",
+                    "value": "室 (shì - hall)"
+                }
+            ],
+            "notas": "Space 至 under roof 宀 where teaching takes place 教. Classifier: 間 (jiān).",
+            "ejemplos": [
+                "教室在哪裡？ — Where is the classroom?",
+                "學生們都在教室裡 — The students are all inside the classroom"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Classroom",
+            "notas_en": "Space 至 under roof 宀 where teaching takes place 教. Classifier: 間 (jiān).",
+            "ejemplos_en": [
+                "教室在哪裡？ — Where is the classroom?",
+                "學生們都在教室裡 — The students are all inside the classroom"
+            ]
+        },
+        {
+            "id": "id_voc_wenti",
+            "espanol": "Question/Problem",
+            "tradicional": "問題",
+            "pinyin": "wèntí",
+            "zhuyin": "ㄨㄣˋ ㄊㄧˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "問 (wèn - ask)"
+                },
+                {
+                    "type": "text",
+                    "value": "題 (tí - issue)"
+                }
+            ],
+            "notas": "A mouth at the door 問 raising doubts or problems 題 (沒問題 = no problem).",
+            "ejemplos": [
+                "老師，我要問問題 — Professor, I want to ask a question",
+                "這不是問題 — This is not a problem / There is no problem"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Question/Problem",
+            "notas_en": "A mouth at the door 問 raising doubts or problems 題 (沒問題 = no problem).",
+            "ejemplos_en": [
+                "老師，我要問問題 — Professor, I want to ask a question",
+                "這不是問題 — This is not a problem / There is no problem"
+            ]
+        },
+        {
+            "id": "id_voc_ke",
+            "espanol": "Class",
+            "tradicional": "課",
+            "pinyin": "kè",
+            "zhuyin": "ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                },
+                {
+                    "type": "text",
+                    "value": "果 (guǒ - fruit)"
+                }
+            ],
+            "notas": "Words 言 that bear fruit 果. It governs 上課 (entering class) and 下課 (leaving class). Classifier: 門 (men).",
+            "ejemplos": [
+                "你今天有幾門課？ — How many subjects do you have today?",
+                "我們去上課吧 — let's go to class"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Class",
+            "notas_en": "Words 言 that bear fruit 果. It governs 上課 (entering class) and 下課 (leaving class). Classifier: 門 (men).",
+            "ejemplos_en": [
+                "你今天有幾門課？ — How many subjects do you have today?",
+                "我們去上課吧 — let's go to class"
+            ]
+        },
+        {
+            "id": "id_voc_xuanxiuke",
+            "espanol": "Elective class",
+            "tradicional": "選修課",
+            "pinyin": "xuǎnxiūkè",
+            "zhuyin": "ㄒㄩㄢˇ ㄒㄧㄡ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "選 (xuǎn - choose)"
+                },
+                {
+                    "type": "text",
+                    "value": "修 (xiū - study)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Optional academic subject that the student freely chooses. Antonym: 必修課 (mandatory).",
+            "ejemplos": [
+                "這門選修課很有意思 — This optional subject is extremely interesting",
+                "你選修了什麼課？ — What electives did you choose?"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Elective class",
+            "notas_en": "Optional academic subject that the student freely chooses. Antonym: 必修課 (mandatory).",
+            "ejemplos_en": [
+                "這門選修課很有意思 — This optional subject is extremely interesting",
+                "你選修了什麼課？ — What electives did you choose?"
+            ]
+        },
+        {
+            "id": "id_voc_yufake",
+            "espanol": "grammar class",
+            "tradicional": "語法課",
+            "pinyin": "yǔfǎkè",
+            "zhuyin": "ㄩˇ ㄈㄚˇ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "語 (yǔ - language)"
+                },
+                {
+                    "type": "text",
+                    "value": "法 (fǎ - law/method)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Class dedicated to the patterns and structures of the 語 language and its 法 norms.",
+            "ejemplos": [
+                "明天上午我們有語法課 — Tomorrow morning we have grammar class",
+                "語法課的作業很多 — There is a lot of homework in grammar class"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "grammar class",
+            "notas_en": "Class dedicated to the patterns and structures of the 語 language and its 法 norms.",
+            "ejemplos_en": [
+                "明天上午我們有語法課 — Tomorrow morning we have grammar class",
+                "語法課的作業很多 — There is a lot of homework in grammar class"
+            ]
+        },
+        {
+            "id": "id_voc_fayinke",
+            "espanol": "pronunciation class",
+            "tradicional": "發音課",
+            "pinyin": "fāyīnkè",
+            "zhuyin": "ㄈㄚ ㄧㄣ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "發 (fā - issue)"
+                },
+                {
+                    "type": "text",
+                    "value": "音 (yīn - sound)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Class focused on the correct emission of 音 sounds and tones of Mandarin.",
+            "ejemplos": [
+                "發音課對外國學生很有幫助 — Pronunciation class helps foreign students a lot",
+                "今天發音課練習漢語拼音 — Today in pronunciation class we practice Hanyu Pinyin"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "pronunciation class",
+            "notas_en": "Class focused on the correct emission of 音 sounds and tones of Mandarin.",
+            "ejemplos_en": [
+                "發音課對外國學生很有幫助 — Pronunciation class helps foreign students a lot",
+                "今天發音課練習漢語拼音 — Today in pronunciation class we practice Hanyu Pinyin"
+            ]
+        },
+        {
+            "id": "id_voc_hanzike",
+            "espanol": "Chinese character class",
+            "tradicional": "漢字課",
+            "pinyin": "hànzìkè",
+            "zhuyin": "ㄏㄢˋ ㄗˋ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "漢 (hàn - Chinese)"
+                },
+                {
+                    "type": "text",
+                    "value": "字 (zì - character)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Class focused on the traditional Chinese characters 漢字, their strokes and radicals.",
+            "ejemplos": [
+                "漢字課很有挑戰性 — Chinese characters class is very challenging",
+                "我在漢字課學了五十個字 — In character class I learned fifty characters"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Chinese character class",
+            "notas_en": "Class focused on the traditional Chinese characters 漢字, their strokes and radicals.",
+            "ejemplos_en": [
+                "漢字課很有挑戰性 — Chinese characters class is very challenging",
+                "我在漢字課學了五十個字 — In character class I learned fifty characters"
+            ]
+        },
+        {
+            "id": "id_voc_huihuake",
+            "espanol": "Conversation class",
+            "tradicional": "會話課",
+            "pinyin": "huìhuàkè",
+            "zhuyin": "ㄏㄨㄟˋ ㄏㄨㄚˋ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "會 (huì - meet up)"
+                },
+                {
+                    "type": "text",
+                    "value": "話 (huà - words)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Oral practice and everyday conversation class in Chinese.",
+            "ejemplos": [
+                "我們在會話課都說中文 — In conversation class we all speak in Chinese",
+                "會話課老師很幽默 — The conversation class teacher is very funny"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Conversation class",
+            "notas_en": "Oral practice and everyday conversation class in Chinese.",
+            "ejemplos_en": [
+                "我們在會話課都說中文 — In conversation class we all speak in Chinese",
+                "會話課老師很幽默 — The conversation class teacher is very funny"
+            ]
+        },
+        {
+            "id": "id_voc_shufake",
+            "espanol": "Chinese calligraphy class",
+            "tradicional": "書法課",
+            "pinyin": "shūfǎkè",
+            "zhuyin": "ㄕㄨ ㄈㄚˇ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mty002_shu"
+                },
+                {
+                    "type": "text",
+                    "value": "法 (fǎ - art/method)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Traditional art of calligraphy with 毛筆 brush and ink on rice paper.",
+            "ejemplos": [
+                "我下午上書法課 — In the afternoon I take calligraphy class",
+                "書法課要買毛筆和墨汁 — For the calligraphy class you have to buy a brush and ink"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Chinese calligraphy class",
+            "notas_en": "Traditional art of calligraphy with 毛筆 brush and ink on rice paper.",
+            "ejemplos_en": [
+                "我下午上書法課 — In the afternoon I take calligraphy class",
+                "書法課要買毛筆和墨汁 — For the calligraphy class you have to buy a brush and ink"
+            ]
+        },
+        {
+            "id": "id_voc_guohuake",
+            "espanol": "Traditional Chinese painting class",
+            "tradicional": "國畫課",
+            "pinyin": "guóhuàkè",
+            "zhuyin": "ㄍㄨㄛˊ ㄏㄨㄚˋ ㄎㄜˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_men",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "國 (guó - country)"
+                },
+                {
+                    "type": "text",
+                    "value": "畫 (huà - paint)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Traditional Chinese painting (lit. 'national painting') with ink and mineral pigments.",
+            "ejemplos": [
+                "他很喜歡上國畫課 — He really likes taking traditional Chinese painting classes.",
+                "國畫課的作品非常美麗 — The works of the traditional Chinese painting class are beautiful"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Traditional Chinese painting class",
+            "notas_en": "Traditional Chinese painting (lit. 'national painting') with ink and mineral pigments.",
+            "ejemplos_en": [
+                "他很喜歡上國畫課 — He really likes taking traditional Chinese painting classes.",
+                "國畫課的作品非常美麗 — The works of the traditional Chinese painting class are beautiful"
+            ]
+        },
+        {
+            "id": "id_voc_wushu",
+            "espanol": "Martial arts",
+            "tradicional": "武術",
+            "pinyin": "wǔshù",
+            "zhuyin": "ㄨˇ ㄕㄨˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "武 (wǔ - martial)"
+                },
+                {
+                    "type": "text",
+                    "value": "術 (shù - art/technique)"
+                }
+            ],
+            "notas": "Mnemonic etymology of 武: stop 止 the spear 戈 to preserve peace.",
+            "ejemplos": [
+                "他在臺灣學中國武術 — He learns Chinese martial arts in Taiwan",
+                "武術對身體很好 — Martial arts are very good for the body"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Martial arts",
+            "notas_en": "Mnemonic etymology of 武: stop 止 the spear 戈 to preserve peace.",
+            "ejemplos_en": [
+                "他在臺灣學中國武術 — He learns Chinese martial arts in Taiwan",
+                "武術對身體很好 — Martial arts are very good for the body"
+            ]
+        },
+        {
+            "id": "id_voc_hua",
+            "espanol": "Flower",
+            "tradicional": "花",
+            "pinyin": "huā",
+            "zhuyin": "ㄏㄨㄚ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_duo",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - grass)"
+                },
+                {
+                    "type": "text",
+                    "value": "化 (huà - transform)"
+                }
+            ],
+            "notas": "Grass that transforms into an open flower. Botanical classifier: 朵 (duǒ).",
+            "ejemplos": [
+                "公園裡有很多漂亮的花 — There are many beautiful flowers in the park.",
+                "這朵花真香 — This flower has a really pleasant aroma."
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Flower",
+            "notas_en": "Grass that transforms into an open flower. Botanical classifier: 朵 (duǒ).",
+            "ejemplos_en": [
+                "公園裡有很多漂亮的花 — There are many beautiful flowers in the park.",
+                "這朵花真香 — This flower has a really pleasant aroma."
+            ]
+        },
+        {
+            "id": "id_voc_banye",
+            "espanol": "Early morning",
+            "tradicional": "半夜",
+            "pinyin": "bànyè",
+            "zhuyin": "ㄅㄢˋ ㄧㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "半 (bàn - half)"
+                },
+                {
+                    "type": "text",
+                    "value": "夜 (yè - evening)"
+                }
+            ],
+            "notas": "Deepest period of the night (approx. 00:00 to 04:00).",
+            "ejemplos": [
+                "半夜十二點 — Twelve at night (midnight)",
+                "他常常半夜看書 — He often reads books in the middle of the night"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Early morning",
+            "notas_en": "Deepest period of the night (approx. 00:00 to 04:00).",
+            "ejemplos_en": [
+                "半夜十二點 — Twelve at night (midnight)",
+                "他常常半夜看書 — He often reads books in the middle of the night"
+            ]
+        },
+        {
+            "id": "id_voc_zaoshang",
+            "espanol": "Tomorrow (early)",
+            "tradicional": "早上",
+            "pinyin": "zǎoshàng",
+            "zhuyin": "ㄗㄠˇ ㄕㄤˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "早 (zǎo - early)"
+                },
+                {
+                    "type": "text",
+                    "value": "上 (shàng - above)"
+                }
+            ],
+            "notas": "The sun 日 that rises early above the horizon line. Greeting: 早上好 (good morning!).",
+            "ejemplos": [
+                "我早上七點吃早飯 — Breakfast at seven in the morning",
+                "早上空氣真好 — The early morning air is truly pleasant"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3,
+            "english": "Tomorrow (early)",
+            "notas_en": "The sun 日 that rises early above the horizon line. Greeting: 早上好 (good morning!).",
+            "ejemplos_en": [
+                "我早上七點吃早飯 — Breakfast at seven in the morning",
+                "早上空氣真好 — The early morning air is truly pleasant"
+            ]
+        },
+        {
+            "id": "id_voc_shangwu",
+            "espanol": "Mid morning",
+            "tradicional": "上午",
+            "pinyin": "shàngwǔ",
+            "zhuyin": "ㄕㄤˋ ㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - above)"
+                },
+                {
+                    "type": "text",
+                    "value": "午 (wǔ - noon)"
+                }
+            ],
+            "notas": "Interval before noon (approx. 09:00 to 12:00, equivalent to A.M.).",
+            "ejemplos": [
+                "我們上午十點有漢字課 — At ten in the morning we have Chinese characters class",
+                "今天上午我不去學校 — I'm not going to school this morning"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Mid morning",
+            "notas_en": "Interval before noon (approx. 09:00 to 12:00, equivalent to A.M.).",
+            "ejemplos_en": [
+                "我們上午十點有漢字課 — At ten in the morning we have Chinese characters class",
+                "今天上午我不去學校 — I'm not going to school this morning"
+            ]
+        },
+        {
+            "id": "id_voc_zhongwu",
+            "espanol": "Noon",
+            "tradicional": "中午",
+            "pinyin": "zhōngwǔ",
+            "zhuyin": "ㄓㄨㄥ ㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn2p70_9qg74"
+                },
+                {
+                    "type": "text",
+                    "value": "午 (wǔ - noon)"
+                }
+            ],
+            "notas": "Exact midpoint of the day (around 12:00), traditional lunch time.",
+            "ejemplos": [
+                "中午十二點我們一起吃午飯 — At twelve noon we had lunch together",
+                "中午請在教室休息 — At noon please rest in the classroom"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Noon",
+            "notas_en": "Exact midpoint of the day (around 12:00), traditional lunch time.",
+            "ejemplos_en": [
+                "中午十二點我們一起吃午飯 — At twelve noon we had lunch together",
+                "中午請在教室休息 — At noon please rest in the classroom"
+            ]
+        },
+        {
+            "id": "id_voc_xiawu",
+            "espanol": "Late",
+            "tradicional": "下午",
+            "pinyin": "xiàwǔ",
+            "zhuyin": "ㄒㄧㄚˋ ㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - below)"
+                },
+                {
+                    "type": "text",
+                    "value": "午 (wǔ - noon)"
+                }
+            ],
+            "notas": "Interval after noon until sunset (equivalent to P.M.). Greeting: 下午好.",
+            "ejemplos": [
+                "下午兩點在教室上課 — At two in the afternoon we have class in the classroom",
+                "你今天下午有時間嗎？ — Do you have time this afternoon?"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Late",
+            "notas_en": "Interval after noon until sunset (equivalent to P.M.). Greeting: 下午好.",
+            "ejemplos_en": [
+                "下午兩點在教室上課 — At two in the afternoon we have class in the classroom",
+                "你今天下午有時間嗎？ — Do you have time this afternoon?"
+            ]
+        },
+        {
+            "id": "id_voc_wanshang",
+            "espanol": "Evening",
+            "tradicional": "晚上",
+            "pinyin": "wǎnshàng",
+            "zhuyin": "ㄨㄢˇ ㄕㄤˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "晚 (wǎn - evening)"
+                },
+                {
+                    "type": "text",
+                    "value": "上 (shàng - above)"
+                }
+            ],
+            "notas": "Night period starting at dusk. Greeting: 晚上好 (good night!).",
+            "ejemplos": [
+                "今天晚上我們去吃中國菜 — Tonight we are going to eat Chinese food",
+                "晚上請早點休息 — Please rest early at night"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3,
+            "english": "Evening",
+            "notas_en": "Night period starting at dusk. Greeting: 晚上好 (good night!).",
+            "ejemplos_en": [
+                "今天晚上我們去吃中國菜 — Tonight we are going to eat Chinese food",
+                "晚上請早點休息 — Please rest early at night"
+            ]
+        },
+        {
+            "id": "id_voc_nian",
+            "espanol": "Year",
+            "tradicional": "年",
+            "pinyin": "nián",
+            "zhuyin": "ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "年 (nián - year)"
+                }
+            ],
+            "notas": "Archaic pictogram of a person carrying an ear of cereal harvested after an annual cycle.",
+            "ejemplos": [
+                "一年有十二個月 — A year has twelve months",
+                "今年是2026年 — This year is 2026"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Year",
+            "notas_en": "Archaic pictogram of a person carrying an ear of cereal harvested after an annual cycle.",
+            "ejemplos_en": [
+                "一年有十二個月 — A year has twelve months",
+                "今年是2026年 — This year is 2026"
+            ]
+        },
+        {
+            "id": "id_voc_daqiannian",
+            "espanol": "3 years ago",
+            "tradicional": "大前年",
+            "pinyin": "dàqiánnián",
+            "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "text",
+                    "value": "前 (qián - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Three years before the current year.",
+            "ejemplos": [
+                "大前年我來臺灣學中文 — Three years ago I came to Taiwan to study Chinese",
+                "大前年他還沒上大學 — Three years ago he still did not enter university"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "3 years ago",
+            "notas_en": "Three years before the current year.",
+            "ejemplos_en": [
+                "大前年我來臺灣學中文 — Three years ago I came to Taiwan to study Chinese",
+                "大前年他還沒上大學 — Three years ago he still did not enter university"
+            ]
+        },
+        {
+            "id": "id_voc_qiannian",
+            "espanol": "2 years ago",
+            "tradicional": "前年",
+            "pinyin": "qiánnián",
+            "zhuyin": "ㄑㄧㄢˊ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "前 (qián - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Two years before the current year.",
+            "ejemplos": [
+                "前年買的書 — Book purchased the year before",
+                "前年我們全家去旅行 — Last year our whole family went on a trip"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "2 years ago",
+            "notas_en": "Two years before the current year.",
+            "ejemplos_en": [
+                "前年買的書 — Book purchased the year before",
+                "前年我們全家去旅行 — Last year our whole family went on a trip"
+            ]
+        },
+        {
+            "id": "id_voc_qunian",
+            "espanol": "last year",
+            "tradicional": "去年",
+            "pinyin": "qùnián",
+            "zhuyin": "ㄑㄩˋ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "去 (qù - go)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Literally 'the year gone/departed': the year immediately preceding the current one.",
+            "ejemplos": [
+                "我去年開始學書法 — Last year I started studying calligraphy",
+                "去年九月我們見過面 — In September of last year we saw each other"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "last year",
+            "notas_en": "Literally 'the year gone/departed': the year immediately preceding the current one.",
+            "ejemplos_en": [
+                "我去年開始學書法 — Last year I started studying calligraphy",
+                "去年九月我們見過面 — In September of last year we saw each other"
+            ]
+        },
+        {
+            "id": "id_voc_jinnian",
+            "espanol": "This year",
+            "tradicional": "今年",
+            "pinyin": "jīnnián",
+            "zhuyin": "ㄐㄧㄣ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "今 (jīn - present)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "The current current year.",
+            "ejemplos": [
+                "今年你幾歲？ — How old are you this year?",
+                "今年我選了四門課 — This year I took four subjects"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "This year",
+            "notas_en": "The current current year.",
+            "ejemplos_en": [
+                "今年你幾歲？ — How old are you this year?",
+                "今年我選了四門課 — This year I took four subjects"
+            ]
+        },
+        {
+            "id": "id_voc_mingnian",
+            "espanol": "next year",
+            "tradicional": "明年",
+            "pinyin": "míngnián",
+            "zhuyin": "ㄇㄧㄥˊ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "明 (míng - bright)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Literally 'the bright/coming year': the coming year.",
+            "ejemplos": [
+                "明年我想去臺灣旅行 — Next year I want to travel to Taiwan",
+                "明年我們再見 — See you next year"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "next year",
+            "notas_en": "Literally 'the bright/coming year': the coming year.",
+            "ejemplos_en": [
+                "明年我想去臺灣旅行 — Next year I want to travel to Taiwan",
+                "明年我們再見 — See you next year"
+            ]
+        },
+        {
+            "id": "id_voc_hounian",
+            "espanol": "In 2 years",
+            "tradicional": "後年",
+            "pinyin": "hòunián",
+            "zhuyin": "ㄏㄡˋ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "後 (hòu - after)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Two years after the current year.",
+            "ejemplos": [
+                "後年他要大學畢業 — In two years he will graduate from college",
+                "後年見！ — See you in two years!"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "In 2 years",
+            "notas_en": "Two years after the current year.",
+            "ejemplos_en": [
+                "後年他要大學畢業 — In two years he will graduate from college",
+                "後年見！ — See you in two years!"
+            ]
+        },
+        {
+            "id": "id_voc_dahounian",
+            "espanol": "In 3 years",
+            "tradicional": "大後年",
+            "pinyin": "dàhòunián",
+            "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄋㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "text",
+                    "value": "後 (hòu - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_nian"
+                }
+            ],
+            "notas": "Three years after the current year.",
+            "ejemplos": [
+                "大後年我們學校有一百週年校慶 — In three years our school celebrates its centenary",
+                "這棟樓大後年完工 — This building will be completed in three years"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "In 3 years",
+            "notas_en": "Three years after the current year.",
+            "ejemplos_en": [
+                "大後年我們學校有一百週年校慶 — In three years our school celebrates its centenary",
+                "這棟樓大後年完工 — This building will be completed in three years"
+            ]
+        },
+        {
+            "id": "id_voc_yue",
+            "espanol": "Month",
+            "tradicional": "月",
+            "pinyin": "yuè",
+            "zhuyin": "ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "月 (yuè - moon/month)"
+                }
+            ],
+            "notas": "Calendar month. For periods a classifier is required: 三個月 (three months); for names: 三月 (March).",
+            "ejemplos": [
+                "一年有十二個月 — A year has twelve months",
+                "九月開學 — Classes start in September"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Month",
+            "notas_en": "Calendar month. For periods a classifier is required: 三個月 (three months); for names: 三月 (March).",
+            "ejemplos_en": [
+                "一年有十二個月 — A year has twelve months",
+                "九月開學 — Classes start in September"
+            ]
+        },
+        {
+            "id": "id_voc_shangshanggeyue",
+            "espanol": "The month before",
+            "tradicional": "上上個月",
+            "pinyin": "shàng shàng ge yuè",
+            "zhuyin": "ㄕㄤˋ ㄕㄤˋ ˙ㄍㄜ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_yue"
+                }
+            ],
+            "notas": "Two months before the current month.",
+            "ejemplos": [
+                "這本書是我上上個月買的 — I bought this book last month.",
+                "上上個月天氣非常熱 — Last month the weather was extremely hot"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "The month before",
+            "notas_en": "Two months before the current month.",
+            "ejemplos_en": [
+                "這本書是我上上個月買的 — I bought this book last month.",
+                "上上個月天氣非常熱 — Last month the weather was extremely hot"
+            ]
+        },
+        {
+            "id": "id_voc_shanggeyue",
+            "espanol": "last month",
+            "tradicional": "上個月",
+            "pinyin": "shàng ge yuè",
+            "zhuyin": "ㄕㄤˋ ˙ㄍㄜ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_yue"
+                }
+            ],
+            "notas": "The month immediately preceding the current one.",
+            "ejemplos": [
+                "上個月我看了三本書 — Last month I read three books",
+                "上個月的考試很難 — Last month's exam was very difficult"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "last month",
+            "notas_en": "The month immediately preceding the current one.",
+            "ejemplos_en": [
+                "上個月我看了三本書 — Last month I read three books",
+                "上個月的考試很難 — Last month's exam was very difficult"
+            ]
+        },
+        {
+            "id": "id_voc_zhegeyue",
+            "espanol": "This month",
+            "tradicional": "這個月",
+            "pinyin": "zhè ge yuè",
+            "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0jitk_kr6cx"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_yue"
+                }
+            ],
+            "notas": "The current month.",
+            "ejemplos": [
+                "這個月有選修課 — This month there are optional subjects",
+                "這個月我很忙 — This month I am very busy"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "This month",
+            "notas_en": "The current month.",
+            "ejemplos_en": [
+                "這個月有選修課 — This month there are optional subjects",
+                "這個月我很忙 — This month I am very busy"
+            ]
+        },
+        {
+            "id": "id_voc_xiageyue",
+            "espanol": "next month",
+            "tradicional": "下個月",
+            "pinyin": "xià ge yuè",
+            "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_yue"
+                }
+            ],
+            "notas": "The month immediately after the current one.",
+            "ejemplos": [
+                "下個月我們要去臺灣 — Next month we will go to Taiwan",
+                "下個月有書法課 — Next month there is calligraphy class"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "next month",
+            "notas_en": "The month immediately after the current one.",
+            "ejemplos_en": [
+                "下個月我們要去臺灣 — Next month we will go to Taiwan",
+                "下個月有書法課 — Next month there is calligraphy class"
+            ]
+        },
+        {
+            "id": "id_voc_xiaxiageyue",
+            "espanol": "In 2 months",
+            "tradicional": "下下個月",
+            "pinyin": "xià xià ge yuè",
+            "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_yue"
+                }
+            ],
+            "notas": "Two months after the current month.",
+            "ejemplos": [
+                "下下個月就要放假了 — In two months the holidays begin",
+                "這門課下下個月才開始 — This subject just starts in two months"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "In 2 months",
+            "notas_en": "Two months after the current month.",
+            "ejemplos_en": [
+                "下下個月就要放假了 — In two months the holidays begin",
+                "這門課下下個月才開始 — This subject just starts in two months"
+            ]
+        },
+        {
+            "id": "id_voc_xingqi",
+            "espanol": "Week",
+            "tradicional": "星期",
+            "pinyin": "xīngqī",
+            "zhuyin": "ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "星 (xīng - star)"
+                },
+                {
+                    "type": "text",
+                    "value": "期 (qī - period)"
+                }
+            ],
+            "notas": "Seven-day period governed by stellar and lunar phases. Synonym in Taiwan: 禮拜 (lǐbài).",
+            "ejemplos": [
+                "一個星期有七天 — A week has seven days",
+                "你這個星期忙不忙？ — Are you busy this week?"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Week",
+            "notas_en": "Seven-day period governed by stellar and lunar phases. Synonym in Taiwan: 禮拜 (lǐbài).",
+            "ejemplos_en": [
+                "一個星期有七天 — A week has seven days",
+                "你這個星期忙不忙？ — Are you busy this week?"
+            ]
+        },
+        {
+            "id": "id_voc_shangshanggexingqi",
+            "espanol": "The week before",
+            "tradicional": "上上個星期",
+            "pinyin": "shàng shàng ge xīngqī",
+            "zhuyin": "ㄕㄤˋ ㄕㄤˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "Two weeks ago in relation to the current week.",
+            "ejemplos": [
+                "上上個星期我們沒有上課 — We didn't have classes last week.",
+                "這是我上上個星期借的書 — This is the book I borrowed last week"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "The week before",
+            "notas_en": "Two weeks ago in relation to the current week.",
+            "ejemplos_en": [
+                "上上個星期我們沒有上課 — We didn't have classes last week.",
+                "這是我上上個星期借的書 — This is the book I borrowed last week"
+            ]
+        },
+        {
+            "id": "id_voc_shanggexingqi",
+            "espanol": "Last week",
+            "tradicional": "上個星期",
+            "pinyin": "shàng ge xīngqī",
+            "zhuyin": "ㄕㄤˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "The week immediately preceding the current week.",
+            "ejemplos": [
+                "上個星期我們見過面 — We saw each other last week",
+                "上個星期的功課很多 — Last week there was a lot of homework"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Last week",
+            "notas_en": "The week immediately preceding the current week.",
+            "ejemplos_en": [
+                "上個星期我們見過面 — We saw each other last week",
+                "上個星期的功課很多 — Last week there was a lot of homework"
+            ]
+        },
+        {
+            "id": "id_voc_zhegexingqi",
+            "espanol": "This week",
+            "tradicional": "這個星期",
+            "pinyin": "zhè ge xīngqī",
+            "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0jitk_kr6cx"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "The current week.",
+            "ejemplos": [
+                "這個星期五有漢字考試 — This Friday there is a character exam",
+                "這個星期每天都有課 — This week I have classes every day"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "This week",
+            "notas_en": "The current week.",
+            "ejemplos_en": [
+                "這個星期五有漢字考試 — This Friday there is a character exam",
+                "這個星期每天都有課 — This week I have classes every day"
+            ]
+        },
+        {
+            "id": "id_voc_xiagexingqi",
+            "espanol": "next week",
+            "tradicional": "下個星期",
+            "pinyin": "xià ge xīngqī",
+            "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "The week immediately following the current one.",
+            "ejemplos": [
+                "下個星期見！ — See you next week!",
+                "下個星期我們開始學語法 — Next week we start studying grammar"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "next week",
+            "notas_en": "The week immediately following the current one.",
+            "ejemplos_en": [
+                "下個星期見！ — See you next week!",
+                "下個星期我們開始學語法 — Next week we start studying grammar"
+            ]
+        },
+        {
+            "id": "id_voc_xiaxiagexingqi",
+            "espanol": "In 2 weeks",
+            "tradicional": "下下個星期",
+            "pinyin": "xià xià ge xīngqī",
+            "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "Two weeks ahead of the current week.",
+            "ejemplos": [
+                "下下個星期一放假 — The following Monday is a holiday / there are no classes",
+                "下下個星期我們要交報告 — In two weeks we have to deliver the report"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "In 2 weeks",
+            "notas_en": "Two weeks ahead of the current week.",
+            "ejemplos_en": [
+                "下下個星期一放假 — The following Monday is a holiday / there are no classes",
+                "下下個星期我們要交報告 — In two weeks we have to deliver the report"
+            ]
+        },
+        {
+            "id": "id_voc_tian",
+            "espanol": "Day",
+            "tradicional": "天",
+            "pinyin": "tiān",
+            "zhuyin": "ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                }
+            ],
+            "notas": "Sky and daily computation. It acts as a direct time classifier (三天 = three days), it does not use 個.",
+            "ejemplos": [
+                "一個星期有七天 — A week has seven days",
+                "天天開心 — happy every day"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Day",
+            "notas_en": "Sky and daily computation. It acts as a direct time classifier (三天 = three days), it does not use 個.",
+            "ejemplos_en": [
+                "一個星期有七天 — A week has seven days",
+                "天天開心 — happy every day"
+            ]
+        },
+        {
+            "id": "id_voc_daqiantian",
+            "espanol": "3 days ago",
+            "tradicional": "大前天",
+            "pinyin": "dàqiántiān",
+            "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "text",
+                    "value": "前 (qián - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "Three days before today.",
+            "ejemplos": [
+                "大前天我買了一本新書 — Three days ago I bought a new book.",
+                "大前天下午很冷 — The day before yesterday afternoon it was very cold"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "3 days ago",
+            "notas_en": "Three days before today.",
+            "ejemplos_en": [
+                "大前天我買了一本新書 — Three days ago I bought a new book.",
+                "大前天下午很冷 — The day before yesterday afternoon it was very cold"
+            ]
+        },
+        {
+            "id": "id_voc_qiantian",
+            "espanol": "Day before yesterday",
+            "tradicional": "前天",
+            "pinyin": "qiántiān",
+            "zhuyin": "ㄑㄧㄢˊ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "前 (qián - former)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "Two days before today (the day before yesterday).",
+            "ejemplos": [
+                "前天你去哪裡？ — Where did you go the day before yesterday?",
+                "前天我們上書法課 — The day before yesterday we had calligraphy class"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Day before yesterday",
+            "notas_en": "Two days before today (the day before yesterday).",
+            "ejemplos_en": [
+                "前天你去哪裡？ — Where did you go the day before yesterday?",
+                "前天我們上書法課 — The day before yesterday we had calligraphy class"
+            ]
+        },
+        {
+            "id": "id_voc_zuotian",
+            "espanol": "Yesterday",
+            "tradicional": "昨天",
+            "pinyin": "zuótiān",
+            "zhuyin": "ㄗㄨㄛˊ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "昨 (zuó - yesterday)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "Yesterday",
+            "ejemplos": [
+                "昨天下午你在家嗎？ — Were you at home yesterday afternoon?",
+                "昨天的漢字課很有意思 — Yesterday's character class was very interesting"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 5,
+            "english": "Yesterday",
+            "notas_en": "Yesterday",
+            "ejemplos_en": [
+                "昨天下午你在家嗎？ — Were you at home yesterday afternoon?",
+                "昨天的漢字課很有意思 — Yesterday's character class was very interesting"
+            ]
+        },
+        {
+            "id": "id_voc_jintian",
+            "espanol": "Today",
+            "tradicional": "今天",
+            "pinyin": "jīntiān",
+            "zhuyin": "ㄐㄧㄣ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "今 (jīn - present)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "Today.",
+            "ejemplos": [
+                "今天是幾月幾日？ — What date is today?",
+                "今天天氣真好 — Today the weather is really good"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3,
+            "english": "Today",
+            "notas_en": "Today.",
+            "ejemplos_en": [
+                "今天是幾月幾日？ — What date is today?",
+                "今天天氣真好 — Today the weather is really good"
+            ]
+        },
+        {
+            "id": "id_voc_mingtian",
+            "espanol": "Tomorrow",
+            "tradicional": "明天",
+            "pinyin": "míngtiān",
+            "zhuyin": "ㄇㄧㄥˊ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "明 (míng - bright)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "Tomorrow Usual farewell: 明天見 (see you tomorrow).",
+            "ejemplos": [
+                "明天見！ — See you tomorrow!",
+                "明天上午我有選修課 — Tomorrow morning I have an elective subject"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 3,
+            "english": "Tomorrow",
+            "notas_en": "Tomorrow Usual farewell: 明天見 (see you tomorrow).",
+            "ejemplos_en": [
+                "明天見！ — See you tomorrow!",
+                "明天上午我有選修課 — Tomorrow morning I have an elective subject"
+            ]
+        },
+        {
+            "id": "id_voc_houtian",
+            "espanol": "Day after tomorrow",
+            "tradicional": "後天",
+            "pinyin": "hòutiān",
+            "zhuyin": "ㄏㄡˋ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "後 (hòu - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "The day after tomorrow (in 2 days).",
+            "ejemplos": [
+                "後天我們去買書 — The day after tomorrow we are going to buy books",
+                "後天你有空嗎？ — Do you have free time the day after tomorrow?"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Day after tomorrow",
+            "notas_en": "The day after tomorrow (in 2 days).",
+            "ejemplos_en": [
+                "後天我們去買書 — The day after tomorrow we are going to buy books",
+                "後天你有空嗎？ — Do you have free time the day after tomorrow?"
+            ]
+        },
+        {
+            "id": "id_voc_dahoutian",
+            "espanol": "In 3 days",
+            "tradicional": "大後天",
+            "pinyin": "dàhòutiān",
+            "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄊㄧㄢ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "text",
+                    "value": "後 (hòu - later)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_tian"
+                }
+            ],
+            "notas": "In 3 days from today.",
+            "ejemplos": [
+                "大後天我們在學校見面 — In three days see you at school",
+                "大後天下午下課以後去喝茶 — In three days in the afternoon after class we are going to have tea"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "In 3 days",
+            "notas_en": "In 3 days from today.",
+            "ejemplos_en": [
+                "大後天我們在學校見面 — In three days see you at school",
+                "大後天下午下課以後去喝茶 — In three days in the afternoon after class we are going to have tea"
+            ]
+        },
+        {
+            "id": "id_voc_shihou",
+            "espanol": "Moment",
+            "tradicional": "時候",
+            "pinyin": "shíhòu",
+            "zhuyin": "ㄕˊ ㄏㄡˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "時 (shí - time)"
+                },
+                {
+                    "type": "text",
+                    "value": "候 (hòu - wait)"
+                }
+            ],
+            "notas": "Very common in the structure '...的時候' (...from shíhòu = when / at the time of...).",
+            "ejemplos": [
+                "吃飯的時候不要說話 — When eating, don't talk.",
+                "小的時候我很喜歡貓 — When I was little I really liked cats."
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Moment",
+            "notas_en": "Very common in the structure '...的時候' (...from shíhòu = when / at the time of...).",
+            "ejemplos_en": [
+                "吃飯的時候不要說話 — When eating, don't talk.",
+                "小的時候我很喜歡貓 — When I was little I really liked cats."
+            ]
+        },
+        {
+            "id": "id_voc_fenzhong",
+            "espanol": "Minute (duration)",
+            "tradicional": "分鐘",
+            "pinyin": "fēnzhōng",
+            "zhuyin": "ㄈㄣ ㄓㄨㄥ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_clf_fen"
+                },
+                {
+                    "type": "text",
+                    "value": "鐘 (zhōng - clock)"
+                }
+            ],
+            "notas": "Duration measured in minutes (休息十分鐘 = 10 minute break).",
+            "ejemplos": [
+                "下課休息十分鐘 — Class recess lasts ten minutes",
+                "請等我五分鐘 — Please wait five minutes for me"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Minute (duration)",
+            "notas_en": "Duration measured in minutes (休息十分鐘 = 10 minute break).",
+            "ejemplos_en": [
+                "下課休息十分鐘 — Class recess lasts ten minutes",
+                "請等我五分鐘 — Please wait five minutes for me"
+            ]
+        },
+        {
+            "id": "id_voc_minguo",
+            "espanol": "Minguo Calendar",
+            "tradicional": "民國",
+            "pinyin": "Mínguó",
+            "zhuyin": "ㄇㄧㄣˊ ㄍㄨㄛˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "民 (mín - town)"
+                },
+                {
+                    "type": "ref",
+                    "id": "n5"
+                }
+            ],
+            "notas": "Taiwan's official republican calendar (year 1 = 1912). 1911 is subtracted from the Gregorian year: 2026 = 民國115年.",
+            "ejemplos": [
+                "今年是民國115年 — This year is the 115th year of the Republic of China",
+                "民國115年9月27日 — September 27, 115th year of the Republic of China"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Minguo Calendar",
+            "notas_en": "Taiwan's official republican calendar (year 1 = 1912). 1911 is subtracted from the Gregorian year: 2026 = 民國115年.",
+            "ejemplos_en": [
+                "今年是民國115年 — This year is the 115th year of the Republic of China",
+                "民國115年9月27日 — September 27, 115th year of the Republic of China"
+            ]
+        },
+        {
+            "id": "id_voc_libai",
+            "espanol": "Week",
+            "tradicional": "禮拜",
+            "pinyin": "lǐbài",
+            "zhuyin": "ㄌㄧˇ ㄅㄞˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禮 (lǐ - ritual/courtesy)"
+                },
+                {
+                    "type": "text",
+                    "value": "拜 (bài - venerate)"
+                }
+            ],
+            "notas": "Extremely deep-rooted and colloquial term in Taiwan equivalent to 星期 (week): 下個禮拜.",
+            "ejemplos": [
+                "下個禮拜見 — See you next week",
+                "一個禮拜有七天 — A week has seven days"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Week",
+            "notas_en": "Extremely deep-rooted and colloquial term in Taiwan equivalent to 星期 (week): 下個禮拜.",
+            "ejemplos_en": [
+                "下個禮拜見 — See you next week",
+                "一個禮拜有七天 — A week has seven days"
+            ]
+        },
+        {
+            "id": "id_voc_xuexiao",
+            "espanol": "School",
+            "tradicional": "學校",
+            "pinyin": "xuéxiào",
+            "zhuyin": "ㄒㄩㄝˊ ㄒㄧㄠˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_dong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "學 (xué - study)"
+                },
+                {
+                    "type": "text",
+                    "value": "校 (xiào - school)"
+                }
+            ],
+            "notas": "Teaching and study center: 學 (learn) + 校 (institution).",
+            "ejemplos": [
+                "我們學校很大 — Our school is big",
+                "你怎麼去學校？ — How do you go to school?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "School",
+            "notas_en": "Teaching and study center: 學 (learn) + 校 (institution).",
+            "ejemplos_en": [
+                "我們學校很大 — Our school is big",
+                "你怎麼去學校？ — How do you go to school?"
+            ]
+        },
+        {
+            "id": "id_voc_nali",
+            "espanol": "Where?",
+            "tradicional": "哪裡",
+            "pinyin": "nǎlǐ",
+            "zhuyin": "ㄋㄚˇ ㄌㄧˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "哪 (nǎ - which)"
+                },
+                {
+                    "type": "text",
+                    "value": "里 (lǐ - town)"
+                }
+            ],
+            "notas": "Interrogative pronoun of predominant place in Taiwan: 教室在哪裡？ Also modest polite reply.",
+            "ejemplos": [
+                "教室在哪裡？ — Where is the classroom?",
+                "你要去哪裡？ — Where are you going?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Where?",
+            "notas_en": "Interrogative pronoun of predominant place in Taiwan: 教室在哪裡？ Also modest polite reply.",
+            "ejemplos_en": [
+                "教室在哪裡？ — Where is the classroom?",
+                "你要去哪裡？ — Where are you going?"
+            ]
+        },
+        {
+            "id": "id_voc_zhexie",
+            "espanol": "These",
+            "tradicional": "這些",
+            "pinyin": "zhèxiē",
+            "zhuyin": "ㄓㄜˋ ㄒㄧㄝ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4oeq7_zhe"
+                },
+                {
+                    "type": "text",
+                    "value": "些 (xiē - a few)"
+                }
+            ],
+            "notas": "Close plural demonstrative: 這些書 (these books).",
+            "ejemplos": [
+                "這些書都不貴 — None of these books are expensive",
+                "這些是我的照片 — These are my photos"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "These",
+            "notas_en": "Close plural demonstrative: 這些書 (these books).",
+            "ejemplos_en": [
+                "這些書都不貴 — None of these books are expensive",
+                "這些是我的照片 — These are my photos"
+            ]
+        },
+        {
+            "id": "id_voc_naxie",
+            "espanol": "Those",
+            "tradicional": "那些",
+            "pinyin": "nàxiē",
+            "zhuyin": "ㄋㄚˋ ㄒㄧㄝ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4qdf2_na"
+                },
+                {
+                    "type": "text",
+                    "value": "些 (xiē - a few)"
+                }
+            ],
+            "notas": "Distant plural demonstrative: 那些人 (those people).",
+            "ejemplos": [
+                "那些花非常漂亮 — Those flowers are extremely beautiful.",
+                "那些不是我的書 — Those are not my books"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Those",
+            "notas_en": "Distant plural demonstrative: 那些人 (those people).",
+            "ejemplos_en": [
+                "那些花非常漂亮 — Those flowers are extremely beautiful.",
+                "那些不是我的書 — Those are not my books"
+            ]
+        },
+        {
+            "id": "id_l3_zhoumo",
+            "espanol": "Weekend",
+            "tradicional": "週末",
+            "pinyin": "zhōumò",
+            "zhuyin": "ㄓㄡ ㄇㄛˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "周 (zhōu - cycle)"
+                },
+                {
+                    "type": "text",
+                    "value": "末 (mò - end)"
+                }
+            ],
+            "notas": "周 (cycle/week) + 末 (end/end). It usually opens the sentence as a time frame.",
+            "ejemplos": [
+                "我週末常運動 — On weekends I usually exercise",
+                "明天是週末，你要不要來我家？ — Tomorrow is the weekend, do you want to come to my house?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Weekend",
+            "notas_en": "周 (cycle/week) + 末 (end/end). It usually opens the sentence as a time frame.",
+            "ejemplos_en": [
+                "我週末常運動 — On weekends I usually exercise",
+                "明天是週末，你要不要來我家？ — Tomorrow is the weekend, do you want to come to my house?"
+            ]
+        },
+        {
+            "id": "id_l3_yinyue",
+            "espanol": "Music",
+            "tradicional": "音樂",
+            "pinyin": "yīnyuè",
+            "zhuyin": "ㄧㄣ ㄩㄝˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "音 (yīn - sound)"
+                },
+                {
+                    "type": "text",
+                    "value": "樂 (yuè - music)"
+                }
+            ],
+            "notas": "音 (sound) + 樂 (melody/music). Note that 樂 is read yuè for music and lè for joy (快樂).",
+            "ejemplos": [
+                "我媽媽喜歡聽日本音樂 — My mom likes to listen to Japanese music",
+                "你喜歡聽音樂嗎？ — Do you like listening to music?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Music",
+            "notas_en": "音 (sound) + 樂 (melody/music). Note that 樂 is read yuè for music and lè for joy (快樂).",
+            "ejemplos_en": [
+                "我媽媽喜歡聽日本音樂 — My mom likes to listen to Japanese music",
+                "你喜歡聽音樂嗎？ — Do you like listening to music?"
+            ]
+        },
+        {
+            "id": "id_l3_wangqiu",
+            "espanol": "Tennis",
+            "tradicional": "網球",
+            "pinyin": "wǎngqiú",
+            "zhuyin": "ㄨㄤˇ ㄑㄧㄡˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ke",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "網 (wǎng - grid)"
+                },
+                {
+                    "type": "text",
+                    "value": "球 (qiú - ball)"
+                }
+            ],
+            "notas": "Literally 'net ball' (網 net + 球 ball). Accompanying verb: 打 (dǎ wǎngqiú).",
+            "ejemplos": [
+                "我姐姐週末常打網球 — My older sister usually plays tennis on the weekends",
+                "我不喜歡打網球 — I don't like playing tennis"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Tennis",
+            "notas_en": "Literally 'net ball' (網 net + 球 ball). Accompanying verb: 打 (dǎ wǎngqiú).",
+            "ejemplos_en": [
+                "我姐姐週末常打網球 — My older sister usually plays tennis on the weekends",
+                "我不喜歡打網球 — I don't like playing tennis"
+            ]
+        },
+        {
+            "id": "id_l3_bangqiu",
+            "espanol": "Baseball",
+            "tradicional": "棒球",
+            "pinyin": "bàngqiú",
+            "zhuyin": "ㄅㄤˋ ㄑㄧㄡˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ke",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "棒 (bàng - stick/bat)"
+                },
+                {
+                    "type": "text",
+                    "value": "球 (qiú - ball)"
+                }
+            ],
+            "notas": "Literally 'bat ball'. It is the traditional and most popular sport in Taiwan. Verb: 打.",
+            "ejemplos": [
+                "網球、棒球，我都喜歡 — I like both tennis and baseball",
+                "田中喜歡打棒球 — Tanaka likes to play baseball"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Baseball",
+            "notas_en": "Literally 'bat ball'. It is the traditional and most popular sport in Taiwan. Verb: 打.",
+            "ejemplos_en": [
+                "網球、棒球，我都喜歡 — I like both tennis and baseball",
+                "田中喜歡打棒球 — Tanaka likes to play baseball"
+            ]
+        },
+        {
+            "id": "id_l3_lanqiu",
+            "espanol": "Basketball",
+            "tradicional": "籃球",
+            "pinyin": "lánqiú",
+            "zhuyin": "ㄌㄢˊ ㄑㄧㄡˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ke",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "籃 (lán - basket)"
+                },
+                {
+                    "type": "text",
+                    "value": "球 (qiú - ball)"
+                }
+            ],
+            "notas": "Literally 'basket ball' (with bamboo radical 竹 for ancient baskets). Verb: 打.",
+            "ejemplos": [
+                "安同常打籃球 — Antong often plays basketball",
+                "我們週末去打籃球，怎麼樣？ — How about we go play basketball on the weekend?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Basketball",
+            "notas_en": "Literally 'basket ball' (with bamboo radical 竹 for ancient baskets). Verb: 打.",
+            "ejemplos_en": [
+                "安同常打籃球 — Antong often plays basketball",
+                "我們週末去打籃球，怎麼樣？ — How about we go play basketball on the weekend?"
+            ]
+        },
+        {
+            "id": "id_l3_zuqiu",
+            "espanol": "Soccer",
+            "tradicional": "足球",
+            "pinyin": "zúqiú",
+            "zhuyin": "ㄗㄨˊ ㄑㄧㄡˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_ke",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "足 (zú - foot)"
+                },
+                {
+                    "type": "text",
+                    "value": "球 (qiú - ball)"
+                }
+            ],
+            "notas": "Literally 'foot ball' (足 foot + 球 ball). Accompanying verb: 踢 (tī zúqiú).",
+            "ejemplos": [
+                "我覺得踢足球很好玩 — I think playing soccer is a lot of fun.",
+                "我們早上去踢足球，怎麼樣？ — How about we go play soccer in the morning?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Soccer",
+            "notas_en": "Literally 'foot ball' (足 foot + 球 ball). Accompanying verb: 踢 (tī zúqiú).",
+            "ejemplos_en": [
+                "我覺得踢足球很好玩 — I think playing soccer is a lot of fun.",
+                "我們早上去踢足球，怎麼樣？ — How about we go play soccer in the morning?"
+            ]
+        },
+        {
+            "id": "id_l3_bairuyu",
+            "espanol": "Bai Ruyu",
+            "tradicional": "白如玉",
+            "pinyin": "Bái Rúyù",
+            "zhuyin": "ㄅㄞˊ ㄖㄨˊ ㄩˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wei",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "白 (bái - white)"
+                },
+                {
+                    "type": "text",
+                    "value": "如 (rú - as)"
+                },
+                {
+                    "type": "text",
+                    "value": "玉 (yù - jade)"
+                }
+            ],
+            "notas": "Character from the TCM book. Its name poetically means 'pure and white as jade'.",
+            "ejemplos": [
+                "白如玉是美國人 — Bai Ruyu is American",
+                "白如玉想看臺灣電影 — Bai Ruyu wants to watch a Taiwanese movie"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "english": "Bai Ruyu",
+            "notas_en": "Character from the TCM book. Its name poetically means 'pure and white as jade'.",
+            "ejemplos_en": [
+                "白如玉是美國人 — Bai Ruyu is American",
+                "白如玉想看臺灣電影 — Bai Ruyu wants to watch a Taiwanese movie"
+            ]
+        },
+        {
+            "id": "id_l3_dianying",
+            "espanol": "Movie",
+            "tradicional": "電影",
+            "pinyin": "diànyǐng",
+            "zhuyin": "ㄉㄧㄢˋ ㄧㄥˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "電 (diàn - electricity)"
+                },
+                {
+                    "type": "text",
+                    "value": "影 (yǐng - shade)"
+                }
+            ],
+            "notas": "Literally 'electric shadows'. Main verbal action: 看電影 (watch a movie). Classifier: 部 (bù).",
+            "ejemplos": [
+                "今天晚上我們去看電影，好不好？ — Let's go to the movies tonight, is that okay?",
+                "臺灣電影和美國電影都很好看 — Both Taiwanese and American movies are very good"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Movie",
+            "notas_en": "Literally 'electric shadows'. Main verbal action: 看電影 (watch a movie). Classifier: 部 (bù).",
+            "ejemplos_en": [
+                "今天晚上我們去看電影，好不好？ — Let's go to the movies tonight, is that okay?",
+                "臺灣電影和美國電影都很好看 — Both Taiwanese and American movies are very good"
+            ]
+        },
+        {
+            "id": "id_l3_ni_fem",
+            "espanol": "You (feminine)",
+            "tradicional": "妳",
+            "pinyin": "nǐ",
+            "zhuyin": "ㄋㄧˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "女 (nǚ - women)"
+                },
+                {
+                    "type": "text",
+                    "value": "尔 (ěr - you)"
+                }
+            ],
+            "notas": "Feminine graphic variant of 你 with female radical 女. Commonly used in letters and written messaging.",
+            "ejemplos": [
+                "請問妳是王小姐嗎？ — Excuse me, are you Miss Wang?",
+                "妳想看美國電影還是臺灣電影？ — Do you want to watch an American movie or a Taiwanese movie?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "You (feminine)",
+            "notas_en": "Feminine graphic variant of 你 with female radical 女. Commonly used in letters and written messaging.",
+            "ejemplos_en": [
+                "請問妳是王小姐嗎？ — Excuse me, are you Miss Wang?",
+                "妳想看美國電影還是臺灣電影？ — Do you want to watch an American movie or a Taiwanese movie?"
+            ]
+        },
+        {
+            "id": "id_l3_zhongwen",
+            "espanol": "Chinese",
+            "tradicional": "中文",
+            "pinyin": "Zhōngwén",
+            "zhuyin": "ㄓㄨㄥ ㄨㄣˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "中 (zhōng - center)"
+                },
+                {
+                    "type": "text",
+                    "value": "文 (wén - text)"
+                }
+            ],
+            "notas": "Chinese language and writing. In Taiwan it is also commonly called 國語 (Guóyǔ) or 華語 (Huáyǔ).",
+            "ejemplos": [
+                "我覺得中文很好玩 — I think the Chinese language is very fun and enjoyable.",
+                "看電影可以學中文 — Watching movies helps you learn Chinese"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Chinese",
+            "notas_en": "Chinese language and writing. In Taiwan it is also commonly called 國語 (Guóyǔ) or 華語 (Huáyǔ).",
+            "ejemplos_en": [
+                "我覺得中文很好玩 — I think the Chinese language is very fun and enjoyable.",
+                "看電影可以學中文 — Watching movies helps you learn Chinese"
+            ]
+        },
+        {
+            "id": "id_l3_wanfan",
+            "espanol": "Dinner",
+            "tradicional": "晚飯",
+            "pinyin": "wǎnfàn",
+            "zhuyin": "ㄨㄢˇ ㄈㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "晚 (wǎn - evening)"
+                },
+                {
+                    "type": "text",
+                    "value": "飯 (fàn - meal)"
+                }
+            ],
+            "notas": "晚 (night) + 飯 (food/rice). Compare with 早飯 (breakfast) and 午飯 (lunch). Verb: 吃晚飯.",
+            "ejemplos": [
+                "我們今天一起吃晚飯，怎麼樣？ — How about we have dinner together today?",
+                "晚上要不要一起吃晚飯？ — Shall we have dinner together tonight?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Dinner",
+            "notas_en": "晚 (night) + 飯 (food/rice). Compare with 早飯 (breakfast) and 午飯 (lunch). Verb: 吃晚飯.",
+            "ejemplos_en": [
+                "我們今天一起吃晚飯，怎麼樣？ — How about we have dinner together today?",
+                "晚上要不要一起吃晚飯？ — Shall we have dinner together tonight?"
+            ]
+        },
+        {
+            "id": "id_l3_cai",
+            "espanol": "Saucer",
+            "tradicional": "菜",
+            "pinyin": "cài",
+            "zhuyin": "ㄘㄞˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - grass)"
+                },
+                {
+                    "type": "text",
+                    "value": "采 (cǎi - harvest)"
+                }
+            ],
+            "notas": "It covers: 1) Cuisine of a country (臺灣菜, 越南菜), 2) Dish served at the table, 3) Vegetables.",
+            "ejemplos": [
+                "今天晚上我們吃越南菜吧！ — Let's have Vietnamese food for dinner tonight!",
+                "妳喜歡吃哪國菜？ — What country's food do you like?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Saucer",
+            "notas_en": "It covers: 1) Cuisine of a country (臺灣菜, 越南菜), 2) Dish served at the table, 3) Vegetables.",
+            "ejemplos_en": [
+                "今天晚上我們吃越南菜吧！ — Let's have Vietnamese food for dinner tonight!",
+                "妳喜歡吃哪國菜？ — What country's food do you like?"
+            ]
+        },
+        {
+            "id": "id_l3_yuenan",
+            "espanol": "Vietnam",
+            "tradicional": "越南",
+            "pinyin": "Yuènán",
+            "zhuyin": "ㄩㄝˋ ㄋㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "越 (yuè - cross)"
+                },
+                {
+                    "type": "text",
+                    "value": "南 (nán - south)"
+                }
+            ],
+            "notas": "Country with close cultural and gastronomic ties in Taiwan. Chen Yuemei in the method is Vietnamese.",
+            "ejemplos": [
+                "陳月美是越南人 — Chen Yuemei is Vietnamese",
+                "我很喜歡吃越南菜 — I really like eating Vietnamese food"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Vietnam",
+            "notas_en": "Country with close cultural and gastronomic ties in Taiwan. Chen Yuemei in the method is Vietnamese.",
+            "ejemplos_en": [
+                "陳月美是越南人 — Chen Yuemei is Vietnamese",
+                "我很喜歡吃越南菜 — I really like eating Vietnamese food"
+            ]
+        },
+        {
+            "id": "id_l4_qian",
+            "espanol": "Money",
+            "tradicional": "錢",
+            "pinyin": "qián",
+            "zhuyin": "ㄑㄧㄢˊ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "金 / 釒(jīn - metal/gold)"
+                },
+                {
+                    "type": "text",
+                    "value": "戔 (jiān - small/spears)"
+                }
+            ],
+            "notas": "Money or currency. With metal radical (釒). Base form of price questions: 多少錢？ (How much does it cost?).",
+            "ejemplos": [
+                "我沒有很多錢。 — I don't have much money.",
+                "這支手機要多少錢？ — How much money does this cell phone cost?"
+            ],
+            "leccion": 4,
+            "english": "Money",
+            "notas_en": "Money or currency. With metal radical (釒). Base form of price questions: 多少錢？ (How much does it cost?).",
+            "ejemplos_en": [
+                "我沒有很多錢。 — I don't have much money.",
+                "這支手機要多少錢？ — How much money does this cell phone cost?"
+            ]
+        },
+        {
+            "id": "id_l4_laoban",
+            "espanol": "Boss/Owner",
+            "tradicional": "老闆",
+            "pinyin": "lǎobǎn",
+            "zhuyin": "ㄌㄠˇ ㄅㄢˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "老 (lǎo - old/respected)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                },
+                {
+                    "type": "text",
+                    "value": "反 (fǎn - opposite)"
+                }
+            ],
+            "notas": "Owner or manager of a business or position. Daily and friendly treatment when addressing the clerk in Taiwan.",
+            "ejemplos": [
+                "老闆，我要一杯烏龍茶！ — Boss, I want some Oolong tea!",
+                "那個老闆人很好，常請我們吃東西。 — That owner is very kind, he often invites us to eat something."
+            ],
+            "leccion": 4,
+            "english": "Boss/Owner",
+            "notas_en": "Owner or manager of a business or position. Daily and friendly treatment when addressing the clerk in Taiwan.",
+            "ejemplos_en": [
+                "老闆，我要一杯烏龍茶！ — Boss, I want some Oolong tea!",
+                "那個老闆人很好，常請我們吃東西。 — That owner is very kind, he often invites us to eat something."
+            ]
+        },
+        {
+            "id": "id_l4_wan",
+            "espanol": "Ten thousand",
+            "tradicional": "萬",
+            "pinyin": "wàn",
+            "zhuyin": "ㄨㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - grass)"
+                },
+                {
+                    "type": "text",
+                    "value": "禸 (róu - fingerprint)"
+                }
+            ],
+            "notas": "Fundamental Chinese numerical unit: ten thousand (10,000). In Chinese, large numbers are grouped in multiples of four zeros (一萬 = 10,000).",
+            "ejemplos": [
+                "這支新手機要一萬塊。 — This new cell phone costs ten thousand dollars.",
+                "那間房子要兩千萬。 — That house costs twenty million."
+            ],
+            "leccion": 4,
+            "english": "Ten thousand",
+            "notas_en": "Fundamental Chinese numerical unit: ten thousand (10,000). In Chinese, large numbers are grouped in multiples of four zeros (一萬 = 10,000).",
+            "ejemplos_en": [
+                "這支新手機要一萬塊。 — This new cell phone costs ten thousand dollars.",
+                "那間房子要兩千萬。 — That house costs twenty million."
+            ]
+        },
+        {
+            "id": "id_l4_shouji",
+            "espanol": "Cellular",
+            "tradicional": "手機",
+            "pinyin": "shǒujī",
+            "zhuyin": "ㄕㄡˇ ㄐㄧ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhi_phone",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "手 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                },
+                {
+                    "type": "text",
+                    "value": "幾 (jī - machine/table)"
+                }
+            ],
+            "notas": "Literally 'handheld machine': cell phone or smartphone. Its usual classifier is 支 (zhī).",
+            "ejemplos": [
+                "我的手機很舊，我想買新的。 — My mobile phone is very old, I want to buy a new one.",
+                "這支手機能不能上網？ — Can this phone connect to the internet?"
+            ],
+            "leccion": 4,
+            "english": "Cellular",
+            "notas_en": "Literally 'handheld machine': cell phone or smartphone. Its usual classifier is 支 (zhī).",
+            "ejemplos_en": [
+                "我的手機很舊，我想買新的。 — My mobile phone is very old, I want to buy a new one.",
+                "這支手機能不能上網？ — Can this phone connect to the internet?"
+            ]
+        },
+        {
+            "id": "id_l4_baozi",
+            "espanol": "Baozi (steamed bun)",
+            "tradicional": "包子",
+            "pinyin": "bāozi",
+            "zhuyin": "ㄅㄠ ˙ㄗ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "勹 (bāo - wrap)"
+                },
+                {
+                    "type": "text",
+                    "value": "巳 (sì - snake)"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - seed/child)"
+                }
+            ],
+            "notas": "Fluffy steamed bun filled with meat or vegetables. Classic and very popular breakfast or snack in Taiwan.",
+            "ejemplos": [
+                "老闆，我要買三個熱包子。 — Boss, I want to buy three hot baozis.",
+                "這家店的包子非常好吃。 — The baozis at this place are delicious."
+            ],
+            "leccion": 4,
+            "english": "Baozi (steamed bun)",
+            "notas_en": "Fluffy steamed bun filled with meat or vegetables. Classic and very popular breakfast or snack in Taiwan.",
+            "ejemplos_en": [
+                "老闆，我要買三個熱包子。 — Boss, I want to buy three hot baozis.",
+                "這家店的包子非常好吃。 — The baozis at this place are delicious."
+            ]
+        },
+        {
+            "id": "id_n_weibo_micro",
+            "espanol": "Microwave",
+            "tradicional": "微波",
+            "pinyin": "wéibō",
+            "zhuyin": "ㄨㄟˊ ㄅㄛ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - passed)"
+                },
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - water)"
+                }
+            ],
+            "notas": "Noun: microwaves or electromagnetic waves.",
+            "ejemplos": [
+                "超商有微波 — The convenience store has a microwave"
+            ],
+            "leccion": 4,
+            "english": "Microwave",
+            "notas_en": "Noun: microwaves or electromagnetic waves.",
+            "ejemplos_en": [
+                "超商有微波 — The convenience store has a microwave"
+            ]
+        },
+        {
+            "id": "id_n_yundong_sport",
+            "espanol": "Sport",
+            "tradicional": "運動",
+            "pinyin": "yùndòng",
+            "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "力 (lì - force)"
+                }
+            ],
+            "notas": "Noun: sport or physical activity.",
+            "ejemplos": [
+                "你喜歡什麼運動？ — What sport do you like?"
+            ],
+            "leccion": 3,
+            "english": "Sport",
+            "notas_en": "Noun: sport or physical activity.",
+            "ejemplos_en": [
+                "你喜歡什麼運動？ — What sport do you like?"
+            ]
+        },
+        {
+            "id": "id_l5_niurou",
+            "espanol": "Beef",
+            "tradicional": "牛肉",
+            "pinyin": "niúròu",
+            "zhuyin": "ㄋㄧㄡˊ ㄖㄡˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "牛 (niú - ox/cow)"
+                },
+                {
+                    "type": "text",
+                    "value": "肉 (ròu - meat)"
+                }
+            ],
+            "notas": "Noun for beef or ox meat.",
+            "ejemplos": [
+                "這碗牛肉麵真好吃 — This Beef Noodle Bowl Is Really Delicious",
+                "你不吃牛肉嗎？ — Don't you eat beef?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Beef",
+            "notas_en": "Noun for beef or ox meat.",
+            "ejemplos_en": [
+                "這碗牛肉麵真好吃 — This Beef Noodle Bowl Is Really Delicious",
+                "你不吃牛肉嗎？ — Don't you eat beef?"
+            ]
+        },
+        {
+            "id": "id_l5_mian",
+            "espanol": "Noodles",
+            "tradicional": "麵",
+            "pinyin": "miàn",
+            "zhuyin": "ㄇㄧㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "麥 (mài - wheat)"
+                },
+                {
+                    "type": "text",
+                    "value": "丏 (miǎn - cover)"
+                }
+            ],
+            "notas": "Noun for wheat noodles.",
+            "ejemplos": [
+                "我想吃一碗麵 — I want to eat a bowl of noodles",
+                "這家店的麵很有名 — The noodles at this restaurant are very famous"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Noodles",
+            "notas_en": "Noun for wheat noodles.",
+            "ejemplos_en": [
+                "我想吃一碗麵 — I want to eat a bowl of noodles",
+                "這家店的麵很有名 — The noodles at this restaurant are very famous"
+            ]
+        },
+        {
+            "id": "id_l5_xiaochi",
+            "espanol": "Snack",
+            "tradicional": "小吃",
+            "pinyin": "xiǎochī",
+            "zhuyin": "ㄒㄧㄠˇ ㄔ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - little)"
+                },
+                {
+                    "type": "text",
+                    "value": "吃 (chī - eat)"
+                }
+            ],
+            "notas": "Traditional street dish or sandwich.",
+            "ejemplos": [
+                "夜市有很多臺灣小吃 — There are many Taiwanese snacks at the night market",
+                "你想吃什麼小吃？ — What appetizer do you want to eat?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Snack",
+            "notas_en": "Traditional street dish or sandwich.",
+            "ejemplos_en": [
+                "夜市有很多臺灣小吃 — There are many Taiwanese snacks at the night market",
+                "你想吃什麼小吃？ — What appetizer do you want to eat?"
+            ]
+        },
+        {
+            "id": "id_l5_tang",
+            "espanol": "Soup",
+            "tradicional": "湯",
+            "pinyin": "tāng",
+            "zhuyin": "ㄊㄤ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_wan",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - water)"
+                },
+                {
+                    "type": "text",
+                    "value": "昜 (yáng - sunshine/bright)"
+                }
+            ],
+            "notas": "Noun for soup or broth.",
+            "ejemplos": [
+                "這碗牛肉湯太好喝了 — This bowl of beef soup is delicious.",
+                "你想喝什麼湯？ — What soup do you want to have?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Soup",
+            "notas_en": "Noun for soup or broth.",
+            "ejemplos_en": [
+                "這碗牛肉湯太好喝了 — This bowl of beef soup is delicious.",
+                "你想喝什麼湯？ — What soup do you want to have?"
+            ]
+        },
+        {
+            "id": "id_l5_dian",
+            "espanol": "Shop / Store",
+            "tradicional": "店",
+            "pinyin": "diàn",
+            "zhuyin": "ㄉㄧㄢˋ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "广 (yǎn - shelter/building)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhàn - occupy)"
+                }
+            ],
+            "notas": "Commercial premises or small store.",
+            "ejemplos": [
+                "這家店賣很好喝的茶 — This store sells very delicious tea",
+                "我們去那家店點菜吧 — Let's go to that store to order dishes"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Shop / Store",
+            "notas_en": "Commercial premises or small store.",
+            "ejemplos_en": [
+                "這家店賣很好喝的茶 — This store sells very delicious tea",
+                "我們去那家店點菜吧 — Let's go to that store to order dishes"
+            ]
+        },
+        {
+            "id": "id_l5_xiaolongbao",
+            "espanol": "Xiaolongbao",
+            "tradicional": "小籠包",
+            "pinyin": "xiǎolóngbāo",
+            "zhuyin": "ㄒㄧㄠˇ ㄌㄨㄥˊ ㄅㄠ",
+            "categoria": "sustantivo",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - little)"
+                },
+                {
+                    "type": "text",
+                    "value": "籠 (lóng - bamboo basket)"
+                },
+                {
+                    "type": "text",
+                    "value": "包 (bāo - bun)"
+                }
+            ],
+            "notas": "Steamed buns filled with meat and broth cooked in a bamboo basket.",
+            "ejemplos": [
+                "這家餐廳的小籠包很有名 — The xiaolongbao of this restaurant are very famous",
+                "我們點兩籠小籠包吧 — Let's order two baskets of xiaolongbao"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Xiaolongbao",
+            "notas_en": "Steamed buns filled with meat and broth cooked in a bamboo basket.",
+            "ejemplos_en": [
+                "這家餐廳的小籠包很有名 — The xiaolongbao of this restaurant are very famous",
+                "我們點兩籠小籠包吧 — Let's order two baskets of xiaolongbao"
+            ]
+        },
+        {
+            "id": "id_l5_choudoufu",
+            "espanol": "Stinky tofu",
+            "tradicional": "臭豆腐",
+            "pinyin": "chòu dòufǔ",
+            "zhuyin": "ㄔㄡˋ ㄉㄡˋ ㄈㄨˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_kuai",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "臭 (chòu - strong smell)"
+                },
+                {
+                    "type": "text",
+                    "value": "豆 (dòu - soy)"
+                },
+                {
+                    "type": "text",
+                    "value": "腐 (fǔ - fermented)"
+                }
+            ],
+            "notas": "Traditional Taiwanese street dish of fermented tofu.",
+            "ejemplos": [
+                "臺灣夜市的臭豆腐很好吃 — The stinky tofu from Taiwan's night markets is very delicious",
+                "你敢吃臭豆腐嗎？ — Do you dare to eat stinky tofu?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Stinky tofu",
+            "notas_en": "Traditional Taiwanese street dish of fermented tofu.",
+            "ejemplos_en": [
+                "臺灣夜市的臭豆腐很好吃 — The stinky tofu from Taiwan's night markets is very delicious",
+                "你敢吃臭豆腐嗎？ — Do you dare to eat stinky tofu?"
+            ]
+        },
+        {
+            "id": "id_l5_canting",
+            "espanol": "Restaurant",
+            "tradicional": "餐廳",
+            "pinyin": "cāntīng",
+            "zhuyin": "ㄘㄢ ㄊㄧㄥ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "餐 (cān - food/food)"
+                },
+                {
+                    "type": "text",
+                    "value": "廳 (tīng - hall/pavilion)"
+                }
+            ],
+            "notas": "Restaurant or formal dining room.",
+            "ejemplos": [
+                "昨天我們去那家餐廳吃飯 — Yesterday we went to that restaurant to eat",
+                "這家餐廳的菜非常辣 — The food at this restaurant is extremely spicy."
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Restaurant",
+            "notas_en": "Restaurant or formal dining room.",
+            "ejemplos_en": [
+                "昨天我們去那家餐廳吃飯 — Yesterday we went to that restaurant to eat",
+                "這家餐廳的菜非常辣 — The food at this restaurant is extremely spicy."
+            ]
+        },
+        {
+            "id": "id_l5_ziji",
+            "espanol": "Oneself",
+            "tradicional": "自己",
+            "pinyin": "zìjǐ",
+            "zhuyin": "ㄗˋ ㄐㄧˇ",
+            "categoria": "pronombre",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "自 (zì - own)"
+                },
+                {
+                    "type": "text",
+                    "value": "己 (jǐ - oneself)"
+                }
+            ],
+            "notas": "Emphatic reflexive pronoun (myself / on one's own).",
+            "ejemplos": [
+                "我喜歡自己做飯 — I like to cook myself",
+                "他自己一個人去臺灣旅行 — He went on a trip to Taiwan on his own"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Oneself",
+            "notas_en": "Emphatic reflexive pronoun (myself / on one's own).",
+            "ejemplos_en": [
+                "我喜歡自己做飯 — I like to cook myself",
+                "他自己一個人去臺灣旅行 — He went on a trip to Taiwan on his own"
+            ]
+        },
+        {
+            "id": "id_l5_tiandian",
+            "espanol": "Dessert",
+            "tradicional": "甜點",
+            "pinyin": "tiándiǎn",
+            "zhuyin": "ㄊㄧㄢˊ ㄉㄧㄢˇ",
+            "categoria": "sustantivo",
+            "clasificador": "id_clf_zhong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "甜 (tián - sweet)"
+                },
+                {
+                    "type": "text",
+                    "value": "點 (diǎn - bite)"
+                }
+            ],
+            "notas": "Sweet or dessert served after the meal.",
+            "ejemplos": [
+                "你喜歡吃什麼甜點？ — What dessert do you like to eat?",
+                "這家餐廳的甜點很有名 — The desserts at this restaurant are very famous."
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Dessert",
+            "notas_en": "Sweet or dessert served after the meal.",
+            "ejemplos_en": [
+                "你喜歡吃什麼甜點？ — What dessert do you like to eat?",
+                "這家餐廳的甜點很有名 — The desserts at this restaurant are very famous."
+            ]
+        }
+    ],
+    "verbos": [
+        {
+            "id": "v1",
+            "espanol": "Be",
+            "tradicional": "是",
+            "pinyin": "shì",
+            "zhuyin": "ㄕˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                },
+                {
+                    "type": "text",
+                    "value": "正 (zhèng - straight)"
+                }
+            ],
+            "notas": "The sun at the zenith as a symbol of truth and righteousness. Copulative 'be'. It never joins a subject with a simple qualifying adjective.",
+            "ejemplos": [
+                "我是學生 — I am a student",
+                "他不是美國人 — He is not American"
+            ],
+            "leccion": 1,
+            "english": "Be",
+            "notas_en": "The sun at the zenith as a symbol of truth and righteousness. Copulative 'be'. It never joins a subject with a simple qualifying adjective.",
+            "ejemplos_en": [
+                "我是學生 — I am a student",
+                "他不是美國人 — He is not American"
+            ]
+        },
+        {
+            "id": "v2",
+            "espanol": "Love",
+            "tradicional": "愛",
+            "pinyin": "ài",
+            "zhuyin": "ㄞˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "爫 (zhǎo - claw)"
+                },
+                {
+                    "type": "text",
+                    "value": "冖 (mì - deck)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                },
+                {
+                    "type": "text",
+                    "value": "友 (yǒu - friend)"
+                }
+            ],
+            "notas": "In traditional spelling it houses a heart 心 in its center (love is born from the heart and is shared with affection).",
+            "ejemplos": [
+                "我愛你 — I love you / I love you",
+                "我們都愛臺灣 — We all love Taiwan"
+            ],
+            "english": "Love",
+            "notas_en": "In traditional spelling it houses a heart 心 in its center (love is born from the heart and is shared with affection).",
+            "ejemplos_en": [
+                "我愛你 — I love you / I love you",
+                "我們都愛臺灣 — We all love Taiwan"
+            ]
+        },
+        {
+            "espanol": "have, have",
+            "tradicional": "有",
+            "pinyin": "yǒu",
+            "zhuyin": "ㄧㄡˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𠂇 (yòu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "月 (ròu - meat)"
+                }
+            ],
+            "notas": "A hand holding a portion of meat as a provision. Its negation is invariably 沒有 (méiyǒu), never 不有.",
+            "ejemplos": [
+                "我有三張照片 — I have three photos",
+                "你有沒有兄弟？ — Do you have male brothers?"
+            ],
+            "id": "id_msikgc9s_g7seh",
+            "fechaCreacion": "2026-08-07",
+            "leccion": 2,
+            "english": "have, have",
+            "notas_en": "A hand holding a portion of meat as a provision. Its negation is invariably 沒有 (méiyǒu), never 不有.",
+            "ejemplos_en": [
+                "我有三張照片 — I have three photos",
+                "你有沒有兄弟？ — Do you have male brothers?"
+            ]
+        },
+        {
+            "espanol": "not have",
+            "tradicional": "沒有",
+            "pinyin": "méiyǒu",
+            "zhuyin": "ㄇㄟˊ ㄧㄡˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mty032_mei"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msikgc9s_g7seh"
+                }
+            ],
+            "notas": "Obligatory negation of 有 ('not have' or 'not have'). It is also used as a short answer: 沒有 (not yet / not).",
+            "ejemplos": [
+                "我沒有書 — I don't have books",
+                "他沒有兄弟姐妹 — He has no brothers or sisters"
+            ],
+            "id": "id_msikk3ee_c6734",
+            "fechaCreacion": "2026-08-07",
+            "english": "not have",
+            "notas_en": "Obligatory negation of 有 ('not have' or 'not have'). It is also used as a short answer: 沒有 (not yet / not).",
+            "ejemplos_en": [
+                "我沒有書 — I don't have books",
+                "他沒有兄弟姐妹 — He has no brothers or sisters"
+            ]
+        },
+        {
+            "espanol": "Eat",
+            "tradicional": "吃",
+            "pinyin": "chī",
+            "zhuyin": "ㄔ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "乞 (qǐ - ask)"
+                }
+            ],
+            "notas": "The mouth is open waiting for food. Basic verb to eat solid food.",
+            "id": "id_mspmonrk_kj3kn",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "你吃牛肉嗎？ — Do you eat beef?",
+                "我不吃肉 — I don't eat meat"
+            ],
+            "leccion": 3,
+            "english": "Eat",
+            "notas_en": "The mouth is open waiting for food. Basic verb to eat solid food.",
+            "ejemplos_en": [
+                "你吃牛肉嗎？ — Do you eat beef?",
+                "我不吃肉 — I don't eat meat"
+            ]
+        },
+        {
+            "espanol": "Drink",
+            "tradicional": "喝",
+            "pinyin": "hē",
+            "zhuyin": "ㄏㄜ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "曷 (hé - thirst)"
+                }
+            ],
+            "notas": "The mouth 口 that seeks to quench thirst 曷. Exclusive verb to ingest drinks and liquids (water, tea, coffee).",
+            "id": "id_msr421dy_83jqz",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "請喝茶 — Please have tea",
+                "你要喝咖啡嗎？ — Do you want to drink coffee?"
+            ],
+            "leccion": 1,
+            "english": "Drink",
+            "notas_en": "The mouth 口 that seeks to quench thirst 曷. Exclusive verb to ingest drinks and liquids (water, tea, coffee).",
+            "ejemplos_en": [
+                "請喝茶 — Please have tea",
+                "你要喝咖啡嗎？ — Do you want to drink coffee?"
+            ]
+        },
+        {
+            "espanol": "Like",
+            "tradicional": "喜歡",
+            "pinyin": "xǐhuān",
+            "zhuyin": "ㄒㄧˇ ㄏㄨㄢ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "喜 (xǐ - happiness)"
+                },
+                {
+                    "type": "text",
+                    "value": "歡 (huān - joy)"
+                }
+            ],
+            "notas": "Double expression of joy and celebration. It accepts both nouns (喜歡茶) and verbal clauses (喜歡看電影).",
+            "id": "id_msr45d21_4cgg5",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "我喜歡喝臺灣茶 — I like to drink Taiwanese tea",
+                "他喜歡看書 — He likes to read"
+            ],
+            "leccion": 1,
+            "english": "Like",
+            "notas_en": "Double expression of joy and celebration. It accepts both nouns (喜歡茶) and verbal clauses (喜歡看電影).",
+            "ejemplos_en": [
+                "我喜歡喝臺灣茶 — I like to drink Taiwanese tea",
+                "他喜歡看書 — He likes to read"
+            ]
+        },
+        {
+            "espanol": "Arrive",
+            "tradicional": "來",
+            "pinyin": "lái",
+            "zhuyin": "ㄌㄞˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - tree)"
+                }
+            ],
+            "notas": "Archaic pictogram of an ear of wheat that arrived from distant lands. Verb of movement to where the speaker is.",
+            "id": "id_mtvfh8aa_8aaax",
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1,
+            "english": "Arrive",
+            "notas_en": "Archaic pictogram of an ear of wheat that arrived from distant lands. Verb of movement to where the speaker is."
+        },
+        {
+            "espanol": "Call",
+            "tradicional": "叫",
+            "pinyin": "jiào",
+            "zhuyin": "ㄐㄧㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "丩 (jiū - sound)"
+                }
+            ],
+            "notas": "Emitting your voice through your mouth to call or name. It is used for given or full names (not for surnames alone, which use 姓).",
+            "id": "id_mtvggz7s_l22ll",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "請問，你叫什麼名字？ — Excuse me, what is your name?",
+                "我叫王開文 — My name is Wang Kaiwen"
+            ],
+            "leccion": 1,
+            "english": "Call",
+            "notas_en": "Emitting your voice through your mouth to call or name. It is used for given or full names (not for surnames alone, which use 姓).",
+            "ejemplos_en": [
+                "請問，你叫什麼名字？ — Excuse me, what is your name?",
+                "我叫王開文 — My name is Wang Kaiwen"
+            ]
+        },
+        {
+            "espanol": "Welcome",
+            "tradicional": "歡迎",
+            "pinyin": "huānyíng",
+            "zhuyin": "ㄏㄨㄢ ㄧㄥˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "歡 (huān - cheerful)"
+                },
+                {
+                    "type": "text",
+                    "value": "迎 (yíng - receive)"
+                }
+            ],
+            "notas": "Go out to meet with joy. Host formula: 歡迎 + Subject + 來 + Place (e.g. 歡迎你來臺灣！).",
+            "id": "id_mtvgtotw_2spn1",
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1,
+            "english": "Welcome",
+            "notas_en": "Go out to meet with joy. Host formula: 歡迎 + Subject + 來 + Place (e.g. 歡迎你來臺灣！)."
+        },
+        {
+            "espanol": "Invite/Please",
+            "tradicional": "請",
+            "pinyin": "qǐng",
+            "zhuyin": "ㄑㄧㄥˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                },
+                {
+                    "type": "text",
+                    "value": "青 (qīng - green)"
+                }
+            ],
+            "notas": "Kind and clear words. Before a verb it denotes courtesy (請坐 = sit down); followed by person denotes invite (我請你).",
+            "id": "id_mtvh6q8e_qg8ox",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "請進，請坐 — Please come in, take a seat",
+                "請喝烏龍茶 — Please drink Oolong tea"
+            ],
+            "leccion": 1,
+            "english": "Invite/Please",
+            "notas_en": "Kind and clear words. Before a verb it denotes courtesy (請坐 = sit down); followed by person denotes invite (我請你).",
+            "ejemplos_en": [
+                "請進，請坐 — Please come in, take a seat",
+                "請喝烏龍茶 — Please drink Oolong tea"
+            ]
+        },
+        {
+            "espanol": "Want",
+            "tradicional": "要",
+            "pinyin": "yào",
+            "zhuyin": "ㄧㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "覀 (yà - cover)"
+                },
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                }
+            ],
+            "notas": "Pictogram of a woman with her hands on her waist pointing out the essentials. Expresses will or immediate future; negation: 不要.",
+            "id": "id_mtvifgj8_j51mk",
+            "fechaCreacion": "2026-09-10",
+            "leccion": 1,
+            "english": "Want",
+            "notas_en": "Pictogram of a woman with her hands on her waist pointing out the essentials. Expresses will or immediate future; negation: 不要."
+        },
+        {
+            "id": "id_mty001_kan",
+            "espanol": "See / Look",
+            "tradicional": "看",
+            "pinyin": "kàn",
+            "zhuyin": "ㄎㄢˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "手 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "目 (mù - eye)"
+                }
+            ],
+            "notas": "A hand 手 placed over the eye 目 as a visor to look into the distance. It encompasses seeing, watching and reading (看書).",
+            "ejemplos": [
+                "你看！ — Look!",
+                "我看書 — I read a book",
+                "我看書法展覽 — I look at the calligraphy exhibition"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 3,
+            "english": "See / Look",
+            "notas_en": "A hand 手 placed over the eye 目 as a visor to look into the distance. It encompasses seeing, watching and reading (看書).",
+            "ejemplos_en": [
+                "你看！ — Look!",
+                "我看書 — I read a book",
+                "我看書法展覽 — I look at the calligraphy exhibition"
+            ]
+        },
+        {
+            "id": "id_mty022_zuo",
+            "espanol": "Feel",
+            "tradicional": "坐",
+            "pinyin": "zuò",
+            "zhuyin": "ㄗㄨㄛˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - land)"
+                }
+            ],
+            "notas": "Explicit ideogram: two people 人 sitting face to face on the ground 土 chatting friendly.",
+            "ejemplos": [
+                "請坐 — Please take a seat / sit down",
+                "請進，請坐 — Please come in, take a seat"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Feel",
+            "notas_en": "Explicit ideogram: two people 人 sitting face to face on the ground 土 chatting friendly.",
+            "ejemplos_en": [
+                "請坐 — Please take a seat / sit down",
+                "請進，請坐 — Please come in, take a seat"
+            ]
+        },
+        {
+            "id": "id_mty025_zhaoxiang",
+            "espanol": "Take photos",
+            "tradicional": "照相",
+            "pinyin": "zhàoxiàng",
+            "zhuyin": "ㄓㄠˋ ㄒㄧㄤˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0536g_z9es3"
+                },
+                {
+                    "type": "text",
+                    "value": "相 (xiàng - appearance)"
+                }
+            ],
+            "notas": "Illuminate with fire 灬 the appearance 相 of things. Separable verb (V-O): when quantifying it is separated (照一張相).",
+            "ejemplos": [
+                "我們要照相 — We want to take photos",
+                "照一張相 — Take a photo"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Take photos",
+            "notas_en": "Illuminate with fire 灬 the appearance 相 of things. Separable verb (V-O): when quantifying it is separated (照一張相).",
+            "ejemplos_en": [
+                "我們要照相 — We want to take photos",
+                "照一張相 — Take a photo"
+            ]
+        },
+        {
+            "id": "id_mty031_kanshu",
+            "espanol": "Read",
+            "tradicional": "看書",
+            "pinyin": "kànshū",
+            "zhuyin": "ㄎㄢˋ ㄕㄨ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mty001_kan"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mty002_shu"
+                }
+            ],
+            "notas": "Look at 看 characters printed in a book 書. Separable structure: 看一本好書 (read a good book).",
+            "ejemplos": [
+                "我喜歡看書 — I like reading",
+                "他在家看書 — He reads books at home"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Read",
+            "notas_en": "Look at 看 characters printed in a book 書. Separable structure: 看一本好書 (read a good book).",
+            "ejemplos_en": [
+                "我喜歡看書 — I like reading",
+                "他在家看書 — He reads books at home"
+            ]
+        },
+        {
+            "espanol": "pick up (someone)",
+            "tradicional": "接",
+            "pinyin": "jiē",
+            "zhuyin": "ㄐㄧㄝ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "扌 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "妾 (qiè - maid)"
+                }
+            ],
+            "notas": "Extend your hand to receive whoever arrives. Frequent when going to the airport or station to pick up someone.",
+            "id": "id_mtvfxlqp_7ey6d",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "我去機場接李先生 — I'm going to the airport to pick up Mr. Li",
+                "謝謝你來接我 — Thank you for coming to receive me"
+            ],
+            "leccion": 1,
+            "english": "pick up (someone)",
+            "notas_en": "Extend your hand to receive whoever arrives. Frequent when going to the airport or station to pick up someone.",
+            "ejemplos_en": [
+                "我去機場接李先生 — I'm going to the airport to pick up Mr. Li",
+                "謝謝你來接我 — Thank you for coming to receive me"
+            ]
+        },
+        {
+            "id": "id_voc_xiuxi",
+            "espanol": "Rest",
+            "tradicional": "休息",
+            "pinyin": "xiūxí",
+            "zhuyin": "ㄒㄧㄡ ㄒㄧˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "休 (xiū - rest)"
+                },
+                {
+                    "type": "text",
+                    "value": "息 (xí - breath)"
+                }
+            ],
+            "notas": "A person lying in the shade of a tree 木 while his heart 心 and breathing regain calm.",
+            "ejemplos": [
+                "我們休息十分鐘 — We rest for ten minutes",
+                "請好好休息 — Please rest well"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Rest",
+            "notas_en": "A person lying in the shade of a tree 木 while his heart 心 and breathing regain calm.",
+            "ejemplos_en": [
+                "我們休息十分鐘 — We rest for ten minutes",
+                "請好好休息 — Please rest well"
+            ]
+        },
+        {
+            "id": "id_voc_xiake",
+            "espanol": "Finish class",
+            "tradicional": "下課",
+            "pinyin": "xiàkè",
+            "zhuyin": "ㄒㄧㄚˋ ㄎㄜˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - lower)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Separable verb that indicates finishing the lesson or going out to recess. Direct antonym: 上課 (shàngkè).",
+            "ejemplos": [
+                "我們中午十二點下課 — We leave class at twelve noon",
+                "下課了，大家再見！ — Class is over, see you all!"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Finish class",
+            "notas_en": "Separable verb that indicates finishing the lesson or going out to recess. Direct antonym: 上課 (shàngkè).",
+            "ejemplos_en": [
+                "我們中午十二點下課 — We leave class at twelve noon",
+                "下課了，大家再見！ — Class is over, see you all!"
+            ]
+        },
+        {
+            "id": "id_voc_shuo",
+            "espanol": "Say / Speak",
+            "tradicional": "說",
+            "pinyin": "shuō",
+            "zhuyin": "ㄕㄨㄛ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                },
+                {
+                    "type": "text",
+                    "value": "兌 (duì - communicate)"
+                }
+            ],
+            "notas": "Words that open the understanding of those who listen. Nuclear verb to emit language: 說中文, 請再說一次.",
+            "ejemplos": [
+                "請說中文 — Please speak in Chinese",
+                "他說得很清楚 — He says it very clearly"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 5,
+            "english": "Say / Speak",
+            "notas_en": "Words that open the understanding of those who listen. Nuclear verb to emit language: 說中文, 請再說一次.",
+            "ejemplos_en": [
+                "請說中文 — Please speak in Chinese",
+                "他說得很清楚 — He says it very clearly"
+            ]
+        },
+        {
+            "id": "id_voc_mai",
+            "espanol": "Buy",
+            "tradicional": "買",
+            "pinyin": "mǎi",
+            "zhuyin": "ㄇㄞˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "罒 (wǎng - grid)"
+                },
+                {
+                    "type": "text",
+                    "value": "貝 (bèi - shell/coin)"
+                }
+            ],
+            "notas": "A network that collects monetary shells 貝. Tone 3 (mǎi). Not to be confused with 賣 (mài, tone 4, sell).",
+            "ejemplos": [
+                "你要買什麼？ — What do you want to buy?",
+                "我在書店買了一本漢字書 — I bought a book of Chinese characters at the bookstore"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "english": "Buy",
+            "notas_en": "A network that collects monetary shells 貝. Tone 3 (mǎi). Not to be confused with 賣 (mài, tone 4, sell).",
+            "ejemplos_en": [
+                "你要買什麼？ — What do you want to buy?",
+                "我在書店買了一本漢字書 — I bought a book of Chinese characters at the bookstore"
+            ]
+        },
+        {
+            "id": "id_voc_zuo",
+            "espanol": "Do",
+            "tradicional": "做",
+            "pinyin": "zuò",
+            "zhuyin": "ㄗㄨㄛˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "故 (gù - cause)"
+                }
+            ],
+            "notas": "A person in practical activity transforming things. Nuclear verb to make or elaborate: 做菜, 做作業.",
+            "ejemplos": [
+                "他在做什麼？ — What is he doing?",
+                "我喜歡做菜 — I like to cook/prepare food"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Do",
+            "notas_en": "A person in practical activity transforming things. Nuclear verb to make or elaborate: 做菜, 做作業.",
+            "ejemplos_en": [
+                "他在做什麼？ — What is he doing?",
+                "我喜歡做菜 — I like to cook/prepare food"
+            ]
+        },
+        {
+            "id": "id_voc_cha",
+            "espanol": "Missing (for the time)",
+            "tradicional": "差",
+            "pinyin": "chà",
+            "zhuyin": "ㄔㄚ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "羊 (yáng - sheep)"
+                },
+                {
+                    "type": "text",
+                    "value": "工 (gōng - job)"
+                }
+            ],
+            "notas": "Discrepancy or lack in a measurement. On the hour it indicates the minutes remaining until the next hour: 差五分八點 (7:55).",
+            "ejemplos": [
+                "差十分兩點 — Ten to two (1:50)",
+                "這兩個東西差不多 — These two things are almost the same"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Missing (for the time)",
+            "notas_en": "Discrepancy or lack in a measurement. On the hour it indicates the minutes remaining until the next hour: 差五分八點 (7:55).",
+            "ejemplos_en": [
+                "差十分兩點 — Ten to two (1:50)",
+                "這兩個東西差不多 — These two things are almost the same"
+            ]
+        },
+        {
+            "id": "id_voc_jian_see",
+            "espanol": "Verse",
+            "tradicional": "見",
+            "pinyin": "jiàn",
+            "zhuyin": "ㄐㄧㄢˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "目 (mù - eye)"
+                },
+                {
+                    "type": "ref",
+                    "id": "n7"
+                }
+            ],
+            "notas": "A prominent 目 eye on running legs. Verb of eye contact and encounter; key in farewells: 明天見.",
+            "ejemplos": [
+                "明天見！ — See you tomorrow!",
+                "下個禮拜見 — See you next week"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Verse",
+            "notas_en": "A prominent 目 eye on running legs. Verb of eye contact and encounter; key in farewells: 明天見.",
+            "ejemplos_en": [
+                "明天見！ — See you tomorrow!",
+                "下個禮拜見 — See you next week"
+            ]
+        },
+        {
+            "id": "id_voc_wen",
+            "espanol": "Ask",
+            "tradicional": "問",
+            "pinyin": "wèn",
+            "zhuyin": "ㄨㄣˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_clf_men"
+                },
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                }
+            ],
+            "notas": "A mouth 口 that peeks out of a door 門 to investigate. It appears in the polite formula 請問 and in 問問題.",
+            "ejemplos": [
+                "我要問問題 — I want to ask a question",
+                "請問洗手間在哪裡？ — Excuse me, where is the bathroom?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Ask",
+            "notas_en": "A mouth 口 that peeks out of a door 門 to investigate. It appears in the polite formula 請問 and in 問問題.",
+            "ejemplos_en": [
+                "我要問問題 — I want to ask a question",
+                "請問洗手間在哪裡？ — Excuse me, where is the bathroom?"
+            ]
+        },
+        {
+            "id": "id_voc_qu",
+            "espanol": "Go",
+            "tradicional": "去",
+            "pinyin": "qù",
+            "zhuyin": "ㄑㄩˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - land)"
+                },
+                {
+                    "type": "text",
+                    "value": "厶 (sī - private)"
+                }
+            ],
+            "notas": "A person who moves away from his home on earth. Verb of movement that moves away from the speaker's point toward a destination.",
+            "ejemplos": [
+                "你去教室做什麼？ — Why do you go to the classroom?",
+                "我明天去臺灣 — Tomorrow I'm going to Taiwan"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "leccion": 3,
+            "english": "Go",
+            "notas_en": "A person who moves away from his home on earth. Verb of movement that moves away from the speaker's point toward a destination.",
+            "ejemplos_en": [
+                "你去教室做什麼？ — Why do you go to the classroom?",
+                "我明天去臺灣 — Tomorrow I'm going to Taiwan"
+            ]
+        },
+        {
+            "id": "id_voc_zai_loc",
+            "espanol": "Be in",
+            "tradicional": "在",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𠂇 (yòu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - land)"
+                }
+            ],
+            "notas": "Be present and rooted in the earth 土. Standard locative structure: Subject + 在 + Place.",
+            "ejemplos": [
+                "老師在教室裡 — The teacher is in the classroom",
+                "你在哪裡？ — Where are you?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Be in",
+            "notas_en": "Be present and rooted in the earth 土. Standard locative structure: Subject + 在 + Place.",
+            "ejemplos_en": [
+                "老師在教室裡 — The teacher is in the classroom",
+                "你在哪裡？ — Where are you?"
+            ]
+        },
+        {
+            "id": "id_voc_chibao",
+            "espanol": "fill (eat)",
+            "tradicional": "吃飽",
+            "pinyin": "chī bǎo",
+            "zhuyin": "ㄔ ㄅㄠˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mspmonrk_kj3kn"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_bao"
+                }
+            ],
+            "notas": "Construction of action 吃 and result 飽 (satisfied). It gives rise to Taiwan's most emblematic greeting: 你吃飽了嗎？",
+            "ejemplos": [
+                "你吃飽了嗎？ — Did you eat yet? / Were you satisfied?",
+                "大家都吃飽了 — Everyone already ate and was satisfied."
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "fill (eat)",
+            "notas_en": "Construction of action 吃 and result 飽 (satisfied). It gives rise to Taiwan's most emblematic greeting: 你吃飽了嗎？",
+            "ejemplos_en": [
+                "你吃飽了嗎？ — Did you eat yet? / Were you satisfied?",
+                "大家都吃飽了 — Everyone already ate and was satisfied."
+            ]
+        },
+        {
+            "id": "id_voc_shangke",
+            "espanol": "Have class",
+            "tradicional": "上課",
+            "pinyin": "shàngkè",
+            "zhuyin": "ㄕㄤˋ ㄎㄜˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - above)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Go to the school platform to receive the teaching. Exact antonym of 下課 (finish class).",
+            "ejemplos": [
+                "我們早上八點半上課 — We start class at 8:30 in the morning",
+                "我要去上書法課 — I'm going to take calligraphy class"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Have class",
+            "notas_en": "Go to the school platform to receive the teaching. Exact antonym of 下課 (finish class).",
+            "ejemplos_en": [
+                "我們早上八點半上課 — We start class at 8:30 in the morning",
+                "我要去上書法課 — I'm going to take calligraphy class"
+            ]
+        },
+        {
+            "id": "id_voc_shang",
+            "espanol": "Upload / Course",
+            "tradicional": "上",
+            "pinyin": "shàng",
+            "zhuyin": "ㄕㄤˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "卜 (bǔ - guess)"
+                }
+            ],
+            "notas": "A vertical line located above a reference line. As a verb it denotes going up or attending class (上書法課).",
+            "ejemplos": [
+                "他上兩門選修課 — He takes two elective subjects",
+                "我們上課了 — We start class"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Upload / Course",
+            "notas_en": "A vertical line located above a reference line. As a verb it denotes going up or attending class (上書法課).",
+            "ejemplos_en": [
+                "他上兩門選修課 — He takes two elective subjects",
+                "我們上課了 — We start class"
+            ]
+        },
+        {
+            "id": "id_voc_xia",
+            "espanol": "Download / End",
+            "tradicional": "下",
+            "pinyin": "xià",
+            "zhuyin": "ㄒㄧㄚˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "卜 (bǔ - guess)"
+                }
+            ],
+            "notas": "A line located below the horizontal line. As a verb it denotes descending or ending a teaching session (下課).",
+            "ejemplos": [
+                "我們十二點下課 — We finish class at 12:00",
+                "下星期見 — See you next week"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Download / End",
+            "notas_en": "A line located below the horizontal line. As a verb it denotes descending or ending a teaching session (下課).",
+            "ejemplos_en": [
+                "我們十二點下課 — We finish class at 12:00",
+                "下星期見 — See you next week"
+            ]
+        },
+        {
+            "id": "id_voc_juede",
+            "espanol": "Seem/Believe",
+            "tradicional": "覺得",
+            "pinyin": "juéde",
+            "zhuyin": "ㄐㄩㄝˊ ˙ㄉㄜ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "見 (jiàn - perceive)"
+                },
+                {
+                    "type": "text",
+                    "value": "彳 (chì - passed)"
+                }
+            ],
+            "notas": "Verb of personal evaluation and judgment: Subject + 覺得 + Opinion (e.g. 我覺得很好; 你覺得怎麼樣？).",
+            "ejemplos": [
+                "我覺得中文很有意思 — I think the Chinese language is very interesting.",
+                "你覺得這本書怎麼樣？ — What do you think of this book?",
+                "我覺得今天很冷 — I feel/think that it is very cold today"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Seem/Believe",
+            "notas_en": "Verb of personal evaluation and judgment: Subject + 覺得 + Opinion (e.g. 我覺得很好; 你覺得怎麼樣？).",
+            "ejemplos_en": [
+                "我覺得中文很有意思 — I think the Chinese language is very interesting.",
+                "你覺得這本書怎麼樣？ — What do you think of this book?",
+                "我覺得今天很冷 — I feel/think that it is very cold today"
+            ]
+        },
+        {
+            "id": "id_l3_ting",
+            "espanol": "Hear",
+            "tradicional": "聽",
+            "pinyin": "tīng",
+            "zhuyin": "ㄊㄧㄥ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "耳 (ěr - ear)"
+                },
+                {
+                    "type": "text",
+                    "value": "心 (xīn - heart)"
+                }
+            ],
+            "notas": "Listen with an attentive ear and with your heart present. Main action of auditory perception: 聽音樂 (listening to music).",
+            "ejemplos": [
+                "田中不喜歡聽音樂 — Tanaka doesn't like listening to music",
+                "我喜歡聽音樂和打網球 — I like listening to music and playing tennis"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Hear",
+            "notas_en": "Listen with an attentive ear and with your heart present. Main action of auditory perception: 聽音樂 (listening to music).",
+            "ejemplos_en": [
+                "田中不喜歡聽音樂 — Tanaka doesn't like listening to music",
+                "我喜歡聽音樂和打網球 — I like listening to music and playing tennis"
+            ]
+        },
+        {
+            "id": "id_l3_yundong",
+            "espanol": "Do exercise",
+            "tradicional": "運動",
+            "pinyin": "yùndòng",
+            "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
+            "categoria": "verbo",
+            "clasificador": "id_clf_ci",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "運 (yùn - move)"
+                },
+                {
+                    "type": "text",
+                    "value": "動 (dòng - action)"
+                }
+            ],
+            "notas": "Move and transport the body's energy with strength and vigor. It works as a verb ('exercise') and as a noun ('sport').",
+            "ejemplos": [
+                "我爸爸、媽媽都不喜歡運動 — My dad and my mom don't like to exercise",
+                "我今天要去運動，不去你家 — Today I'm going to exercise, I won't go to your house"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Do exercise",
+            "notas_en": "Move and transport the body's energy with strength and vigor. It works as a verb ('exercise') and as a noun ('sport').",
+            "ejemplos_en": [
+                "我爸爸、媽媽都不喜歡運動 — My dad and my mom don't like to exercise",
+                "我今天要去運動，不去你家 — Today I'm going to exercise, I won't go to your house"
+            ]
+        },
+        {
+            "id": "id_l3_da",
+            "espanol": "Play (hand sports)",
+            "tradicional": "打",
+            "pinyin": "dǎ",
+            "zhuyin": "ㄉㄚˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "扌 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "丁 (dīng - nail)"
+                }
+            ],
+            "notas": "A hand in motor action. In ball sports it applies to disciplines played with hands, clubs or rackets (打網球, 打棒球).",
+            "ejemplos": [
+                "田中喜歡打棒球 — Tanaka likes to play baseball",
+                "你喜歡打網球嗎？ — Do you like to play tennis?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Play (hand sports)",
+            "notas_en": "A hand in motor action. In ball sports it applies to disciplines played with hands, clubs or rackets (打網球, 打棒球).",
+            "ejemplos_en": [
+                "田中喜歡打棒球 — Tanaka likes to play baseball",
+                "你喜歡打網球嗎？ — Do you like to play tennis?"
+            ]
+        },
+        {
+            "id": "id_l3_youyong",
+            "espanol": "Swim",
+            "tradicional": "游泳",
+            "pinyin": "yóuyǒng",
+            "zhuyin": "ㄧㄡˊ ㄩㄥˇ",
+            "categoria": "verbo",
+            "clasificador": "id_clf_ci",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "游 (yóu - swim)"
+                },
+                {
+                    "type": "text",
+                    "value": "泳 (yǒng - swim)"
+                }
+            ],
+            "notas": "Both characters carry the water radical 氵. Separable verb (V-O): 游個泳 (take a swimming bath).",
+            "ejemplos": [
+                "我想學游泳，也想學打網球 — I want to learn to swim and also learn to play tennis",
+                "你喜歡不喜歡游泳？ — Do you like swimming?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Swim",
+            "notas_en": "Both characters carry the water radical 氵. Separable verb (V-O): 游個泳 (take a swimming bath).",
+            "ejemplos_en": [
+                "我想學游泳，也想學打網球 — I want to learn to swim and also learn to play tennis",
+                "你喜歡不喜歡游泳？ — Do you like swimming?"
+            ]
+        },
+        {
+            "id": "id_l3_ti",
+            "espanol": "Kick",
+            "tradicional": "踢",
+            "pinyin": "tī",
+            "zhuyin": "ㄊㄧ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "足 (zú - foot)"
+                },
+                {
+                    "type": "text",
+                    "value": "易 (yì - agile)"
+                }
+            ],
+            "notas": "Agile foot movement 足. Verb almost universally assigned to football: 踢足球.",
+            "ejemplos": [
+                "他喜歡踢足球 — He likes to play soccer",
+                "李明華不常踢足球 — Li Minghua doesn't play football very often"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Kick",
+            "notas_en": "Agile foot movement 足. Verb almost universally assigned to football: 踢足球.",
+            "ejemplos_en": [
+                "他喜歡踢足球 — He likes to play soccer",
+                "李明華不常踢足球 — Li Minghua doesn't play football very often"
+            ]
+        },
+        {
+            "id": "id_l3_xiang",
+            "espanol": "Want / Think",
+            "tradicional": "想",
+            "pinyin": "xiǎng",
+            "zhuyin": "ㄒㄧㄤˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "相 (xiāng - image)"
+                },
+                {
+                    "type": "text",
+                    "value": "心 (xīn - heart)"
+                }
+            ],
+            "notas": "Contemplate an image in your heart and desire it. As a modal auxiliary (想 + V) it expresses voluntary intention ('to feel like').",
+            "ejemplos": [
+                "今天晚上我想吃越南菜 — Tonight I feel like eating Vietnamese food",
+                "美國電影、臺灣電影，我都想看 — I want to watch both American and Taiwanese movies"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Want / Think",
+            "notas_en": "Contemplate an image in your heart and desire it. As a modal auxiliary (想 + V) it expresses voluntary intention ('to feel like').",
+            "ejemplos_en": [
+                "今天晚上我想吃越南菜 — Tonight I feel like eating Vietnamese food",
+                "美國電影、臺灣電影，我都想看 — I want to watch both American and Taiwanese movies"
+            ]
+        },
+        {
+            "id": "id_l3_keyi",
+            "espanol": "Can / Could",
+            "tradicional": "可以",
+            "pinyin": "kěyǐ",
+            "zhuyin": "ㄎㄜˇ ㄧˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - through)"
+                }
+            ],
+            "notas": "Modal auxiliary of feasibility and permission: Subject + 可以 + Verb ('can'). Prohibitive negation: 不可以.",
+            "ejemplos": [
+                "看電影可以學中文 — Watching movies helps you learn Chinese / you can learn Chinese by watching movies",
+                "月美覺得看臺灣電影可以學中文 — Yuemei thinks that by watching Taiwanese movies you can learn Chinese"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Can / Could",
+            "notas_en": "Modal auxiliary of feasibility and permission: Subject + 可以 + Verb ('can'). Prohibitive negation: 不可以.",
+            "ejemplos_en": [
+                "看電影可以學中文 — Watching movies helps you learn Chinese / you can learn Chinese by watching movies",
+                "月美覺得看臺灣電影可以學中文 — Yuemei thinks that by watching Taiwanese movies you can learn Chinese"
+            ]
+        },
+        {
+            "id": "id_l3_xue",
+            "espanol": "Learn",
+            "tradicional": "學",
+            "pinyin": "xué",
+            "zhuyin": "ㄒㄩㄝˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𦥯 (xué - study)"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - son)"
+                }
+            ],
+            "notas": "A child 子 under a school roof assimilating knowledge. Governs skills and subjects: 學中文, 學游泳.",
+            "ejemplos": [
+                "我想學游泳，也想學打網球 — I want to learn to swim and also learn to play tennis",
+                "看電影可以學中文 — Watching movies helps you learn Chinese"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Learn",
+            "notas_en": "A child 子 under a school roof assimilating knowledge. Governs skills and subjects: 學中文, 學游泳.",
+            "ejemplos_en": [
+                "我想學游泳，也想學打網球 — I want to learn to swim and also learn to play tennis",
+                "看電影可以學中文 — Watching movies helps you learn Chinese"
+            ]
+        },
+        {
+            "id": "id_l4_neng",
+            "espanol": "Power (capacity)",
+            "tradicional": "能",
+            "pinyin": "néng",
+            "zhuyin": "ㄋㄥˊ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "月 (ròu - meat)"
+                },
+                {
+                    "type": "text",
+                    "value": "匕 (bǐ - spoon/knife)"
+                }
+            ],
+            "notas": "Modal verb denoting intrinsic physical ability or possibility due to external circumstances (different from 會 which indicates learned skill).",
+            "ejemplos": [
+                "這支舊手機不能上網。 — This old cell phone cannot surf the internet.",
+                "你能幫我買一杯熱咖啡嗎？ — Can you help me by buying me a hot cup of coffee?"
+            ],
+            "leccion": 4,
+            "english": "Power (capacity)",
+            "notas_en": "Modal verb denoting intrinsic physical ability or possibility due to external circumstances (different from 會 which indicates learned skill).",
+            "ejemplos_en": [
+                "這支舊手機不能上網。 — This old cell phone cannot surf the internet.",
+                "你能幫我買一杯熱咖啡嗎？ — Can you help me by buying me a hot cup of coffee?"
+            ]
+        },
+        {
+            "id": "id_l4_shangwang",
+            "espanol": "Browse the internet",
+            "tradicional": "上網",
+            "pinyin": "shàngwǎng",
+            "zhuyin": "ㄕㄤˋ ㄨㄤˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "上 (shàng - up/climb)"
+                },
+                {
+                    "type": "text",
+                    "value": "網 (wǎng - net/mesh)"
+                }
+            ],
+            "notas": "Literally 'go up to the net'. Separable verb that describes the action of entering or browsing the Internet.",
+            "ejemplos": [
+                "我想上網買東西。 — I want to connect to the internet to buy things.",
+                "他的手機可以在這裡上網。 — Your cell phone can connect to the internet here."
+            ],
+            "leccion": 4,
+            "english": "Browse the internet",
+            "notas_en": "Literally 'go up to the net'. Separable verb that describes the action of entering or browsing the Internet.",
+            "ejemplos_en": [
+                "我想上網買東西。 — I want to connect to the internet to buy things.",
+                "他的手機可以在這裡上網。 — Your cell phone can connect to the internet here."
+            ]
+        },
+        {
+            "id": "id_l4_mai_vender",
+            "espanol": "Sell",
+            "tradicional": "賣",
+            "pinyin": "mài",
+            "zhuyin": "ㄇㄞˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "士 (shì - scholar/gentleman)"
+                },
+                {
+                    "type": "text",
+                    "value": "貝 (bèi - shell/old money)"
+                }
+            ],
+            "notas": "Sell ​​(tone 4: mài). It has a cross/scholar on top. Not to be confused with 買 (mǎi - tone 3, buy).",
+            "ejemplos": [
+                "請問你們賣熱咖啡嗎？ — Excuse me, do you sell hot coffee?",
+                "這家店賣的手機很便宜。 — The phones that this store sells are very affordable."
+            ],
+            "leccion": 4,
+            "english": "Sell",
+            "notas_en": "Sell ​​(tone 4: mài). It has a cross/scholar on top. Not to be confused with 買 (mǎi - tone 3, buy).",
+            "ejemplos_en": [
+                "請問你們賣熱咖啡嗎？ — Excuse me, do you sell hot coffee?",
+                "這家店賣的手機很便宜。 — The phones that this store sells are very affordable."
+            ]
+        },
+        {
+            "id": "id_l4_bang",
+            "espanol": "Help",
+            "tradicional": "幫",
+            "pinyin": "bāng",
+            "zhuyin": "ㄅㄤ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - fabric/cloth)"
+                },
+                {
+                    "type": "text",
+                    "value": "邦 (bāng - nation/state)"
+                }
+            ],
+            "notas": "It means to help someone or act as a preposition of service: 幫 + Person + Verb (do something for or instead of someone).",
+            "ejemplos": [
+                "請幫我微波這個包子。 — Please help me by heating this baozi in the microwave.",
+                "他常幫朋友買好喝的茶。 — He often helps his friends by buying them delicious tea."
+            ],
+            "leccion": 4,
+            "english": "Help",
+            "notas_en": "It means to help someone or act as a preposition of service: 幫 + Person + Verb (do something for or instead of someone).",
+            "ejemplos_en": [
+                "請幫我微波這個包子。 — Please help me by heating this baozi in the microwave.",
+                "他常幫朋友買好喝的茶。 — He often helps his friends by buying them delicious tea."
+            ]
+        },
+        {
+            "id": "id_l4_weibo",
+            "espanol": "Heat in microwave",
+            "tradicional": "微波",
+            "pinyin": "wéibō",
+            "zhuyin": "ㄨㄟˊ ㄅㄛ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - passed)"
+                },
+                {
+                    "type": "text",
+                    "value": "氵 (shuǐ - water)"
+                },
+                {
+                    "type": "text",
+                    "value": "皮 (pí - fur)"
+                }
+            ],
+            "notas": "Microwave or heat with microwave. In Taiwanese convenience stores (7-Eleven, FamilyMart) the queen phrase is '要微波嗎？'.",
+            "ejemplos": [
+                "老闆，請幫我微波一下。 — Boss, please warm it up for me in the microwave for a moment.",
+                "這個便當需要微波。 — This bento needs to be heated in a microwave."
+            ],
+            "leccion": 4,
+            "english": "Heat in microwave",
+            "notas_en": "Microwave or heat with microwave. In Taiwanese convenience stores (7-Eleven, FamilyMart) the queen phrase is '要微波嗎？'.",
+            "ejemplos_en": [
+                "老闆，請幫我微波一下。 — Boss, please warm it up for me in the microwave for a moment.",
+                "這個便當需要微波。 — This bento needs to be heated in a microwave."
+            ]
+        },
+        {
+            "id": "id_v_dian_order",
+            "espanol": "O'clock (hours) / Point",
+            "tradicional": "點",
+            "pinyin": "diǎn",
+            "zhuyin": "ㄉㄧㄢˇ",
+            "categoria": "verbo",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "黑 (hēi - black)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhàn - guess)"
+                }
+            ],
+            "notas": "Verb to order or order dishes or drinks (e.g. 點菜).",
+            "ejemplos": [
+                "我們點菜吧 — Let's order dishes",
+                "你想點什麼？ — What do you want to order?"
+            ],
+            "leccion": 5,
+            "english": "O'clock (hours) / Point",
+            "notas_en": "Verb to order or order dishes or drinks (e.g. 點菜).",
+            "ejemplos_en": [
+                "我們點菜吧 — Let's order dishes",
+                "你想點什麼？ — What do you want to order?"
+            ]
+        },
+        {
+            "id": "id_l5_zhidao",
+            "espanol": "Know",
+            "tradicional": "知道",
+            "pinyin": "zhīdào",
+            "zhuyin": "ㄓ ㄉㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "知 (zhī - know)"
+                },
+                {
+                    "type": "text",
+                    "value": "道 (dào - way/truth)"
+                }
+            ],
+            "notas": "Transitive verb to know information or have knowledge of something.",
+            "ejemplos": [
+                "你知道這家店在哪裡嗎？ — Do you know where this store is?",
+                "我不知道他明天來不來 — I don't know if he will come tomorrow"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Know",
+            "notas_en": "Transitive verb to know information or have knowledge of something.",
+            "ejemplos_en": [
+                "你知道這家店在哪裡嗎？ — Do you know where this store is?",
+                "我不知道他明天來不來 — I don't know if he will come tomorrow"
+            ]
+        },
+        {
+            "id": "id_l5_pa",
+            "espanol": "Fear / Dislike",
+            "tradicional": "怕",
+            "pinyin": "pà",
+            "zhuyin": "ㄆㄚˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "忄 (xīn - heart)"
+                },
+                {
+                    "type": "text",
+                    "value": "白 (bái - white)"
+                }
+            ],
+            "notas": "Verb of psychological state: to fear or not like something (e.g. 怕辣 = not tolerate spicy food).",
+            "ejemplos": [
+                "我很怕辣，不能吃這個菜 — I am very afraid of spicy, I can't eat this dish",
+                "你怕冷還是怕熱？ — Are you afraid of the cold or the heat?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Fear / Dislike",
+            "notas_en": "Verb of psychological state: to fear or not like something (e.g. 怕辣 = not tolerate spicy food).",
+            "ejemplos_en": [
+                "我很怕辣，不能吃這個菜 — I am very afraid of spicy, I can't eat this dish",
+                "你怕冷還是怕熱？ — Are you afraid of the cold or the heat?"
+            ]
+        },
+        {
+            "id": "id_l5_zuofan",
+            "espanol": "Cook",
+            "tradicional": "做飯",
+            "pinyin": "zuòfàn",
+            "zhuyin": "ㄗㄨㄛˋ ㄈㄢˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "做 (zuò - do)"
+                },
+                {
+                    "type": "text",
+                    "value": "飯 (fàn - food/rice)"
+                }
+            ],
+            "notas": "Separable verb (V-sep): prepare food or cook.",
+            "ejemplos": [
+                "你會做飯嗎？ — Do you know how to cook?",
+                "他做飯做得很不錯 — He cooks pretty well"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Cook",
+            "notas_en": "Separable verb (V-sep): prepare food or cook.",
+            "ejemplos_en": [
+                "你會做飯嗎？ — Do you know how to cook?",
+                "他做飯做得很不錯 — He cooks pretty well"
+            ]
+        },
+        {
+            "id": "id_l5_hui",
+            "espanol": "Can / Know how to",
+            "tradicional": "會",
+            "pinyin": "huì",
+            "zhuyin": "ㄏㄨㄟˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "人 (rén - person)"
+                },
+                {
+                    "type": "text",
+                    "value": "云 (yún - say/cloud)"
+                }
+            ],
+            "notas": "Modal auxiliary verb that denotes a skill acquired by learning or practice.",
+            "ejemplos": [
+                "你會做臺灣菜嗎？ — Do you know how to cook Taiwanese food?",
+                "我會說一點中文 — I know how to speak a little Chinese"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Can / Know how to",
+            "notas_en": "Modal auxiliary verb that denotes a skill acquired by learning or practice.",
+            "ejemplos_en": [
+                "你會做臺灣菜嗎？ — Do you know how to cook Taiwanese food?",
+                "我會說一點中文 — I know how to speak a little Chinese"
+            ]
+        },
+        {
+            "id": "id_l5_keyi",
+            "espanol": "Can / Could",
+            "tradicional": "可以",
+            "pinyin": "kěyǐ",
+            "zhuyin": "ㄎㄜˇ ㄧˇ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - through)"
+                }
+            ],
+            "notas": "Modal auxiliary that expresses possibility or polite request ('could you...?').",
+            "ejemplos": [
+                "你可以教我做飯嗎？ — Could you teach me how to cook?",
+                "有空的話我們可以去夜市 — If you have free time we can go to the night market"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Can / Could",
+            "notas_en": "Modal auxiliary that expresses possibility or polite request ('could you...?').",
+            "ejemplos_en": [
+                "你可以教我做飯嗎？ — Could you teach me how to cook?",
+                "有空的話我們可以去夜市 — If you have free time we can go to the night market"
+            ]
+        },
+        {
+            "id": "id_l5_jiao",
+            "espanol": "Teach",
+            "tradicional": "教",
+            "pinyin": "jiāo",
+            "zhuyin": "ㄐㄧㄠ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "孝 (xiào - filial piety)"
+                },
+                {
+                    "type": "text",
+                    "value": "攵 (pū - action/tap)"
+                }
+            ],
+            "notas": "Transitive verb to impart knowledge or skills to someone.",
+            "ejemplos": [
+                "請你教我做牛肉麵 — Please teach me how to make beef noodles",
+                "李老師在大學教中文 — Professor Li teaches Chinese at the university"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Teach",
+            "notas_en": "Transitive verb to impart knowledge or skills to someone.",
+            "ejemplos_en": [
+                "請你教我做牛肉麵 — Please teach me how to make beef noodles",
+                "李老師在大學教中文 — Professor Li teaches Chinese at the university"
+            ]
+        },
+        {
+            "id": "id_l5_dao",
+            "espanol": "Arrive at / To",
+            "tradicional": "到",
+            "pinyin": "dào",
+            "zhuyin": "ㄉㄠˋ",
+            "categoria": "verbo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "至 (zhì - arrive)"
+                },
+                {
+                    "type": "text",
+                    "value": "刂 (dāo - knife/limit)"
+                }
+            ],
+            "notas": "Verb or preposition of destination: arrive at a place or go to a place.",
+            "ejemplos": [
+                "明天你到我家來做飯吧 — Tomorrow come to my house to cook",
+                "坐捷運可以到那家餐廳 — Taking the subway you can get to that restaurant"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Arrive at / To",
+            "notas_en": "Verb or preposition of destination: arrive at a place or go to a place.",
+            "ejemplos_en": [
+                "明天你到我家來做飯吧 — Tomorrow come to my house to cook",
+                "坐捷運可以到那家餐廳 — Taking the subway you can get to that restaurant"
+            ]
+        }
+    ],
+    "adverbios": [
+        {
+            "id": "a1",
+            "espanol": "No",
+            "tradicional": "不",
+            "pinyin": "bù",
+            "zhuyin": "ㄅㄨˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - denial)"
+                }
+            ],
+            "notas": "Pictogram of a seed underground that has not yet sprung. It changes to 2nd tone (bú) before another 4th tone (不是 bú shì). To negate 有 you use 沒.",
+            "ejemplos": [
+                "我不是美國人 — I'm not American",
+                "他不喝咖啡 — He doesn't drink coffee"
+            ],
+            "leccion": 1,
+            "english": "No",
+            "notas_en": "Pictogram of a seed underground that has not yet sprung. It changes to 2nd tone (bú) before another 4th tone (不是 bú shì). To negate 有 you use 沒.",
+            "ejemplos_en": [
+                "我不是美國人 — I'm not American",
+                "他不喝咖啡 — He doesn't drink coffee"
+            ]
+        },
+        {
+            "id": "a2",
+            "espanol": "All",
+            "tradicional": "都",
+            "pinyin": "dōu",
+            "zhuyin": "ㄉㄡ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "者 (zhě - person)"
+                },
+                {
+                    "type": "text",
+                    "value": "阝 (yì - city)"
+                }
+            ],
+            "notas": "It represents the inhabitants gathered in the city. It is always placed between the plural subject and the verb: Subject + 都 + Verb.",
+            "ejemplos": [
+                "我們都愛臺灣 — We all love Taiwan",
+                "他們都不喝咖啡 — None of them drink coffee"
+            ],
+            "leccion": 2,
+            "english": "All",
+            "notas_en": "It represents the inhabitants gathered in the city. It is always placed between the plural subject and the verb: Subject + 都 + Verb.",
+            "ejemplos_en": [
+                "我們都愛臺灣 — We all love Taiwan",
+                "他們都不喝咖啡 — None of them drink coffee"
+            ]
+        },
+        {
+            "espanol": "Also",
+            "tradicional": "也",
+            "pinyin": "yě",
+            "zhuyin": "ㄧㄝˇ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "乙 (yǐ - outbreak)"
+                }
+            ],
+            "notas": "It represents a curved shoot that adds a branch. It always comes after the subject and before the verb: 我也是 (I am also). If combined with 都, it comes first: 也都.",
+            "ejemplos": [
+                "我也是學生 — I am also a student",
+                "他也愛喝茶 — He also loves to drink tea"
+            ],
+            "id": "id_msk0pp4g_bdeqd",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 3,
+            "english": "Also",
+            "notas_en": "It represents a curved shoot that adds a branch. It always comes after the subject and before the verb: 我也是 (I am also). If combined with 都, it comes first: 也都.",
+            "ejemplos_en": [
+                "我也是學生 — I am also a student",
+                "他也愛喝茶 — He also loves to drink tea"
+            ]
+        },
+        {
+            "espanol": "Very",
+            "tradicional": "很",
+            "pinyin": "hěn",
+            "zhuyin": "ㄏㄣˇ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - passed)"
+                },
+                {
+                    "type": "text",
+                    "value": "艮 (gèn - arrest)"
+                }
+            ],
+            "notas": "In Subject + 很 + Adjective it acts as an obligatory neutral predicative stabilizer, without necessarily implying a superlative degree.",
+            "id": "id_mtjnbg7d_2ozn7",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "他很好 — He is very well / he is good",
+                "這張照片很漂亮 — This photo is very nice",
+                "這本書很貴 — This book is very expensive"
+            ],
+            "leccion": 1,
+            "english": "Very",
+            "notas_en": "In Subject + 很 + Adjective it acts as an obligatory neutral predicative stabilizer, without necessarily implying a superlative degree.",
+            "ejemplos_en": [
+                "他很好 — He is very well / he is good",
+                "這張照片很漂亮 — This photo is very nice",
+                "這本書很貴 — This book is very expensive"
+            ]
+        },
+        {
+            "id": "id_mty032_mei",
+            "espanol": "No (have / happened)",
+            "tradicional": "沒",
+            "pinyin": "méi",
+            "zhuyin": "ㄇㄟˊ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "殳 (shū - weapon)"
+                }
+            ],
+            "notas": "It represents submerging and disappearing in the water. Obligatory negation of the verb 有 (沒有 = not to have/have) and of completed actions.",
+            "ejemplos": [
+                "我沒有書 — I don't have books",
+                "他沒有照片 — He doesn't have photos"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "No (have / happened)",
+            "notas_en": "It represents submerging and disappearing in the water. Obligatory negation of the verb 有 (沒有 = not to have/have) and of completed actions.",
+            "ejemplos_en": [
+                "我沒有書 — I don't have books",
+                "他沒有照片 — He doesn't have photos"
+            ]
+        },
+        {
+            "id": "id_voc_feichang",
+            "espanol": "Extremely",
+            "tradicional": "非常",
+            "pinyin": "fēicháng",
+            "zhuyin": "ㄈㄟ ㄔㄤˊ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "非 (fēi - No)"
+                },
+                {
+                    "type": "text",
+                    "value": "常 (cháng - common)"
+                }
+            ],
+            "notas": "Etymologically 'out of the ordinary'. Adverb of intense degree greater than 很, placed before adjectives or psychological verbs.",
+            "ejemplos": [
+                "國畫課非常有趣 — Traditional Chinese painting class is extremely fun",
+                "他非常想去臺灣學中文 — He greatly wants to go to Taiwan to study Chinese."
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Extremely",
+            "notas_en": "Etymologically 'out of the ordinary'. Adverb of intense degree greater than 很, placed before adjectives or psychological verbs.",
+            "ejemplos_en": [
+                "國畫課非常有趣 — Traditional Chinese painting class is extremely fun",
+                "他非常想去臺灣學中文 — He greatly wants to go to Taiwan to study Chinese."
+            ]
+        },
+        {
+            "id": "id_voc_henduo",
+            "espanol": "Many",
+            "tradicional": "很多",
+            "pinyin": "hěn duō",
+            "zhuyin": "ㄏㄣˇ ㄉㄨㄛ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjnbg7d_2ozn7"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mty023_duo"
+                }
+            ],
+            "notas": "Quantitative phrase that directly precedes the noun without requiring an intermediate classifier: 很多人, 很多問題.",
+            "ejemplos": [
+                "我們學校有很多外國學生 — Our school has many foreign students",
+                "他有很多漂亮的照片 — He has many beautiful photos"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Many",
+            "notas_en": "Quantitative phrase that directly precedes the noun without requiring an intermediate classifier: 很多人, 很多問題.",
+            "ejemplos_en": [
+                "我們學校有很多外國學生 — Our school has many foreign students",
+                "他有很多漂亮的照片 — He has many beautiful photos"
+            ]
+        },
+        {
+            "id": "id_voc_xianzai",
+            "espanol": "Now",
+            "tradicional": "現在",
+            "pinyin": "xiànzài",
+            "zhuyin": "ㄒㄧㄢˋ ㄗㄞˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "現 (xiàn - present)"
+                },
+                {
+                    "type": "text",
+                    "value": "在 (zài - be)"
+                }
+            ],
+            "notas": "Jade that shines and becomes visible in the present. Temporal frame for 'at this moment', placed before the verb.",
+            "ejemplos": [
+                "現在幾點？ — What time is it now?",
+                "我現在要去教室 — Now I'm going to the classroom"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Now",
+            "notas_en": "Jade that shines and becomes visible in the present. Temporal frame for 'at this moment', placed before the verb.",
+            "ejemplos_en": [
+                "現在幾點？ — What time is it now?",
+                "我現在要去教室 — Now I'm going to the classroom"
+            ]
+        },
+        {
+            "id": "id_voc_zai_again",
+            "espanol": "Again",
+            "tradicional": "再",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "再 (zài - again)"
+                }
+            ],
+            "notas": "It symbolizes a second superimposed structure. Expresses the repetition of an action towards the future: 請再說一次 (say it again).",
+            "ejemplos": [
+                "請再說一次 — Please repeat it one more time",
+                "歡迎再來 — Welcome back"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Again",
+            "notas_en": "It symbolizes a second superimposed structure. Expresses the repetition of an action towards the future: 請再說一次 (say it again).",
+            "ejemplos_en": [
+                "請再說一次 — Please repeat it one more time",
+                "歡迎再來 — Welcome back"
+            ]
+        },
+        {
+            "id": "id_voc_zenme",
+            "espanol": "As?",
+            "tradicional": "怎麼",
+            "pinyin": "zěnme",
+            "zhuyin": "ㄗㄣˇ ㄇㄜ˙",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "怎 (zěn - as)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - suffix)"
+                }
+            ],
+            "notas": "Question the method, mode or instrument to execute an action: S + 怎麼 + Verb (e.g. 怎麼去 = how to go?).",
+            "ejemplos": [
+                "請問，怎麼去圖書館？ — Excuse me, how do you get to the library?",
+                "你怎麼來學校？ — How do you come to school?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "As?",
+            "notas_en": "Question the method, mode or instrument to execute an action: S + 怎麼 + Verb (e.g. 怎麼去 = how to go?).",
+            "ejemplos_en": [
+                "請問，怎麼去圖書館？ — Excuse me, how do you get to the library?",
+                "你怎麼來學校？ — How do you come to school?"
+            ]
+        },
+        {
+            "id": "id_l3_chang",
+            "espanol": "Often",
+            "tradicional": "常",
+            "pinyin": "cháng",
+            "zhuyin": "ㄔㄤˊ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - fabric)"
+                },
+                {
+                    "type": "text",
+                    "value": "尚 (shàng - noble)"
+                }
+            ],
+            "notas": "A garment worn regularly. Preverbal adverb of habit or frequency (S + 常 + V). Its negation is 不常 (rarely).",
+            "ejemplos": [
+                "我常打籃球，也常踢足球 — I often play basketball and I also usually play soccer",
+                "王開文常喝茶 — Kaiwen Wang drinks tea often"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Often",
+            "notas_en": "A garment worn regularly. Preverbal adverb of habit or frequency (S + 常 + V). Its negation is 不常 (rarely).",
+            "ejemplos_en": [
+                "我常打籃球，也常踢足球 — I often play basketball and I also usually play soccer",
+                "王開文常喝茶 — Kaiwen Wang drinks tea often"
+            ]
+        },
+        {
+            "id": "id_l3_yiqi",
+            "espanol": "Together",
+            "tradicional": "一起",
+            "pinyin": "yìqǐ",
+            "zhuyin": "ㄧˋ ㄑㄧˇ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                },
+                {
+                    "type": "text",
+                    "value": "起 (qǐ - get up)"
+                }
+            ],
+            "notas": "Get up and go as a single unit. It is placed before the verb to indicate shared action: 我們一起看書.",
+            "ejemplos": [
+                "晚上要不要一起吃晚飯？ — Do you want to have dinner together tonight?",
+                "週末我們要不要一起看書？ — Do we read books together on the weekend?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Together",
+            "notas_en": "Get up and go as a single unit. It is placed before the verb to indicate shared action: 我們一起看書.",
+            "ejemplos_en": [
+                "晚上要不要一起吃晚飯？ — Do you want to have dinner together tonight?",
+                "週末我們要不要一起看書？ — Do we read books together on the weekend?"
+            ]
+        },
+        {
+            "id": "id_l4_yigong",
+            "espanol": "In total",
+            "tradicional": "一共",
+            "pinyin": "yígòng",
+            "zhuyin": "ㄧˊ ㄍㄨㄥˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                },
+                {
+                    "type": "text",
+                    "value": "共 (gòng - together/common)"
+                }
+            ],
+            "notas": "Indicates lump sum or accumulated total. Essential to request the account or calculate purchases (一共多少錢？).",
+            "ejemplos": [
+                "三杯熱茶一共一百五十塊。 — Three cups of hot tea are a total of one hundred and fifty dollars.",
+                "我們一共五個人去看電影。 — In total five of us went to see the movie."
+            ],
+            "leccion": 4,
+            "english": "In total",
+            "notas_en": "Indicates lump sum or accumulated total. Essential to request the account or calculate purchases (一共多少錢？).",
+            "ejemplos_en": [
+                "三杯熱茶一共一百五十塊。 — Three cups of hot tea are a total of one hundred and fifty dollars.",
+                "我們一共五個人去看電影。 — In total five of us went to see the movie."
+            ]
+        },
+        {
+            "id": "id_l5_zhen",
+            "espanol": "Really",
+            "tradicional": "真",
+            "pinyin": "zhēn",
+            "zhuyin": "ㄓㄣ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "目 (mù - eye)"
+                },
+                {
+                    "type": "text",
+                    "value": "十 (shí - ten)"
+                }
+            ],
+            "notas": "Emphatic adverb before adjectives (真 + Adjective = 'really...!').",
+            "ejemplos": [
+                "臺灣的小吃真好吃 — Taiwan snacks are really delicious",
+                "你做飯做得真好 — You cook really well"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Really",
+            "notas_en": "Emphatic adverb before adjectives (真 + Adjective = 'really...!').",
+            "ejemplos_en": [
+                "臺灣的小吃真好吃 — Taiwan snacks are really delicious",
+                "你做飯做得真好 — You cook really well"
+            ]
+        },
+        {
+            "id": "id_l5_zui",
+            "espanol": "Most",
+            "tradicional": "最",
+            "pinyin": "zuì",
+            "zhuyin": "ㄗㄨㄟˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                },
+                {
+                    "type": "text",
+                    "value": "取 (qǔ - take)"
+                }
+            ],
+            "notas": "Superlative adverb prefixed to adjectives or verbs of pleasure.",
+            "ejemplos": [
+                "哪一家餐廳的菜最好吃？ — Which restaurant's food is the most delicious?",
+                "我最喜歡吃小籠包 — What I like to eat the most are xiaolongbao"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Most",
+            "notas_en": "Superlative adverb prefixed to adjectives or verbs of pleasure.",
+            "ejemplos_en": [
+                "哪一家餐廳的菜最好吃？ — Which restaurant's food is the most delicious?",
+                "我最喜歡吃小籠包 — What I like to eat the most are xiaolongbao"
+            ]
+        },
+        {
+            "id": "id_l5_zheme",
+            "espanol": "So / Such",
+            "tradicional": "這麼",
+            "pinyin": "zhème",
+            "zhuyin": "ㄓㄜˋ ˙ㄇㄜ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "這 (zhè - this)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - particle)"
+                }
+            ],
+            "notas": "Demonstrative adverb of degree (這麼 + Adjective = 'so...').",
+            "ejemplos": [
+                "這家店的菜怎麼這麼好吃！ — Why is the food in this store so delicious!",
+                "牛肉麵這麼貴嗎？ — Are beef noodles that expensive?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "So / Such",
+            "notas_en": "Demonstrative adverb of degree (這麼 + Adjective = 'so...').",
+            "ejemplos_en": [
+                "這家店的菜怎麼這麼好吃！ — Why is the food in this store so delicious!",
+                "牛肉麵這麼貴嗎？ — Are beef noodles that expensive?"
+            ]
+        },
+        {
+            "id": "id_l5_yiding",
+            "espanol": "Definitely",
+            "tradicional": "一定",
+            "pinyin": "yídìng",
+            "zhuyin": "ㄧˊ ㄉㄧㄥˋ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                },
+                {
+                    "type": "text",
+                    "value": "定 (dìng - fix/secure)"
+                }
+            ],
+            "notas": "Modal adverb of certainty or necessity ('surely', 'without fail').",
+            "ejemplos": [
+                "你一定要吃這家的小籠包 — Without fail you have to eat the xiaolongbao from this place",
+                "明天他不一定會來 — It won't necessarily come tomorrow"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Definitely",
+            "notas_en": "Modal adverb of certainty or necessity ('surely', 'without fail').",
+            "ejemplos_en": [
+                "你一定要吃這家的小籠包 — Without fail you have to eat the xiaolongbao from this place",
+                "明天他不一定會來 — It won't necessarily come tomorrow"
+            ]
+        },
+        {
+            "id": "id_l5_youyidian",
+            "espanol": "A little",
+            "tradicional": "有一點",
+            "pinyin": "yǒu yì diǎn",
+            "zhuyin": "ㄧㄡˇ ㄧˋ ㄉㄧㄢˇ",
+            "categoria": "adverbio",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - have)"
+                },
+                {
+                    "type": "text",
+                    "value": "一 (yī - a)"
+                },
+                {
+                    "type": "text",
+                    "value": "點 (diǎn - little/drop)"
+                }
+            ],
+            "notas": "Adverb prefixed to adjectives that denotes moderate excess or displeasure.",
+            "ejemplos": [
+                "這碗湯有一點辣 — This bowl of soup is a little spicy",
+                "我今天有一點累 — Today I'm a little tired"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "A little",
+            "notas_en": "Adverb prefixed to adjectives that denotes moderate excess or displeasure.",
+            "ejemplos_en": [
+                "這碗湯有一點辣 — This bowl of soup is a little spicy",
+                "我今天有一點累 — Today I'm a little tired"
+            ]
+        }
+    ],
+    "expresiones": [
+        {
+            "id": "e1",
+            "espanol": "Hello",
+            "tradicional": "你好",
+            "pinyin": "nǐhǎo",
+            "zhuyin": "ㄋㄧˇ ㄏㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p2"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                }
+            ],
+            "notas": "By tonal sandhi, when two 3rd tones join together, 你 changes to 2nd tone (ní hǎo). Respectful registration: 您好.",
+            "ejemplos": [
+                "你好！我是陳月美 — Hello! I am Chen Yuemei",
+                "你好，很高興認識你 — Hello, nice to meet you"
+            ],
+            "leccion": 1,
+            "english": "Hello",
+            "notas_en": "By tonal sandhi, when two 3rd tones join together, 你 changes to 2nd tone (ní hǎo). Respectful registration: 您好.",
+            "ejemplos_en": [
+                "你好！我是陳月美 — Hello! I am Chen Yuemei",
+                "你好，很高興認識你 — Hello, nice to meet you"
+            ]
+        },
+        {
+            "id": "e2",
+            "espanol": "Bye",
+            "tradicional": "再見",
+            "pinyin": "zàijiàn",
+            "zhuyin": "ㄗㄞˋ ㄐㄧㄢˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "再 (zài - again)"
+                },
+                {
+                    "type": "text",
+                    "value": "見 (jiàn - see)"
+                }
+            ],
+            "notas": "Etymologically 'see each other again'. General farewell par excellence in Mandarin.",
+            "ejemplos": [
+                "老師，再見！ — Professor, see you later!",
+                "大家再見！ — Goodbye everyone!"
+            ],
+            "english": "Bye",
+            "notas_en": "Etymologically 'see each other again'. General farewell par excellence in Mandarin.",
+            "ejemplos_en": [
+                "老師，再見！ — Professor, see you later!",
+                "大家再見！ — Goodbye everyone!"
+            ]
+        },
+        {
+            "espanol": "AND",
+            "tradicional": "和",
+            "pinyin": "hé",
+            "zhuyin": "ㄏㄢˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禾 (hé - cereal)"
+                },
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                }
+            ],
+            "notas": "Copulative conjunction that ONLY links nouns or pronouns (我和你). He never connects verbs or complete sentences.",
+            "id": "id_mspmr8gz_rjl1e",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "我和你 — You and I",
+                "我有貓和狗 — I have a cat and a dog"
+            ],
+            "leccion": 3,
+            "english": "AND",
+            "notas_en": "Copulative conjunction that ONLY links nouns or pronouns (我和你). He never connects verbs or complete sentences.",
+            "ejemplos_en": [
+                "我和你 — You and I",
+                "我有貓和狗 — I have a cat and a dog"
+            ]
+        },
+        {
+            "espanol": "That",
+            "tradicional": "什麼",
+            "pinyin": "shénme",
+            "zhuyin": "ㄕㄣˊ ㄇㄜ˙",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtfikvkd_74gu4"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - suffix)"
+                }
+            ],
+            "notas": "Interrogative pronoun ('what'). In the sentence it occupies exactly the syntactic place where the answer would go: 你喝什麼？",
+            "id": "id_msr4dv0n_cd6pn",
+            "fechaCreacion": "2026-08-13",
+            "ejemplos": [
+                "你要喝什麼？ — What do you want to drink?",
+                "你叫什麼名字？ — What is your name?"
+            ],
+            "leccion": 1,
+            "english": "That",
+            "notas_en": "Interrogative pronoun ('what'). In the sentence it occupies exactly the syntactic place where the answer would go: 你喝什麼？",
+            "ejemplos_en": [
+                "你要喝什麼？ — What do you want to drink?",
+                "你叫什麼名字？ — What is your name?"
+            ]
+        },
+        {
+            "espanol": "Who",
+            "tradicional": "誰",
+            "pinyin": "shéi",
+            "zhuyin": "ㄕㄟˊ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                },
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - bird)"
+                }
+            ],
+            "notas": "Interrogative pronoun ('who'). In formal speech it is also pronounced shui. It occupies the position of subject or object: 他是誰？",
+            "id": "id_mtffp8dh_iku4e",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "他是誰？ — Who is he?",
+                "那是誰的書？ — Whose book is that?"
+            ],
+            "leccion": 2,
+            "english": "Who",
+            "notas_en": "Interrogative pronoun ('who'). In formal speech it is also pronounced shui. It occupies the position of subject or object: 他是誰？",
+            "ejemplos_en": [
+                "他是誰？ — Who is he?",
+                "那是誰的書？ — Whose book is that?"
+            ]
+        },
+        {
+            "espanol": "Which",
+            "tradicional": "哪",
+            "pinyin": "nǎ",
+            "zhuyin": "ㄋㄚˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk0mdne_r4neq"
+                }
+            ],
+            "notas": "It has an interrogative 口 mouth next to 那. Before classifier is commonly pronounced něi: 哪本書？, 哪國人？",
+            "id": "id_mtfgbr1v_3z8nx",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "你是哪國人？ — What country are you from?",
+                "哪張照片是你的？ — Which photo is yours?"
+            ],
+            "leccion": 1,
+            "english": "Which",
+            "notas_en": "It has an interrogative 口 mouth next to 那. Before classifier is commonly pronounced něi: 哪本書？, 哪國人？",
+            "ejemplos_en": [
+                "你是哪國人？ — What country are you from?",
+                "哪張照片是你的？ — Which photo is yours?"
+            ]
+        },
+        {
+            "espanol": "How many? (<10)",
+            "tradicional": "幾",
+            "pinyin": "jǐ",
+            "zhuyin": "ㄐㄧˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "幺 (yāo - thread)"
+                },
+                {
+                    "type": "text",
+                    "value": "戈 (gē - lance)"
+                }
+            ],
+            "notas": "Ask for small quantities (usually less than 10). Mandatory structure: 幾 + Classifier + Noun.",
+            "id": "id_mtgn0eti_2z3vp",
+            "fechaCreacion": "2026-08-31",
+            "ejemplos": [
+                "你有幾張照片？ — How many photos do you have?",
+                "你有幾個兄弟？ — How many male brothers do you have?"
+            ],
+            "leccion": 2,
+            "english": "How many? (<10)",
+            "notas_en": "Ask for small quantities (usually less than 10). Mandatory structure: 幾 + Classifier + Noun.",
+            "ejemplos_en": [
+                "你有幾張照片？ — How many photos do you have?",
+                "你有幾個兄弟？ — How many male brothers do you have?"
+            ]
+        },
+        {
+            "espanol": "Thank you",
+            "tradicional": "謝謝",
+            "pinyin": "xièxie",
+            "zhuyin": "ㄒㄧㄝˋ ˙ㄒㄧㄝ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                },
+                {
+                    "type": "text",
+                    "value": "射 (shè - shoot)"
+                }
+            ],
+            "notas": "Words of gratitude projected towards the other. Duplication tones down the tone; the second character is neuter (xièxie).",
+            "id": "id_mth0xr8v_bdnhu",
+            "fechaCreacion": "2026-08-31",
+            "ejemplos": [
+                "謝謝你的茶 — Thanks for your tea",
+                "謝謝大家 — Thank you all"
+            ],
+            "leccion": 1,
+            "english": "Thank you",
+            "notas_en": "Words of gratitude projected towards the other. Duplication tones down the tone; the second character is neuter (xièxie).",
+            "ejemplos_en": [
+                "謝謝你的茶 — Thanks for your tea",
+                "謝謝大家 — Thank you all"
+            ]
+        },
+        {
+            "espanol": "You are welcome",
+            "tradicional": "不客氣",
+            "pinyin": "bù kèqì",
+            "zhuyin": "ㄅㄨˊ ㄎㄜˋ ㄑㄧˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "a1"
+                },
+                {
+                    "type": "text",
+                    "value": "客 (kè - guest)"
+                },
+                {
+                    "type": "text",
+                    "value": "氣 (qì - manners)"
+                }
+            ],
+            "notas": "Literally 'do not act ceremoniously like a guest'. Standard polite response to 謝謝.",
+            "id": "id_mth0z0bf_1gpqj",
+            "fechaCreacion": "2026-08-31",
+            "ejemplos": [
+                "謝謝你！ — 不客氣！ — Thank you very much! - You are welcome!"
+            ],
+            "leccion": 1,
+            "english": "You are welcome",
+            "notas_en": "Literally 'do not act ceremoniously like a guest'. Standard polite response to 謝謝.",
+            "ejemplos_en": [
+                "謝謝你！ — 不客氣！ — Thank you very much! - You are welcome!"
+            ]
+        },
+        {
+            "espanol": "Can I ask?",
+            "tradicional": "請問",
+            "pinyin": "qǐngwèn",
+            "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvh6q8e_qg8ox"
+                },
+                {
+                    "type": "text",
+                    "value": "問 (wèn - ask)"
+                }
+            ],
+            "notas": "Formula of maximum courtesy at the beginning of a query: 'Excuse me, may I ask...?': 請問，你姓什麼？",
+            "id": "id_mtvh2939_yzopt",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "請問，你是哪國人？ — Excuse me, what country are you from?",
+                "請問，這張照片是誰的？ — Excuse me, whose photo is this?"
+            ],
+            "leccion": 1,
+            "english": "Can I ask?",
+            "notas_en": "Formula of maximum courtesy at the beginning of a query: 'Excuse me, may I ask...?': 請問，你姓什麼？",
+            "ejemplos_en": [
+                "請問，你是哪國人？ — Excuse me, what country are you from?",
+                "請問，這張照片是誰的？ — Excuse me, whose photo is this?"
+            ]
+        },
+        {
+            "espanol": "Correct",
+            "tradicional": "對",
+            "pinyin": "duì",
+            "zhuyin": "ㄉㄨㄟˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "丵 (zhuó - grass)"
+                },
+                {
+                    "type": "text",
+                    "value": "寸 (cùn - inch)"
+                }
+            ],
+            "notas": "Measure with the 寸 ruler to ensure accuracy. Interjection of conformity: 'correct!' / 'that's how it is!'. Negation: 不對.",
+            "id": "id_mtviiuc4_o7je6",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "對，我是學生 — Right, I'm a student",
+                "你說得對 — You tell the truth / You are right"
+            ],
+            "english": "Correct",
+            "notas_en": "Measure with the 寸 ruler to ensure accuracy. Interjection of conformity: 'correct!' / 'that's how it is!'. Negation: 不對.",
+            "ejemplos_en": [
+                "對，我是學生 — Right, I'm a student",
+                "你說得對 — You tell the truth / You are right"
+            ]
+        },
+        {
+            "id": "id_mty014_duibuqi",
+            "espanol": "I'm sorry",
+            "tradicional": "對不起",
+            "pinyin": "duìbùqǐ",
+            "zhuyin": "ㄉㄨㄟˋ ㄅㄨˋ ㄑㄧˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtviiuc4_o7je6"
+                },
+                {
+                    "type": "ref",
+                    "id": "a1"
+                },
+                {
+                    "type": "text",
+                    "value": "起 (qǐ - get up)"
+                }
+            ],
+            "notas": "Literally 'I cannot look you face to face with righteousness'. Common apology; usual answer: 沒關係 (méi guānxi).",
+            "ejemplos": [
+                "對不起，我不喝咖啡 — Sorry, I don't drink coffee."
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "I'm sorry",
+            "notas_en": "Literally 'I cannot look you face to face with righteousness'. Common apology; usual answer: 沒關係 (méi guānxi).",
+            "ejemplos_en": [
+                "對不起，我不喝咖啡 — Sorry, I don't drink coffee."
+            ]
+        },
+        {
+            "id": "id_mty008_shide",
+            "espanol": "Yeah",
+            "tradicional": "是的",
+            "pinyin": "shìde",
+            "zhuyin": "ㄕˋ ㄉㄜ˙",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "v1"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk1glsh_kfv6m"
+                }
+            ],
+            "notas": "Affirmative formula of polite ratification: 'yes, certainly so'.",
+            "ejemplos": [
+                "是的，我是學生 — Yes, I am a student",
+                "是的，他是王先生 — Yes, this is Mr. Wang"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Yeah",
+            "notas_en": "Affirmative formula of polite ratification: 'yes, certainly so'.",
+            "ejemplos_en": [
+                "是的，我是學生 — Yes, I am a student",
+                "是的，他是王先生 — Yes, this is Mr. Wang"
+            ]
+        },
+        {
+            "id": "id_mty012_naguo",
+            "espanol": "What country?",
+            "tradicional": "哪國",
+            "pinyin": "nǎguó",
+            "zhuyin": "ㄋㄚˇ ㄍㄨㄛˊ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfgbr1v_3z8nx"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - country)"
+                }
+            ],
+            "notas": "Fixed interrogative construction to check origin and nationality: 你是哪國人？ (What country are you from?).",
+            "ejemplos": [
+                "你是哪國人？ — What country are you from?",
+                "他是哪國人？ — What country is he from?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "What country?",
+            "notas_en": "Fixed interrogative construction to check origin and nationality: 你是哪國人？ (What country are you from?).",
+            "ejemplos_en": [
+                "你是哪國人？ — What country are you from?",
+                "他是哪國人？ — What country is he from?"
+            ]
+        },
+        {
+            "id": "id_mty027_qingjin",
+            "espanol": "Forward!",
+            "tradicional": "請進",
+            "pinyin": "qǐngjìn",
+            "zhuyin": "ㄑㄧㄥˇ ㄐㄧㄣˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvh6q8e_qg8ox"
+                },
+                {
+                    "type": "text",
+                    "value": "進 (jìn - enter)"
+                }
+            ],
+            "notas": "Traditional hospitality to give way to a visitor: 'come in, please come in!'",
+            "ejemplos": [
+                "請進，請坐 — Please come in, take a seat"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Forward!",
+            "notas_en": "Traditional hospitality to give way to a visitor: 'come in, please come in!'",
+            "ejemplos_en": [
+                "請進，請坐 — Please come in, take a seat"
+            ]
+        },
+        {
+            "id": "id_voc_woyaowenwenti",
+            "espanol": "I want to ask a question",
+            "tradicional": "我要問問題",
+            "pinyin": "wǒ yào wèn wèntí",
+            "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄨㄣˋ ㄨㄣˋ ㄊㄧˊ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p1"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtvifgj8_j51mk"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_wenti"
+                }
+            ],
+            "notas": "Formal classroom phrase to request the teacher's turn to speak or in a conference.",
+            "ejemplos": [
+                "老師，我要問問題 — Professor, I want to ask a question",
+                "請問，我要問一個問題 — Excuse me, I would like to ask a question"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "I want to ask a question",
+            "notas_en": "Formal classroom phrase to request the teacher's turn to speak or in a conference.",
+            "ejemplos_en": [
+                "老師，我要問問題 — Professor, I want to ask a question",
+                "請問，我要問一個問題 — Excuse me, I would like to ask a question"
+            ]
+        },
+        {
+            "id": "id_voc_haolema",
+            "espanol": "Ready?",
+            "tradicional": "好了嗎？",
+            "pinyin": "hǎo le ma?",
+            "zhuyin": "ㄏㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (le - culmination)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msm98kaa_25bw4"
+                }
+            ],
+            "notas": "Colloquial question to verify if the interlocutor has completed a task or is ready to begin.",
+            "ejemplos": [
+                "大家都好了嗎？ — Are you all ready yet?",
+                "好了嗎？我們要出發了 — Are you ready? We're going out"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Ready?",
+            "notas_en": "Colloquial question to verify if the interlocutor has completed a task or is ready to begin.",
+            "ejemplos_en": [
+                "大家都好了嗎？ — Are you all ready yet?",
+                "好了嗎？我們要出發了 — Are you ready? We're going out"
+            ]
+        },
+        {
+            "id": "id_voc_qingzaishuoyici",
+            "espanol": "Please repeat it one more time",
+            "tradicional": "請再說一次",
+            "pinyin": "qǐng zài shuō yí cì",
+            "zhuyin": "ㄑㄧㄥˇ ㄗㄞˋ ㄕㄨㄛ ㄧˊ ㄘˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvh6q8e_qg8ox"
+                },
+                {
+                    "type": "text",
+                    "value": "再 (zài - again)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_shuo"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                }
+            ],
+            "notas": "Courteous request essential to request that a phrase not clearly understood be repeated.",
+            "ejemplos": [
+                "對不起，請再說一次 — Excuse me, please say it one more time",
+                "老師，請再說一次好嗎？ — Professor, could you please repeat it one more time?"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Please repeat it one more time",
+            "notas_en": "Courteous request essential to request that a phrase not clearly understood be repeated.",
+            "ejemplos_en": [
+                "對不起，請再說一次 — Excuse me, please say it one more time",
+                "老師，請再說一次好嗎？ — Professor, could you please repeat it one more time?"
+            ]
+        },
+        {
+            "id": "id_voc_xiagelibaijian",
+            "espanol": "See you next week",
+            "tradicional": "下個禮拜見",
+            "pinyin": "xià ge lǐbài jiàn",
+            "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄌㄧˇ ㄅㄞˋ ㄐㄧㄢˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "下 (xià - later)"
+                },
+                {
+                    "type": "text",
+                    "value": "見 (jiàn - see)"
+                }
+            ],
+            "notas": "Regular farewell on Fridays or at the end of the weekly lesson cycle.",
+            "ejemplos": [
+                "老師再見，下個禮拜見！ — Goodbye teacher, see you next week!",
+                "下個禮拜見，週末愉快 — See you next week, have a nice weekend!"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "See you next week",
+            "notas_en": "Regular farewell on Fridays or at the end of the weekly lesson cycle.",
+            "ejemplos_en": [
+                "老師再見，下個禮拜見！ — Goodbye teacher, see you next week!",
+                "下個禮拜見，週末愉快 — See you next week, have a nice weekend!"
+            ]
+        },
+        {
+            "id": "id_voc_mingtianjian",
+            "espanol": "See you tomorrow",
+            "tradicional": "明天見",
+            "pinyin": "míngtiān jiàn",
+            "zhuyin": "ㄇㄧㄥˊ ㄊㄧㄢ ㄐㄧㄢˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_voc_mingtian"
+                },
+                {
+                    "type": "text",
+                    "value": "見 (jiàn - see)"
+                }
+            ],
+            "notas": "Standard farewell when the reunion will occur the next day.",
+            "ejemplos": [
+                "下課了，明天見！ — Class is over, see you tomorrow!",
+                "明天見，晚安 — See you tomorrow, good night!"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "See you tomorrow",
+            "notas_en": "Standard farewell when the reunion will occur the next day.",
+            "ejemplos_en": [
+                "下課了，明天見！ — Class is over, see you tomorrow!",
+                "明天見，晚安 — See you tomorrow, good night!"
+            ]
+        },
+        {
+            "id": "id_voc_chibaolema",
+            "espanol": "Did you eat yet?",
+            "tradicional": "吃飽了嗎？",
+            "pinyin": "chī bǎo le ma?",
+            "zhuyin": "ㄔ ㄅㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mspmonrk_kj3kn"
+                },
+                {
+                    "type": "text",
+                    "value": "飽 (bǎo - full)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msm98kaa_25bw4"
+                }
+            ],
+            "notas": "Traditional greeting of affection and courtesy in Taiwan equivalent to being interested in the well-being of another. Answer: 吃了.",
+            "ejemplos": [
+                "張先生，吃飽了嗎？ — Mr. Zhang, have you eaten yet?",
+                "你吃飽了嗎？我們一起去散步 — Have you finished eating yet? Let's walk together"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Did you eat yet?",
+            "notas_en": "Traditional greeting of affection and courtesy in Taiwan equivalent to being interested in the well-being of another. Answer: 吃了.",
+            "ejemplos_en": [
+                "張先生，吃飽了嗎？ — Mr. Zhang, have you eaten yet?",
+                "你吃飽了嗎？我們一起去散步 — Have you finished eating yet? Let's walk together"
+            ]
+        },
+        {
+            "id": "id_voc_nichilema",
+            "espanol": "Did you eat yet?",
+            "tradicional": "你吃了嗎？",
+            "pinyin": "nǐ chī le ma?",
+            "zhuyin": "ㄋㄧˇ ㄔ ˙ㄌㄜ ˙ㄇㄚ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p2"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mspmonrk_kj3kn"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msm98kaa_25bw4"
+                }
+            ],
+            "notas": "Direct and close variant of the traditional greeting over food between friends and colleagues.",
+            "ejemplos": [
+                "李小姐，你吃了嗎？ — Miss Li, have you eaten yet?",
+                "你吃了嗎？還沒的話我們一起吃 — Did you eat yet? If not yet, let's eat together"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Did you eat yet?",
+            "notas_en": "Direct and close variant of the traditional greeting over food between friends and colleagues.",
+            "ejemplos_en": [
+                "李小姐，你吃了嗎？ — Miss Li, have you eaten yet?",
+                "你吃了嗎？還沒的話我們一起吃 — Did you eat yet? If not yet, let's eat together"
+            ]
+        },
+        {
+            "id": "id_voc_zuoshenme",
+            "espanol": "So that?",
+            "tradicional": "做什麼",
+            "pinyin": "zuò shénme",
+            "zhuyin": "ㄗㄨㄛˋ ㄕㄣˊ ㄇㄜ˙",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "故 (gù - cause)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msr4m3d5_07106"
+                }
+            ],
+            "notas": "Ask about the activity or reason for an action: 你去教室做什麼？ (What are you going to the classroom for?).",
+            "ejemplos": [
+                "你去教室做什麼？ — Why do you go to the classroom?",
+                "你在做什麼？ — What are you doing?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "leccion": 3,
+            "english": "So that?",
+            "notas_en": "Ask about the activity or reason for an action: 你去教室做什麼？ (What are you going to the classroom for?).",
+            "ejemplos_en": [
+                "你去教室做什麼？ — Why do you go to the classroom?",
+                "你在做什麼？ — What are you doing?"
+            ]
+        },
+        {
+            "id": "id_voc_shenmeshihou",
+            "espanol": "When?",
+            "tradicional": "什麼時候",
+            "pinyin": "shénme shíhòu",
+            "zhuyin": "ㄕㄣˊ ㄇㄜ˙ ㄕˊ ㄏㄡˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4m3d5_07106"
+                },
+                {
+                    "type": "text",
+                    "value": "時 (shí - time)"
+                },
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "矢 (shǐ - arrow)"
+                }
+            ],
+            "notas": "Temporal interrogative formula that is placed before the verb: 你什麼時候下課？ (When do you finish class?).",
+            "ejemplos": [
+                "你什麼時候下課？ — When do you leave class?",
+                "你們什麼時候去學校？ — When do they go to school?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "When?",
+            "notas_en": "Temporal interrogative formula that is placed before the verb: 你什麼時候下課？ (When do you finish class?).",
+            "ejemplos_en": [
+                "你什麼時候下課？ — When do you leave class?",
+                "你們什麼時候去學校？ — When do they go to school?"
+            ]
+        },
+        {
+            "id": "id_voc_jidian",
+            "espanol": "What time?",
+            "tradicional": "幾點",
+            "pinyin": "jǐ diǎn",
+            "zhuyin": "ㄐㄧˇ ㄉㄧㄢˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4k90m_ji"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_clf_dian"
+                }
+            ],
+            "notas": "Direct question to check the clock's current time: 現在幾點？ (What time is it now?).",
+            "ejemplos": [
+                "請問，現在幾點？ — Excuse me, what time is it now?",
+                "你幾點去學校？ — What time do you go to school?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "What time?",
+            "notas_en": "Direct question to check the clock's current time: 現在幾點？ (What time is it now?).",
+            "ejemplos_en": [
+                "請問，現在幾點？ — Excuse me, what time is it now?",
+                "你幾點去學校？ — What time do you go to school?"
+            ]
+        },
+        {
+            "id": "id_voc_wenwenti",
+            "espanol": "Ask questions",
+            "tradicional": "問問題",
+            "pinyin": "wèn wèntí",
+            "zhuyin": "ㄨㄣˋ ㄨㄣˋ ㄊㄧˊ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_voc_wen"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_wenti"
+                }
+            ],
+            "notas": "Structure of verb and cognate object (ask questions) to raise doubts in class.",
+            "ejemplos": [
+                "老師，我要問問題 — Teacher, I want to ask a question",
+                "有問題可以問老師 — If you have questions you can ask the teacher"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Ask questions",
+            "notas_en": "Structure of verb and cognate object (ask questions) to raise doubts in class.",
+            "ejemplos_en": [
+                "老師，我要問問題 — Teacher, I want to ask a question",
+                "有問題可以問老師 — If you have questions you can ask the teacher"
+            ]
+        },
+        {
+            "id": "id_voc_yici",
+            "espanol": "Once",
+            "tradicional": "一次",
+            "pinyin": "yí cì",
+            "zhuyin": "ㄧˊ ㄘˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_clf_ci"
+                }
+            ],
+            "notas": "Complement of frequency that is postponed to the verb: 請再說一次 (say it one more time); 一天一次 (once a day).",
+            "ejemplos": [
+                "請再說一次 — Please repeat it one more time",
+                "我一天吃一次蘋果 — I eat apple once a day"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Once",
+            "notas_en": "Complement of frequency that is postponed to the verb: 請再說一次 (say it one more time); 一天一次 (once a day).",
+            "ejemplos_en": [
+                "請再說一次 — Please repeat it one more time",
+                "我一天吃一次蘋果 — I eat apple once a day"
+            ]
+        },
+        {
+            "id": "id_l3_zenmeyang",
+            "espanol": "How are you?",
+            "tradicional": "怎麼樣",
+            "pinyin": "zěnmeyàng",
+            "zhuyin": "ㄗㄣˇ ˙ㄇㄜ ㄧㄤˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "怎 (zěn - as)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - suffix)"
+                },
+                {
+                    "type": "text",
+                    "value": "樣 (yàng - aspect)"
+                }
+            ],
+            "notas": "When closing a proposal, seek the interlocutor's agreement ('how are you? / what do you think?').",
+            "ejemplos": [
+                "我們週末去打籃球，怎麼樣？ — How about we go play basketball on the weekend?",
+                "你覺得這張照片怎麼樣？ — What do you think of this photo?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "How are you?",
+            "notas_en": "When closing a proposal, seek the interlocutor's agreement ('how are you? / what do you think?').",
+            "ejemplos_en": [
+                "我們週末去打籃球，怎麼樣？ — How about we go play basketball on the weekend?",
+                "你覺得這張照片怎麼樣？ — What do you think of this photo?"
+            ]
+        },
+        {
+            "id": "id_l3_hao_a",
+            "espanol": "OK!",
+            "tradicional": "好啊",
+            "pinyin": "hǎo a",
+            "zhuyin": "ㄏㄠˇ ˙ㄚ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - Well)"
+                }
+            ],
+            "notas": "Cordial and enthusiastic acceptance of an everyday proposal or invitation: 'okay!' / 'of course!'.",
+            "ejemplos": [
+                "我們看臺灣電影吧！好啊！ — Let's watch Taiwanese cinema! Of course!",
+                "晚上要不要一起吃晚飯？好啊！ — Shall we have dinner together tonight? OK!"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "OK!",
+            "notas_en": "Cordial and enthusiastic acceptance of an everyday proposal or invitation: 'okay!' / 'of course!'.",
+            "ejemplos_en": [
+                "我們看臺灣電影吧！好啊！ — Let's watch Taiwanese cinema! Of course!",
+                "晚上要不要一起吃晚飯？好啊！ — Shall we have dinner together tonight? OK!"
+            ]
+        },
+        {
+            "id": "id_l3_haobuhao",
+            "espanol": "Is that okay with you?",
+            "tradicional": "好不好",
+            "pinyin": "hǎo bù hǎo",
+            "zhuyin": "ㄏㄠˇ ㄅㄨˋ ㄏㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - Well)"
+                }
+            ],
+            "notas": "Disjunctive affirmative-negative formula placed at the end to seek friendly consensus on a plan.",
+            "ejemplos": [
+                "今天晚上我們去看電影，好不好？ — Let's go to the movies tonight, is that okay?",
+                "我們週末晚上去看電影，好不好？ — Let's go to the movies on the weekend night, how about it?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Is that okay with you?",
+            "notas_en": "Disjunctive affirmative-negative formula placed at the end to seek friendly consensus on a plan.",
+            "ejemplos_en": [
+                "今天晚上我們去看電影，好不好？ — Let's go to the movies tonight, is that okay?",
+                "我們週末晚上去看電影，好不好？ — Let's go to the movies on the weekend night, how about it?"
+            ]
+        },
+        {
+            "id": "id_l4_haode",
+            "espanol": "OK",
+            "tradicional": "好的",
+            "pinyin": "hǎo de",
+            "zhuyin": "ㄏㄠˇ ˙ㄉㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - Well)"
+                },
+                {
+                    "type": "text",
+                    "value": "的 (de - possession/affirmation)"
+                }
+            ],
+            "notas": "Polite everyday response of confirmation and agreement ('Very good', 'Okay', 'Understood').",
+            "ejemplos": [
+                "好的，馬上為您準備。 — Okay, I'll prepare it for you right away.",
+                "好的，我們明天早上見。 — Alright, see you tomorrow morning."
+            ],
+            "leccion": 4,
+            "english": "OK",
+            "notas_en": "Polite everyday response of confirmation and agreement ('Very good', 'Okay', 'Understood').",
+            "ejemplos_en": [
+                "好的，馬上為您準備。 — Okay, I'll prepare it for you right away.",
+                "好的，我們明天早上見。 — Alright, see you tomorrow morning."
+            ]
+        },
+        {
+            "id": "id_l4_duoshao",
+            "espanol": "How much?",
+            "tradicional": "多少",
+            "pinyin": "duōshǎo",
+            "zhuyin": "ㄉㄨㄛ ㄕㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "多 (duō - a lot)"
+                },
+                {
+                    "type": "text",
+                    "value": "少 (shǎo - bit)"
+                }
+            ],
+            "notas": "Interrogative word for indefinite quantities or greater than 10. Especially used with 錢: 多少錢？ (How much does it cost?).",
+            "ejemplos": [
+                "老闆，這支手機多少錢？ — Boss, how much does this cell phone cost?",
+                "請問一共多少錢？ — Excuse me, how much is it in total?"
+            ],
+            "leccion": 4,
+            "english": "How much?",
+            "notas_en": "Interrogative word for indefinite quantities or greater than 10. Especially used with 錢: 多少錢？ (How much does it cost?).",
+            "ejemplos_en": [
+                "老闆，這支手機多少錢？ — Boss, how much does this cell phone cost?",
+                "請問一共多少錢？ — Excuse me, how much is it in total?"
+            ]
+        },
+        {
+            "id": "id_l4_waidai",
+            "espanol": "To go",
+            "tradicional": "外帶",
+            "pinyin": "wàidài",
+            "zhuyin": "ㄨㄞˋ ㄉㄞˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "外 (wài - outside/outside)"
+                },
+                {
+                    "type": "text",
+                    "value": "帶 (dài - carry/belt)"
+                }
+            ],
+            "notas": "To go. Typical question in all Taiwanese gastronomic shops: '內用還是外帶？' (Stop here or take away?).",
+            "ejemplos": [
+                "我要外帶兩杯大杯熱咖啡。 — I want two large cups of hot coffee to go.",
+                "老闆，這三個包子外帶，謝謝！ — Boss, these three baozis to take away, thank you!"
+            ],
+            "leccion": 4,
+            "english": "To go",
+            "notas_en": "To go. Typical question in all Taiwanese gastronomic shops: '內用還是外帶？' (Stop here or take away?).",
+            "ejemplos_en": [
+                "我要外帶兩杯大杯熱咖啡。 — I want two large cups of hot coffee to go.",
+                "老闆，這三個包子外帶，謝謝！ — Boss, these three baozis to take away, thank you!"
+            ]
+        },
+        {
+            "id": "id_l4_neiyong",
+            "espanol": "to eat here",
+            "tradicional": "內用",
+            "pinyin": "nèiyòng",
+            "zhuyin": "ㄋㄟˋ ㄩㄥˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "內 (nèi - inside/inside)"
+                },
+                {
+                    "type": "text",
+                    "value": "用 (yòng - use/consume)"
+                }
+            ],
+            "notas": "Consume inside the restaurant or cafeteria. Direct counterpart of 外帶 (takeaway).",
+            "ejemplos": [
+                "我們兩個人要內用。 — The two of us are going to eat here at the premises.",
+                "請問您要內用還是外帶？ — Do you want to consume at the premises or take away?"
+            ],
+            "leccion": 4,
+            "english": "to eat here",
+            "notas_en": "Consume inside the restaurant or cafeteria. Direct counterpart of 外帶 (takeaway).",
+            "ejemplos_en": [
+                "我們兩個人要內用。 — The two of us are going to eat here at the premises.",
+                "請問您要內用還是外帶？ — Do you want to consume at the premises or take away?"
+            ]
+        },
+        {
+            "id": "id_l4_weishenme",
+            "espanol": "Because?",
+            "tradicional": "為什麼",
+            "pinyin": "wèishénme",
+            "zhuyin": "ㄨㄟˋ ㄕㄣˊ ˙ㄇㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "為 (wèi - for/cause)"
+                },
+                {
+                    "type": "text",
+                    "value": "什 (shén - that)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - interrogative suffix)"
+                }
+            ],
+            "notas": "Interrogative pronoun that asks the cause or motive. It is generally answered with 因為... (because...).",
+            "ejemplos": [
+                "你為什麼想買那支新手機？ — Why do you want to buy that new phone?",
+                "你為什麼不喜歡喝烏龍茶？ — Why don't you like drinking Oolong tea?"
+            ],
+            "leccion": 4,
+            "english": "Because?",
+            "notas_en": "Interrogative pronoun that asks the cause or motive. It is generally answered with 因為... (because...).",
+            "ejemplos_en": [
+                "你為什麼想買那支新手機？ — Why do you want to buy that new phone?",
+                "你為什麼不喜歡喝烏龍茶？ — Why don't you like drinking Oolong tea?"
+            ]
+        },
+        {
+            "id": "id_l4_tai_le",
+            "espanol": "Too much...",
+            "tradicional": "太…了",
+            "pinyin": "tài...le",
+            "zhuyin": "ㄊㄞˋ ... ˙ㄌㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "大 (dà - big)"
+                },
+                {
+                    "type": "text",
+                    "value": "丶 (diǎn - spot)"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (le - change/excess particle)"
+                }
+            ],
+            "notas": "Emphatic pattern of superlative degree or excess: 太 + Adjective + 了 (e.g. 太貴了 = too expensive; 太好了 = fantastic!).",
+            "ejemplos": [
+                "這支手機太貴了，我不想買。 — This mobile phone is too expensive, I don't want to buy it.",
+                "太好了！明天我們一起去游泳。 — How good/great! Tomorrow we are going swimming together."
+            ],
+            "leccion": 4,
+            "english": "Too much...",
+            "notas_en": "Emphatic pattern of superlative degree or excess: 太 + Adjective + 了 (e.g. 太貴了 = too expensive; 太好了 = fantastic!).",
+            "ejemplos_en": [
+                "這支手機太貴了，我不想買。 — This mobile phone is too expensive, I don't want to buy it.",
+                "太好了！明天我們一起去游泳。 — How good/great! Tomorrow we are going swimming together."
+            ]
+        },
+        {
+            "id": "id_l5_shia",
+            "espanol": "That's right",
+            "tradicional": "是啊",
+            "pinyin": "shì a",
+            "zhuyin": "ㄕˋ ㄚ˙",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "是 (shì - be/like this)"
+                },
+                {
+                    "type": "text",
+                    "value": "啊 (a - particle of assent)"
+                }
+            ],
+            "notas": "Expression to agree or confirm what the interlocutor said.",
+            "ejemplos": [
+                "這家店很有名吧？是啊！ — This store is very famous, right? That's how it is!",
+                "小籠包真好吃！是啊，我很喜歡 — The xiaolongbao are delicious! That's right, I love them"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "That's right",
+            "notas_en": "Expression to agree or confirm what the interlocutor said.",
+            "ejemplos_en": [
+                "這家店很有名吧？是啊！ — This store is very famous, right? That's how it is!",
+                "小籠包真好吃！是啊，我很喜歡 — The xiaolongbao are delicious! That's right, I love them"
+            ]
+        },
+        {
+            "id": "id_l5_taihaole",
+            "espanol": "Great!",
+            "tradicional": "太好了",
+            "pinyin": "tài hǎo le",
+            "zhuyin": "ㄊㄞˋ ㄏㄠˇ ˙ㄌㄜ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "太 (tài - very/too much)"
+                },
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (partícula)"
+                }
+            ],
+            "notas": "Expression of enthusiasm and satisfaction in the face of good news.",
+            "ejemplos": [
+                "明天我們一起去吃牛肉麵！太好了！ — Tomorrow we are going to eat beef noodles together! Excellent!",
+                "你可以教我做飯嗎？太好了 — Can you teach me how to cook? Excellent!"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Great!",
+            "notas_en": "Expression of enthusiasm and satisfaction in the face of good news.",
+            "ejemplos_en": [
+                "明天我們一起去吃牛肉麵！太好了！ — Tomorrow we are going to eat beef noodles together! Excellent!",
+                "你可以教我做飯嗎？太好了 — Can you teach me how to cook? Excellent!"
+            ]
+        },
+        {
+            "id": "id_l5_keshi",
+            "espanol": "But / However",
+            "tradicional": "可是",
+            "pinyin": "kěshì",
+            "zhuyin": "ㄎㄜˇ ㄕˋ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - power/allow)"
+                },
+                {
+                    "type": "text",
+                    "value": "是 (shì - be)"
+                }
+            ],
+            "notas": "Adversative conjunction that introduces a soft contrast ('but', 'however').",
+            "ejemplos": [
+                "這家餐廳很好吃，可是有一點貴 — This restaurant is very delicious, but it is a little expensive",
+                "我想去，可是今天沒有時間 — I want to go, but I don't have time today"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "But / However",
+            "notas_en": "Adversative conjunction that introduces a soft contrast ('but', 'however').",
+            "ejemplos_en": [
+                "這家餐廳很好吃，可是有一點貴 — This restaurant is very delicious, but it is a little expensive",
+                "我想去，可是今天沒有時間 — I want to go, but I don't have time today"
+            ]
+        },
+        {
+            "id": "id_l5_suoyi",
+            "espanol": "Therefore / So",
+            "tradicional": "所以",
+            "pinyin": "suǒyǐ",
+            "zhuyin": "ㄙㄨㄛˇ ㄧˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "所 (suǒ - place/what)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - through)"
+                }
+            ],
+            "notas": "Consecutive conjunction often used with 因為 (because... therefore...).",
+            "ejemplos": [
+                "因為我很怕辣，所以不吃牛肉麵 — Because I'm afraid of spicy food, that's why I don't eat noodles with beef.",
+                "他喜歡臺灣，所以來學中文 — He likes Taiwan, so he came to learn Chinese"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Therefore / So",
+            "notas_en": "Consecutive conjunction often used with 因為 (because... therefore...).",
+            "ejemplos_en": [
+                "因為我很怕辣，所以不吃牛肉麵 — Because I'm afraid of spicy food, that's why I don't eat noodles with beef.",
+                "他喜歡臺灣，所以來學中文 — He likes Taiwan, so he came to learn Chinese"
+            ]
+        },
+        {
+            "id": "id_l5_buhao",
+            "espanol": "Not well / Bad",
+            "tradicional": "不好",
+            "pinyin": "bù hǎo",
+            "zhuyin": "ㄅㄨˋ ㄏㄠˇ",
+            "categoria": "expresion",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - No)"
+                },
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                }
+            ],
+            "notas": "Expression of negative evaluation: not being well or performing poorly.",
+            "ejemplos": [
+                "我做飯做得很不好 — I cook very badly",
+                "這個味道不太好 — This flavor is not very good"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Not well / Bad",
+            "notas_en": "Expression of negative evaluation: not being well or performing poorly.",
+            "ejemplos_en": [
+                "我做飯做得很不好 — I cook very badly",
+                "這個味道不太好 — This flavor is not very good"
+            ]
+        }
+    ],
+    "particulas": [
+        {
+            "id": "pt1",
+            "espanol": "(plural)",
+            "tradicional": "們",
+            "pinyin": "men",
+            "zhuyin": "ㄇㄣ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "門 (mén - door)"
+                }
+            ],
+            "notas": "Person 亻 next to a door 門 who gathers the crowd. Plural suffix for pronouns (我們, 你們, 他們) and people.",
+            "ejemplos": [
+                "我們都是學生 — We are all students",
+                "你們要喝什麼？ — What do you want to drink?"
+            ],
+            "english": "(plural)",
+            "notas_en": "Person 亻 next to a door 門 who gathers the crowd. Plural suffix for pronouns (我們, 你們, 他們) and people.",
+            "ejemplos_en": [
+                "我們都是學生 — We are all students",
+                "你們要喝什麼？ — What do you want to drink?"
+            ]
+        },
+        {
+            "espanol": "(possessive)",
+            "tradicional": "的",
+            "pinyin": "de",
+            "zhuyin": "ㄉㄜ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "白 (bái - white)"
+                },
+                {
+                    "type": "text",
+                    "value": "勺 (sháo - spoon)"
+                }
+            ],
+            "notas": "The target at the center of a bullseye. Structural particle of possession (Possessor + 的 + Noun) and adjectival modifier in neutral tone.",
+            "ejemplos": [
+                "這是我的家 — This is my house",
+                "那是我爸爸的照片 — That's my dad's photo"
+            ],
+            "id": "id_msk1glsh_kfv6m",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 2,
+            "english": "(possessive)",
+            "notas_en": "The target at the center of a bullseye. Structural particle of possession (Possessor + 的 + Noun) and adjectival modifier in neutral tone.",
+            "ejemplos_en": [
+                "這是我的家 — This is my house",
+                "那是我爸爸的照片 — That's my dad's photo"
+            ]
+        },
+        {
+            "espanol": "(yes/no question)",
+            "tradicional": "嗎",
+            "pinyin": "ma",
+            "zhuyin": "ㄇㄚ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "馬 (mǎ - horse)"
+                }
+            ],
+            "notas": "The mouth asks and 馬 provides the ma sound. It is added to the end of any statement to make it a yes or no question.",
+            "id": "id_msm98kaa_25bw4",
+            "fechaCreacion": "2026-08-09",
+            "ejemplos": [
+                "你好嗎？ — How are you?",
+                "你要喝咖啡嗎？ — Do you want to drink coffee?"
+            ],
+            "leccion": 1,
+            "english": "(yes/no question)",
+            "notas_en": "The mouth asks and 馬 provides the ma sound. It is added to the end of any statement to make it a yes or no question.",
+            "ejemplos_en": [
+                "你好嗎？ — How are you?",
+                "你要喝咖啡嗎？ — Do you want to drink coffee?"
+            ]
+        },
+        {
+            "id": "id_mty010_ne",
+            "espanol": "AND...?",
+            "tradicional": "呢",
+            "pinyin": "ne",
+            "zhuyin": "ㄋㄜ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "尼 (ní - nun)"
+                }
+            ],
+            "notas": "Elliptical rebound modal particle in neutral tone to return the question in progress: 你呢？ (And you?).",
+            "ejemplos": [
+                "我是老師，你呢？ — I am a teacher, and you?",
+                "他呢？ — And him?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "AND...?",
+            "notas_en": "Elliptical rebound modal particle in neutral tone to return the question in progress: 你呢？ (And you?).",
+            "ejemplos_en": [
+                "我是老師，你呢？ — I am a teacher, and you?",
+                "他呢？ — And him?"
+            ]
+        },
+        {
+            "id": "id_l3_a",
+            "espanol": "(emphasis/agreement)",
+            "tradicional": "啊",
+            "pinyin": "a",
+            "zhuyin": "˙ㄚ",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "阿 (ē - hill)"
+                }
+            ],
+            "notas": "Final particle in a neutral tone that brings warmth, enthusiasm or softness to the statement (好啊！ = of course!).",
+            "ejemplos": [
+                "好啊！ — Of course! / OK!",
+                "這是什麼茶？烏龍茶啊！ — What tea is this? Well Oolong tea!"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "(emphasis/agreement)",
+            "notas_en": "Final particle in a neutral tone that brings warmth, enthusiasm or softness to the statement (好啊！ = of course!).",
+            "ejemplos_en": [
+                "好啊！ — Of course! / OK!",
+                "這是什麼茶？烏龍茶啊！ — What tea is this? Well Oolong tea!"
+            ]
+        },
+        {
+            "id": "id_l3_haishi",
+            "espanol": "EITHER? (option)",
+            "tradicional": "還是",
+            "pinyin": "háishì",
+            "zhuyin": "ㄏㄞˊ ㄕˋ",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "還 (hái - still)"
+                },
+                {
+                    "type": "text",
+                    "value": "是 (shì - be)"
+                }
+            ],
+            "notas": "Disjunctive conjunction ('or?') exclusive for questions with alternatives (A 還是 B?). In statements, 或者 (huòzhě) is used.",
+            "ejemplos": [
+                "妳想看美國電影還是臺灣電影？ — Do you want to watch an American movie or a Taiwanese movie?",
+                "今天晚上我們吃越南菜還是臺灣菜？ — Tonight shall we eat Vietnamese food or Taiwanese food?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "EITHER? (option)",
+            "notas_en": "Disjunctive conjunction ('or?') exclusive for questions with alternatives (A 還是 B?). In statements, 或者 (huòzhě) is used.",
+            "ejemplos_en": [
+                "妳想看美國電影還是臺灣電影？ — Do you want to watch an American movie or a Taiwanese movie?",
+                "今天晚上我們吃越南菜還是臺灣菜？ — Tonight shall we eat Vietnamese food or Taiwanese food?"
+            ]
+        },
+        {
+            "id": "id_l3_ba",
+            "espanol": "(suggestion)",
+            "tradicional": "吧",
+            "pinyin": "ba",
+            "zhuyin": "˙ㄅㄚ",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "巴 (bā - snake)"
+                }
+            ],
+            "notas": "Final particle in a neutral tone that turns an idea into a kind suggestion or shared invitation: 我們走吧 (let's go).",
+            "ejemplos": [
+                "我們看臺灣電影吧！ — Let's watch a Taiwanese movie!",
+                "今天晚上我們吃越南菜吧！ — Let's have Vietnamese food for dinner tonight!"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "(suggestion)",
+            "notas_en": "Final particle in a neutral tone that turns an idea into a kind suggestion or shared invitation: 我們走吧 (let's go).",
+            "ejemplos_en": [
+                "我們看臺灣電影吧！ — Let's watch a Taiwanese movie!",
+                "今天晚上我們吃越南菜吧！ — Let's have Vietnamese food for dinner tonight!"
+            ]
+        },
+        {
+            "id": "id_l5_de",
+            "espanol": "Degree particle",
+            "tradicional": "得",
+            "pinyin": "de",
+            "zhuyin": "ㄉㄜ˙",
+            "categoria": "particula",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - passed)"
+                },
+                {
+                    "type": "text",
+                    "value": "旦 (dàn - sunrise)"
+                },
+                {
+                    "type": "text",
+                    "value": "寸 (cùn - ruler)"
+                }
+            ],
+            "notas": "Structural particle of complement of degree or evaluation (Verb + 得 + Adjective).",
+            "ejemplos": [
+                "他中文說得很好 — He speaks Chinese very well",
+                "這道菜做得很不錯 — This dish is prepared quite well"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Degree particle",
+            "notas_en": "Structural particle of complement of degree or evaluation (Verb + 得 + Adjective).",
+            "ejemplos_en": [
+                "他中文說得很好 — He speaks Chinese very well",
+                "這道菜做得很不錯 — This dish is prepared quite well"
+            ]
+        }
+    ],
+    "estructuras": [
+        {
+            "id": "s1",
+            "nombre": "Affirmation with 是",
+            "formula": "S + 是 + N",
+            "ejemplo_tradicional": "我是人",
+            "ejemplo_pinyin": "wǒ shì rén",
+            "ejemplo_espanol": "I am a person",
+            "notas": "The most basic structure to identify. \"A is B.\"",
+            "nombre_en": "Affirmation with 是",
+            "ejemplo_english": "I am a person",
+            "notas_en": "The most basic structure to identify. \"A is B.\""
+        },
+        {
+            "id": "s2",
+            "nombre": "Negation with 是",
+            "formula": "S + 不是 + N",
+            "ejemplo_tradicional": "他不是貓",
+            "ejemplo_pinyin": "tā bú shì māo",
+            "ejemplo_espanol": "He is not a cat",
+            "notas": "不 goes before 是 to negate.",
+            "nombre_en": "Negation with 是",
+            "ejemplo_english": "He is not a cat",
+            "notas_en": "不 goes before 是 to negate."
+        },
+        {
+            "id": "s3",
+            "nombre": "Subject + Verb + Object",
+            "formula": "S + V + O",
+            "ejemplo_tradicional": "我愛你",
+            "ejemplo_pinyin": "wǒ ài nǐ",
+            "ejemplo_espanol": "I love you",
+            "notas": "SVO structure, similar to Spanish. The natural order of Chinese.",
+            "nombre_en": "Subject + Verb + Object",
+            "ejemplo_english": "I love you",
+            "notas_en": "SVO structure, similar to Spanish. The natural order of Chinese."
+        },
+        {
+            "id": "s4",
+            "nombre": "Verb negation",
+            "formula": "S + 不 + V",
+            "ejemplo_tradicional": "我不愛",
+            "ejemplo_pinyin": "wǒ bú ài",
+            "ejemplo_espanol": "I don't love",
+            "notas": "不 always comes before the verb to negate it.",
+            "nombre_en": "Verb negation",
+            "ejemplo_english": "I don't love",
+            "notas_en": "不 always comes before the verb to negate it."
+        },
+        {
+            "id": "s5",
+            "nombre": "Use of 都 (whole)",
+            "formula": "S + 都 + V + O",
+            "ejemplo_tradicional": "我們都愛貓",
+            "ejemplo_pinyin": "wǒmen dōu ài māo",
+            "ejemplo_espanol": "We all love cats",
+            "notas": "都 comes after the subject and before the verb. Indicates \"all/both.\"",
+            "nombre_en": "Use of 都 (whole)",
+            "ejemplo_english": "We all love cats",
+            "notas_en": "都 comes after the subject and before the verb. Indicates \"all/both.\""
+        },
+        {
+            "nombre": "Question in the format \"no?\"",
+            "formula": "S + 是不是",
+            "ejemplo_tradicional": "你是不是中國人",
+            "ejemplo_pinyin": "nǐ shì bù shì Zhōngguó rén",
+            "ejemplo_espanol": "You are Chinese, right?",
+            "notas": "",
+            "id": "id_mso0kj7n_gx2ii",
+            "nombre_en": "Question in the format \"no?\"",
+            "ejemplo_english": "You are Chinese, right?"
+        },
+        {
+            "nombre": "Question in the format \"no?\"",
+            "formula": "S + 有沒有",
+            "ejemplo_tradicional": "你有沒有兒子",
+            "ejemplo_pinyin": "nǐ yǒu méiyǒu érzi",
+            "ejemplo_espanol": "You have children, right?",
+            "notas": "",
+            "id": "id_mso0n3vf_1s4fb",
+            "nombre_en": "Question in the format \"no?\"",
+            "ejemplo_english": "You have children, right?"
+        },
+        {
+            "nombre": "Question with \"ma\" (嗎)",
+            "formula": "S + V + O + 嗎?",
+            "ejemplo_tradicional": "他們有兒子嗎",
+            "ejemplo_pinyin": "tā men yǒu érzi ma",
+            "ejemplo_espanol": "Do they have children?",
+            "notas": "",
+            "id": "id_mso0s7vt_bqmgm",
+            "nombre_en": "Question with \"ma\" (嗎)",
+            "ejemplo_english": "Do they have children?"
+        },
+        {
+            "nombre": "Question \"What\" or \"Which\"",
+            "formula": "S + V + 什麼 + S (opcional) + ?",
+            "ejemplo_tradicional": "你喜歡什麼蔬菜",
+            "ejemplo_pinyin": "nǐ xǐhuān shénme shūcài",
+            "ejemplo_espanol": "What vegetables do you like?",
+            "notas": "",
+            "id": "id_msr4k90m_ibxqy",
+            "nombre_en": "Question \"What\" or \"Which\"",
+            "ejemplo_english": "What vegetables do you like?"
+        },
+        {
+            "nombre": "Question about identity",
+            "formula": "S + 是 + 誰",
+            "ejemplo_tradicional": "你是誰?",
+            "ejemplo_pinyin": "nǐ shì shéi ",
+            "ejemplo_espanol": "Who are you?",
+            "notas": "",
+            "id": "id_mtfg4big_16w0x",
+            "nombre_en": "Question about identity",
+            "ejemplo_english": "Who are you?"
+        },
+        {
+            "id": "s_l1_xing",
+            "nombre": "Ask and answer the surname (姓)",
+            "formula": "請問，S + 姓什麼？ → S + 姓 + [Apellido]",
+            "ejemplo_tradicional": "請問，你姓什麼？我姓王。",
+            "ejemplo_pinyin": "qǐngwèn, nǐ xìng shénme? wǒ xìng Wáng.",
+            "ejemplo_espanol": "Excuse me, what is your last name? —My last name is Wang.",
+            "notas": "姓 functions as a verb in Chinese (\"to be surnamed\"). In a very polite way it is said: 您貴姓？ (Nín guìxìng?).",
+            "nombre_en": "Ask and answer the surname (姓)",
+            "ejemplo_english": "Excuse me, what is your last name? —My last name is Wang.",
+            "notas_en": "姓 functions as a verb in Chinese (\"to be surnamed\"). In a very polite way it is said: 您貴姓？ (Nín guìxìng?)."
+        },
+        {
+            "id": "s_l1_ne",
+            "nombre": "Follow-up/bounce question with 呢",
+            "formula": "S1 + Predicado，S2 + 呢？",
+            "ejemplo_tradicional": "我是臺灣人，你呢？",
+            "ejemplo_pinyin": "wǒ shì Táiwān rén, nǐ ne?",
+            "ejemplo_espanol": "I am Taiwanese, how about you?",
+            "notas": "呢 returns the previous question to the new subject without having to repeat the entire sentence.",
+            "nombre_en": "Follow-up/bounce question with 呢",
+            "ejemplo_english": "I am Taiwanese, how about you?",
+            "notas_en": "呢 returns the previous question to the new subject without having to repeat the entire sentence."
+        },
+        {
+            "id": "s_l2_ji",
+            "nombre": "Quantity question with 幾 (less than 10)",
+            "formula": "S + 有 + 幾 + Clasificador + N？",
+            "ejemplo_tradicional": "你有幾張照片？",
+            "ejemplo_pinyin": "nǐ yǒu jǐ zhāng zhàopiàn?",
+            "ejemplo_espanol": "How many photos do you have?",
+            "notas": "幾 always requires its corresponding classifier before the noun (幾張, 幾個, 幾本).",
+            "nombre_en": "Quantity question with 幾 (less than 10)",
+            "ejemplo_english": "How many photos do you have?",
+            "notas_en": "幾 always requires its corresponding classifier before the noun (幾張, 幾個, 幾本)."
+        },
+        {
+            "id": "struct_shangke",
+            "nombre": "Take / take a class (上...課)",
+            "formula": "S + 上 + [Materia] (課)",
+            "ejemplo_tradicional": "我上書法課",
+            "ejemplo_pinyin": "wǒ shàng shūfǎkè",
+            "ejemplo_espanol": "I take calligraphy class",
+            "notas": "上 (shàng) acts as a verb to indicate attending or taking a subject. It can be used with the full name of the subject (上書法課) or in a general way: 上課 (enter class / have class).",
+            "nombre_en": "Take / take a class (上...課)",
+            "ejemplo_english": "I take calligraphy class",
+            "notas_en": "上 (shàng) acts as a verb to indicate attending or taking a subject. It can be used with the full name of the subject (上書法課) or in a general way: 上課 (enter class / have class)."
+        },
+        {
+            "id": "struct_qing_v",
+            "nombre": "Polite request with 請 (Please + V)",
+            "formula": "請 + V (+ O)",
+            "ejemplo_tradicional": "請喝茶",
+            "ejemplo_pinyin": "qǐng hē chá",
+            "ejemplo_espanol": "Please have tea",
+            "notas": "請 (qǐng) is placed directly before the verb to express courtesy, kindness or invitation: 請進 (come forward/pass), 請坐 (sit down), 請說 (please speak).",
+            "nombre_en": "Polite request with 請 (Please + V)",
+            "ejemplo_english": "Please have tea",
+            "notas_en": "請 (qǐng) is placed directly before the verb to express courtesy, kindness or invitation: 請進 (come forward/pass), 請坐 (sit down), 請說 (please speak)."
+        },
+        {
+            "id": "struct_wenwenti",
+            "nombre": "Ask a question (我要問問題)",
+            "formula": "S + 要 + 問問題",
+            "ejemplo_tradicional": "老師，我要問問題",
+            "ejemplo_pinyin": "lǎoshī, wǒ yào wèn wèntí",
+            "ejemplo_espanol": "Teacher, I want to ask a question",
+            "notas": "問 (wèn) is the verb to ask and 問題 (wèntí) is the noun question or problem. In Chinese the cognate object 'ask a question' (問問題) is used.",
+            "nombre_en": "Ask a question (我要問問題)",
+            "ejemplo_english": "Teacher, I want to ask a question",
+            "notas_en": "問 (wèn) is the verb to ask and 問題 (wèntí) is the noun question or problem. In Chinese the cognate object 'ask a question' (問問題) is used."
+        },
+        {
+            "id": "struct_haolema",
+            "nombre": "Ask if it is ready/completed (好了嗎？)",
+            "formula": "(S +) 好了嗎？",
+            "ejemplo_tradicional": "你們好了嗎？",
+            "ejemplo_pinyin": "nǐmen hǎo le ma?",
+            "ejemplo_espanol": "Are you ready? / Is it ready yet?",
+            "notas": "好 works as a result complement to indicate that a preparation or action has completed successfully. It is answered affirmatively with 好了 (ready!) or with 還沒 (not yet).",
+            "nombre_en": "Ask if it is ready/completed (好了嗎？)",
+            "ejemplo_english": "Are you ready? / Is it ready yet?",
+            "notas_en": "好 works as a result complement to indicate that a preparation or action has completed successfully. It is answered affirmatively with 好了 (ready!) or with 還沒 (not yet)."
+        },
+        {
+            "id": "struct_zaishuoyici",
+            "nombre": "Request repetition (請再說一次)",
+            "formula": "請 + 再 + V + 一次",
+            "ejemplo_tradicional": "請再說一次",
+            "ejemplo_pinyin": "qǐng zài shuō yí cì",
+            "ejemplo_espanol": "Please repeat it one more time",
+            "notas": "再 (zài) signals the repetition of an action towards the future ('again'). 一次 (yí cì) means 'once'.",
+            "nombre_en": "Request repetition (請再說一次)",
+            "ejemplo_english": "Please repeat it one more time",
+            "notas_en": "再 (zài) signals the repetition of an action towards the future ('again'). 一次 (yí cì) means 'once'."
+        },
+        {
+            "id": "struct_xiagelibaijian",
+            "nombre": "Farewell with a time frame (下個禮拜見)",
+            "formula": "[Tiempo] + 見",
+            "ejemplo_tradicional": "下個禮拜見",
+            "ejemplo_pinyin": "xià ge lǐbài jiàn",
+            "ejemplo_espanol": "See you next week",
+            "notas": "禮拜 (lǐbài) is used colloquially in Taiwan as an exact synonym for 星期 (xīngqī, week). 見 means to see or meet.",
+            "nombre_en": "Farewell with a time frame (下個禮拜見)",
+            "ejemplo_english": "See you next week",
+            "notas_en": "禮拜 (lǐbài) is used colloquially in Taiwan as an exact synonym for 星期 (xīngqī, week). 見 means to see or meet."
+        },
+        {
+            "id": "struct_mingtianjian",
+            "nombre": "Farewell for the next day (明天見)",
+            "formula": "明天 + 見",
+            "ejemplo_tradicional": "明天見",
+            "ejemplo_pinyin": "míngtiān jiàn",
+            "ejemplo_espanol": "See you tomorrow",
+            "notas": "Fixed everyday farewell formula in Chinese that specifies when they will meet again.",
+            "nombre_en": "Farewell for the next day (明天見)",
+            "ejemplo_english": "See you tomorrow",
+            "notas_en": "Fixed everyday farewell formula in Chinese that specifies when they will meet again."
+        },
+        {
+            "id": "struct_henduo_n",
+            "nombre": "Indefinite quantity with 很多 (Many + Noun)",
+            "formula": "(S + 有 +) 很多 + N",
+            "ejemplo_tradicional": "我們學校有很多學生",
+            "ejemplo_pinyin": "wǒmen xuéxiào yǒu hěn duō xuéshēng",
+            "ejemplo_espanol": "Our school has many students",
+            "notas": "很多 (hěn duō) modifies nouns directly without the need to insert a classifier (很多書 = many books, 很多人 = many people).",
+            "nombre_en": "Indefinite quantity with 很多 (Many + Noun)",
+            "ejemplo_english": "Our school has many students",
+            "notas_en": "很多 (hěn duō) modifies nouns directly without the need to insert a classifier (很多書 = many books, 很多人 = many people)."
+        },
+        {
+            "id": "struct_zainali",
+            "nombre": "Ask location with 在哪裡 (Where is S?)",
+            "formula": "S + 在哪裡？",
+            "ejemplo_tradicional": "教室在哪裡？",
+            "ejemplo_pinyin": "jiàoshì zài nǎlǐ?",
+            "ejemplo_espanol": "Where is the classroom?",
+            "notas": "在 (zài) expresses spatial location ('being in') and 哪裡 (nǎlǐ) is the interrogative pronoun of place ('where').",
+            "nombre_en": "Ask location with 在哪裡 (Where is S?)",
+            "ejemplo_english": "Where is the classroom?",
+            "notas_en": "在 (zài) expresses spatial location ('being in') and 哪裡 (nǎlǐ) is the interrogative pronoun of place ('where')."
+        },
+        {
+            "id": "struct_fecha_minguo",
+            "nombre": "Date in Taiwan Republican calendar (民國紀年)",
+            "formula": "民國 + [Año] + 年 + [Mes] + 月 + [Día] + 日 (號)",
+            "ejemplo_tradicional": "今天是民國115年9月27日",
+            "ejemplo_pinyin": "jīntiān shì Mínguó yībǎi yīshíliù nián jiǔ yuè èrshíqī rì",
+            "ejemplo_espanol": "Today is September 27 of the 115th year of the Republic of China",
+            "notas": "The calendar of the Republic of China (Minguo) begins in 1912 (year 1). Minguo Year = Gregorian Year - 1911 (ex: 2026 - 1911 = 115). In everyday oral speech, 號 (hào) is usually preferred instead of 日 (rì).",
+            "nombre_en": "Date in Taiwan Republican calendar (民國紀年)",
+            "ejemplo_english": "Today is September 27 of the 115th year of the Republic of China",
+            "notas_en": "The calendar of the Republic of China (Minguo) begins in 1912 (year 1). Minguo Year = Gregorian Year - 1911 (ex: 2026 - 1911 = 115). In everyday oral speech, 號 (hào) is usually preferred instead of 日 (rì)."
+        },
+        {
+            "id": "struct_fecha_estandar",
+            "nombre": "Gregorian Standard Date (Year-Month-Day)",
+            "formula": "[Año] + 年 + [Mes] + 月 + [Día] + 日 (號)",
+            "ejemplo_tradicional": "今天是2026年9月27日",
+            "ejemplo_pinyin": "jīntiān shì èrlíng'èrliù nián jiǔ yuè èrshíqī rì",
+            "ejemplo_espanol": "Today is September 27, 2026",
+            "notas": "The temporal order in Chinese always goes from greatest to least: 年 (year) → 月 (month) → 日/號 (day). Years are read digit by digit.",
+            "nombre_en": "Gregorian Standard Date (Year-Month-Day)",
+            "ejemplo_english": "Today is September 27, 2026",
+            "notas_en": "The temporal order in Chinese always goes from greatest to least: 年 (year) → 月 (month) → 日/號 (day). Years are read digit by digit."
+        },
+        {
+            "id": "struct_shenmeshihou",
+            "nombre": "Ask the moment with 什麼時候 (When?)",
+            "formula": "S + 什麼時候 + V (+ O)？",
+            "ejemplo_tradicional": "你什麼時候下課？",
+            "ejemplo_pinyin": "nǐ shénme shíhòu xiàkè?",
+            "ejemplo_espanol": "When do you leave class?",
+            "notas": "In Chinese grammar, the tense question 什麼時候 is always placed BEFORE the verb, never at the end of the sentence.",
+            "nombre_en": "Ask the moment with 什麼時候 (When?)",
+            "ejemplo_english": "When do you leave class?",
+            "notas_en": "In Chinese grammar, the tense question 什麼時候 is always placed BEFORE the verb, never at the end of the sentence."
+        },
+        {
+            "id": "struct_zenmequ_do",
+            "nombre": "Ask means of transportation and purpose (怎麼去...做...)",
+            "formula": "S + 怎麼 + 去 + [Lugar] + V (+ O)？",
+            "ejemplo_tradicional": "你怎麼去學校上課？",
+            "ejemplo_pinyin": "nǐ zěnme qù xuéxiào shàngkè?",
+            "ejemplo_espanol": "How do you go to school to take classes?",
+            "notas": "怎麼 (zěnme) questions the mode or means of transportation. It comes before 去 (qù - go), and the verb of purpose (上課) is placed at the end.",
+            "nombre_en": "Ask means of transportation and purpose (怎麼去...做...)",
+            "ejemplo_english": "How do you go to school to take classes?",
+            "notas_en": "怎麼 (zěnme) questions the mode or means of transportation. It comes before 去 (qù - go), and the verb of purpose (上課) is placed at the end."
+        },
+        {
+            "id": "struct_zenmequ_place",
+            "nombre": "Asking how to get to a place (怎麼去...)",
+            "formula": "S + 怎麼 + 去 + [Lugar]？",
+            "ejemplo_tradicional": "請問，怎麼去教室？",
+            "ejemplo_pinyin": "qǐngwèn, zěnme qù jiàoshì?",
+            "ejemplo_espanol": "Excuse me, how do you go to the classroom?",
+            "notas": "Essential pattern for requesting directions and routes to a specific destination point.",
+            "nombre_en": "Asking how to get to a place (怎麼去...)",
+            "ejemplo_english": "Excuse me, how do you go to the classroom?",
+            "notas_en": "Essential pattern for requesting directions and routes to a specific destination point."
+        },
+        {
+            "id": "struct_frecuencia_ci",
+            "nombre": "Temporal frequency of actions (Period + V + No. + 次)",
+            "formula": "S + [Período] + V + [Número] + 次",
+            "ejemplo_tradicional": "我一天喝三次茶",
+            "ejemplo_pinyin": "wǒ yì tiān hē sān cì chá",
+            "ejemplo_espanol": "I drink tea three times a day",
+            "notas": "次 (cì) acts as a verbal classifier of times/repetitions. The time frame (一天 = one day) precedes the verb, and the quantitative verbal complement ([No.]次) follows.",
+            "nombre_en": "Temporal frequency of actions (Period + V + No. + 次)",
+            "ejemplo_english": "I drink tea three times a day",
+            "notas_en": "次 (cì) acts as a verbal classifier of times/repetitions. The time frame (一天 = one day) precedes the verb, and the quantitative verbal complement ([No.]次) follows."
+        },
+        {
+            "id": "struct_adj_de_n",
+            "nombre": "Modification of noun with adjective and 的",
+            "formula": "(很 +) VS/Adj + 的 + N",
+            "ejemplo_tradicional": "很貴的茶",
+            "ejemplo_pinyin": "hěn guì de chá",
+            "ejemplo_espanol": "Very expensive tea / Expensive tea",
+            "notas": "When an adjective or state verb (VS) qualifies a noun, the particle 的 (of) is used as an obligatory attributive link.",
+            "nombre_en": "Modification of noun with adjective and 的",
+            "ejemplo_english": "Very expensive tea / Expensive tea",
+            "notas_en": "When an adjective or state verb (VS) qualifies a noun, the particle 的 (of) is used as an obligatory attributive link."
+        },
+        {
+            "id": "struct_dou_vs",
+            "nombre": "Total quality preaching with 都 (All are...)",
+            "formula": "S (plural) + 都 + (很 +) VS",
+            "ejemplo_tradicional": "這些書都很貴",
+            "ejemplo_pinyin": "zhèxiē shū dōu hěn guì",
+            "ejemplo_espanol": "All these books are expensive",
+            "notas": "都 (dōu) encompasses without exception the entire plural subject and is placed before the adjectival phrase or state verb.",
+            "nombre_en": "Total quality preaching with 都 (All are...)",
+            "ejemplo_english": "All these books are expensive",
+            "notas_en": "都 (dōu) encompasses without exception the entire plural subject and is placed before the adjectival phrase or state verb."
+        },
+        {
+            "id": "struct_dou_bu_vs",
+            "nombre": "Total negation with 都不 (None is...)",
+            "formula": "S (plural) + 都不 + VS",
+            "ejemplo_tradicional": "這些書都不貴",
+            "ejemplo_pinyin": "zhèxiē shū dōu bú guì",
+            "ejemplo_espanol": "None of these books are expensive",
+            "notas": "都 + 不 = 'all no/none'. The quality or action is denied in 100% of the elements that make up the subject.",
+            "nombre_en": "Total negation with 都不 (None is...)",
+            "ejemplo_english": "None of these books are expensive",
+            "notas_en": "都 + 不 = 'all no/none'. The quality or action is denied in 100% of the elements that make up the subject."
+        },
+        {
+            "id": "struct_bu_dou_vs",
+            "nombre": "Partial negation with 不都 (Not everyone is...)",
+            "formula": "S (plural) + 不都 + VS",
+            "ejemplo_tradicional": "這些書不都貴",
+            "ejemplo_pinyin": "zhèxiē shū bù dōu guì",
+            "ejemplo_espanol": "Not all of these books are expensive (some are and some are not)",
+            "notas": "不 + 都 = partial negation. Indicates that only a part of the set has the described property.",
+            "nombre_en": "Partial negation with 不都 (Not everyone is...)",
+            "ejemplo_english": "Not all of these books are expensive (some are and some are not)",
+            "notas_en": "不 + 都 = partial negation. Indicates that only a part of the set has the described property."
+        },
+        {
+            "id": "struct_qu_place_zuoshenme",
+            "nombre": "Ask purpose of visit (去...做什麼？)",
+            "formula": "S + 去 + [Lugar] + 做什麼？",
+            "ejemplo_tradicional": "你去教室做什麼？",
+            "ejemplo_pinyin": "nǐ qù jiàoshì zuò shénme?",
+            "ejemplo_espanol": "Why do you go to the classroom? / What are you going to do in the living room?",
+            "notas": "做什麼 (zuò shénme) means 'do what'. It is located at the end of the serial movement construction to find out the purpose or reason.",
+            "nombre_en": "Ask purpose of visit (去...做什麼？)",
+            "ejemplo_english": "Why do you go to the classroom? / What are you going to do in the living room?",
+            "notas_en": "做什麼 (zuò shénme) means 'do what'. It is located at the end of the serial movement construction to find out the purpose or reason."
+        },
+        {
+            "id": "struct_chibaolema",
+            "nombre": "Traditional food greeting (吃飽了嗎？)",
+            "formula": "(你 +) 吃飽了嗎？",
+            "ejemplo_tradicional": "你吃飽了嗎？",
+            "ejemplo_pinyin": "nǐ chī bǎo le ma?",
+            "ejemplo_espanol": "Did you eat yet? / Were you satisfied?",
+            "notas": "飽 (bǎo) expresses being satiated. In traditional Taiwanese and Chinese culture, asking if someone ate or was satisfied is an affectionate greeting of courtesy and closeness.",
+            "nombre_en": "Traditional food greeting (吃飽了嗎？)",
+            "ejemplo_english": "Did you eat yet? / Were you satisfied?",
+            "notas_en": "飽 (bǎo) expresses being satiated. In traditional Taiwanese and Chinese culture, asking if someone ate or was satisfied is an affectionate greeting of courtesy and closeness."
+        },
+        {
+            "id": "struct_nichilema",
+            "nombre": "Everyday food greeting (你吃了嗎？)",
+            "formula": "你 + 吃了嗎？",
+            "ejemplo_tradicional": "你吃了嗎？",
+            "ejemplo_pinyin": "nǐ chī le ma?",
+            "ejemplo_espanol": "Did you eat yet?",
+            "notas": "Common colloquial formula that works similarly to 'how are you?' or 'how are you?' at times around lunch or dinner.",
+            "nombre_en": "Everyday food greeting (你吃了嗎？)",
+            "ejemplo_english": "Did you eat yet?",
+            "notas_en": "Common colloquial formula that works similarly to 'how are you?' or 'how are you?' at times around lunch or dinner."
+        },
+        {
+            "id": "struct_l3_xihuan",
+            "nombre": "Express tastes and hobbies with 喜歡 (Xǐhuān)",
+            "formula": "S + 喜歡 (+ 不喜歡) + (V +) O",
+            "ejemplo_tradicional": "我喜歡聽音樂，不喜歡運動",
+            "ejemplo_pinyin": "wǒ xǐhuān tīng yīnyuè, bù xǐhuān yùndòng",
+            "ejemplo_espanol": "I like to listen to music, I don't like to exercise",
+            "notas": "喜歡 is used with both direct nouns and complete verb phrases. To ask you can use 嗎 (你喜歡聽音樂嗎？) or the V-no-V form (你喜歡不喜歡游泳？).",
+            "nombre_en": "Express tastes and hobbies with 喜歡 (Xǐhuān)",
+            "ejemplo_english": "I like to listen to music, I don't like to exercise",
+            "notas_en": "喜歡 is used with both direct nouns and complete verb phrases. To ask you can use 嗎 (你喜歡聽音樂嗎？) or the V-no-V form (你喜歡不喜歡游泳？)."
+        },
+        {
+            "id": "struct_l3_da_ti_deportes",
+            "nombre": "Hand sports (打) vs. foot sports (踢)",
+            "formula": "打 + [Deporte con manos / bate] / 踢 + [Deporte con pies]",
+            "ejemplo_tradicional": "他喜歡打網球和踢足球",
+            "ejemplo_pinyin": "tā xǐhuān dǎ wǎngqiú hàn tī zúqiú",
+            "ejemplo_espanol": "He likes to play tennis and soccer",
+            "notas": "In Mandarin, ball sports are differentiated by the body action verb: 打 (dǎ) for hands/racket/bat (打棒球, 打網球, 打籃球) and 踢 (tī) for feet (踢足球).",
+            "nombre_en": "Hand sports (打) vs. foot sports (踢)",
+            "ejemplo_english": "He likes to play tennis and soccer",
+            "notas_en": "In Mandarin, ball sports are differentiated by the body action verb: 打 (dǎ) for hands/racket/bat (打棒球, 打網球, 打籃球) and 踢 (tī) for feet (踢足球)."
+        },
+        {
+            "id": "struct_l3_haishi_pregunta",
+            "nombre": "Alternative disjunctive question with 還是 (Option A or B?)",
+            "formula": "S + V + Opción A + 還是 (+ V) + Opción B？",
+            "ejemplo_tradicional": "妳想看美國電影還是臺灣電影？",
+            "ejemplo_pinyin": "nǐ xiǎng kàn Měiguó diànyǐng háishì Táiwān diànyǐng?",
+            "ejemplo_espanol": "Do you want to watch an American movie or a Taiwanese movie?",
+            "notas": "還是 (háishì) is used EXCLUSIVELY in questions with exclusive options ('A or B?'). You should never use 還是 in affirmative sentences (for which 或者 huòzhě is used).",
+            "nombre_en": "Alternative disjunctive question with 還是 (Option A or B?)",
+            "ejemplo_english": "Do you want to watch an American movie or a Taiwanese movie?",
+            "notas_en": "還是 (háishì) is used EXCLUSIVELY in questions with exclusive options ('A or B?'). You should never use 還是 in affirmative sentences (for which 或者 huòzhě is used)."
+        },
+        {
+            "id": "struct_l3_propuesta_zenmeyang",
+            "nombre": "Make proposals and consult opinions with...，怎麼樣？",
+            "formula": "[Plan / Propuesta temporal y de acción]，怎麼樣？",
+            "ejemplo_tradicional": "明天是週末，我們早上去踢足球，怎麼樣？",
+            "ejemplo_pinyin": "míngtiān shì zhōumò, wǒmen zǎoshàng qù tī zúqiú, zěnmeyàng?",
+            "ejemplo_espanol": "Tomorrow is the weekend, how about we go play soccer in the morning?",
+            "notas": "The complete proposal is presented first (often with the subject we 我們 and time frame) and is closed with 怎麼樣？ to politely request the opinion of the interlocutor.",
+            "nombre_en": "Make proposals and consult opinions with...，怎麼樣？",
+            "ejemplo_english": "Tomorrow is the weekend, how about we go play soccer in the morning?",
+            "notas_en": "The complete proposal is presented first (often with the subject we 我們 and time frame) and is closed with 怎麼樣？ to politely request the opinion of the interlocutor."
+        },
+        {
+            "id": "struct_l3_propuesta_haobuhao",
+            "nombre": "Invitations and search according to...，好不好？",
+            "formula": "[Plan / Propuesta de acción]，好不好？",
+            "ejemplo_tradicional": "今天晚上我們去看電影，好不好？",
+            "ejemplo_pinyin": "jīntiān wǎnshàng wǒmen qù kàn diànyǐng, hǎo bù hǎo?",
+            "ejemplo_espanol": "Let's go to the movies tonight, is that okay?",
+            "notas": "It is a direct invitation using the V-not-V formula applied to 好 (good). The natural and enthusiastic affirmative response is 好啊！ (Okay!).",
+            "nombre_en": "Invitations and search according to...，好不好？",
+            "ejemplo_english": "Let's go to the movies tonight, is that okay?",
+            "notas_en": "It is a direct invitation using the V-not-V formula applied to 好 (good). The natural and enthusiastic affirmative response is 好啊！ (Okay!)."
+        },
+        {
+            "id": "struct_l3_particula_ba",
+            "nombre": "Suggestion and hortatory proposal with the particle 吧",
+            "formula": "S + V (+ O) + 吧！",
+            "ejemplo_tradicional": "我們看臺灣電影吧！",
+            "ejemplo_pinyin": "wǒmen kàn Táiwān diànyǐng ba!",
+            "ejemplo_espanol": "Let's watch a Taiwanese movie!",
+            "notas": "The final particle 吧 attenuates imposition, turning a statement into a shared suggestion ('let's...', 'let's do it!'). Very common to make a decision in a group after discussing options.",
+            "nombre_en": "Suggestion and hortatory proposal with the particle 吧",
+            "ejemplo_english": "Let's watch a Taiwanese movie!",
+            "notas_en": "The final particle 吧 attenuates imposition, turning a statement into a shared suggestion ('let's...', 'let's do it!'). Very common to make a decision in a group after discussing options."
+        },
+        {
+            "id": "struct_l3_xiang_deseo",
+            "nombre": "Auxiliary verb of desire/intention with 想 (Want + V)",
+            "formula": "S + 想 (+ 不想) + V + O",
+            "ejemplo_tradicional": "今天晚上我想吃越南菜",
+            "ejemplo_pinyin": "jīntiān wǎnshàng wǒ xiǎng chī Yuènán cài",
+            "ejemplo_espanol": "Tonight I feel like eating Vietnamese food / I want to eat Vietnamese food",
+            "notas": "想 placed before a main verb functions as a modal auxiliary of voluntary desire or gusto ('to feel like'). Its negation is 不想 (not feeling like it).",
+            "nombre_en": "Auxiliary verb of desire/intention with 想 (Want + V)",
+            "ejemplo_english": "Tonight I feel like eating Vietnamese food / I want to eat Vietnamese food",
+            "notas_en": "想 placed before a main verb functions as a modal auxiliary of voluntary desire or gusto ('to feel like'). Its negation is 不想 (not feeling like it)."
+        },
+        {
+            "id": "struct_l3_keyi_posibilidad",
+            "nombre": "Possibility and ability with the auxiliary 可以 (Power + V)",
+            "formula": "S + 可以 + V + O",
+            "ejemplo_tradicional": "看電影可以學中文",
+            "ejemplo_pinyin": "kàn diànyǐng kěyǐ xué Zhōngwén",
+            "ejemplo_espanol": "By watching movies you can learn Chinese / watching movies helps you learn Chinese",
+            "notas": "可以 indicates that the circumstance allows the action to be carried out, or that an action facilitates a benefit or result.",
+            "nombre_en": "Possibility and ability with the auxiliary 可以 (Power + V)",
+            "ejemplo_english": "By watching movies you can learn Chinese / watching movies helps you learn Chinese",
+            "notas_en": "可以 indicates that the circumstance allows the action to be carried out, or that an action facilitates a benefit or result."
+        },
+        {
+            "id": "struct_l3_yiqi_juntos",
+            "nombre": "Joint action in company with 一起 (Together + V)",
+            "formula": "S + 一起 + V + O",
+            "ejemplo_tradicional": "晚上要不要一起吃晚飯？",
+            "ejemplo_pinyin": "wǎnshàng yào bú yào yìqǐ chī wǎnfàn?",
+            "ejemplo_espanol": "Shall we have dinner together tonight? / Do you want us to eat dinner together?",
+            "notas": "The adverb 一起 (yìqǐ) immediately precedes the verbal phrase and expresses that the subjects carry out the action in a shared manner.",
+            "nombre_en": "Joint action in company with 一起 (Together + V)",
+            "ejemplo_english": "Shall we have dinner together tonight? / Do you want us to eat dinner together?",
+            "notas_en": "The adverb 一起 (yìqǐ) immediately precedes the verbal phrase and expresses that the subjects carry out the action in a shared manner."
+        },
+        {
+            "id": "struct_l3_chang_ye",
+            "nombre": "Cumulative habitual frequency with 常 and 也常",
+            "formula": "S + 常 + V1 (+ O1)，也常 + V2 (+ O2)",
+            "ejemplo_tradicional": "我常打籃球，也常踢足球",
+            "ejemplo_pinyin": "wǒ cháng dǎ lánqiú, yě cháng tī zúqiú",
+            "ejemplo_espanol": "I play basketball often and I also usually play soccer.",
+            "notas": "常 expresses positive habituality ('often / frequently'). When two common activities are added it is combined with 也 (also): 也常. Its opposite is 不常 (rarely / not very often).",
+            "nombre_en": "Cumulative habitual frequency with 常 and 也常",
+            "ejemplo_english": "I play basketball often and I also usually play soccer.",
+            "notas_en": "常 expresses positive habituality ('often / frequently'). When two common activities are added it is combined with 也 (also): 也常. Its opposite is 不常 (rarely / not very often)."
+        },
+        {
+            "id": "struct_l5_zui_superlativo",
+            "nombre": "Superlative of degree and preference with 最 (The most / What most)",
+            "formula": "S + 最 + V-ps / Vs (+ O)",
+            "ejemplo_tradicional": "你最喜歡吃什麼？我最喜歡吃牛肉麵",
+            "ejemplo_pinyin": "Nǐ zuì xǐhuān chī shénme? Wǒ zuì xǐhuān chī niúròu miàn",
+            "ejemplo_espanol": "What do you like to eat the most? My favorite thing to eat is beef noodles.",
+            "notas": "The superlative adverb 最 (zuì) is placed directly before affective or psychological verbs (e.g. 最喜歡, 最想, 最怕) or state adjectives (e.g. 最好吃, 最有名, 最貴) to indicate the maximum degree ('the most...', 'whatever more...').",
+            "nombre_en": "Superlative of degree and preference with 最 (The most / What most)",
+            "ejemplo_english": "What do you like to eat the most? My favorite thing to eat is beef noodles.",
+            "notas_en": "The superlative adverb 最 (zuì) is placed directly before affective or psychological verbs (e.g. 最喜歡, 最想, 最怕) or state adjectives (e.g. 最好吃, 最有名, 最貴) to indicate the maximum degree ('the most...', 'whatever more...')."
+        },
+        {
+            "id": "struct_l5_zheme_grado",
+            "nombre": "Emphatic demonstrative adverb of degree with 這麼 (Tan... / Así de...)",
+            "formula": "這麼 + Vs (+ ，S + ...)",
+            "ejemplo_tradicional": "這家店的菜這麼好吃，我很想去吃",
+            "ejemplo_pinyin": "Zhè jiā diàn de cài zhème hǎochī, wǒ hěn xiǎng qù chī",
+            "ejemplo_espanol": "The food in this store is so delicious that I really want to go eat",
+            "notas": "這麼 (zhème) precedes descriptive adjectives to express a high and obvious degree or recently mentioned in conversation ('so tasty', 'so expensive'). In causal-consecutive sentences, the first clause frequently opens to justify the subsequent desire or reaction.",
+            "nombre_en": "Emphatic demonstrative adverb of degree with 這麼 (Tan... / Así de...)",
+            "ejemplo_english": "The food in this store is so delicious that I really want to go eat",
+            "notas_en": "這麼 (zhème) precedes descriptive adjectives to express a high and obvious degree or recently mentioned in conversation ('so tasty', 'so expensive'). In causal-consecutive sentences, the first clause frequently opens to justify the subsequent desire or reaction."
+        },
+        {
+            "id": "struct_l5_yiding_yao",
+            "nombre": "Determination or essential recommendation with 一定要 (Without fail you have to...)",
+            "formula": "S + 一定(要) + V (+ O)",
+            "ejemplo_tradicional": "我們明天去，一定要點大碗的",
+            "ejemplo_pinyin": "Wǒmen míngtiān qù, yídìng yào diǎn dà wǎn de",
+            "ejemplo_espanol": "Let's go tomorrow; without fail we have to order the big bowl",
+            "notas": "一定 (yídìng = definitely / without a doubt) combined with 要 (yào) expresses a firm resolution or imperative advice ('without fail you must...', 'it is essential...'). Its negative form for 'not necessarily' is 不一定 (bù yídìng).",
+            "nombre_en": "Determination or essential recommendation with 一定要 (Without fail you have to...)",
+            "ejemplo_english": "Let's go tomorrow; without fail we have to order the big bowl",
+            "notas_en": "一定 (yídìng = definitely / without a doubt) combined with 要 (yào) expresses a firm resolution or imperative advice ('without fail you must...', 'it is essential...'). Its negative form for 'not necessarily' is 不一定 (bù yídìng)."
+        },
+        {
+            "id": "struct_l5_de_nominalizacion",
+            "nombre": "Descriptive nominalization and ellipsis with 的 (El/la [adjective])",
+            "formula": "Modificador / Clasificador + 的 (+ [Sustantivo elidido])",
+            "ejemplo_tradicional": "這家店的牛肉麵很好吃，請給我一碗大碗的",
+            "ejemplo_pinyin": "Zhè jiā diàn de niúròu miàn hěn hǎochī, qǐng gěi wǒ yì wǎn dà wǎn de",
+            "ejemplo_espanol": "The beef noodles in this store are delicious, please give me a big bowl",
+            "notas": "When the object has already been introduced in the context of the conversation (such as 'noodles' or 'plate'), the particle 的 allows the noun to be omitted, creating an autonomous noun phrase equivalent to 'the big one', 'the spicy one' or 'the meat one' (e.g. 大碗的 = the big bowl).",
+            "nombre_en": "Descriptive nominalization and ellipsis with 的 (El/la [adjective])",
+            "ejemplo_english": "The beef noodles in this store are delicious, please give me a big bowl",
+            "notas_en": "When the object has already been introduced in the context of the conversation (such as 'noodles' or 'plate'), the particle 的 allows the noun to be omitted, creating an autonomous noun phrase equivalent to 'the big one', 'the spicy one' or 'the meat one' (e.g. 大碗的 = the big bowl)."
+        },
+        {
+            "id": "struct_l5_keshi_contraste",
+            "nombre": "Contrast or soft objection with the conjunction 可是 (But / However)",
+            "formula": "Cláusula 1，可是 + Cláusula 2",
+            "ejemplo_tradicional": "那家餐廳的菜很好吃，可是有一點辣",
+            "ejemplo_pinyin": "Nà jiā cāntīng de cài hěn hǎochī, kěshì yǒu yìdiǎn là",
+            "ejemplo_espanol": "The food at that restaurant is very delicious, but it is a little spicy.",
+            "notas": "可是 (kěshì) introduces a second clause that gently qualifies, restricts, or contrasts the previous information. It is extremely common in colloquial speech to express mitigated objections or polite buts.",
+            "nombre_en": "Contrast or soft objection with the conjunction 可是 (But / However)",
+            "ejemplo_english": "The food at that restaurant is very delicious, but it is a little spicy.",
+            "notas_en": "可是 (kěshì) introduces a second clause that gently qualifies, restricts, or contrasts the previous information. It is extremely common in colloquial speech to express mitigated objections or polite buts."
+        },
+        {
+            "id": "struct_l5_youyidian_grado",
+            "nombre": "Moderate degree with unfavorable connotation with 有一點 (A little [too much])",
+            "formula": "S + 有一點 + Vs",
+            "ejemplo_tradicional": "這碗湯有一點辣，我喝很少",
+            "ejemplo_pinyin": "Zhè wǎn tāng yǒu yìdiǎn là, wǒ hē hěn shǎo",
+            "ejemplo_espanol": "This soup is a little spicy, I take very little",
+            "notas": "有一點 (yǒu yì diǎn) precedes descriptive adjectives indicating a mild degree of a quality, generally with a negative meaning, annoying excess or discomfort ('a little expensive', 'a little spicy', 'a little tired'). It is distinguished from 一點 (yìdiǎn) in that the latter modifies nouns such as quantity (e.g. 吃一點菜 = eat a little food).",
+            "nombre_en": "Moderate degree with unfavorable connotation with 有一點 (A little [too much])",
+            "ejemplo_english": "This soup is a little spicy, I take very little",
+            "notas_en": "有一點 (yǒu yì diǎn) precedes descriptive adjectives indicating a mild degree of a quality, generally with a negative meaning, annoying excess or discomfort ('a little expensive', 'a little spicy', 'a little tired'). It is distinguished from 一點 (yìdiǎn) in that the latter modifies nouns such as quantity (e.g. 吃一點菜 = eat a little food)."
+        },
+        {
+            "id": "struct_l5_suoyi_consecuencia",
+            "nombre": "Consequence and result with the conjunction 所以 (Therefore / So)",
+            "formula": "(因為 + Causa，) S + 所以 + Consecuencia",
+            "ejemplo_tradicional": "我也怕辣，所以我喜歡自己做飯",
+            "ejemplo_pinyin": "Wǒ yě pà là, suǒyǐ wǒ xǐhuān zìjǐ zuòfàn",
+            "ejemplo_espanol": "I'm also afraid of spicy food, that's why I like to cook myself.",
+            "notas": "所以 (suǒyǐ) introduces the consequence of the previous premise. In everyday conversations the causal clause introduced by 因為 (yīnwèi) is often omitted, starting the second sentence directly with 所以 to thread everyday causes.",
+            "nombre_en": "Consequence and result with the conjunction 所以 (Therefore / So)",
+            "ejemplo_english": "I'm also afraid of spicy food, that's why I like to cook myself.",
+            "notas_en": "所以 (suǒyǐ) introduces the consequence of the previous premise. In everyday conversations the causal clause introduced by 因為 (yīnwèi) is often omitted, starting the second sentence directly with 所以 to thread everyday causes."
+        },
+        {
+            "id": "struct_l5_ziji_accion",
+            "nombre": "Personal and autonomous action with 自己 (Do something oneself / on one's own)",
+            "formula": "S + 自己 (+ 一個人) + V (+ O)",
+            "ejemplo_tradicional": "週末我常常自己做飯，不常去餐廳",
+            "ejemplo_pinyin": "Zhōumò wǒ chángcháng zìjǐ zuòfàn, bù cháng qù cāntīng",
+            "ejemplo_espanol": "On weekends I usually cook myself, I don't usually go to restaurants",
+            "notas": "自己 (zìjǐ) is placed directly before the verb to highlight that the subject carries out the action on his own initiative, personally or without requiring the intervention of third parties ('myself', 'on his own').",
+            "nombre_en": "Personal and autonomous action with 自己 (Do something oneself / on one's own)",
+            "ejemplo_english": "On weekends I usually cook myself, I don't usually go to restaurants",
+            "notas_en": "自己 (zìjǐ) is placed directly before the verb to highlight that the subject carries out the action on his own initiative, personally or without requiring the intervention of third parties ('myself', 'on his own')."
+        },
+        {
+            "id": "struct_l5_de_zenmeyang",
+            "nombre": "Ask about the quality or evaluation of an action with 得怎麼樣",
+            "formula": "S (+ O) + V + 得 + 怎麼樣？ / S + V-O + V + 得 + 怎麼樣？",
+            "ejemplo_tradicional": "你做飯做得怎麼樣？",
+            "ejemplo_pinyin": "Nǐ zuòfàn zuò de zěnmeyàng?",
+            "ejemplo_espanol": "How are you cooking? / How does the food turn out when you cook?",
+            "notas": "Classical interrogative structure with the degree particle 得 (de). If the verb takes an object or is a separable verb like 做飯 (zuòfàn), the verb can be repeated after the object (做飯做得怎麼樣？) or the object can be placed at the beginning as a topic (飯你做得怎麼樣？).",
+            "nombre_en": "Ask about the quality or evaluation of an action with 得怎麼樣",
+            "ejemplo_english": "How are you cooking? / How does the food turn out when you cook?",
+            "notas_en": "Classical interrogative structure with the degree particle 得 (de). If the verb takes an object or is a separable verb like 做飯 (zuòfàn), the verb can be repeated after the object (做飯做得怎麼樣？) or the object can be placed at the beginning as a topic (飯你做得怎麼樣？)."
+        },
+        {
+            "id": "struct_l5_de_evaluacion",
+            "nombre": "Complement of degree and verbal evaluation with 得 (Verb + 得 + Adjective)",
+            "formula": "S (+ O) + V + 得 + [Adverbio] + Vs / S + V + 得 + 不 + Vs",
+            "ejemplo_tradicional": "我做飯做得不好，可是甜點做得不錯",
+            "ejemplo_pinyin": "Wǒ zuòfàn zuò de bù hǎo, kěshì tiándiǎn zuò de búcuò",
+            "ejemplo_espanol": "I cook poorly, but I prepare desserts quite well.",
+            "notas": "The particle 得 connects a verb with a complement that describes the way, degree or quality with which the action is performed. In affirmative sentences it requires a modifying adverb (很, 真, 相當, 不錯) before the adjective. In negation, the particle 不 is necessarily placed AFTER 得 (e.g. 做得不好, not *不做得到).",
+            "nombre_en": "Complement of degree and verbal evaluation with 得 (Verb + 得 + Adjective)",
+            "ejemplo_english": "I cook poorly, but I prepare desserts quite well.",
+            "notas_en": "The particle 得 connects a verb with a complement that describes the way, degree or quality with which the action is performed. In affirmative sentences it requires a modifying adverb (很, 真, 相當, 不錯) before the adjective. In negation, the particle 不 is necessarily placed AFTER 得 (e.g. 做得不好, not *不做得到)."
+        },
+        {
+            "id": "struct_l5_hui_habilidad",
+            "nombre": "Capacity or skill learned with the modal auxiliary 會 (Know + V)",
+            "formula": "S + 會 (+ 不會) + V (+ O) (+ 嗎？) — (S +) 會 / 不會",
+            "ejemplo_tradicional": "妳會做飯嗎？ — 會，我會做飯",
+            "ejemplo_pinyin": "Nǐ huì zuòfàn ma? — Huì, wǒ huì zuòfàn",
+            "ejemplo_espanol": "Do you know how to cook? — Yes, I know how to cook",
+            "notas": "會 (huì) expresses skills that are learned through study, training or constant practice (languages, cooking, sports). To deny, 不會 (bú huì) is used. For direct questions you can use the particle 嗎 or the affirmative-negative form 會不會.",
+            "nombre_en": "Capacity or skill learned with the modal auxiliary 會 (Know + V)",
+            "ejemplo_english": "Do you know how to cook? — Yes, I know how to cook",
+            "notas_en": "會 (huì) expresses skills that are learned through study, training or constant practice (languages, cooking, sports). To deny, 不會 (bú huì) is used. For direct questions you can use the particle 嗎 or the affirmative-negative form 會不會."
+        },
+        {
+            "id": "struct_l5_keyi_jiao",
+            "nombre": "Polite request for teaching with 教 (Could you teach me how to...?)",
+            "formula": "S + 可以 + 教 + O1 (persona) + O2 (habilidad / V) + 嗎？",
+            "ejemplo_tradicional": "我最喜歡吃甜點，妳可以教我做甜點嗎？",
+            "ejemplo_pinyin": "Wǒ zuì xǐhuān chī tiándiǎn, nǐ kěyǐ jiāo wǒ zuò tiándiǎn ma?",
+            "ejemplo_espanol": "What I like to eat the most are desserts, could you teach me how to prepare desserts?",
+            "notas": "It combines the modal auxiliary verb 可以 (possibility and polite request) with the double object verb 教 (jiāo = teach). The first object is the person who is taught and the second object is the subject or action that is taught.",
+            "nombre_en": "Polite request for teaching with 教 (Could you teach me how to...?)",
+            "ejemplo_english": "What I like to eat the most are desserts, could you teach me how to prepare desserts?",
+            "notas_en": "It combines the modal auxiliary verb 可以 (possibility and polite request) with the double object verb 教 (jiāo = teach). The first object is the person who is taught and the second object is the subject or action that is taught."
+        },
+        {
+            "id": "struct_l5_dao_lugar_laiqu",
+            "nombre": "Moving to a destination with 到...來/去 (Arrive/go to a place)",
+            "formula": "S (+ Tiempo) + 到 + Lugar + 來 / 去 (+ V)",
+            "ejemplo_tradicional": "這個週末，你到我家來做飯",
+            "ejemplo_pinyin": "Zhè ge zhōumò, nǐ dào wǒ jiā lái zuòfàn",
+            "ejemplo_espanol": "This weekend come to my house to cook",
+            "notas": "到 (dào) introduces the spatial destination ('to/to'). It is combined with the deictic verbs of movement 來 (lái = come towards the speaker) or 去 (qù = go away from the speaker). Additionally, it can be chained with a second verb to indicate the purpose of the visit.",
+            "nombre_en": "Moving to a destination with 到...來/去 (Arrive/go to a place)",
+            "ejemplo_english": "This weekend come to my house to cook",
+            "notas_en": "到 (dào) introduces the spatial destination ('to/to'). It is combined with the deictic verbs of movement 來 (lái = come towards the speaker) or 去 (qù = go away from the speaker). Additionally, it can be chained with a second verb to indicate the purpose of the visit."
+        }
+    ],
+    "meta": {
+        "version": "2.4.0",
+        "ultimaEdicion": "2026-09-27"
+    },
+    "adjetivos": [
+        {
+            "espanol": "This",
+            "tradicional": "這",
+            "pinyin": "zhè",
+            "zhuyin": "ㄓㄜˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "言 (yán - word)"
+                }
+            ],
+            "notas": "Demonstrative of proximity. Before classifiers, zhèi is frequently pronounced in colloquial speech: 這個人, 這張照片.",
+            "ejemplos": [
+                "這是我的家 — This is my house",
+                "這張照片很漂亮 — This photo is very beautiful"
+            ],
+            "id": "id_msk0jitk_kr6cx",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 1,
+            "english": "This",
+            "notas_en": "Demonstrative of proximity. Before classifiers, zhèi is frequently pronounced in colloquial speech: 這個人, 這張照片.",
+            "ejemplos_en": [
+                "這是我的家 — This is my house",
+                "這張照片很漂亮 — This photo is very beautiful"
+            ]
+        },
+        {
+            "espanol": "That",
+            "tradicional": "那",
+            "pinyin": "nà",
+            "zhuyin": "ㄋㄚˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "冉 (rǎn - beard)"
+                },
+                {
+                    "type": "text",
+                    "value": "阝 (yì - city)"
+                }
+            ],
+            "notas": "Demonstrative of distance. Before classifiers, nèi is commonly pronounced in everyday speech: 那個人, 那本書.",
+            "ejemplos": [
+                "那是他的房子 — That is your house",
+                "那是誰的照片？ — Whose photo is that?"
+            ],
+            "id": "id_msk0mdne_r4neq",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 4,
+            "english": "That",
+            "notas_en": "Demonstrative of distance. Before classifiers, nèi is commonly pronounced in everyday speech: 那個人, 那本書.",
+            "ejemplos_en": [
+                "那是他的房子 — That is your house",
+                "那是誰的照片？ — Whose photo is that?"
+            ]
+        },
+        {
+            "espanol": "Little",
+            "tradicional": "小",
+            "pinyin": "xiǎo",
+            "zhuyin": "ㄒㄧㄠˇ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - little)"
+                }
+            ],
+            "notas": "Pictogram of three tiny divided particles. Direct antonym of 大 (dà).",
+            "id": "id_mtjn1fxk_bdhc0",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "那隻貓很小 — That cat is very small",
+                "小心！ — Careful!",
+                "那間教室很小 — That classroom is very small"
+            ],
+            "leccion": 4,
+            "english": "Little",
+            "notas_en": "Pictogram of three tiny divided particles. Direct antonym of 大 (dà).",
+            "ejemplos_en": [
+                "那隻貓很小 — That cat is very small",
+                "小心！ — Careful!",
+                "那間教室很小 — That classroom is very small"
+            ]
+        },
+        {
+            "espanol": "Big",
+            "tradicional": "大",
+            "pinyin": "dà",
+            "zhuyin": "ㄉㄚˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "大 (dà - big)"
+                }
+            ],
+            "notas": "Frontal pictogram of a human being with open arms and legs taking up space. Antonym of 小 (xiǎo).",
+            "id": "id_mtjn41m4_7ohc2",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "這棟房子很大 — This house is very big",
+                "大人 — Adult",
+                "這間教室很大 — This classroom is very big"
+            ],
+            "leccion": 4,
+            "english": "Big",
+            "notas_en": "Frontal pictogram of a human being with open arms and legs taking up space. Antonym of 小 (xiǎo).",
+            "ejemplos_en": [
+                "這棟房子很大 — This house is very big",
+                "大人 — Adult",
+                "這間教室很大 — This classroom is very big"
+            ]
+        },
+        {
+            "espanol": "Medium",
+            "tradicional": "中",
+            "pinyin": "zhōng",
+            "zhuyin": "ㄓㄨㄥ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "中 (zhōng - center)"
+                }
+            ],
+            "notas": "Pictogram of an arrow stuck in the exact center of a target. Base of 中國 (China) and 中文 (Chinese language).",
+            "id": "id_mtjn2p70_9qg74",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "中國 — China",
+                "中午 — Noon"
+            ],
+            "leccion": 4,
+            "english": "Medium",
+            "notas_en": "Pictogram of an arrow stuck in the exact center of a target. Base of 中國 (China) and 中文 (Chinese language).",
+            "ejemplos_en": [
+                "中國 — China",
+                "中午 — Noon"
+            ]
+        },
+        {
+            "espanol": "Careful",
+            "tradicional": "小心",
+            "pinyin": "xiǎoxīn",
+            "zhuyin": "ㄒㄧㄠˇ ㄒㄧㄣ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn1fxk_bdhc0"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                }
+            ],
+            "notas": "Mnemonics: keep your heart attentive to the small details so as not to stumble. Common expression: 請小心 (be careful).",
+            "id": "id_mtlt4lvg_tyx86",
+            "fechaCreacion": "2026-09-03",
+            "english": "Careful",
+            "notas_en": "Mnemonics: keep your heart attentive to the small details so as not to stumble. Common expression: 請小心 (be careful)."
+        },
+        {
+            "espanol": "Well",
+            "tradicional": "好",
+            "pinyin": "hǎo",
+            "zhuyin": "ㄏㄠˇ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - son)"
+                }
+            ],
+            "notas": "A mother 女 with her child 子 in her arms symbolizing harmony. Before verbs it denotes sensory pleasure: 好看 (cute), 好吃 (rich).",
+            "id": "id_mtvg8jtu_74jmp",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "你好 — Hello",
+                "烏龍茶很好喝 — Oolong tea is very delicious",
+                "好，我們走 — Okay, let's go"
+            ],
+            "leccion": 1,
+            "english": "Well",
+            "notas_en": "A mother 女 with her child 子 in her arms symbolizing harmony. Before verbs it denotes sensory pleasure: 好看 (cute), 好吃 (rich).",
+            "ejemplos_en": [
+                "你好 — Hello",
+                "烏龍茶很好喝 — Oolong tea is very delicious",
+                "好，我們走 — Okay, let's go"
+            ]
+        },
+        {
+            "id": "id_mty009_haohe",
+            "espanol": "Rich (drink)",
+            "tradicional": "好喝",
+            "pinyin": "hǎohē",
+            "zhuyin": "ㄏㄠˇ ㄏㄜ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msr421dy_83jqz"
+                }
+            ],
+            "notas": "Composed of 好 (good) and 喝 (drink). It applies exclusively to the pleasant taste of liquids and beverages (tea, coffee, juices).",
+            "ejemplos": [
+                "臺灣烏龍茶很好喝 — Taiwan Oolong tea is very delicious",
+                "咖啡好喝嗎？ — Is the coffee delicious?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "english": "Rich (drink)",
+            "notas_en": "Composed of 好 (good) and 喝 (drink). It applies exclusively to the pleasant taste of liquids and beverages (tea, coffee, juices).",
+            "ejemplos_en": [
+                "臺灣烏龍茶很好喝 — Taiwan Oolong tea is very delicious",
+                "咖啡好喝嗎？ — Is the coffee delicious?"
+            ]
+        },
+        {
+            "id": "id_mty021_piaoliang",
+            "espanol": "Beautiful",
+            "tradicional": "漂亮",
+            "pinyin": "piàoliang",
+            "zhuyin": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "票 (piào - ticket)"
+                },
+                {
+                    "type": "text",
+                    "value": "亮 (liàng - bright)"
+                }
+            ],
+            "notas": "Originally bright and clear flowing water. Common adjective for attractive people, clothes, landscapes or photos.",
+            "ejemplos": [
+                "你家很漂亮 — Your house is very nice",
+                "這張照片很漂亮 — This photo is very beautiful"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Beautiful",
+            "notas_en": "Originally bright and clear flowing water. Common adjective for attractive people, clothes, landscapes or photos.",
+            "ejemplos_en": [
+                "你家很漂亮 — Your house is very nice",
+                "這張照片很漂亮 — This photo is very beautiful"
+            ]
+        },
+        {
+            "id": "id_mty023_duo",
+            "espanol": "A lot",
+            "tradicional": "多",
+            "pinyin": "duō",
+            "zhuyin": "ㄉㄨㄛ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "夕 (xī - evening/moon)"
+                },
+                {
+                    "type": "text",
+                    "value": "夕 (xī - evening/moon)"
+                }
+            ],
+            "notas": "Two superimposed crescent moons symbolizing accumulation and abundance. Antonym of 少 (shǎo).",
+            "ejemplos": [
+                "他有很多書 — He has many books",
+                "這裡人很多 — There are many people here"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "A lot",
+            "notas_en": "Two superimposed crescent moons symbolizing accumulation and abundance. Antonym of 少 (shǎo).",
+            "ejemplos_en": [
+                "他有很多書 — He has many books",
+                "這裡人很多 — There are many people here"
+            ]
+        },
+        {
+            "id": "id_mty026_haokan",
+            "espanol": "Pretty",
+            "tradicional": "好看",
+            "pinyin": "hǎokàn",
+            "zhuyin": "ㄏㄠˇ ㄎㄢˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mty001_kan"
+                }
+            ],
+            "notas": "Composed of 好 (good) and 看 (look). It applies to entertaining movies, attractive clothes or good-looking people.",
+            "ejemplos": [
+                "這張照片很好看 — This photo is very nice",
+                "這本書很好看 — This book is very good/interesting"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Pretty",
+            "notas_en": "Composed of 好 (good) and 看 (look). It applies to entertaining movies, attractive clothes or good-looking people.",
+            "ejemplos_en": [
+                "這張照片很好看 — This photo is very nice",
+                "這本書很好看 — This book is very good/interesting"
+            ]
+        },
+        {
+            "id": "id_voc_keai",
+            "espanol": "Tender",
+            "tradicional": "可愛",
+            "pinyin": "kě'ài",
+            "zhuyin": "ㄎㄜˇ ㄞˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - can)"
+                },
+                {
+                    "type": "ref",
+                    "id": "v2"
+                }
+            ],
+            "notas": "Literally 'worthy of being loved'. Describes tenderness and charm in pets, children or affectionate gestures.",
+            "ejemplos": [
+                "這隻小貓真可愛 — This kitten is truly adorable",
+                "她笑起來很可愛 — She is very tender when she smiles"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Tender",
+            "notas_en": "Literally 'worthy of being loved'. Describes tenderness and charm in pets, children or affectionate gestures.",
+            "ejemplos_en": [
+                "這隻小貓真可愛 — This kitten is truly adorable",
+                "她笑起來很可愛 — She is very tender when she smiles"
+            ]
+        },
+        {
+            "id": "id_voc_gui",
+            "espanol": "Expensive",
+            "tradicional": "貴",
+            "pinyin": "guì",
+            "zhuyin": "ㄍㄨㄟˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "中 (zhōng - center)"
+                },
+                {
+                    "type": "text",
+                    "value": "貝 (bèi - shell/coin)"
+                }
+            ],
+            "notas": "Monetary shells kept in a chest. In addition to the high price, it denotes nobility in courtesy formulas: 您貴姓？",
+            "ejemplos": [
+                "這本書很貴 — This book is very expensive",
+                "這棟房子太貴了 — This house is too expensive"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "english": "Expensive",
+            "notas_en": "Monetary shells kept in a chest. In addition to the high price, it denotes nobility in courtesy formulas: 您貴姓？",
+            "ejemplos_en": [
+                "這本書很貴 — This book is very expensive",
+                "這棟房子太貴了 — This house is too expensive"
+            ]
+        },
+        {
+            "id": "id_voc_pianyi",
+            "espanol": "Cheap",
+            "tradicional": "便宜",
+            "pinyin": "piányí",
+            "zhuyin": "ㄆㄧㄢˊ ㄧˊ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "便 (biàn - convenient)"
+                },
+                {
+                    "type": "text",
+                    "value": "宜 (yí - appropriate)"
+                }
+            ],
+            "notas": "A convenient transaction for the person. Note that 便 is pronounced pián in tone 2 (in fāngbiàn it is pronounced biàn).",
+            "ejemplos": [
+                "這杯茶很便宜 — This cup of tea is very cheap",
+                "臺灣的水果又好吃又便宜 — Taiwanese fruits are delicious and also economical"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "english": "Cheap",
+            "notas_en": "A convenient transaction for the person. Note that 便 is pronounced pián in tone 2 (in fāngbiàn it is pronounced biàn).",
+            "ejemplos_en": [
+                "這杯茶很便宜 — This cup of tea is very cheap",
+                "臺灣的水果又好吃又便宜 — Taiwanese fruits are delicious and also economical"
+            ]
+        },
+        {
+            "id": "id_voc_gao",
+            "espanol": "High",
+            "tradicional": "高",
+            "pinyin": "gāo",
+            "zhuyin": "ㄍㄠ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "高 (gāo - high)"
+                }
+            ],
+            "notas": "Pictogram of a tower or elevated viewpoint with roof and base. Antonym for human stature: 矮 (ǎi); for objects: 低 (dī).",
+            "ejemplos": [
+                "他的哥哥很高 — His older brother is very tall",
+                "這棟樓真高 — This building is extremely tall"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "High",
+            "notas_en": "Pictogram of a tower or elevated viewpoint with roof and base. Antonym for human stature: 矮 (ǎi); for objects: 低 (dī).",
+            "ejemplos_en": [
+                "他的哥哥很高 — His older brother is very tall",
+                "這棟樓真高 — This building is extremely tall"
+            ]
+        },
+        {
+            "id": "id_voc_ai",
+            "espanol": "Short (height)",
+            "tradicional": "矮",
+            "pinyin": "ǎi",
+            "zhuyin": "ㄞˇ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "矢 (shǐ - arrow)"
+                },
+                {
+                    "type": "text",
+                    "value": "委 (wěi - give)"
+                }
+            ],
+            "notas": "The short length of an arrow 矢 next to a bowed woman 委. Exclusive antonym of 高 for height of people or furniture.",
+            "ejemplos": [
+                "弟弟比哥哥矮一點 — The younger brother is a little shorter than the older one",
+                "這張桌子太矮了 — This table is too low"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Short (height)",
+            "notas_en": "The short length of an arrow 矢 next to a bowed woman 委. Exclusive antonym of 高 for height of people or furniture.",
+            "ejemplos_en": [
+                "弟弟比哥哥矮一點 — The younger brother is a little shorter than the older one",
+                "這張桌子太矮了 — This table is too low"
+            ]
+        },
+        {
+            "id": "id_voc_xin",
+            "espanol": "New",
+            "tradicional": "新",
+            "pinyin": "xīn",
+            "zhuyin": "ㄒㄧㄣ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "亲 (qīn - tree)"
+                },
+                {
+                    "type": "text",
+                    "value": "斤 (jīn - axe)"
+                }
+            ],
+            "notas": "Chopping fresh wood from the forest with a 斤 axe. Direct antonym for used objects or clothing: 舊 (jiù).",
+            "ejemplos": [
+                "這是一本新書 — This is a new book",
+                "我們學校的教室都很新 — The classrooms at our school are all very new"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "english": "New",
+            "notas_en": "Chopping fresh wood from the forest with a 斤 axe. Direct antonym for used objects or clothing: 舊 (jiù).",
+            "ejemplos_en": [
+                "這是一本新書 — This is a new book",
+                "我們學校的教室都很新 — The classrooms at our school are all very new"
+            ]
+        },
+        {
+            "id": "id_voc_jiu",
+            "espanol": "Old",
+            "tradicional": "舊",
+            "pinyin": "jiù",
+            "zhuyin": "ㄐㄧㄡˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "臼 (jiù - mortar)"
+                },
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - bird)"
+                }
+            ],
+            "notas": "Mortar worn by time. Exclusive for inanimate objects; for elderly people you should use 老 (lǎo), never 舊.",
+            "ejemplos": [
+                "這本書很舊，但是很有意思 — This book is old/used, but very interesting",
+                "那棟舊房子在學校後面 — That old house is behind the school"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "english": "Old",
+            "notas_en": "Mortar worn by time. Exclusive for inanimate objects; for elderly people you should use 老 (lǎo), never 舊.",
+            "ejemplos_en": [
+                "這本書很舊，但是很有意思 — This book is old/used, but very interesting",
+                "那棟舊房子在學校後面 — That old house is behind the school"
+            ]
+        },
+        {
+            "id": "id_voc_ban",
+            "espanol": "And a half (hour)",
+            "tradicional": "半",
+            "pinyin": "bàn",
+            "zhuyin": "ㄅㄢˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - split)"
+                },
+                {
+                    "type": "text",
+                    "value": "干 (gān - shield)"
+                }
+            ],
+            "notas": "Split a beef in half. After 點 marks the half hour (九點半 = 9:30); as an adjective it indicates half (半天 = half a day).",
+            "ejemplos": [
+                "我們早上八點半上課 — We take class at 8:30 in the morning",
+                "我要半個西瓜 — I want half a watermelon"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "And a half (hour)",
+            "notas_en": "Split a beef in half. After 點 marks the half hour (九點半 = 9:30); as an adjective it indicates half (半天 = half a day).",
+            "ejemplos_en": [
+                "我們早上八點半上課 — We take class at 8:30 in the morning",
+                "我要半個西瓜 — I want half a watermelon"
+            ]
+        },
+        {
+            "id": "id_voc_bao",
+            "espanol": "Full (food)",
+            "tradicional": "飽",
+            "pinyin": "bǎo",
+            "zhuyin": "ㄅㄠˇ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "飠(shí - meal)"
+                },
+                {
+                    "type": "text",
+                    "value": "包 (bāo - wrap)"
+                }
+            ],
+            "notas": "The stomach wrapped and full of food. Forms the usual polite greeting in Taiwan: 吃飽了嗎？",
+            "ejemplos": [
+                "我吃得很飽 — I was very satisfied / ate very well",
+                "你飽了嗎？ — Were you satisfied?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Full (food)",
+            "notas_en": "The stomach wrapped and full of food. Forms the usual polite greeting in Taiwan: 吃飽了嗎？",
+            "ejemplos_en": [
+                "我吃得很飽 — I was very satisfied / ate very well",
+                "你飽了嗎？ — Were you satisfied?"
+            ]
+        },
+        {
+            "id": "id_voc_shao",
+            "espanol": "Few / Little",
+            "tradicional": "少",
+            "pinyin": "shǎo",
+            "zhuyin": "ㄕㄠˇ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn1fxk_bdhc0"
+                },
+                {
+                    "type": "text",
+                    "value": "丿 (piě - streak)"
+                }
+            ],
+            "notas": "An oblique stroke that further subtracts from the small 小. Antonym of 多 (duō).",
+            "ejemplos": [
+                "今天教室裡的學生很少 — Today there are few students in the classroom",
+                "你喝很少茶 — You drink very little tea"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "leccion": 5,
+            "english": "Few / Little",
+            "notas_en": "An oblique stroke that further subtracts from the small 小. Antonym of 多 (duō).",
+            "ejemplos_en": [
+                "今天教室裡的學生很少 — Today there are few students in the classroom",
+                "你喝很少茶 — You drink very little tea"
+            ]
+        },
+        {
+            "id": "id_l3_haowan",
+            "espanol": "Fun",
+            "tradicional": "好玩",
+            "pinyin": "hǎowán",
+            "zhuyin": "ㄏㄠˇ ㄨㄢˊ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - Well)"
+                },
+                {
+                    "type": "text",
+                    "value": "玩 (wán - play)"
+                }
+            ],
+            "notas": "Composed of 好 (good) and 玩 (play). It is predicated with 很 to describe entertaining activities or experiences: 很好玩.",
+            "ejemplos": [
+                "打棒球和踢足球都很好玩 — Both baseball and soccer are very fun",
+                "我覺得中文很好玩 — I think the Chinese language is very fun and entertaining."
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "english": "Fun",
+            "notas_en": "Composed of 好 (good) and 玩 (play). It is predicated with 很 to describe entertaining activities or experiences: 很好玩.",
+            "ejemplos_en": [
+                "打棒球和踢足球都很好玩 — Both baseball and soccer are very fun",
+                "我覺得中文很好玩 — I think the Chinese language is very fun and entertaining."
+            ]
+        },
+        {
+            "id": "id_l4_re",
+            "espanol": "Hot",
+            "tradicional": "熱",
+            "pinyin": "rè",
+            "zhuyin": "ㄖㄜˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "灬 (huǒ - base fire)"
+                },
+                {
+                    "type": "text",
+                    "value": "執 (zhí - hold/execute)"
+                }
+            ],
+            "notas": "Hot. It is used for both weather (天氣很熱) and drinks and food (熱咖啡, 熱茶, 熱包子). Opposite of 冷 (lěng) or 冰 (bīng).",
+            "ejemplos": [
+                "我喜歡喝熱茶，不喜歡喝冰咖啡。 — I like to drink hot tea, I don't like to drink iced coffee.",
+                "今天的熱包子真好吃！ — Today's hot baozis are truly delicious!"
+            ],
+            "leccion": 4,
+            "english": "Hot",
+            "notas_en": "Hot. It is used for both weather (天氣很熱) and drinks and food (熱咖啡, 熱茶, 熱包子). Opposite of 冷 (lěng) or 冰 (bīng).",
+            "ejemplos_en": [
+                "我喜歡喝熱茶，不喜歡喝冰咖啡。 — I like to drink hot tea, I don't like to drink iced coffee.",
+                "今天的熱包子真好吃！ — Today's hot baozis are truly delicious!"
+            ]
+        },
+        {
+            "id": "id_l5_haochi",
+            "espanol": "Delicious",
+            "tradicional": "好吃",
+            "pinyin": "hǎochī",
+            "zhuyin": "ㄏㄠˇ ㄔ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "吃 (comer)"
+                }
+            ],
+            "notas": "Adjective for tasty or delicious food.",
+            "ejemplos": [
+                "臭豆腐非常好吃 — Stinky tofu is extremely delicious",
+                "小籠包好吃嗎？ — Are xiaolongbao delicious?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Delicious",
+            "notas_en": "Adjective for tasty or delicious food.",
+            "ejemplos_en": [
+                "臭豆腐非常好吃 — Stinky tofu is extremely delicious",
+                "小籠包好吃嗎？ — Are xiaolongbao delicious?"
+            ]
+        },
+        {
+            "id": "id_l5_youming",
+            "espanol": "Famous",
+            "tradicional": "有名",
+            "pinyin": "yǒumíng",
+            "zhuyin": "ㄧㄡˇ ㄇㄧㄥˊ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - have)"
+                },
+                {
+                    "type": "text",
+                    "value": "名 (míng - name/fame)"
+                }
+            ],
+            "notas": "Adjective for famous places, people or dishes.",
+            "ejemplos": [
+                "這家餐廳在臺北很有名 — This restaurant is very famous in Taipei",
+                "臺灣什麼小吃最有名？ — Which Taiwanese snack is the most famous?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Famous",
+            "notas_en": "Adjective for famous places, people or dishes.",
+            "ejemplos_en": [
+                "這家餐廳在臺北很有名 — This restaurant is very famous in Taipei",
+                "臺灣什麼小吃最有名？ — Which Taiwanese snack is the most famous?"
+            ]
+        },
+        {
+            "id": "id_l5_la",
+            "espanol": "Spicy",
+            "tradicional": "辣",
+            "pinyin": "là",
+            "zhuyin": "ㄌㄚˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辛 (xīn - spicy)"
+                },
+                {
+                    "type": "text",
+                    "value": "束 (shù - tie)"
+                }
+            ],
+            "notas": "Descriptive adjective of the spicy flavor.",
+            "ejemplos": [
+                "這個牛肉麵太辣了！ — These beef noodles are too spicy!",
+                "你怕辣嗎？我不怕辣 — Are you afraid of spicy food? I'm not afraid of spicy"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Spicy",
+            "notas_en": "Descriptive adjective of the spicy flavor.",
+            "ejemplos_en": [
+                "這個牛肉麵太辣了！ — These beef noodles are too spicy!",
+                "你怕辣嗎？我不怕辣 — Are you afraid of spicy food? I'm not afraid of spicy"
+            ]
+        },
+        {
+            "id": "id_l5_bucuo",
+            "espanol": "Good / Pretty good",
+            "tradicional": "不錯",
+            "pinyin": "búcuò",
+            "zhuyin": "ㄅㄨˊ ㄘㄨㄛˋ",
+            "categoria": "adjetivo",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - No)"
+                },
+                {
+                    "type": "text",
+                    "value": "錯 (cuò - mistake)"
+                }
+            ],
+            "notas": "Positive evaluation adjective: good or quite good.",
+            "ejemplos": [
+                "他的廚藝很不錯 — His cooking skills are pretty good.",
+                "這家店的麵真不錯 — The noodles in this store are very good."
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Good / Pretty good",
+            "notas_en": "Positive evaluation adjective: good or quite good.",
+            "ejemplos_en": [
+                "他的廚藝很不錯 — His cooking skills are pretty good.",
+                "這家店的麵真不錯 — The noodles in this store are very good."
+            ]
+        }
+    ],
+    "clasificadores": [
+        {
+            "id": "id_mtfhewfx_gtw3b",
+            "espanol": "General classifier",
+            "tradicional": "個",
+            "pinyin": "ge",
+            "zhuyin": "ㄍㄜ˙",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "固 (gù - solid)"
+                }
+            ],
+            "notas": "Universal classifier for general people and objects without specific classifier. It is pronounced in a light neutral tone (ge) or fourth tone (gè).",
+            "ejemplos": [
+                "我有三個家人 — I have three relatives in my house",
+                "這個人是老師 — This person is a teacher",
+                "一個學生 — a student"
+            ],
+            "fechaCreacion": "2026-08-30",
+            "leccion": 2,
+            "english": "General classifier",
+            "notas_en": "Universal classifier for general people and objects without specific classifier. It is pronounced in a light neutral tone (ge) or fourth tone (gè).",
+            "ejemplos_en": [
+                "我有三個家人 — I have three relatives in my house",
+                "這個人是老師 — This person is a teacher",
+                "一個學生 — a student"
+            ]
+        },
+        {
+            "id": "id_mty004_zhang",
+            "espanol": "Flat objects classifier",
+            "tradicional": "張",
+            "pinyin": "zhāng",
+            "zhuyin": "ㄓㄤ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "弓 (gōng - bow)"
+                },
+                {
+                    "type": "text",
+                    "value": "長 (cháng - long)"
+                }
+            ],
+            "notas": "Mnemonic: drawing a long bow. Sorter for thin objects with a flat surface (photos, sheets, tables, bills).",
+            "ejemplos": [
+                "一張照片 — a photo",
+                "你有幾張照片？ — How many photos do you have?",
+                "請給我一張紙 — Please give me a sheet of paper"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "english": "Flat objects classifier",
+            "notas_en": "Mnemonic: drawing a long bow. Sorter for thin objects with a flat surface (photos, sheets, tables, bills).",
+            "ejemplos_en": [
+                "一張照片 — a photo",
+                "你有幾張照片？ — How many photos do you have?",
+                "請給我一張紙 — Please give me a sheet of paper"
+            ]
+        },
+        {
+            "id": "id_mtfigeht_eqxfj",
+            "espanol": "Animals and paired objects classifier",
+            "tradicional": "隻",
+            "pinyin": "zhī",
+            "zhuyin": "ㄓ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - bird)"
+                },
+                {
+                    "type": "text",
+                    "value": "又 (yòu - hand)"
+                }
+            ],
+            "notas": "Pictogram of a hand holding a bird. Classifier for animals and for an element of a natural pair (a hand, a shoe).",
+            "ejemplos": [
+                "我家有一隻貓和一隻狗 — In my house there is a cat and a dog",
+                "那一隻貓很可愛 — That cat is very cute",
+                "這隻狗是誰的？ — Whose dog is this?"
+            ],
+            "fechaCreacion": "2026-08-30",
+            "english": "Animals and paired objects classifier",
+            "notas_en": "Pictogram of a hand holding a bird. Classifier for animals and for an element of a natural pair (a hand, a shoe).",
+            "ejemplos_en": [
+                "我家有一隻貓和一隻狗 — In my house there is a cat and a dog",
+                "那一隻貓很可愛 — That cat is very cute",
+                "這隻狗是誰的？ — Whose dog is this?"
+            ]
+        },
+        {
+            "id": "id_clf_ben",
+            "espanol": "Books and bound volumes classifier",
+            "tradicional": "本",
+            "pinyin": "běn",
+            "zhuyin": "ㄅㄣˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - tree)"
+                },
+                {
+                    "type": "text",
+                    "value": "一 (yī - one)"
+                }
+            ],
+            "notas": "The lower line marks the root or base of the tree. Classifier for bound volumes: books, notebooks and dictionaries.",
+            "ejemplos": [
+                "一本書 — a book",
+                "這本書是我的 — This book is mine",
+                "你有幾本書？ — How many books do you have?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Books and bound volumes classifier",
+            "notas_en": "The lower line marks the root or base of the tree. Classifier for bound volumes: books, notebooks and dictionaries.",
+            "ejemplos_en": [
+                "一本書 — a book",
+                "這本書是我的 — This book is mine",
+                "你有幾本書？ — How many books do you have?"
+            ]
+        },
+        {
+            "id": "id_clf_bei",
+            "espanol": "Cups / glasses classifier",
+            "tradicional": "杯",
+            "pinyin": "bēi",
+            "zhuyin": "ㄅㄟ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                },
+                {
+                    "type": "ref",
+                    "id": "a1"
+                }
+            ],
+            "notas": "In the past the cups were made of wood 木 with 不 as a phonetic element. Sorter for drinks served in cups or glasses.",
+            "ejemplos": [
+                "請給我一杯茶 — Please give me a cup of tea",
+                "我喝了一杯烏龍茶 — I had a cup of Oolong tea",
+                "你要喝幾杯咖啡？ — How many cups of coffee do you want to drink?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 4,
+            "english": "Cups / glasses classifier",
+            "notas_en": "In the past the cups were made of wood 木 with 不 as a phonetic element. Sorter for drinks served in cups or glasses.",
+            "ejemplos_en": [
+                "請給我一杯茶 — Please give me a cup of tea",
+                "我喝了一杯烏龍茶 — I had a cup of Oolong tea",
+                "你要喝幾杯咖啡？ — How many cups of coffee do you want to drink?"
+            ]
+        },
+        {
+            "id": "id_clf_wei",
+            "espanol": "Polite classifier for people",
+            "tradicional": "位",
+            "pinyin": "wèi",
+            "zhuyin": "ㄨㄟˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "立 (lì - erect)"
+                }
+            ],
+            "notas": "A person standing at his official position. Courtesy classifier for respectable people (teachers, clients). It is never used for oneself.",
+            "ejemplos": [
+                "幾位？ — How many people are there?",
+                "這幾位是我的朋友 — These people are my friends",
+                "他是一位好老師 — He is a good teacher"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Polite classifier for people",
+            "notas_en": "A person standing at his official position. Courtesy classifier for respectable people (teachers, clients). It is never used for oneself.",
+            "ejemplos_en": [
+                "幾位？ — How many people are there?",
+                "這幾位是我的朋友 — These people are my friends",
+                "他是一位好老師 — He is a good teacher"
+            ]
+        },
+        {
+            "id": "id_clf_ping",
+            "espanol": "Bottles classifier",
+            "tradicional": "瓶",
+            "pinyin": "píng",
+            "zhuyin": "ㄆㄧㄥˊ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "并 (bìng - put together)"
+                },
+                {
+                    "type": "text",
+                    "value": "瓦 (wǎ - vessel)"
+                }
+            ],
+            "notas": "It refers to joined ceramic vessels. Container sorter for water, wine, beer or soft drink bottles.",
+            "ejemplos": [
+                "請給我一瓶水 — Please give me a bottle of water",
+                "他買了三瓶烏龍茶 — He bought three bottles of Oolong tea",
+                "你想喝一瓶啤酒嗎？ — Do you want to have a bottle of beer?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Bottles classifier",
+            "notas_en": "It refers to joined ceramic vessels. Container sorter for water, wine, beer or soft drink bottles.",
+            "ejemplos_en": [
+                "請給我一瓶水 — Please give me a bottle of water",
+                "他買了三瓶烏龍茶 — He bought three bottles of Oolong tea",
+                "你想喝一瓶啤酒嗎？ — Do you want to have a bottle of beer?"
+            ]
+        },
+        {
+            "id": "id_clf_dong",
+            "espanol": "Buildings classifier",
+            "tradicional": "棟",
+            "pinyin": "dòng",
+            "zhuyin": "ㄉㄨㄥˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                },
+                {
+                    "type": "text",
+                    "value": "東 (dōng - East)"
+                }
+            ],
+            "notas": "It represents the wooden ridge beam that supports the roof. Architectural classifier for houses or entire buildings.",
+            "ejemplos": [
+                "我們家有一棟老房子 — My family has an old house",
+                "那棟大樓很漂亮 — That building is very beautiful",
+                "這棟房子是誰的？ — Whose house is this?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Buildings classifier",
+            "notas_en": "It represents the wooden ridge beam that supports the roof. Architectural classifier for houses or entire buildings.",
+            "ejemplos_en": [
+                "我們家有一棟老房子 — My family has an old house",
+                "那棟大樓很漂亮 — That building is very beautiful",
+                "這棟房子是誰的？ — Whose house is this?"
+            ]
+        },
+        {
+            "id": "id_mtgn2mv8_7ji91",
+            "espanol": "Years of age classifier",
+            "tradicional": "歲",
+            "pinyin": "suì",
+            "zhuyin": "ㄙㄨㄟˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "止 (zhǐ - foot)"
+                },
+                {
+                    "type": "text",
+                    "value": "戌 (xū - axe)"
+                },
+                {
+                    "type": "text",
+                    "value": "步 (bù - passed)"
+                }
+            ],
+            "notas": "It alludes to the passage of time marked by the cycle of Jupiter. In Chinese, age is expressed directly with the number and 歲, without the verb 'to have'.",
+            "ejemplos": [
+                "你幾歲？ — How old are you?",
+                "我二十歲 — I'm 20 years old",
+                "她十八歲 — She is 18 years old"
+            ],
+            "fechaCreacion": "2026-08-31",
+            "english": "Years of age classifier",
+            "notas_en": "It alludes to the passage of time marked by the cycle of Jupiter. In Chinese, age is expressed directly with the number and 歲, without the verb 'to have'.",
+            "ejemplos_en": [
+                "你幾歲？ — How old are you?",
+                "我二十歲 — I'm 20 years old",
+                "她十八歲 — She is 18 years old"
+            ]
+        },
+        {
+            "id": "id_clf_ke",
+            "espanol": "Small round objects classifier",
+            "tradicional": "顆",
+            "pinyin": "kē",
+            "zhuyin": "ㄎㄜ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "果 (guǒ - fruit)"
+                },
+                {
+                    "type": "text",
+                    "value": "頁 (yè - head)"
+                }
+            ],
+            "notas": "Composed of round fruit and head. Classifier for spherical or small objects: seeds, pearls, teeth and the heart (一顆心).",
+            "ejemplos": [
+                "一顆心 — a heart",
+                "一顆糖 — a candy",
+                "天上有一顆很亮的星星 — There is a very bright star in the sky"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "english": "Small round objects classifier",
+            "notas_en": "Composed of round fruit and head. Classifier for spherical or small objects: seeds, pearls, teeth and the heart (一顆心).",
+            "ejemplos_en": [
+                "一顆心 — a heart",
+                "一顆糖 — a candy",
+                "天上有一顆很亮的星星 — There is a very bright star in the sky"
+            ]
+        },
+        {
+            "id": "id_clf_jian",
+            "espanol": "Rooms and shops classifier",
+            "tradicional": "間",
+            "pinyin": "jiān",
+            "zhuyin": "ㄐㄧㄢ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "門 (mén - door)"
+                },
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                }
+            ],
+            "notas": "Pictogram of the sun shining through the crack of a door. Classifier for rooms, classrooms and stores.",
+            "ejemplos": [
+                "我們學校有三十間教室 — Our school has 30 classrooms",
+                "那間商店很大 — That store is very big"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Rooms and shops classifier",
+            "notas_en": "Pictogram of the sun shining through the crack of a door. Classifier for rooms, classrooms and stores.",
+            "ejemplos_en": [
+                "我們學校有三十間教室 — Our school has 30 classrooms",
+                "那間商店很大 — That store is very big"
+            ]
+        },
+        {
+            "id": "id_clf_duo",
+            "espanol": "Flowers and clouds classifier",
+            "tradicional": "朵",
+            "pinyin": "duǒ",
+            "zhuyin": "ㄉㄨㄛˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "几 (jī - medium)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                }
+            ],
+            "notas": "It represents flowers hanging from a branch. Botanical classifier for individual flowers and for floating clouds (一朵雲).",
+            "ejemplos": [
+                "這朵花真漂亮 — This flower is truly beautiful",
+                "他買了一朵花送媽媽 — He bought a flower for mom"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Flowers and clouds classifier",
+            "notas_en": "It represents flowers hanging from a branch. Botanical classifier for individual flowers and for floating clouds (一朵雲).",
+            "ejemplos_en": [
+                "這朵花真漂亮 — This flower is truly beautiful",
+                "他買了一朵花送媽媽 — He bought a flower for mom"
+            ]
+        },
+        {
+            "id": "id_clf_men",
+            "espanol": "Courses and subjects classifier",
+            "tradicional": "門",
+            "pinyin": "mén",
+            "zhuyin": "ㄇㄣˊ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "門 (mén - door)"
+                }
+            ],
+            "notas": "Pictogram of the two leaves of an entrance door to knowledge. Classifier for academic subjects and school courses.",
+            "ejemplos": [
+                "這個學期我選了四門課 — This semester I chose four subjects",
+                "這是一門很有意思的選修課 — This is a very interesting elective subject."
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Courses and subjects classifier",
+            "notas_en": "Pictogram of the two leaves of an entrance door to knowledge. Classifier for academic subjects and school courses.",
+            "ejemplos_en": [
+                "這個學期我選了四門課 — This semester I chose four subjects",
+                "這是一門很有意思的選修課 — This is a very interesting elective subject."
+            ]
+        },
+        {
+            "id": "id_clf_ci",
+            "espanol": "Times / frequency classifier",
+            "tradicional": "次",
+            "pinyin": "cì",
+            "zhuyin": "ㄘˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "冫 (bīng - ice)"
+                },
+                {
+                    "type": "text",
+                    "value": "欠 (qiàn - breath)"
+                }
+            ],
+            "notas": "Indicates successive order or repetition. Verbal classifier postponed to the verb to indicate number of times: 去過三次, 一天兩次.",
+            "ejemplos": [
+                "請再說一次 — Please repeat it one more time",
+                "我一天喝三次茶 — I drink tea three times a day"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "english": "Times / frequency classifier",
+            "notas_en": "Indicates successive order or repetition. Verbal classifier postponed to the verb to indicate number of times: 去過三次, 一天兩次.",
+            "ejemplos_en": [
+                "請再說一次 — Please repeat it one more time",
+                "我一天喝三次茶 — I drink tea three times a day"
+            ]
+        },
+        {
+            "id": "id_clf_dian",
+            "espanol": "O'clock (hours) / Point",
+            "tradicional": "點",
+            "pinyin": "diǎn",
+            "zhuyin": "ㄉㄧㄢˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "黑 (hēi - black)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhān - guess)"
+                }
+            ],
+            "notas": "Pictogram of black soot drops. Classifier for the punctual hours of the clock (三點 = three o'clock) and verb for ordering food (點菜).",
+            "ejemplos": [
+                "現在幾點？現在十點 — What time is it now? It's ten",
+                "我們早上八點半上課 — We start class at 8:30 in the morning"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "O'clock (hours) / Point",
+            "notas_en": "Pictogram of black soot drops. Classifier for the punctual hours of the clock (三點 = three o'clock) and verb for ordering food (點菜).",
+            "ejemplos_en": [
+                "現在幾點？現在十點 — What time is it now? It's ten",
+                "我們早上八點半上課 — We start class at 8:30 in the morning"
+            ]
+        },
+        {
+            "id": "id_clf_fen",
+            "espanol": "Minutes",
+            "tradicional": "分",
+            "pinyin": "fēn",
+            "zhuyin": "ㄈㄣ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - split)"
+                },
+                {
+                    "type": "text",
+                    "value": "刀 (dāo - knife)"
+                }
+            ],
+            "notas": "A knife that divides something into two parts. Numeral classifier for clock minutes and rating points.",
+            "ejemplos": [
+                "現在是三點十五分 — Now it's three and fifteen minutes",
+                "差五分八點 — Five to eight (7:55)"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Minutes",
+            "notas_en": "A knife that divides something into two parts. Numeral classifier for clock minutes and rating points.",
+            "ejemplos_en": [
+                "現在是三點十五分 — Now it's three and fifteen minutes",
+                "差五分八點 — Five to eight (7:55)"
+            ]
+        },
+        {
+            "id": "id_clf_ke_time",
+            "espanol": "Quarter of an hour (15 min)",
+            "tradicional": "刻",
+            "pinyin": "kè",
+            "zhuyin": "ㄎㄜˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "亥 (hài - wild boar)"
+                },
+                {
+                    "type": "text",
+                    "value": "刂 (dāo - knife)"
+                }
+            ],
+            "notas": "A knife-engraved mark on the dial of a sundial. Traditional classifier for quarter hours (15 minutes).",
+            "ejemplos": [
+                "現在是十點一刻 — Now it's a quarter past ten (10:15)",
+                "差一刻十二點 — It's a quarter to twelve (11:45)"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Quarter of an hour (15 min)",
+            "notas_en": "A knife-engraved mark on the dial of a sundial. Traditional classifier for quarter hours (15 minutes).",
+            "ejemplos_en": [
+                "現在是十點一刻 — Now it's a quarter past ten (10:15)",
+                "差一刻十二點 — It's a quarter to twelve (11:45)"
+            ]
+        },
+        {
+            "id": "id_clf_ri",
+            "espanol": "Day (calendar)",
+            "tradicional": "日",
+            "pinyin": "rì",
+            "zhuyin": "ㄖˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sun)"
+                }
+            ],
+            "notas": "Direct pictogram of the solar disk. Formal and written classifier for the day of the month (in everyday oral language 號 is used).",
+            "ejemplos": [
+                "今天是九月二十七日 — Today is September 27",
+                "十月十日是國慶日 — October 10 is National Day"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Day (calendar)",
+            "notas_en": "Direct pictogram of the solar disk. Formal and written classifier for the day of the month (in everyday oral language 號 is used).",
+            "ejemplos_en": [
+                "今天是九月二十七日 — Today is September 27",
+                "十月十日是國慶日 — October 10 is National Day"
+            ]
+        },
+        {
+            "id": "id_clf_hao",
+            "espanol": "Day of month / number",
+            "tradicional": "號",
+            "pinyin": "hào",
+            "zhuyin": "ㄏㄠˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "虎 (hǔ - tiger)"
+                }
+            ],
+            "notas": "Shout or proclaim a distinctive mark. Common oral classifier in Taiwan for the day of the date and identifying numbers.",
+            "ejemplos": [
+                "明天是幾號？明天是五號 — What day is tomorrow? Tomorrow is five",
+                "你的手機號碼是幾號？ — What is your phone number?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Day of month / number",
+            "notas_en": "Shout or proclaim a distinctive mark. Common oral classifier in Taiwan for the day of the date and identifying numbers.",
+            "ejemplos_en": [
+                "明天是幾號？明天是五號 — What day is tomorrow? Tomorrow is five",
+                "你的手機號碼是幾號？ — What is your phone number?"
+            ]
+        },
+        {
+            "id": "id_clf_xie",
+            "espanol": "Some / a few (plural)",
+            "tradicional": "些",
+            "pinyin": "xiē",
+            "zhuyin": "ㄒㄧㄝ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "此 (cǐ - this)"
+                },
+                {
+                    "type": "text",
+                    "value": "二 (èr - two)"
+                }
+            ],
+            "notas": "Composed of 'this' and 'two' symbolizing multiplicity. Indefinite plural classifier for small quantities: 一些, 這些, 那些.",
+            "ejemplos": [
+                "我想買一些花 — I want to buy some flowers",
+                "這些書都很新 — These books are very new"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "english": "Some / a few (plural)",
+            "notas_en": "Composed of 'this' and 'two' symbolizing multiplicity. Indefinite plural classifier for small quantities: 一些, 這些, 那些.",
+            "ejemplos_en": [
+                "我想買一些花 — I want to buy some flowers",
+                "這些書都很新 — These books are very new"
+            ]
+        },
+        {
+            "id": "id_clf_zhi_phone",
+            "espanol": "Pens and phones classifier",
+            "tradicional": "支",
+            "pinyin": "zhī",
+            "zhuyin": "ㄓ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "十 (shí - ten)"
+                },
+                {
+                    "type": "text",
+                    "value": "又 (yòu - hand/again)"
+                }
+            ],
+            "notas": "Fundamental classifier in Taiwan for mobile phones (手機), pens (筆), and cylindrical bottles.",
+            "ejemplos": [
+                "我想買一支新手機。 — I want to buy a new cell phone.",
+                "這支手機要多少錢？ — How much does this mobile phone cost?"
+            ],
+            "leccion": 4,
+            "english": "Pens and phones classifier",
+            "notas_en": "Fundamental classifier in Taiwan for mobile phones (手機), pens (筆), and cylindrical bottles.",
+            "ejemplos_en": [
+                "我想買一支新手機。 — I want to buy a new cell phone.",
+                "這支手機要多少錢？ — How much does this mobile phone cost?"
+            ]
+        },
+        {
+            "id": "id_clf_kuai",
+            "espanol": "Dollars (NT$) / pieces classifier",
+            "tradicional": "塊",
+            "pinyin": "kuài",
+            "zhuyin": "ㄎㄨㄞˋ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - land)"
+                },
+                {
+                    "type": "text",
+                    "value": "鬼 (guǐ - ghost/spirit)"
+                }
+            ],
+            "notas": "Classifier par excellence of the currency spoken in Taiwan (equivalent to NT$ / dollars / pesos), and for pieces or pieces (a slice of cake: 一塊蛋糕).",
+            "ejemplos": [
+                "一杯熱茶三十五塊。 — A cup of hot tea costs thirty-five dollars.",
+                "這本書兩百塊錢。 — This book costs two hundred dollars."
+            ],
+            "leccion": 4,
+            "english": "Dollars (NT$) / pieces classifier",
+            "notas_en": "Classifier par excellence of the currency spoken in Taiwan (equivalent to NT$ / dollars / pesos), and for pieces or pieces (a slice of cake: 一塊蛋糕).",
+            "ejemplos_en": [
+                "一杯熱茶三十五塊。 — A cup of hot tea costs thirty-five dollars.",
+                "這本書兩百塊錢。 — This book costs two hundred dollars."
+            ]
+        },
+        {
+            "id": "id_clf_zhong",
+            "espanol": "Types / kinds classifier",
+            "tradicional": "種",
+            "pinyin": "zhǒng",
+            "zhuyin": "ㄓㄨㄥˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禾 (hé - cereal/grain)"
+                },
+                {
+                    "type": "text",
+                    "value": "重 (zhòng - heavy)"
+                }
+            ],
+            "notas": "Classifier to indicate types or classes of things or people: 這種類 (this type), 很多種 (many types).",
+            "ejemplos": [
+                "這家咖啡店有五種茶。 — This cafe has five types of tea.",
+                "那種手機賣得非常好。 — That type of phone sells very well."
+            ],
+            "leccion": 4,
+            "english": "Types / kinds classifier",
+            "notas_en": "Classifier to indicate types or classes of things or people: 這種類 (this type), 很多種 (many types).",
+            "ejemplos_en": [
+                "這家咖啡店有五種茶。 — This cafe has five types of tea.",
+                "那種手機賣得非常好。 — That type of phone sells very well."
+            ]
+        },
+        {
+            "id": "id_clf_jia_shop",
+            "espanol": "Shops and restaurants classifier",
+            "tradicional": "家",
+            "pinyin": "jiā",
+            "zhuyin": "ㄐㄧㄚ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "宀 (mián - ceiling)"
+                },
+                {
+                    "type": "text",
+                    "value": "豕 (shǐ - pig)"
+                }
+            ],
+            "notas": "Classifier for commercial establishments, companies, stores and restaurants.",
+            "ejemplos": [
+                "這家餐廳的小吃很有名 — The appetizers at this restaurant are very famous",
+                "我想去那家店買茶 — I want to go to that store to buy tea"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Shops and restaurants classifier",
+            "notas_en": "Classifier for commercial establishments, companies, stores and restaurants.",
+            "ejemplos_en": [
+                "這家餐廳的小吃很有名 — The appetizers at this restaurant are very famous",
+                "我想去那家店買茶 — I want to go to that store to buy tea"
+            ]
+        },
+        {
+            "id": "id_clf_wan",
+            "espanol": "Bowl of classifier",
+            "tradicional": "碗",
+            "pinyin": "wǎn",
+            "zhuyin": "ㄨㄢˇ",
+            "categoria": "clasificador",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "石 (shí - stone)"
+                },
+                {
+                    "type": "text",
+                    "value": "宛 (wǎn - bowl)"
+                }
+            ],
+            "notas": "Sorter container for portions of food or soup served in bowls or bowls.",
+            "ejemplos": [
+                "我要一碗牛肉麵 — I want a bowl of beef noodles",
+                "請給他一碗熱湯 — Please give him a bowl of hot soup"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "english": "Bowl of classifier",
+            "notas_en": "Sorter container for portions of food or soup served in bowls or bowls.",
+            "ejemplos_en": [
+                "我要一碗牛肉麵 — I want a bowl of beef noodles",
+                "請給他一碗熱湯 — Please give him a bowl of hot soup"
+            ]
+        }
+    ]
+};
+
+if (typeof window !== 'undefined') {
+    window.SEED_DATA_EN = SEED_DATA_EN;
+}

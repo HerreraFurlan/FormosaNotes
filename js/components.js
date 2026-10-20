@@ -52,7 +52,8 @@ const createFlashcard = (word, options = {}) => {
     if (showSelect) {
         const selectDiv = document.createElement('div');
         selectDiv.className = 'card-select';
-        selectDiv.innerHTML = `<input type="checkbox" data-id="${word.id}" title="Seleccionar para exportar">`;
+        const selectTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardSelectPrint') : 'Seleccionar para exportar';
+        selectDiv.innerHTML = `<input type="checkbox" data-id="${word.id}" title="${selectTitle}">`;
         selectDiv.addEventListener('click', (e) => e.stopPropagation());
         wrapper.appendChild(selectDiv);
     }
@@ -61,11 +62,13 @@ const createFlashcard = (word, options = {}) => {
     if (showActions) {
         const actions = document.createElement('div');
         actions.className = 'card-actions';
+        const editTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardEdit') : 'Editar';
+        const deleteTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardDelete') : 'Eliminar';
         actions.innerHTML = `
-            <button class="edit-btn" title="Editar" data-id="${word.id}">
+            <button class="edit-btn" title="${editTitle}" data-id="${word.id}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             </button>
-            <button class="delete-btn" title="Eliminar" data-id="${word.id}">
+            <button class="delete-btn" title="${deleteTitle}" data-id="${word.id}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
             </button>
         `;
@@ -131,13 +134,13 @@ const createFlashcard = (word, options = {}) => {
             </div>
             ${(clfDisplay || radHtml) ? `
                 <div class="card-components-block">
-                    ${clfDisplay ? `<div class="card-clf-val" title="Clasificador">${clfDisplay}</div>` : ''}
-                    ${radHtml ? `<div class="card-rad-val" title="Radicales / Componentes">${radHtml}</div>` : ''}
+                    ${clfDisplay ? `<div class="card-clf-val" title="${(typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardClassifier') : 'Clasificador'}">${clfDisplay}</div>` : ''}
+                    ${radHtml ? `<div class="card-rad-val" title="${(typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardRadicals') : 'Radicales / Componentes'}">${radHtml}</div>` : ''}
                 </div>
             ` : ''}
         </div>
         ${word.notas ? `
-            <div class="card-notes-block" title="Notas">
+            <div class="card-notes-block" title="${(typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardNotes') : 'Notas'}">
                 ${word.notas}
             </div>
         ` : ''}
@@ -210,9 +213,13 @@ const createStructureCard = (struct) => {
     const div = document.createElement('div');
     div.className = 'structure-card';
     div.dataset.id = struct.id;
+    const deleteTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardDelete') : 'Eliminar';
+    const exLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('structExample') : 'Ejemplo';
+    const transLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('structTranslation') : 'Traducción';
+
     div.innerHTML = `
         <div class="structure-actions">
-            <button class="btn-ghost btn-icon delete-btn" title="Eliminar" data-id="${struct.id}">
+            <button class="btn-ghost btn-icon delete-btn" title="${deleteTitle}" data-id="${struct.id}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
             </button>
         </div>
@@ -220,7 +227,7 @@ const createStructureCard = (struct) => {
         <div class="formula">${struct.formula}</div>
         <div class="example-row">
             <div>
-                <span class="ex-label">Ejemplo</span>
+                <span class="ex-label">${exLabel}</span>
                 <span class="ex-value chinese">${struct.ejemplo_tradicional}</span>
             </div>
             <div>
@@ -228,8 +235,8 @@ const createStructureCard = (struct) => {
                 <span class="ex-value">${struct.ejemplo_pinyin}</span>
             </div>
             <div>
-                <span class="ex-label">Español</span>
-                <span class="ex-value">${struct.ejemplo_espanol}</span>
+                <span class="ex-label">${transLabel}</span>
+                <span class="ex-value">${struct.ejemplo_espanol || struct.ejemplo_english || ''}</span>
             </div>
         </div>
         ${struct.notas ? `<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;">💡 ${struct.notas}</p>` : ''}

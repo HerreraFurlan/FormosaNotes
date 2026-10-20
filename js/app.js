@@ -1318,6 +1318,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Settings initialization ---
     initSettings();
 
+    // --- Apply active language translations to DOM ---
+    if (typeof I18N !== 'undefined') {
+        I18N.applyI18nToDOM();
+    }
+
     // --- Initialize ---
     refreshAll();
     initBuilder();
@@ -1337,6 +1342,28 @@ const initSettings = () => {
     const saveSettingsBtn = document.getElementById('settings-dialog-save');
     const geminiKeyInput = document.getElementById('settings-gemini-key');
     const toggleGeminiKeyBtn = document.getElementById('btn-toggle-gemini-key');
+    const toggleLangBtn = document.getElementById('btn-toggle-lang');
+
+    // Sidebar quick language toggle button
+    if (toggleLangBtn) {
+        toggleLangBtn.addEventListener('click', () => {
+            if (typeof I18N !== 'undefined') {
+                const current = I18N.getLanguage();
+                const next = current === 'es' ? 'en' : 'es';
+                I18N.setLanguage(next);
+            }
+        });
+    }
+
+    // Language pills inside settings dialog
+    document.querySelectorAll('.lang-choice-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const chosenLang = btn.dataset.lang;
+            if (chosenLang && typeof I18N !== 'undefined') {
+                I18N.setLanguage(chosenLang);
+            }
+        });
+    });
 
     if (!settingsDialog) return;
 
@@ -1348,6 +1375,13 @@ const initSettings = () => {
 
             if (geminiKeyInput && typeof getGeminiApiKey === 'function') {
                 geminiKeyInput.value = getGeminiApiKey() || '';
+            }
+
+            if (typeof I18N !== 'undefined') {
+                const curLang = I18N.getLanguage();
+                document.querySelectorAll('.lang-choice-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.lang === curLang);
+                });
             }
 
             settingsDialog.showModal();

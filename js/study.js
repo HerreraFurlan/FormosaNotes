@@ -285,6 +285,10 @@ const buildCardFacesHtml = (word) => {
         </div>
     ` : '';
 
+    const flipHint = (typeof window !== 'undefined' && window.I18N)
+        ? window.I18N.t('studyFlipHint')
+        : 'Toca o presiona espacio para voltear';
+
     // =========================================================================
     // MODALIDAD 1: ESTUDIAR VIENDO CARACTERES
     // Frente: solo el caracter (+ categoría opcional)
@@ -297,7 +301,7 @@ const buildCardFacesHtml = (word) => {
                 <div class="study-card-body">
                     <div class="chinese-char ${lenClass}">${word.tradicional}</div>
                 </div>
-                <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
+                <div class="study-flip-hint">${flipHint}</div>
             </div>
         `;
 
@@ -331,7 +335,7 @@ const buildCardFacesHtml = (word) => {
                     <div class="study-prompt-pinyin ${pinyinLenClass}">${word.pinyin}</div>
                     ${word.zhuyin ? `<div class="study-prompt-zhuyin">${word.zhuyin}</div>` : ''}
                 </div>
-                <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
+                <div class="study-flip-hint">${flipHint}</div>
             </div>
         `;
 
@@ -361,7 +365,7 @@ const buildCardFacesHtml = (word) => {
                 <div class="study-card-body">
                     <div class="study-prompt-definition">${word.espanol}</div>
                 </div>
-                <div class="study-flip-hint">Toca o presiona espacio para voltear</div>
+                <div class="study-flip-hint">${flipHint}</div>
             </div>
         `;
 
@@ -393,14 +397,16 @@ const renderStudyCard = () => {
     if (!container) return;
 
     if (studyDeck.length === 0) {
+        const emptyTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyEmpty') : 'No hay palabras para estudiar con estos filtros';
+        const emptySub = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyNoLessonCat') : 'Prueba seleccionando otras lecciones o categorías en la barra superior.';
         container.innerHTML = `
             <div class="empty-state">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <circle cx="12" cy="12" r="10"/>
                     <polyline points="12 6 12 12 16 14"/>
                 </svg>
-                <h3>No hay palabras para estudiar con estos filtros</h3>
-                <p>Prueba seleccionando otras lecciones o categorías en la barra superior.</p>
+                <h3>${emptyTitle}</h3>
+                <p>${emptySub}</p>
             </div>
         `;
         return;
@@ -413,13 +419,32 @@ const renderStudyCard = () => {
         : '#9E948A';
     const { frontHtml, backHtml } = buildCardFacesHtml(word);
 
+    const progressHtml = (typeof window !== 'undefined' && window.I18N)
+        ? window.I18N.t('studyCardOf', { current: `<strong>${studyIndex + 1}</strong>`, total: `<strong>${studyDeck.length}</strong>` })
+        : `Tarjeta <strong>${studyIndex + 1}</strong> de <strong>${studyDeck.length}</strong>`;
+
+    const prevLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyPrev') : 'Anterior';
+    const flipLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyFlip') : 'Voltear';
+    const nextLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyNext') : 'Siguiente';
+    const shuffleLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyShuffle') : 'Mezclar';
+
+    const tabChars = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Characters' : 'Ver Caracteres';
+    const tabPron = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Pronunciation' : 'Ver Pronunciación';
+    const tabDef = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Definition' : 'Ver Definición';
+
+    const modeBadge = currentStudyMode === 'caracteres'
+        ? (tabChars)
+        : currentStudyMode === 'pronunciacion'
+            ? (tabPron)
+            : (tabDef);
+
     container.innerHTML = `
         <div class="study-card-meta-bar">
             <div class="study-progress">
-                Tarjeta <strong>${studyIndex + 1}</strong> de <strong>${studyDeck.length}</strong>
+                ${progressHtml}
             </div>
             <div class="study-mode-badge-indicator">
-                ${currentStudyMode === 'caracteres' ? '🀄 Viendo Caracteres' : currentStudyMode === 'pronunciacion' ? '🗣️ Viendo Pronunciación' : '📖 Viendo Definición'}
+                ${currentStudyMode === 'caracteres' ? '🀄 ' + tabChars : currentStudyMode === 'pronunciacion' ? '🗣️ ' + tabPron : '📖 ' + tabDef}
             </div>
         </div>
 
@@ -431,17 +456,17 @@ const renderStudyCard = () => {
         </div>
 
         <div class="study-controls">
-            <button class="btn btn-secondary" id="study-prev" ${studyIndex === 0 ? 'disabled' : ''} title="Anterior (Flecha izquierda)">
+            <button class="btn btn-secondary" id="study-prev" ${studyIndex === 0 ? 'disabled' : ''} title="${prevLabel}">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                     <polyline points="15 18 9 12 15 6"/>
                 </svg>
-                Anterior
+                ${prevLabel}
             </button>
-            <button class="btn btn-primary" id="study-flip" title="Voltear tarjeta (Espacio)">
-                🔄 Voltear
+            <button class="btn btn-primary" id="study-flip" title="${flipLabel}">
+                🔄 ${flipLabel}
             </button>
-            <button class="btn btn-secondary" id="study-next" title="Siguiente (Flecha derecha)">
-                Siguiente
+            <button class="btn btn-secondary" id="study-next" title="${nextLabel}">
+                ${nextLabel}
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                     <polyline points="9 18 15 12 9 6"/>
                 </svg>
@@ -452,19 +477,19 @@ const renderStudyCard = () => {
             <div class="study-modes-tabs">
                 <button class="study-mode-tab ${currentStudyMode === 'caracteres' ? 'active' : ''}" data-study-mode="caracteres" title="Frente: Carácter | Reverso: Pronunciación y Significado">
                     <span class="tab-icon">🀄</span>
-                    <span class="tab-text">Ver Caracteres</span>
+                    <span class="tab-text">${tabChars}</span>
                 </button>
                 <button class="study-mode-tab ${currentStudyMode === 'pronunciacion' ? 'active' : ''}" data-study-mode="pronunciacion" title="Frente: Pinyin y Zhuyin | Reverso: Carácter y Significado">
                     <span class="tab-icon">🗣️</span>
-                    <span class="tab-text">Ver Pronunciación</span>
+                    <span class="tab-text">${tabPron}</span>
                 </button>
-                <button class="study-mode-tab ${currentStudyMode === 'definicion' ? 'active' : ''}" data-study-mode="definicion" title="Frente: Significado en Español | Reverso: Carácter y Pronunciación">
+                <button class="study-mode-tab ${currentStudyMode === 'definicion' ? 'active' : ''}" data-study-mode="definicion" title="Frente: Significado | Reverso: Carácter y Pronunciación">
                     <span class="tab-icon">📖</span>
-                    <span class="tab-text">Ver Definición</span>
+                    <span class="tab-text">${tabDef}</span>
                 </button>
             </div>
-            <button class="btn btn-secondary btn-sm" id="study-shuffle" title="Mezclar tarjetas aleatoriamente">
-                🔀 Mezclar
+            <button class="btn btn-secondary btn-sm" id="study-shuffle" title="${shuffleLabel}">
+                🔀 ${shuffleLabel}
             </button>
         </div>
     `;

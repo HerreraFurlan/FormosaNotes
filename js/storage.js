@@ -8,6 +8,31 @@
 
 const DB_KEY = 'appchino_db';
 
+/**
+ * Resolves the active database key in localStorage based on selected language.
+ * @returns {'appchino_db'|'appchino_db_en'}
+ */
+const getActiveDBKey = () => {
+    const lang = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage)
+        ? window.I18N.getLanguage()
+        : (localStorage.getItem('appchino_lang') === 'en' ? 'en' : 'es');
+    return lang === 'en' ? 'appchino_db_en' : 'appchino_db';
+};
+
+/**
+ * Resolves the active SEED_DATA based on selected language.
+ * @returns {object}
+ */
+const getActiveSeedData = () => {
+    const lang = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage)
+        ? window.I18N.getLanguage()
+        : (localStorage.getItem('appchino_lang') === 'en' ? 'en' : 'es');
+    if (lang === 'en' && typeof SEED_DATA_EN !== 'undefined') {
+        return SEED_DATA_EN;
+    }
+    return typeof SEED_DATA !== 'undefined' ? SEED_DATA : {};
+};
+
 // --------------------------------------------------
 // Core read/write
 // --------------------------------------------------
@@ -72,16 +97,21 @@ const CLASSIFIER_MAPPING = {
  * @param {object} data
  * @returns {object}
  */
-const sanitizeAndMigrateData = (data) => {
+const sanitizeAndMigrateData = (data, seedSource) => {
     if (!data) return data;
+    const activeSeed = seedSource || getActiveSeedData();
+    const activeDefaultClf = (activeSeed && activeSeed.clasificadores && activeSeed.clasificadores.length > 0)
+        ? activeSeed.clasificadores
+        : DEFAULT_CLASSIFIERS;
+
     if (!data.meta) data.meta = { version: '1.0', ultimaEdicion: new Date().toISOString().split('T')[0] };
 
     // 1. Ensure data.clasificadores exists and has all default classifiers
     if (!data.clasificadores || !Array.isArray(data.clasificadores) || data.clasificadores.length === 0) {
-        data.clasificadores = JSON.parse(JSON.stringify(DEFAULT_CLASSIFIERS));
+        data.clasificadores = JSON.parse(JSON.stringify(activeDefaultClf));
     } else {
         const existingIds = new Set(data.clasificadores.map(c => c.id));
-        DEFAULT_CLASSIFIERS.forEach(defClf => {
+        activeDefaultClf.forEach(defClf => {
             if (!existingIds.has(defClf.id)) {
                 data.clasificadores.push(JSON.parse(JSON.stringify(defClf)));
             }
@@ -153,11 +183,11 @@ const sanitizeAndMigrateData = (data) => {
         });
     }
 
-    // 6. Ensure all structures from SEED_DATA are present
-    if (typeof SEED_DATA !== 'undefined' && Array.isArray(SEED_DATA.estructuras)) {
+    // 6. Ensure all structures from activeSeed are present
+    if (activeSeed && Array.isArray(activeSeed.estructuras)) {
         if (!Array.isArray(data.estructuras)) data.estructuras = [];
         const existingStructIds = new Set(data.estructuras.map(s => s.id));
-        SEED_DATA.estructuras.forEach(st => {
+        activeSeed.estructuras.forEach(st => {
             if (!existingStructIds.has(st.id)) {
                 data.estructuras.push(JSON.parse(JSON.stringify(st)));
                 existingStructIds.add(st.id);
@@ -165,12 +195,12 @@ const sanitizeAndMigrateData = (data) => {
         });
     }
 
-    // 7. Sync updated concise mnemonics, standardized radicals, leccion, and simplified espanol from SEED_DATA
-    if (typeof SEED_DATA !== 'undefined') {
+    // 7. Sync updated definitions, mnemonics, radicals, leccion, and examples from activeSeed
+    if (activeSeed) {
         const seedMap = new Map();
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
-            if (Array.isArray(SEED_DATA[cat])) {
-                SEED_DATA[cat].forEach(w => {
+            if (Array.isArray(activeSeed[cat])) {
+                activeSeed[cat].forEach(w => {
                     seedMap.set(w.id, w);
                     if (w.tradicional) {
                         seedMap.set(w.tradicional + '_' + (w.categoria || cat), w);
@@ -191,6 +221,12 @@ const sanitizeAndMigrateData = (data) => {
                         if (seedWord.espanol) {
                             w.espanol = seedWord.espanol;
                         }
+                        if (seedWord.english) {
+                            w.english = seedWord.english;
+                        }
+                        if (seedWord.ejemplos) {
+                            w.ejemplos = JSON.parse(JSON.stringify(seedWord.ejemplos));
+                        }
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
                         }
@@ -199,12 +235,12 @@ const sanitizeAndMigrateData = (data) => {
             }
         }
 
-        // 8. Ensure all cards from SEED_DATA exist in data (including split cards)
+        // 8. Ensure all cards from activeSeed exist in data (including split cards)
         for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
-            if (Array.isArray(SEED_DATA[cat])) {
+            if (Array.isArray(activeSeed[cat])) {
                 if (!Array.isArray(data[cat])) data[cat] = [];
                 const existingIds = new Set(data[cat].map(w => w.id));
-                SEED_DATA[cat].forEach(seedWord => {
+                activeSeed[cat].forEach(seedWord => {
                     if (!existingIds.has(seedWord.id)) {
                         data[cat].push(JSON.parse(JSON.stringify(seedWord)));
                         existingIds.add(seedWord.id);
@@ -223,14 +259,16 @@ const sanitizeAndMigrateData = (data) => {
  * @returns {object} The complete database object
  */
 const loadDB = () => {
-    const raw = localStorage.getItem(DB_KEY);
+    const key = getActiveDBKey();
+    const seed = getActiveSeedData();
+    const raw = localStorage.getItem(key);
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.23' || !data.clasificadores || data.clasificadores.length === 0) {
-                sanitizeAndMigrateData(data);
+            if (!data.meta || data.meta.migratedWordsVersion !== '3.24' || !data.clasificadores || data.clasificadores.length === 0) {
+                sanitizeAndMigrateData(data, seed);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.23';
+                data.meta.migratedWordsVersion = '3.24';
                 saveDB(data);
             }
             return data;
@@ -238,8 +276,8 @@ const loadDB = () => {
         catch (e) { console.error('Error parsing DB:', e); }
     }
     // First visit — seed with initial data
-    const seeded = JSON.parse(JSON.stringify(SEED_DATA));
-    sanitizeAndMigrateData(seeded);
+    const seeded = JSON.parse(JSON.stringify(seed));
+    sanitizeAndMigrateData(seeded, seed);
     saveDB(seeded);
     return seeded;
 };
@@ -249,9 +287,10 @@ const loadDB = () => {
  * @param {object} data - The complete database object
  */
 const saveDB = (data) => {
+    const key = getActiveDBKey();
     if (!data.meta) data.meta = { version: '1.0' };
     data.meta.ultimaEdicion = new Date().toISOString().split('T')[0];
-    localStorage.setItem(DB_KEY, JSON.stringify(data));
+    localStorage.setItem(key, JSON.stringify(data));
 };
 
 // --------------------------------------------------

@@ -5304,3 +5304,26 @@ input:checked+.slider:before {
     line-height: 1.35;
     margin: 0;
 }
+
+/* Language selection buttons in Settings */
+.lang-choice-btn {
+    transition: var(--transition);
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    color: var(--text-primary);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+}
+
+.lang-choice-btn:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+}
+
+.lang-choice-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: var(--accent);
+    box-shadow: 0 1px 4px rgba(179, 58, 58, 0.35);
+}
