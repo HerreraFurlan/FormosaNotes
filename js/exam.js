@@ -615,16 +615,13 @@ const renderExamWelcome = (container) => {
     container.innerHTML = `
         <div class="exam-welcome-card">
             <div class="exam-welcome-header">
-                <div class="exam-badge">Evaluación Oficial Adaptativa</div>
-                <h1 class="exam-title">Simulación de Examen</h1>
-                <p class="exam-subtitle">
-                    Pon a prueba tus conocimientos de mandarín tradicional taiwanés con una prueba estandarizada completa de 7 fases, 
-                    generada dinámicamente con IA utilizando exclusivamente las palabras y estructuras de tu biblioteca personal.
-                </p>
+                <div class="exam-badge">${typeof I18N !== "undefined" ? I18N.t("examBadgeText") : "Evaluación Oficial Adaptativa"}</div>
+                <h1 class="exam-title">${typeof I18N !== "undefined" ? I18N.t("examMainTitle") : "Simulación de Examen"}</h1>
+<p class="exam-subtitle">${typeof I18N !== "undefined" ? I18N.t("examMainSubtitle") : "Pon a prueba tus conocimientos..."}</p>
                 <div class="exam-stats-pills">
-                    <span class="exam-pill">📚 ${wordCount} palabras registradas</span>
-                    <span class="exam-pill">🧩 ${structCount} estructuras gramaticales</span>
-                    <span class="exam-pill">🎯 55 preguntas en 7 fases</span>
+                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillWords", { count: wordCount }) : `📚 ${wordCount} palabras registradas`}</span>
+                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillStructs", { count: structCount }) : `🧩 ${structCount} estructuras gramaticales`}</span>
+                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillQuestions") : "🎯 55 preguntas en 7 fases"}</span>
                 </div>
             </div>
 
@@ -635,23 +632,21 @@ const renderExamWelcome = (container) => {
                         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                         <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                     </svg>
-                    <span>Lecciones a evaluar en el examen</span>
+                    <span>${typeof I18N !== "undefined" ? I18N.t("examSelectorTitle") : "Lecciones a evaluar en el examen"}</span>
                 </div>
-                <p class="exam-lesson-hint">
-                    <strong>Evaluación retroactiva y acumulativa:</strong> Al marcar una lección, se evalúa <em>hasta</em> esa lección (incluyendo el conocimiento previo de las lecciones anteriores).
-                </p>
+<p class="exam-lesson-hint">${typeof I18N !== "undefined" ? I18N.t("examSelectorHint") : "Evaluación retroactiva..."}</p>
                 <div class="exam-lesson-checkboxes" id="exam-lesson-checkboxes">
                     ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => `
                         <label class="exam-lesson-cb-card ${num <= examMaxLesson ? 'active' : ''}">
                             <input type="checkbox" data-lesson="${num}" ${num <= examMaxLesson ? 'checked' : ''}>
-                            <span class="cb-label">Lección ${num}</span>
+                            <span class="cb-label">${typeof I18N !== "undefined" ? I18N.t("examLessonLabel", { num: num }) : `Lección ${num}`}</span>
                         </label>
                     `).join('')}
                 </div>
                 <div class="exam-lesson-extra">
                     <label class="exam-unassigned-checkbox-label">
                         <input type="checkbox" id="exam-toggle-unassigned" ${examIncludeUnassigned ? 'checked' : ''}>
-                        <span>Incluir tarjetas sin lección asignada (/)</span>
+                        <span>${typeof I18N !== "undefined" ? I18N.t("examIncludeUnassigned") : "Incluir tarjetas sin lección asignada (/)"}</span>
                     </label>
                     <span class="exam-word-count-badge ${examWords.length < 10 ? 'warning' : ''}" id="exam-word-count-badge">
                         ${examWords.length} palabras seleccionadas para el examen
@@ -795,7 +790,15 @@ const renderExamLoading = (container) => {
  */
 const renderExamActive = (container) => {
     const currentPhase = examSession.currentPhase;
-    const phaseNames = [
+    const phaseNames = (typeof I18N !== "undefined") ? [
+        I18N.t("examPhaseName1"),
+        I18N.t("examPhaseName2"),
+        I18N.t("examPhaseName3"),
+        I18N.t("examPhaseName4"),
+        I18N.t("examPhaseName5"),
+        I18N.t("examPhaseName6"),
+        I18N.t("examPhaseName7")
+    ] : [
         "1. Hanzi (10 opciones)",
         "2. Pinyin con Tonos",
         "3. Rellenar Espacios",
@@ -811,12 +814,12 @@ const renderExamActive = (container) => {
             <div class="exam-active-header">
                 <div class="exam-header-top">
                     <div class="exam-active-title">
-                        <h2>Simulación de Examen Oficial</h2>
+                        <h2>${typeof I18N !== "undefined" ? I18N.t("examActiveTitle") : "Simulación de Examen Oficial"}</h2>
                         <span class="exam-phase-indicator">Fase ${currentPhase} de 7: ${phaseNames[currentPhase - 1]}</span>
                     </div>
                     <div class="exam-header-actions">
                         <button class="btn btn-secondary btn-sm" id="btn-cancel-exam" title="Salir del examen">
-                            Abandonar
+                            ${typeof I18N !== "undefined" ? I18N.t("examBtnAbandon") : "Abandonar"}
                         </button>
                     </div>
                 </div>
@@ -845,18 +848,18 @@ const renderExamActive = (container) => {
             <!-- Footer Navigation Bar -->
             <div class="exam-active-footer">
                 <button class="btn btn-secondary" id="btn-prev-phase" ${currentPhase === 1 ? 'disabled' : ''}>
-                    &larr; Fase Anterior
+                    ${typeof I18N !== "undefined" ? I18N.t("examBtnPrevPhase") : "&larr; Fase Anterior"}
                 </button>
                 <div class="exam-footer-info">
                     <span>${getPhaseProgressSummary(currentPhase)}</span>
                 </div>
                 ${currentPhase < 7 ? `
                     <button class="btn btn-primary" id="btn-next-phase">
-                        Siguiente Fase &rarr;
+                        ${typeof I18N !== "undefined" ? I18N.t("examBtnNextPhase") : "Siguiente Fase &rarr;"}
                     </button>
                 ` : `
                     <button class="btn btn-primary btn-submit-exam" id="btn-finish-exam">
-                        Finalizar y Evaluar Examen
+                        ${typeof I18N !== "undefined" ? I18N.t("examBtnSubmitExam") : "Finalizar y Evaluar Examen"}
                     </button>
                 `}
             </div>
@@ -925,7 +928,7 @@ const getPhaseAnsweredStatus = (phaseNum) => {
  */
 const getPhaseProgressSummary = (phaseNum) => {
     const status = getPhaseAnsweredStatus(phaseNum);
-    return `Respondidas: ${status.label} preguntas`;
+    return typeof I18N !== "undefined" ? I18N.t("examProgressSummary", { label: status.label }) : `Respondidas: ${status.label} preguntas`;
 };
 
 /**
@@ -960,8 +963,8 @@ const renderPhase1 = () => {
     return `
         <div class="phase-container phase-1-container">
             <div class="phase-header-banner">
-                <h3>Fase 1: Reconocimiento de Caracteres</h3>
-                <p>Observa la pronunciación (Pinyin con tonos y Zhuyin) y selecciona el carácter tradicional correcto entre las 10 opciones disponibles.</p>
+                <h3>${typeof I18N !== "undefined" ? I18N.t("examPhase1Title") : "Fase 1: Reconocimiento de Caracteres"}</h3>
+                <p>${typeof I18N !== "undefined" ? I18N.t("examPhase1Desc") : "Observa la pronunciación..."}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1001,8 +1004,8 @@ const renderPhase2 = () => {
     return `
         <div class="phase-container phase-2-container">
             <div class="phase-header-banner">
-                <h3>Fase 2: Escritura de Pinyin con Tonos</h3>
-                <p>Escribe el Pinyin exacto para cada uno de los siguientes 10 caracteres o términos. Usa las teclas numéricas <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code> o <code>5</code> para convertir los diacríticos tonales automáticamente.</p>
+                <h3>${typeof I18N !== "undefined" ? I18N.t("examPhase2Title") : "Fase 2: Escritura de Pinyin con Tonos"}</h3>
+                <p>${typeof I18N !== "undefined" ? I18N.t("examPhase2Desc") : "Escribe el Pinyin exacto..."}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1017,7 +1020,7 @@ const renderPhase2 = () => {
                                 <div class="phase2-hanzi">${q.hanzi}</div>
                             </div>
                             <div class="phase2-input-wrapper">
-                                <label for="p2-input-${q.id}">Ingresa el Pinyin con tonos:</label>
+                                <label for="p2-input-${q.id}">${typeof I18N !== "undefined" ? I18N.t("examReviewP2InputLabel") : "Ingresa el Pinyin con tonos:"}</label>
                                 <input type="text" 
                                        class="form-control phase2-pinyin-input" 
                                        id="p2-input-${q.id}" 
@@ -1462,7 +1465,7 @@ const renderExamResults = (container) => {
         <div class="exam-results-container">
             <!-- Score Card Header -->
             <div class="exam-score-hero ${isPassing ? 'passing' : 'failing'}">
-                <div class="score-badge">${isPassing ? '¡Examen Aprobado!' : 'Requiere Refuerzo'}</div>
+                <div class="score-badge">${isPassing ? (typeof I18N !== "undefined" ? I18N.t("examResultsHeroPassed") : "¡Examen Aprobado!") : (typeof I18N !== "undefined" ? I18N.t("examResultsHeroFailed") : "Requiere Refuerzo")}</div>
                 <div class="score-circle">
                     <span class="score-number">${scores.percentage}%</span>
                     <span class="score-points">${scores.totalPoints} / ${scores.maxPoints} pts</span>
@@ -1470,10 +1473,10 @@ const renderExamResults = (container) => {
                 <p class="score-feedback-text">${aiSummary}</p>
                 <div class="results-actions">
                     <button class="btn btn-primary" id="btn-restart-exam">
-                        Realizar Nuevo Examen
+                        ${typeof I18N !== "undefined" ? I18N.t("examResultsRestartBtn") : "Realizar Nuevo Examen"}
                     </button>
                     <button class="btn btn-secondary" id="btn-review-library">
-                        Ir a la Biblioteca
+                        ${typeof I18N !== "undefined" ? I18N.t("examResultsGoLibrary") : "Ir a la Biblioteca"}
                     </button>
                 </div>
             </div>
@@ -1481,38 +1484,38 @@ const renderExamResults = (container) => {
             <!-- Breakdown by Phase -->
             <div class="exam-breakdown-cards">
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 1: Reconocimiento</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP1") : "Fase 1: Reconocimiento"}</div>
                     <div class="b-score">${scores.phase1} / 10 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 2: Escritura Pinyin</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP2") : "Fase 2: Escritura Pinyin"}</div>
                     <div class="b-score">${scores.phase2} / 10 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 3: Espacios en Blanco</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP3") : "Fase 3: Espacios en Blanco"}</div>
                     <div class="b-score">${scores.phase3} / 5 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 4: Gramática Compleja</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP4") : "Fase 4: Gramática Compleja"}</div>
                     <div class="b-score">${scores.phase4} / 10 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 5: Escenarios Abiertos</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP5") : "Fase 5: Escenarios Abiertos"}</div>
                     <div class="b-score">${scores.phase5} / 5 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 6: Banco de Caracteres</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP6") : "Fase 6: Banco de Caracteres"}</div>
                     <div class="b-score">${scores.phase6} / 5 pts</div>
                 </div>
                 <div class="breakdown-card">
-                    <div class="b-phase">Fase 7: Comprensión Lectora</div>
+                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP7") : "Fase 7: Comprensión Lectora"}</div>
                     <div class="b-score">${scores.phase7} / 10 pts</div>
                 </div>
             </div>
 
             <!-- Detailed Accordion / Review section -->
             <div class="exam-review-section">
-                <h3 class="review-title">Revisión Detallada de Respuestas</h3>
+                <h3 class="review-title">${typeof I18N !== "undefined" ? I18N.t("examReviewTitle") : "Revisión Detallada de Respuestas"}</h3>
                 
                 <!-- Tab bar for review -->
                 <div class="review-tabs">
@@ -1558,11 +1561,11 @@ const renderReviewPhaseContent = (phaseNum, details) => {
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>Pregunta ${idx + 1} (${item.pinyin} ${item.zhuyin ? `/ ${item.zhuyin}` : ''})</span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span class="review-status">${item.isCorrect ? (typeof I18N !== "undefined" ? I18N.t("examReviewStatusCorrect") : "✓ Correcto (+1 pt)") : (typeof I18N !== "undefined" ? I18N.t("examReviewStatusIncorrect") : "✗ Incorrecto (0 pts)")}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong>${item.userAnswer}</strong></div>
-                        <div>Respuesta correcta: <strong>${item.correctAnswer}</strong></div>
+                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewYourAnswer") : "Tu respuesta:"} <strong>${item.userAnswer}</strong></div>
+                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewCorrectAnswer") : "Respuesta correcta:"} <strong>${item.correctAnswer}</strong></div>
                     </div>
                 </div>
             `).join('');
@@ -1572,11 +1575,11 @@ const renderReviewPhaseContent = (phaseNum, details) => {
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>Carácter: <strong style="font-size:1.2rem; font-family:'Noto Sans TC';">${item.hanzi}</strong></span>
-                        <span class="review-status">${item.isCorrect ? '✓ Correcto (+1 pt)' : '✗ Incorrecto (0 pts)'}</span>
+                        <span class="review-status">${item.isCorrect ? (typeof I18N !== "undefined" ? I18N.t("examReviewStatusCorrect") : "✓ Correcto (+1 pt)") : (typeof I18N !== "undefined" ? I18N.t("examReviewStatusIncorrect") : "✗ Incorrecto (0 pts)")}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu Pinyin: <code>${item.userAnswer}</code></div>
-                        <div>Pinyin esperado: <code>${item.correctAnswer}</code></div>
+                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewYourPinyin") : "Tu Pinyin:"} <code>${item.userAnswer}</code></div>
+                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewExpectedPinyin") : "Pinyin esperado:"} <code>${item.correctAnswer}</code></div>
                     </div>
                 </div>
             `).join('');

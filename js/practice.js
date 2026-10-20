@@ -163,12 +163,12 @@ const generatePracticeChallenges = async () => {
     const allStructures = getAllStructures();
 
     if (words.length === 0) {
-        showToast('No tienes palabras en tu biblioteca para practicar', 'error');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastNoWords") : "No tienes palabras en tu biblioteca para practicar", "error");
         return;
     }
 
     if (allStructures.length === 0) {
-        showToast('No tienes estructuras gramaticales registradas', 'error');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastNoStructs") : "No tienes estructuras gramaticales registradas", "error");
         return;
     }
 
@@ -199,7 +199,7 @@ const generatePracticeChallenges = async () => {
         practiceAnswers = {};
         practiceEvaluations = {};
         savePracticeState();
-        showToast('¡5 retos generados! Listo para practicar', 'success');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastGenerated") : "¡5 retos generados! Listo para practicar", "success");
     } catch (error) {
         console.error("Error al generar práctica:", error);
         showToast(error.message || 'Error al conectar con la IA', 'error');
@@ -215,7 +215,7 @@ const evaluateSingleChallenge = async (challengeId) => {
 
     const answer = (practiceAnswers[challengeId] || '').trim();
     if (!answer) {
-        showToast('Escribe tu respuesta en chino antes de revisar', 'error');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEmptyAnswer") : "Escribe tu respuesta en chino antes de revisar", "error");
         return;
     }
 
@@ -241,7 +241,7 @@ const evaluateSingleChallenge = async (challengeId) => {
             practiceEvaluations[challengeId] = results[0];
             savePracticeState();
             renderPracticeUI();
-            showToast('Reto evaluado con éxito', 'success');
+            showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEvalSuccess") : "Reto evaluado con éxito", "success");
         }
     } catch (error) {
         console.error("Error al evaluar reto:", error);
@@ -265,7 +265,7 @@ const evaluateAllChallenges = async () => {
 
     const hasAnyAnswer = submissions.some(s => s.respuesta_estudiante.length > 0);
     if (!hasAnyAnswer) {
-        showToast('Escribe al menos una respuesta antes de evaluar', 'error');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEvalAllEmpty") : "Escribe al menos una respuesta antes de evaluar", "error");
         return;
     }
 
@@ -315,7 +315,7 @@ const startInteractiveConversation = async () => {
     const allStructures = getAllStructures();
 
     if (words.length === 0) {
-        showToast('No tienes palabras en tu biblioteca para practicar', 'error');
+        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastNoWords") : "No tienes palabras en tu biblioteca para practicar", "error");
         return;
     }
 
@@ -528,13 +528,13 @@ const renderPracticeUI = () => {
                     <circle cx="12" cy="12" r="6"></circle>
                     <circle cx="12" cy="12" r="2"></circle>
                 </svg>
-                Retos de oraciones
+                ${typeof I18N !== "undefined" ? I18N.t("practiceRetosTab") : "Retos de oraciones"}
             </button>
             <button class="practice-tab-btn ${activePracticeTab === 'conversacion' ? 'active' : ''}" data-tab="conversacion">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                     <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
-                Conversación en vivo
+                ${typeof I18N !== "undefined" ? I18N.t("practiceConvoTab") : "Conversación en vivo"}
                 ${conversationSession.active && !conversationSession.terminada ? '<span class="practice-tab-dot"></span>' : ''}
             </button>
         </div>
@@ -578,8 +578,8 @@ const renderChallengesView = (bodyContent) => {
                         <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
                     </svg>
                 </div>
-                <h3>Formulando 5 retos con Inteligencia Artificial...</h3>
-                <p>Gemini está seleccionando tus estructuras gramaticales y combinándolas con tu vocabulario para crear oraciones personalizadas.</p>
+                <h3>${typeof I18N !== "undefined" ? I18N.t("practiceGeneratingTitle") : "Formulando 5 retos con Inteligencia Artificial..."}</h3>
+                <p>${typeof I18N !== "undefined" ? I18N.t("practiceGeneratingDesc") : "Gemini está seleccionando tus estructuras..."}</p>
             </div>
         `;
         return;
@@ -598,27 +598,23 @@ const renderChallengesView = (bodyContent) => {
                         <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
                     </svg>
                 </div>
-                <h2>Práctica Diaria de Oraciones con IA</h2>
-                <p>
-                    Pon a prueba tu dominio del mandarín tradicional. La IA seleccionará <strong>5 estructuras gramaticales</strong> al azar
-                    y usará únicamente las <strong>palabras que ya tienes en tu biblioteca</strong> para proponerte 5 oraciones en español.
-                    ¡Escríbelas en caracteres tradicionales y recibe retroalimentación inmediata!
-                </p>
+                <h2>${typeof I18N !== "undefined" ? I18N.t("practiceWelcomeTitle") : "Práctica Diaria de Oraciones con IA"}</h2>
+                <p>${typeof I18N !== "undefined" ? I18N.t("practiceWelcomeDesc") : "Pon a prueba tu dominio del mandarín tradicional..."}</p>
                 <div class="practice-stats-bar">
                     <div class="stat-pill">
                         <span class="stat-number">${totalWords}</span>
-                        <span class="stat-label">Palabras disponibles</span>
+                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("practiceWordsAvail") : "Palabras disponibles"}</span>
                     </div>
                     <div class="stat-pill">
                         <span class="stat-number">${totalStructs}</span>
-                        <span class="stat-label">Estructuras disponibles</span>
+                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("practiceStructsAvail") : "Estructuras disponibles"}</span>
                     </div>
                 </div>
                 <button class="btn btn-primary btn-lg" id="btn-generate-practice">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
                     </svg>
-                    Generar 5 retos nuevos
+                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnGenerate") : "Generar 5 retos nuevos"}
                 </button>
             </div>
         `;
@@ -638,36 +634,36 @@ const renderChallengesView = (bodyContent) => {
     let toolbarHtml = `
         <div class="practice-toolbar">
             <div class="practice-toolbar-info">
-                <h3>Práctica activa: 5 retos</h3>
+                <h3>${typeof I18N !== "undefined" ? I18N.t("practiceToolbarTitle") : "Práctica activa: 5 retos"}</h3>
                 ${hasEvaluations ? `
                     <span class="practice-score-badge ${correctCount === practiceChallenges.length ? 'all-correct' : ''}">
                         ${correctCount} / ${practiceChallenges.length} correctas
                     </span>
                 ` : `
-                    <span class="practice-status-hint">Escribe tus respuestas y revísalas individualmente o en conjunto.</span>
+                    <span class="practice-status-hint">${typeof I18N !== "undefined" ? I18N.t("practiceStatusHint") : "Escribe tus respuestas y revísalas individualmente o en conjunto."}</span>
                 `}
             </div>
             <div class="practice-toolbar-actions">
                 <button class="btn btn-secondary btn-sm" id="btn-reset-practice" title="Reiniciar sesión de práctica">
-                    Reiniciar
+                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnReset") : "Reiniciar"}
                 </button>
                 <button class="btn btn-secondary btn-sm" id="btn-regenerate-practice" ${isPracticeEvaluating ? 'disabled' : ''}>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
                         <polyline points="23 4 23 10 17 10"></polyline>
                         <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                     </svg>
-                    Otros 5 retos
+                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnRegenerate") : "Otros 5 retos"}
                 </button>
                 <button class="btn btn-primary" id="btn-evaluate-all-practice" ${isPracticeEvaluating ? 'disabled' : ''}>
                     ${isPracticeEvaluating ? `
                         <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                             <path d="M21 12a9 9 0 11-6.219-8.56"/>
-                        </svg> Evaluando con IA...
+                        </svg> ${typeof I18N !== "undefined" ? I18N.t("practiceBtnEvaluating") : "Evaluando con IA..."}
                     ` : `
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
                             <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                             <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg> Evaluar todo
+                        </svg> ${typeof I18N !== "undefined" ? I18N.t("practiceBtnEvalAll") : "Evaluar todo"}
                     `}
                 </button>
             </div>
@@ -684,16 +680,16 @@ const renderChallengesView = (bodyContent) => {
             feedbackHtml = `
                 <div class="practice-feedback-box ${isCorrect ? 'is-correct' : 'is-wrong'}">
                     <div class="practice-feedback-verdict">
-                        ${isCorrect ? '✅ ¡Oración Correcta!' : '❌ Necesita Corrección'}
+                        ${isCorrect ? (typeof I18N !== "undefined" ? I18N.t("practiceFeedbackCorrect") : "✅ ¡Oración Correcta!") : (typeof I18N !== "undefined" ? I18N.t("practiceFeedbackWrong") : "❌ Necesita Corrección")}
                     </div>
 
                     <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">Explicación</div>
+                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiExplanation") : "Explicación"}</div>
                         <p class="practice-feedback-text">${evaluation.explicacion || ''}</p>
                     </div>
 
                     <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">Versión sugerida</div>
+                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiSuggested") : "Versión sugerida"}</div>
                         <div class="practice-feedback-chinese">${evaluation.correccion || ''}</div>
                     </div>
 
@@ -705,7 +701,7 @@ const renderChallengesView = (bodyContent) => {
                     ` : ''}
 
                     <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">Traducción</div>
+                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiTranslation") : "Traducción"}</div>
                         <div class="practice-feedback-trans">${evaluation.traduccion || ''}</div>
                     </div>
                 </div>
@@ -716,7 +712,7 @@ const renderChallengesView = (bodyContent) => {
         if (Array.isArray(ch.vocabulario_clave) && ch.vocabulario_clave.length > 0) {
             vocabPills = `
                 <div class="practice-vocab-wrap">
-                    <span class="practice-vocab-title">Vocabulario clave:</span>
+                    <span class="practice-vocab-title">${typeof I18N !== "undefined" ? I18N.t("practiceKeyVocabLabel") : "Vocabulario clave:"}</span>
                     ${ch.vocabulario_clave.map(v => `<span class="practice-pill">${v}</span>`).join('')}
                 </div>
             `;
@@ -725,21 +721,21 @@ const renderChallengesView = (bodyContent) => {
         return `
             <div class="practice-card ${evaluation ? (evaluation.correcta ? 'card-success' : 'card-warning') : ''}" data-id="${ch.id}">
                 <div class="practice-card-header">
-                    <div class="practice-card-badge">Reto ${index + 1} de 5</div>
+                    <div class="practice-card-badge">${typeof I18N !== "undefined" ? I18N.t("practiceCardChallenge", { n: index + 1, total: 5 }) : `Reto ${index + 1} de 5`}</div>
                     <div class="practice-formula-tag" title="Estructura a utilizar">
                         ${ch.formula || ch.nombre_estructura}
                     </div>
                 </div>
 
                 <div class="practice-instruction">
-                    <div class="practice-instruction-label">Traduce o construye en chino:</div>
+                    <div class="practice-instruction-label">${typeof I18N !== "undefined" ? I18N.t("practiceInstructionTranslate") : "Traduce o construye en chino:"}</div>
                     <div class="practice-instruction-text">"${ch.instruccion_espanol}"</div>
                 </div>
 
                 ${ch.pista ? `
                     <div class="practice-hint">
                         <span class="practice-hint-icon">💡</span>
-                        <span><strong>Pista:</strong> ${ch.pista}</span>
+                        <span><strong>${typeof I18N !== "undefined" ? I18N.t("practiceHintLabel") : "Pista:"}</strong> ${ch.pista}</span>
                     </div>
                 ` : ''}
 
@@ -750,7 +746,7 @@ const renderChallengesView = (bodyContent) => {
                         class="practice-input" 
                         data-id="${ch.id}" 
                         rows="2" 
-                        placeholder="Escribe la oración aquí en caracteres tradicionales...">${userAnswer}</textarea>
+                        placeholder="${typeof I18N !== "undefined" ? I18N.t("practiceInputPlaceholder") : "Escribe la oración aquí en caracteres tradicionales..."}">${userAnswer}</textarea>
                     
                     <div class="practice-card-actions">
                         <button class="btn btn-secondary btn-sm btn-eval-single" data-id="${ch.id}" ${isPracticeEvaluating ? 'disabled' : ''}>
@@ -859,7 +855,7 @@ const renderConversationView = (bodyContent) => {
                 <div class="convo-struct-picker-panel">
                     <div class="convo-picker-header">
                         <div class="convo-picker-title">
-                            <span>Estructuras obligatorias:</span>
+                            <span>${typeof I18N !== "undefined" ? I18N.t("convoRequiredStructs") : "Estructuras obligatorias:"}</span>
                             <span class="convo-count-badge ${selectedTargetStructureIds.length === 5 ? 'max' : ''}" id="convo-count-badge">
                                 ${selectedTargetStructureIds.length} / 5 seleccionadas
                             </span>
@@ -870,10 +866,10 @@ const renderConversationView = (bodyContent) => {
                                     <circle cx="11" cy="11" r="8"></circle>
                                     <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 </svg>
-                                <input type="text" id="convo-struct-search-input" class="convo-search-input" placeholder="Filtrar por nombre o fórmula...">
+                                <input type="text" id="convo-struct-search-input" class="convo-search-input" placeholder="${typeof I18N !== "undefined" ? I18N.t("convoSearchPlaceholder") : "Filtrar por nombre o fórmula..."}">
                             </div>
                             ${selectedTargetStructureIds.length > 0 ? `
-                                <button type="button" class="btn btn-secondary btn-sm" id="btn-convo-clear-structs">Desmarcar</button>
+                                <button type="button" class="btn btn-secondary btn-sm" id="btn-convo-clear-structs">${typeof I18N !== "undefined" ? I18N.t("convoBtnUnmark") : "Desmarcar"}</button>
                             ` : ''}
                         </div>
                     </div>
@@ -894,28 +890,25 @@ const renderConversationView = (bodyContent) => {
                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                     </svg>
                 </div>
-                <h2>Conversación Interactiva con IA</h2>
-                <p>
-                    Practica situaciones cotidianas en Taiwán. La IA iniciará un diálogo adaptado a tu progreso,
-                    evaluará cada frase que envíes en caracteres tradicionales y te dará retroalimentación pedagógica al instante.
-                </p>
+                <h2>${typeof I18N !== "undefined" ? I18N.t("convoSetupTitle") : "Conversación Interactiva con IA"}</h2>
+                <p>${typeof I18N !== "undefined" ? I18N.t("convoSetupDesc") : "Practica situaciones cotidianas en Taiwán..."}</p>
 
                 <!-- Mode Selector -->
                 <div class="convo-mode-section">
-                    <div class="convo-mode-label">Elige la modalidad de práctica:</div>
+                    <div class="convo-mode-label">${typeof I18N !== "undefined" ? I18N.t("convoModeSectionLabel") : "Elige la modalidad de práctica:"}</div>
                     <div class="convo-mode-toggle">
                         <button type="button" class="convo-mode-btn ${convoTargetMode === 'libre' ? 'active' : ''}" data-mode="libre">
                             <span class="convo-mode-icon">🌐</span>
                             <div class="convo-mode-meta">
-                                <strong>Modo Libre</strong>
-                                <small>Practica cualquier estructura de tu biblioteca</small>
+                                <strong>${typeof I18N !== "undefined" ? I18N.t("convoModeFreeTitle") : "Modo Libre"}</strong>
+                                <small>${typeof I18N !== "undefined" ? I18N.t("convoModeFreeDesc") : "Practica cualquier estructura de tu biblioteca"}</small>
                             </div>
                         </button>
                         <button type="button" class="convo-mode-btn ${convoTargetMode === 'especifico' ? 'active' : ''}" data-mode="especifico">
                             <span class="convo-mode-icon">🎯</span>
                             <div class="convo-mode-meta">
-                                <strong>Modo Enfocado</strong>
-                                <small>Elige hasta 5 estructuras obligatorias</small>
+                                <strong>${typeof I18N !== "undefined" ? I18N.t("convoModeFocusTitle") : "Modo Enfocado"}</strong>
+                                <small>${typeof I18N !== "undefined" ? I18N.t("convoModeFocusDesc") : "Elige hasta 5 estructuras obligatorias"}</small>
                             </div>
                         </button>
                     </div>
@@ -926,11 +919,11 @@ const renderConversationView = (bodyContent) => {
                 <div class="practice-stats-bar">
                     <div class="stat-pill">
                         <span class="stat-number">${totalWords}</span>
-                        <span class="stat-label">Palabras conocidas</span>
+                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("convoKnownWords") : "Palabras conocidas"}</span>
                     </div>
                     <div class="stat-pill">
                         <span class="stat-number">${totalStructs}</span>
-                        <span class="stat-label">Estructuras disponibles</span>
+                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("practiceStructsAvail") : "Estructuras disponibles"}</span>
                     </div>
                 </div>
 
@@ -940,7 +933,7 @@ const renderConversationView = (bodyContent) => {
                             <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
                             <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
                         </svg>
-                        Conectando con interlocutor...
+                        ${typeof I18N !== "undefined" ? I18N.t("convoConnectingPartner") : "Conectando con interlocutor..."}
                     ` : (convoTargetMode === 'especifico' ? `
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -950,7 +943,7 @@ const renderConversationView = (bodyContent) => {
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
-                        Iniciar conversación libre
+                        ${typeof I18N !== "undefined" ? I18N.t("convoStartFreeBtnText") : "Iniciar conversación libre"}
                     `)}
                 </button>
             </div>
@@ -1062,7 +1055,7 @@ const renderConversationView = (bodyContent) => {
     if (conversationSession.history.length === 0 && conversationSession.currentPrompt) {
         messagesHtml += `
             <div class="chat-prompt-card-opening">
-                <div class="chat-prompt-badge">🎯 Tu turno para iniciar el diálogo</div>
+                <div class="chat-prompt-badge">${typeof I18N !== "undefined" ? I18N.t("convoTurnOpening") : "🎯 Tu turno para iniciar el diálogo"}</div>
                 <div class="chat-prompt-text">${conversationSession.currentPrompt}</div>
             </div>
         `;
@@ -1086,7 +1079,7 @@ const renderConversationView = (bodyContent) => {
                     </div>
                     ${msg.instruccion_usuario && !conversationSession.terminada ? `
                         <div class="chat-prompt-callout">
-                            <span class="chat-prompt-tag">🎯 Tu objetivo ahora:</span>
+                            <span class="chat-prompt-tag">${typeof I18N !== "undefined" ? I18N.t("convoGoalNow") : "🎯 Tu objetivo ahora:"}</span>
                             <span class="chat-prompt-instruction">${msg.instruccion_usuario}</span>
                         </div>
                     ` : ''}
@@ -1108,7 +1101,7 @@ const renderConversationView = (bodyContent) => {
                         ${evalData.comentario ? `<div class="chat-eval-comment">${evalData.comentario}</div>` : ''}
                         ${evalData.correccion && (!isCorrect || evalData.correccion !== msg.texto) ? `
                             <div class="chat-eval-suggestion">
-                                <span class="chat-eval-sugg-title">Forma recomendada:</span>
+                                <span class="chat-eval-sugg-title">${typeof I18N !== "undefined" ? I18N.t("convoRecommendedPhrasing") : "Forma recomendada:"}</span>
                                 <div class="chat-eval-chinese">${evalData.correccion}</div>
                                 ${evalData.pinyin ? `<div class="chat-eval-pinyin">${evalData.pinyin}</div>` : ''}
                                 ${evalData.traduccion ? `<div class="chat-eval-trans">"${evalData.traduccion}"</div>` : ''}
@@ -1145,7 +1138,7 @@ const renderConversationView = (bodyContent) => {
                     <div class="chat-typing-dots">
                         <span></span><span></span><span></span>
                     </div>
-                    <span class="chat-typing-label">Evaluando tu frase y respondiendo...</span>
+                    <span class="chat-typing-label">${typeof I18N !== "undefined" ? I18N.t("convoTypingLabel") : "Evaluando tu frase y respondiendo..."}</span>
                 </div>
             </div>
         `;
@@ -1158,7 +1151,7 @@ const renderConversationView = (bodyContent) => {
         finalCardHtml = `
             <div class="chat-final-card">
                 <div class="chat-final-header">
-                    <div class="chat-final-badge">🎉 ¡Conversación Completada!</div>
+                    <div class="chat-final-badge">${typeof I18N !== "undefined" ? I18N.t("convoCompletedBadge") : "🎉 ¡Conversación Completada!"}</div>
                     <div class="chat-final-score">Puntuación: <strong>${finalEval.puntuacion || 'Excelente'}</strong></div>
                 </div>
                 <div class="chat-final-body">
@@ -1166,7 +1159,7 @@ const renderConversationView = (bodyContent) => {
                     
                     ${Array.isArray(finalEval.puntos_fuertes) && finalEval.puntos_fuertes.length > 0 ? `
                         <div class="chat-final-block">
-                            <div class="chat-final-subtitle">✨ Aciertos y puntos fuertes:</div>
+                            <div class="chat-final-subtitle">${typeof I18N !== "undefined" ? I18N.t("convoHighlightsSubtitle") : "✨ Aciertos y puntos fuertes:"}</div>
                             <ul class="chat-final-list">
                                 ${finalEval.puntos_fuertes.map(p => `<li>${p}</li>`).join('')}
                             </ul>
@@ -1175,7 +1168,7 @@ const renderConversationView = (bodyContent) => {
 
                     ${Array.isArray(finalEval.consejos) && finalEval.consejos.length > 0 ? `
                         <div class="chat-final-block">
-                            <div class="chat-final-subtitle">💡 Sugerencias para continuar mejorando:</div>
+                            <div class="chat-final-subtitle">${typeof I18N !== "undefined" ? I18N.t("convoSuggestionsSubtitle") : "💡 Sugerencias para continuar mejorando:"}</div>
                             <ul class="chat-final-list">
                                 ${finalEval.consejos.map(c => `<li>${c}</li>`).join('')}
                             </ul>
@@ -1188,7 +1181,7 @@ const renderConversationView = (bodyContent) => {
                             <polyline points="23 4 23 10 17 10"></polyline>
                             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                         </svg>
-                        Practicar otra conversación
+                        ${typeof I18N !== "undefined" ? I18N.t("convoBtnAnotherConvo") : "Practicar otra conversación"}
                     </button>
                 </div>
             </div>
@@ -1200,9 +1193,9 @@ const renderConversationView = (bodyContent) => {
     if (conversationSession.terminada) {
         inputBarHtml = `
             <div class="chat-input-bar is-concluded">
-                <span class="chat-concluded-note">Diálogo finalizado. ¡Excelente práctica!</span>
+                <span class="chat-concluded-note">${typeof I18N !== "undefined" ? I18N.t("convoConcludedNote") : "Diálogo finalizado. ¡Excelente práctica!"}</span>
                 <button class="btn btn-primary btn-sm" id="btn-convo-restart-bar">
-                    Nueva conversación
+                    ${typeof I18N !== "undefined" ? I18N.t("convoRestartBarBtn") : "Nueva conversación"}
                 </button>
             </div>
         `;
@@ -1213,7 +1206,7 @@ const renderConversationView = (bodyContent) => {
                     type="text" 
                     class="chat-input" 
                     id="chat-user-input" 
-                    placeholder="Escribe tu mensaje en caracteres tradicionales..." 
+                    placeholder="${typeof I18N !== "undefined" ? I18N.t("convoInputPlaceholder") : "Escribe tu mensaje en caracteres tradicionales..."}" 
                     ${isConversationLoading ? 'disabled' : ''} 
                     autocomplete="off" />
                 <button class="btn btn-primary chat-btn-send" id="btn-chat-send" ${isConversationLoading ? 'disabled' : ''}>
@@ -1221,7 +1214,7 @@ const renderConversationView = (bodyContent) => {
                         <line x1="22" y1="2" x2="11" y2="13"></line>
                         <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                     </svg>
-                    <span>Enviar</span>
+                    <span>${typeof I18N !== "undefined" ? I18N.t("convoSendBtn") : "Enviar"}</span>
                 </button>
             </div>
         `;
@@ -1235,7 +1228,7 @@ const renderConversationView = (bodyContent) => {
                     <div class="chat-avatar-large">🗣️</div>
                     <div class="chat-partner-meta">
                         <div class="chat-partner-name">${interlocutorName}</div>
-                        <div class="chat-user-role-badge">Tu rol: ${userRole}</div>
+                        <div class="chat-user-role-badge">${typeof I18N !== "undefined" ? I18N.t("convoTuRol", { role: userRole }) : `Tu rol: ${userRole}`}</div>
                     </div>
                 </div>
                 <div class="chat-top-actions">

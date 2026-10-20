@@ -182,7 +182,7 @@ const buildPage = (cardHTMLs) => {
 const exportPDF = () => {
     const checked = document.querySelectorAll('#export-grid input[type="checkbox"]:checked');
     if (checked.length === 0) {
-        showToast('Selecciona al menos una flashcard para exportar', 'error');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('printToastNoSelection') : 'Selecciona al menos una flashcard para exportar', 'error');
         return;
     }
 
@@ -233,7 +233,7 @@ const exportPDF = () => {
     // Listen for print completion/cancellation to clean up
     window.onafterprint = () => {
         printArea.innerHTML = '';
-        showToast(`Proceso completado`, 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('printToastComplete') : 'Proceso completado', 'success');
     };
 
     // Give the browser a moment to render the DOM changes before opening print dialog

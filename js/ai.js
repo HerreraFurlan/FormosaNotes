@@ -1,3 +1,10 @@
+// Helper to check active language for AI interactions
+const isAILangEnglish = () => {
+    return (typeof I18N !== 'undefined' && typeof I18N.getLanguage === 'function')
+        ? I18N.getLanguage() === 'en'
+        : (typeof localStorage !== 'undefined' && localStorage.getItem('appchino_lang') === 'en');
+};
+
 /**
  * =====================================================
  * AppChino — ai.js
@@ -241,7 +248,25 @@ const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
  * @returns {Promise<Object>} The parsed JSON result
  */
 const checkSentenceWithGemini = async (sentence) => {
-    const prompt = `Profesor de chino mandarín tradicional (Taiwán). Evalúa brevemente esta oración: "${sentence}"
+    const isEn = isAILangEnglish();
+    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan). Briefly evaluate this sentence: "${sentence}"
+
+Your response must be EXCLUSIVELY the JSON object with nothing before or after.
+Start directly with the character { and end with }. NEVER include introductory text (such as 'Here is the JSON') or markdown formatting.
+
+Required format:
+{
+  "correcta": true or false,
+  "explicacion": "A single short sentence in English",
+  "correccion": "Corrected sentence in traditional Chinese",
+  "traduccion": "English translation"
+}
+
+STRICT RULES:
+1. FORBIDDEN to use quotation marks (neither double " nor single ') inside text values. Mention words or characters directly without quotes (example: The word 你 is unnecessary here).
+2. "explicacion" MUST be ONE short sentence in English (maximum 15 words).
+3. "traduccion" MUST be in English.
+4. Return only the JSON object with nothing else.` : `Profesor de chino mandarín tradicional (Taiwán). Evalúa brevemente esta oración: "${sentence}"
 
 Tu respuesta debe ser EXCLUSIVAMENTE el objeto JSON sin nada antes ni después.
 Comienza directamente con el carácter { y termina con }. NUNCA incluyas frases introductorias (como 'Here is the JSON') ni formato markdown.
@@ -271,9 +296,9 @@ REGLAS ESTRICTAS:
                 type: "OBJECT",
                 properties: {
                     correcta: { type: "BOOLEAN" },
-                    explicacion: { type: "STRING", description: "Una sola oración breve de máximo 15 palabras, sin comillas." },
+                    explicacion: { type: "STRING", description: isEn ? "Single brief sentence in English of max 15 words, without quotes." : "Una sola oración breve de máximo 15 palabras, sin comillas." },
                     correccion: { type: "STRING", description: "Oración corregida en chino tradicional." },
-                    traduccion: { type: "STRING", description: "Traducción en español." }
+                    traduccion: { type: "STRING", description: isEn ? "English translation." : "Traducción en español." }
                 },
                 required: ["correcta", "explicacion", "correccion", "traduccion"]
             },
@@ -318,7 +343,32 @@ REGLAS ESTRICTAS:
  * @returns {Promise<Array<object>>} 5 challenge objects
  */
 const generatePracticeChallengesWithGemini = async (words, structures) => {
-    const prompt = `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
+    const isEn = isAILangEnglish();
+    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan - MTC Dangdai pedagogical standard).
+Formulate exactly 5 brief translation challenges in natural English to be written in traditional Chinese, assigning exactly one structure to each challenge.
+
+Student reference vocabulary:
+${words.join(', ')}
+
+Target structures:
+${JSON.stringify(structures, null, 2)}
+
+Requirements:
+1. Exactly 5 challenges (id: 1 to 5).
+2. Each challenge must be a sentence in natural everyday English requiring the assigned structure.
+3. "pista" must be a brief syntactic hint in English.
+4. "vocabulario_clave" must be a list of 2 to 4 key words in traditional Chinese.
+
+Return ONLY a JSON array with the 5 objects:
+[
+  {
+    "id": 1,
+    "estructura_id": "id_structure",
+    "instruccion_espanol": "Sentence in English",
+    "vocabulario_clave": ["詞1", "詞2"],
+    "pista": "Brief hint in English"
+  }
+]` : `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Formula exactamente 5 retos breves de traducción al español para escribir en chino tradicional, asignando exactamente una estructura a cada reto.
 
 Vocabulario de referencia del alumno:
@@ -369,7 +419,24 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
  * @returns {Promise<Array<object>>} Evaluation results
  */
 const evaluatePracticeAnswersWithGemini = async (submissions) => {
-    const prompt = `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
+    const isEn = isAILangEnglish();
+    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan - MTC Dangdai pedagogical standard).
+Evaluate the answers for the following sentence construction/translation exercises. Be concise and direct (maximum 1-2 sentences in explanation).
+
+Exercises and submitted answers:
+${JSON.stringify(submissions, null, 2)}
+
+Return ONLY a JSON array with evaluation objects (one for each submitted item, preserving the same "id"):
+[
+  {
+    "id": 1,
+    "correcta": true,
+    "explicacion": "Concise explanation in English (1-2 sentences maximum)",
+    "correccion": "In traditional Chinese characters",
+    "pinyin": "Pinyin with tone marks",
+    "traduccion": "English translation"
+  }
+]` : `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
 Evalúa las respuestas de los siguientes ejercicios de construcción/traducción. Sé conciso y directo al grano (máximo 1-2 oraciones en explicación).
 
 Ejercicios y respuestas entregadas:
@@ -517,6 +584,8 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
  * @returns {Promise<object>} Turn evaluation, next reply, and termination status
  */
 const continueConversationWithGemini = async (contexto, history, userReply, words, structures, targetStructures = []) => {
+    const isEn = isAILangEnglish();
+    const langName = isEn ? 'English' : 'español';
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
@@ -576,22 +645,22 @@ Tareas:
 1. Evalúa el mensaje del estudiante:
    - "correcta": boolean (true si es comprensible y gramaticalmente correcta acorde a su nivel).
    - "estado": "correcta" | "mejorable" | "error".
-   - "comentario": Feedback pedagógico breve en español (1-2 oraciones).
+   - "comentario": Feedback pedagógico breve en ${langName} (1-2 oraciones / sentences).
    - "correccion": Oración en chino tradicional correcta y natural adaptada a su biblioteca.
    - "pinyin": Pinyin de la corrección.
-   - "traduccion": Traducción de la corrección al español.
+   - "traduccion": Traducción de la corrección al ${langName}.
 2. Decide si la conversación debe terminar ("terminada": true o false):
    - Marca "terminada": true cuando el diálogo llegue a una conclusión natural y se hayan cubierto las estructuras objetivo.
 3. Si "terminada" es false:
    - Genera la respuesta del interlocutor en caracteres tradicionales, su pinyin y traducción, respetando las palabras y estructuras aprendidas.
-   - Proporciona la siguiente "instruccion_usuario" en español, indicando qué debe responder o preguntar el estudiante basándose en su repertorio.
+   - Proporciona la siguiente "instruccion_usuario" en ${langName}, indicando qué debe responder o preguntar el estudiante basándose en su repertorio.
 4. Si "terminada" es true:
    - Genera la despedida final del interlocutor en chino tradicional, pinyin y traducción.
    - Proporciona una "evaluacion_final" de toda la conversación:
      - "puntuacion": ej. "9/10" o "Excelente"
-     - "resumen": 2 oraciones de balance general sobre la conversación.
-     - "puntos_fuertes": lista de 2-3 aciertos.
-     - "consejos": 1-2 sugerencias para mejorar.
+     - "resumen": 2 oraciones de balance general sobre la conversación en ${langName}.
+     - "puntos_fuertes": lista de 2-3 aciertos en ${langName}.
+     - "consejos": 1-2 sugerencias para mejorar en ${langName}.
 
 Devuelve ÚNICAMENTE un objeto JSON válido:
 {

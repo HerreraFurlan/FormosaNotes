@@ -66,7 +66,7 @@ const initBuilder = () => {
     document.getElementById('btn-examine-sentence').addEventListener('click', async () => {
         const cards = dropzone.querySelectorAll('.mini-card');
         if (cards.length === 0) {
-            showToast('Agrega al menos una palabra al constructor', 'error');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastEmpty') : 'Agrega al menos una palabra al constructor', 'error');
             return;
         }
 
@@ -110,7 +110,7 @@ const initBuilder = () => {
     document.getElementById('btn-save-structure').addEventListener('click', () => {
         const cards = dropzone.querySelectorAll('.mini-card');
         if (cards.length === 0) {
-            showToast('Agrega al menos una palabra al constructor', 'error');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastEmpty') : 'Agrega al menos una palabra al constructor', 'error');
             return;
         }
 
@@ -119,7 +119,7 @@ const initBuilder = () => {
         const spanish = document.getElementById('structure-spanish').value.trim();
 
         if (!nombre || !formula) {
-            showToast('Completa al menos el nombre y la fórmula', 'error');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastIncomplete') : 'Completa al menos el nombre y la fórmula', 'error');
             return;
         }
 
@@ -135,7 +135,7 @@ const initBuilder = () => {
             notas: '',
         });
 
-        showToast('Estructura guardada como flashcard', 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('toastStructureSaved') : 'Estructura guardada como flashcard', 'success');
 
         // Clear the builder
         dropzone.innerHTML = '';
@@ -352,7 +352,7 @@ const initBuilder = () => {
         addPinyinBtn.disabled = true;
         dropzone.classList.remove('is-empty');
         updateBuilderPreview();
-        showToast('Caracteres agregados al constructor', 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastAdded') : 'Caracteres agregados al constructor', 'success');
     });
 
     // Clear all builder cards button ("eliminar de un porrazo")
@@ -374,7 +374,7 @@ const initBuilder = () => {
                 suggestionsEl.innerHTML = '';
             }
             updateBuilderPreview();
-            showToast('Zona de construcción vaciada', 'info');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastCleared') : 'Zona de construcción vaciada', 'info');
         });
     }
 
