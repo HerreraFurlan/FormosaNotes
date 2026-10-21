@@ -16,8 +16,8 @@ const I18N_DICT = {
         navStructures: "Estructuras",
         navStudyHeader: "Estudio",
         navStudy: "Modo Estudio",
-        navPractice: "Conversación en Vivo",
-        navLiveConversation: "Conversación en Vivo",
+        navPractice: "Conversación",
+        navLiveConversation: "Conversación",
         navExam: "Simulación de examen",
         navTools: "Herramientas",
         navExport: "Imprimir Flashcards",
@@ -174,7 +174,7 @@ const I18N_DICT = {
 
         // Practice - sentence challenges
         practiceRetosTab: "Retos de oraciones",
-        practiceConvoTab: "Conversación en vivo",
+        practiceConvoTab: "Conversación",
         practiceGeneratingTitle: "Formulando 5 retos con Inteligencia Artificial...",
         practiceGeneratingDesc: "Gemini está seleccionando tus estructuras gramaticales y combinándolas con tu vocabulario para crear oraciones personalizadas.",
         practiceWelcomeTitle: "Práctica Diaria de Oraciones con IA",
