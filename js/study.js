@@ -261,7 +261,7 @@ const buildCardFacesHtml = (word) => {
 
     const categoryBadge = studyShowCategory ? `
         <span class="card-category-badge badge badge-${word.categoria}">
-            ${CATEGORY_LABELS[word.categoria] || word.categoria}${word.leccion ? ` · L${word.leccion}` : ''}
+            ${(window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria))}${word.leccion ? ` · L${word.leccion}` : ''}
         </span>
     ` : '';
 

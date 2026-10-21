@@ -320,14 +320,14 @@ const startInteractiveConversation = async () => {
     }
 
     if (allStructures.length === 0) {
-        showToast('No tienes estructuras registradas para practicar', 'error');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('practiceToastNoStructs') : 'No tienes estructuras registradas para practicar', 'error');
         return;
     }
 
     let targetStructures = [];
     if (convoTargetMode === 'especifico') {
         if (selectedTargetStructureIds.length === 0) {
-            showToast('Selecciona entre 1 y 5 estructuras o cambia a Modo Libre', 'warning');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastSelectStructs') : 'Selecciona entre 1 y 5 estructuras o cambia a Modo Libre', 'warning');
             return;
         }
         targetStructures = allStructures
@@ -379,7 +379,7 @@ const startInteractiveConversation = async () => {
         }
 
         saveConversationState();
-        showToast(`¡Conversación iniciada con ${conversationSession.interlocutor}!`, 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastStarted', { name: conversationSession.interlocutor }) : `¡Conversación iniciada con ${conversationSession.interlocutor}!`, 'success');
     } catch (error) {
         console.error("Error al iniciar conversación:", error);
         showToast(error.message || 'Error al conectar con la IA', 'error');
@@ -402,7 +402,7 @@ const handleSendChatMessage = async () => {
     if (!input) return;
     const userText = input.value.trim();
     if (!userText) {
-        showToast('Escribe tu mensaje en chino antes de enviar', 'error');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastEmptyMessage') : 'Escribe tu mensaje en chino antes de enviar', 'error');
         return;
     }
 
@@ -460,7 +460,7 @@ const handleSendChatMessage = async () => {
                 });
             }
             conversationSession.currentPrompt = '';
-            showToast('¡Has concluido la conversación!', 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastConcluded') : '¡Has concluido la conversación!', 'success');
         } else {
             if (result.respuesta_interlocutor && result.respuesta_interlocutor.texto) {
                 conversationSession.history.push({
@@ -996,7 +996,7 @@ const renderConversationView = (bodyContent) => {
                         card.classList.remove('selected');
                     } else {
                         if (selectedTargetStructureIds.length >= 5) {
-                            showToast('Puedes elegir como máximo 5 estructuras para enfocar la conversación', 'warning');
+                            showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastMaxStructs') : 'Puedes elegir como máximo 5 estructuras para enfocar la conversación', 'warning');
                             return;
                         }
                         selectedTargetStructureIds.push(id);
@@ -1051,15 +1051,7 @@ const renderConversationView = (bodyContent) => {
     // Build messages list HTML
     let messagesHtml = '';
 
-    // If starting with AI waiting for user's opening message
-    if (conversationSession.history.length === 0 && conversationSession.currentPrompt) {
-        messagesHtml += `
-            <div class="chat-prompt-card-opening">
-                <div class="chat-prompt-badge">${typeof I18N !== "undefined" ? I18N.t("convoTurnOpening") : "🎯 Tu turno para iniciar el diálogo"}</div>
-                <div class="chat-prompt-text">${conversationSession.currentPrompt}</div>
-            </div>
-        `;
-    }
+
 
     conversationSession.history.forEach((msg, idx) => {
         if (msg.sender === 'ai') {
@@ -1075,14 +1067,7 @@ const renderConversationView = (bodyContent) => {
                     <div class="chat-bubble chat-bubble-ai">
                         <div class="chat-chinese">${msg.texto}</div>
                         ${msg.pinyin ? `<div class="chat-pinyin">${msg.pinyin}</div>` : ''}
-                        ${msg.traduccion ? `<div class="chat-trans">${msg.traduccion}</div>` : ''}
                     </div>
-                    ${msg.instruccion_usuario && !conversationSession.terminada ? `
-                        <div class="chat-prompt-callout">
-                            <span class="chat-prompt-tag">${typeof I18N !== "undefined" ? I18N.t("convoGoalNow") : "🎯 Tu objetivo ahora:"}</span>
-                            <span class="chat-prompt-instruction">${msg.instruccion_usuario}</span>
-                        </div>
-                    ` : ''}
                 </div>
             `;
         } else {
@@ -1093,7 +1078,11 @@ const renderConversationView = (bodyContent) => {
             if (evalData) {
                 const isCorrect = evalData.correcta;
                 const statusType = isCorrect ? 'correct' : (evalData.estado === 'mejorable' ? 'warning' : 'wrong');
-                const statusLabel = isCorrect ? '✅ Expresión correcta' : (evalData.estado === 'mejorable' ? '💡 Comprensible pero mejorable' : '❌ Corrección requerida');
+                const statusLabel = isCorrect 
+                    ? (typeof I18N !== 'undefined' ? I18N.t('convoStatusCorrect') : '✅ Expresión correcta') 
+                    : (evalData.estado === 'mejorable' 
+                        ? (typeof I18N !== 'undefined' ? I18N.t('convoStatusWarning') : '💡 Comprensible pero mejorable') 
+                        : (typeof I18N !== 'undefined' ? I18N.t('convoStatusWrong') : '❌ Corrección requerida'));
 
                 evalHtml = `
                     <div class="chat-eval-box ${statusType}">
@@ -1104,17 +1093,18 @@ const renderConversationView = (bodyContent) => {
                                 <span class="chat-eval-sugg-title">${typeof I18N !== "undefined" ? I18N.t("convoRecommendedPhrasing") : "Forma recomendada:"}</span>
                                 <div class="chat-eval-chinese">${evalData.correccion}</div>
                                 ${evalData.pinyin ? `<div class="chat-eval-pinyin">${evalData.pinyin}</div>` : ''}
-                                ${evalData.traduccion ? `<div class="chat-eval-trans">"${evalData.traduccion}"</div>` : ''}
                             </div>
                         ` : ''}
                     </div>
                 `;
             }
 
+            const youLabel = typeof I18N !== 'undefined' && I18N.getLanguage() === 'en' ? 'You' : 'Tú';
+
             messagesHtml += `
                 <div class="chat-msg chat-msg-user">
                     <div class="chat-msg-header">
-                        <span class="chat-msg-name">Tú (${userRole})</span>
+                        <span class="chat-msg-name">${youLabel} (${userRole})</span>
                         <span class="chat-msg-avatar">👤</span>
                     </div>
                     <div class="chat-bubble chat-bubble-user">

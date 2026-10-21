@@ -482,6 +482,8 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
  * @returns {Promise<object>} Initial conversation setup and opening message
  */
 const startConversationWithGemini = async (words, structures, targetStructures = []) => {
+    const isEn = isAILangEnglish();
+    const langName = isEn ? 'English' : 'español';
     const structSummary = Array.isArray(structures) && structures.length > 0
         ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
         : 'Estructuras elementales de mandarín';
@@ -490,67 +492,42 @@ const startConversationWithGemini = async (words, structures, targetStructures =
     if (Array.isArray(targetStructures) && targetStructures.length > 0) {
         const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
         targetSection = `
-ESTRUCTURAS OBJETIVO QUE EL ESTUDIANTE DEBE PRACTICAR OBLIGATORIAMENTE:
-El estudiante ha seleccionado estas ${targetStructures.length} estructuras específicas para esta sesión:
+TARGET STRUCTURES TO GUIDE THE CONVERSATION (NATURAL INVITATION):
+The student aims to practice these structures during this session:
 ${targetList}
-
-MISIÓN DE FLUJO:
-Conduce la conversación cotidiana de forma natural para que el estudiante deba emplear CADA UNA de estas ${targetStructures.length} estructuras al menos una vez durante el diálogo.
-En este primer turno, diseña tu primer mensaje o tu "instruccion_usuario" para orientar al estudiante a usar la primera de estas estructuras.
-`;
-    } else {
-        targetSection = `
-MODO LIBRE:
-El estudiante practicará de forma libre utilizando cualquiera de las estructuras gramaticales aprendidas.
+Lead the conversation naturally so the student can use them spontaneously.
 `;
     }
 
-    const prompt = `Eres un tutor y compañero de conversación de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
-Crea el inicio de una simulación de conversación cotidiana realista y dinámica para un estudiante.
+    const prompt = `You are a conversational partner and tutor in Traditional Chinese (Taiwan - MTC Dangdai pedagogical standard).
+Create the start of a realistic, natural everyday conversation in Taiwan.
+Language for pedagogical notes/context: ${langName}.
 
-NIVEL ADAPTATIVO DEL ESTUDIANTE:
-El nivel del estudiante es DINÁMICO y se define estrictamente por su biblioteca actual: el vocabulario conocido y las estructuras gramaticales aprendidas listadas abajo. A medida que el estudiante incorpore nuevas palabras y estructuras a su biblioteca, su nivel de diálogo se adaptará automáticamente a sus nuevos conocimientos.
-
-REGLAS DE ADAPTABILIDAD:
-1. Vocabulario:
-   - Prioridad máxima a las palabras conocidas del estudiante.
-   - Tienes libertad para incorporar términos cotidianos adicionales únicamente si son indispensables para la naturalidad de la situación (máximo 1 término extra por turno), pero SIEMPRE que una idea se pueda expresar con el vocabulario ya registrado, ES OBLIGATORIO usar lo ya aprendido.
-2. Gramática:
-   - Limita el diálogo y tus construcciones a las estructuras gramaticales aprendidas por el estudiante (o estructuras elementales derivadas directamente de ellas).
-   - NUNCA introduzcas construcciones gramaticales complejas o avanzadas que no figuren entre las estructuras conocidas ni se puedan deducir de su biblioteca actual.
-   - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
-3. Instrucciones guiadas:
-   - Da instrucciones claras y alcanzables al estudiante basadas en el vocabulario y estructuras que domina.
-${targetSection}
-Vocabulario conocido por el estudiante:
+STUDENT ADAPTIVE LEVEL:
+The student's level is defined by their known vocabulary and learned grammar structures listed below.
+Known words:
 ${words.join(', ')}
 
-Estructuras gramaticales aprendidas por el estudiante:
+Learned grammar structures:
 ${structSummary}
+${targetSection}
 
-Tu tarea:
-1. Diseña un escenario cotidiano verosímil y aleatorio en Taiwán (ej. en una cafetería, en la universidad, hablando de planes para el fin de semana, en un restaurante, etc.).
-2. Define el nombre del interlocutor (ej. 安同, 田中, 白如玉, o un amigo local).
-3. Decide si el interlocutor abre la conversación (inicia_ai: true) o si el usuario debe iniciar (inicia_ai: false).
-4. Si inicia_ai es true:
-   - Proporciona el primer mensaje del interlocutor en caracteres tradicionales, pinyin con tonos y traducción al español, respetando las palabras y estructuras aprendidas.
-   - Da una instrucción clara y concisa al estudiante en español indicando qué debe responder o preguntar a continuación.
-5. Si inicia_ai es false:
-   - Da una instrucción inicial en español al estudiante para que comience el diálogo.
+RULES:
+1. Speak only in natural Traditional Chinese (繁體中文) appropriate for the student's level.
+2. Keep sentences clear, authentic, and of moderate length.
+3. This is a plain, natural conversation. Do NOT generate translations or turn goals.
+4. The interlocutor opens the dialogue with a natural first message (greeting or situation opener in Traditional Chinese + pinyin).
 
-Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
+Return ONLY a valid JSON object:
 {
-  "contexto": "Descripción concisa del escenario en español",
-  "rol_usuario": "Tu rol (ej. Estudiante de intercambio)",
-  "interlocutor": "Nombre del interlocutor",
+  "contexto": "Concise scenario description in ${langName}",
+  "rol_usuario": "User role in ${langName} (e.g. Exchange student)",
+  "interlocutor": "Partner name (e.g. 安同, 美玲)",
   "inicia_ai": true,
   "primer_mensaje": {
-    "texto": "Mensaje en chino tradicional",
-    "pinyin": "Pinyin con tonos",
-    "traduccion": "Traducción al español",
-    "instruccion_usuario": "Instrucción específica en español de lo que debe responder o preguntar el estudiante"
-  },
-  "instruccion_inicial": ""
+    "texto": "Opening greeting / sentence in Traditional Chinese",
+    "pinyin": "Pinyin with tones"
+  }
 }`;
 
     const body = {
@@ -571,18 +548,6 @@ Devuelve ÚNICAMENTE un objeto JSON válido con este formato:
     }
 };
 
-/**
- * Continues an ongoing dialogue: evaluates the user's sentence and generates the partner's reply.
- * Optionally guides the student to practice specific target structures.
- * 
- * @param {string} contexto - Description of the scenario
- * @param {Array<object>} history - Prior messages in the conversation
- * @param {string} userReply - The student's latest Chinese sentence
- * @param {Array<string>} words - List of known words
- * @param {Array<object>} structures - List of known structures
- * @param {Array<object>} [targetStructures=[]] - Target structures to practice (max 5)
- * @returns {Promise<object>} Turn evaluation, next reply, and termination status
- */
 const continueConversationWithGemini = async (contexto, history, userReply, words, structures, targetStructures = []) => {
     const isEn = isAILangEnglish();
     const langName = isEn ? 'English' : 'español';
@@ -594,90 +559,65 @@ const continueConversationWithGemini = async (contexto, history, userReply, word
     if (Array.isArray(targetStructures) && targetStructures.length > 0) {
         const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
         targetContinueSection = `
-ESTRUCTURAS OBJETIVO A PRACTICAR EN ESTA SESIÓN (EL ESTUDIANTE DEBE PRACTICAR CADA UNA AL MENOS UNA VEZ):
+TARGET STRUCTURES:
 ${targetList}
-
-Instrucción de flujo:
-- Conduce la conversación y diseña la siguiente "instruccion_usuario" para que el estudiante ponga en práctica las estructuras objetivo que aún no haya utilizado.
-- En "evaluacion_usuario", confirma amablemente si el estudiante logró emplear la estructura objetivo solicitada.
-- La conversación NO debe terminar ("terminada": false) hasta que el estudiante haya tenido la oportunidad de practicar las ${targetStructures.length} estructuras objetivo seleccionadas.
-`;
-    } else {
-        targetContinueSection = `
-MODO LIBRE:
-La conversación debe durar entre 3 y 5 intercambios del estudiante y llegar a una conclusión natural.
+Guide the dialogue naturally so remaining structures can be practiced.
 `;
     }
 
-    const prompt = `Eres el interlocutor y tutor de chino mandarín tradicional (Taiwán - estándar MTC Dangdai).
-Estás en una conversación cotidiana con un estudiante.
+    const prompt = `You are a conversational partner and tutor in Traditional Chinese (Taiwan - MTC Dangdai standard).
+You are in a natural, plain everyday conversation with a student.
+Language for comments and feedback: ${langName}.
 
-NIVEL ADAPTATIVO DEL ESTUDIANTE:
-El nivel del estudiante es DINÁMICO y se define estrictamente por su biblioteca actual: el vocabulario conocido y las estructuras gramaticales aprendidas listadas abajo. A medida que el estudiante incorpore nuevas palabras y estructuras a su biblioteca, su nivel de diálogo se adaptará automáticamente a sus nuevos conocimientos.
-
-REGLAS DE ADAPTABILIDAD:
-1. Vocabulario:
-   - Prioridad máxima a las palabras conocidas del estudiante.
-   - Tienes libertad para incorporar términos cotidianos adicionales únicamente si son indispensables para la naturalidad de la situación (máximo 1 término extra por turno), pero SIEMPRE que una idea se pueda expresar con el vocabulario ya registrado, ES OBLIGATORIO usar lo ya aprendido.
-2. Gramática:
-   - Limita tus respuestas, réplicas y construcciones a las estructuras gramaticales aprendidas por el estudiante (o estructuras elementales derivadas directamente de ellas).
-   - NUNCA introduzcas construcciones gramaticales complejas o avanzadas que no figuren entre las estructuras conocidas ni se puedan deducir de su biblioteca actual.
-   - Mantén las oraciones del interlocutor claras, naturales y de longitud moderada, acordes al repertorio actual del estudiante.
-3. Correcciones pedagógicas adaptativas:
-   - En "correccion": ofrece una versión natural y correcta basada en las palabras y estructuras que el estudiante ya domina o tiene en su biblioteca. NO corrijas introduciendo conectores o gramática desconocida a menos que sea estrictamente necesario, priorizando fórmulas y conectores ya registrados.
-${targetContinueSection}
-Escenario:
+Context:
 ${contexto}
 
-Historial de la conversación:
-${JSON.stringify(history, null, 2)}
+Recent conversation history:
+${JSON.stringify(history.slice(-8), null, 2)}
 
-Último mensaje recibido del estudiante:
+Latest message received from student:
 "${userReply}"
 
-Vocabulario conocido por el estudiante:
+Student vocabulary:
 ${words.join(', ')}
 
-Estructuras gramaticales aprendidas por el estudiante:
+Student grammar structures:
 ${structSummary}
+${targetContinueSection}
 
-Tareas:
-1. Evalúa el mensaje del estudiante:
-   - "correcta": boolean (true si es comprensible y gramaticalmente correcta acorde a su nivel).
-   - "estado": "correcta" | "mejorable" | "error".
-   - "comentario": Feedback pedagógico breve en ${langName} (1-2 oraciones / sentences).
-   - "correccion": Oración en chino tradicional correcta y natural adaptada a su biblioteca.
-   - "pinyin": Pinyin de la corrección.
-   - "traduccion": Traducción de la corrección al ${langName}.
-2. Decide si la conversación debe terminar ("terminada": true o false):
-   - Marca "terminada": true cuando el diálogo llegue a una conclusión natural y se hayan cubierto las estructuras objetivo.
-3. Si "terminada" es false:
-   - Genera la respuesta del interlocutor en caracteres tradicionales, su pinyin y traducción, respetando las palabras y estructuras aprendidas.
-   - Proporciona la siguiente "instruccion_usuario" en ${langName}, indicando qué debe responder o preguntar el estudiante basándose en su repertorio.
-4. Si "terminada" es true:
-   - Genera la despedida final del interlocutor en chino tradicional, pinyin y traducción.
-   - Proporciona una "evaluacion_final" de toda la conversación:
-     - "puntuacion": ej. "9/10" o "Excelente"
-     - "resumen": 2 oraciones de balance general sobre la conversación en ${langName}.
-     - "puntos_fuertes": lista de 2-3 aciertos en ${langName}.
-     - "consejos": 1-2 sugerencias para mejorar en ${langName}.
+Tasks:
+1. Evaluate student's message:
+   - "correcta": boolean
+   - "estado": "correcta" | "mejorable" | "error"
+   - "comentario": brief constructive feedback in ${langName} (1-2 sentences)
+   - "correccion": natural Traditional Chinese sentence adapted to their level (same text if already correct)
+   - "pinyin": pinyin with tones for the correction
+2. Decide if the conversation should conclude ("terminada": true or false, after 3-5 user turns or when reaching a natural conclusion).
+3. If terminada is false:
+   - "respuesta_interlocutor": { "texto": "natural reply in Traditional Chinese", "pinyin": "pinyin with tones" }
+   - Plain conversation: NO translation, NO user goals/instructions.
+4. If terminada is true:
+   - "respuesta_interlocutor": { "texto": "farewell in Traditional Chinese", "pinyin": "pinyin with tones" }
+   - "evaluacion_final": {
+       "puntuacion": "Score (e.g. 9/10)",
+       "resumen": "Brief overall summary in ${langName}",
+       "puntos_fuertes": ["Strength 1 in ${langName}", "Strength 2 in ${langName}"],
+       "consejos": ["Suggestion in ${langName}"]
+     }
 
-Devuelve ÚNICAMENTE un objeto JSON válido:
+Return ONLY a valid JSON object:
 {
   "evaluacion_usuario": {
     "correcta": true,
     "estado": "correcta",
     "comentario": "...",
     "correccion": "...",
-    "pinyin": "...",
-    "traduccion": "..."
+    "pinyin": "..."
   },
   "terminada": false,
   "respuesta_interlocutor": {
     "texto": "...",
-    "pinyin": "...",
-    "traduccion": "...",
-    "instruccion_usuario": "..."
+    "pinyin": "..."
   },
   "evaluacion_final": null
 }`;
@@ -700,20 +640,6 @@ Devuelve ÚNICAMENTE un objeto JSON válido:
     }
 };
 
-/**
- * ==========================================================
- * SIMULACIÓN DE EXAMEN — AI GENERATION & EVALUATION
- * ==========================================================
- */
-
-/**
- * Generates Phases 3, 4, 5, 6, and 7 of the Exam Simulation using Gemini.
- * Strictly adheres to known words and structures.
- * 
- * @param {Array<object>} wordsList - Known words
- * @param {Array<object>} structuresList - Known sentence structures
- * @returns {Promise<object>} Generated exam phases
- */
 const generateExamAIData = async (wordsList, structuresList) => {
     const wordsSummary = wordsList.slice(0, 150).map(w => w.tradicional).join(', ');
     const structuresSummary = structuresList.slice(0, 25).map(s => `- ${s.patron} (${s.explicacion})`).join('\n');
@@ -833,6 +759,8 @@ REGLAS OBLIGATORIAS DE FORMATO JSON:
  * @returns {Promise<object>} Evaluation results with scores and pedagogical comments
  */
 const evaluateExamAIAnswers = async (phase5Submissions, phase6Submissions) => {
+    const isEn = isAILangEnglish();
+    const langName = isEn ? 'English' : 'español';
     const prompt = `Eres un profesor evaluador de chino mandarín tradicional de Taiwán (繁體中文).
 Debes evaluar las respuestas escritas por el alumno en dos fases abiertas de su examen.
 
@@ -872,10 +800,10 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
       "id": 1,
       "es_correcta": true,
       "puntaje": 1.0,
-      "comentario": "Feedback constructivo en español (1-2 oraciones)",
+      "comentario": "Feedback constructivo en " + langName + " (1-2 sentences)",
       "correccion_sugerida": "Oración en caracteres tradicionales",
       "pinyin_correccion": "Pinyin con tonos",
-      "traduccion_correccion": "Traducción al español"
+      "traduccion_correccion": "Traducción / Translation in " + langName
     }
   ],
   "fase6_evaluacion": [
@@ -884,13 +812,13 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
       "es_correcta": true,
       "uso_caracter_banco": true,
       "puntaje": 1.0,
-      "comentario": "Feedback constructivo en español",
+      "comentario": "Feedback constructivo en " + langName,
       "correccion_sugerida": "Oración en caracteres tradicionales",
       "pinyin_correccion": "Pinyin con tonos",
-      "traduccion_correccion": "Traducción al español"
+      "traduccion_correccion": "Traducción / Translation in " + langName
     }
   ],
-  "resumen_general": "Breve balance pedagógico general (2 oraciones)"
+  "resumen_general": "Breve balance pedagógico general en " + langName + " (2 sentences)"
 }`;
 
     const body = {

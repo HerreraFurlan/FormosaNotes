@@ -649,7 +649,7 @@ const renderExamWelcome = (container) => {
                         <span>${typeof I18N !== "undefined" ? I18N.t("examIncludeUnassigned") : "Incluir tarjetas sin lección asignada (/)"}</span>
                     </label>
                     <span class="exam-word-count-badge ${examWords.length < 10 ? 'warning' : ''}" id="exam-word-count-badge">
-                        ${examWords.length} palabras seleccionadas para el examen
+                        ${typeof I18N !== 'undefined' ? I18N.t('examSelectedWordsBadge', { count: examWords.length }) : `${examWords.length} palabras seleccionadas para el examen`}
                     </span>
                 </div>
             </div>
@@ -658,50 +658,50 @@ const renderExamWelcome = (container) => {
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">1</div>
                     <div class="preview-phase-info">
-                        <h4>Reconocimiento de Caracteres</h4>
-                        <p>10 preguntas: Identifica el Hanzi correcto a partir de su Pinyin y Zhuyin entre 10 opciones.</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP1Title') : 'Reconocimiento de Caracteres'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP1Desc') : '10 preguntas: Identifica el Hanzi correcto a partir de su Pinyin y Zhuyin entre 10 opciones.'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">2</div>
                     <div class="preview-phase-info">
-                        <h4>Escritura de Pinyin con Tonos</h4>
-                        <p>10 preguntas: Escribe el Pinyin exacto con diacríticos tonales mediante el teclado numérico (1-5).</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP2Title') : 'Escritura de Pinyin con Tonos'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP2Desc') : '10 preguntas: Escribe el Pinyin exacto con diacríticos tonales mediante el teclado numérico (1-5).'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">3</div>
                     <div class="preview-phase-info">
-                        <h4>Rellenar Espacios en Blanco</h4>
-                        <p>5 oraciones: Deduce y escribe el carácter o término faltante en oraciones directas.</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP3Title') : 'Rellenar Espacios en Blanco'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP3Desc') : '5 oraciones: Deduce y escribe el carácter o término faltante en oraciones directas.'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">4</div>
                     <div class="preview-phase-info">
-                        <h4>Gramática y Estructuras Complejas</h4>
-                        <p>10 oraciones: Completa patrones avanzados con selección múltiple de 3 opciones (A, B, C).</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP4Title') : 'Gramática y Estructuras Complejas'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP4Desc') : '10 oraciones: Completa patrones avanzados con selección múltiple de 3 opciones (A, B, C).'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">5</div>
                     <div class="preview-phase-info">
-                        <h4>Respuestas en Situaciones Reales</h4>
-                        <p>5 escenarios: Responde a preguntas cotidianas en Taiwán con oraciones libres evaluadas por IA.</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP5Title') : 'Respuestas en Situaciones Reales'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP5Desc') : '5 escenarios: Responde a preguntas cotidianas en Taiwán con oraciones libres evaluadas por IA.'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">6</div>
                     <div class="preview-phase-info">
-                        <h4>Desafío de Banco de Caracteres</h4>
-                        <p>5 preguntas: Formula oraciones incorporando obligatoriamente los 5 caracteres asignados.</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP6Title') : 'Desafío de Banco de Caracteres'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP6Desc') : '5 preguntas: Formula oraciones incorporando obligatoriamente los 5 caracteres asignados.'}</p>
                     </div>
                 </div>
                 <div class="preview-phase-item">
                     <div class="preview-phase-num">7</div>
                     <div class="preview-phase-info">
-                        <h4>Comprensión Lectora Integral</h4>
-                        <p>Historia corta inédita: 5 afirmaciones de Verdadero/Falso + 5 preguntas de opción múltiple.</p>
+                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP7Title') : 'Comprensión Lectora Integral'}</h4>
+                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP7Desc') : 'Historia corta inédita: 5 afirmaciones de Verdadero/Falso + 5 preguntas de opción múltiple.'}</p>
                     </div>
                 </div>
             </div>
@@ -711,7 +711,7 @@ const renderExamWelcome = (container) => {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    Comenzar Simulación de Examen
+                    ${typeof I18N !== 'undefined' ? I18N.t('examBtnStartExam') : 'Comenzar Simulación de Examen'}
                 </button>
             </div>
         </div>
@@ -736,7 +736,7 @@ const renderExamWelcome = (container) => {
         const currentExamWords = getWordsForExam();
         const countBadge = container.querySelector('#exam-word-count-badge');
         if (countBadge) {
-            countBadge.textContent = `${currentExamWords.length} palabras seleccionadas para el examen`;
+            countBadge.textContent = typeof I18N !== 'undefined' ? I18N.t('examSelectedWordsBadge', { count: currentExamWords.length }) : `${currentExamWords.length} palabras seleccionadas para el examen`;
             countBadge.classList.toggle('warning', currentExamWords.length < 10);
         }
     };
@@ -972,7 +972,7 @@ const renderPhase1 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Pregunta ${idx + 1} de 10</span>
+                                <span class="q-number">${typeof I18N !== "undefined" ? I18N.t("examReviewQuestionNum", { num: idx + 1 }) : `Pregunta ${idx + 1} de 10`}</span>
                             </div>
                             <div class="q-prompt-center">
                                 <div class="q-pinyin-display">${q.pinyin}</div>
@@ -1013,8 +1013,8 @@ const renderPhase2 = () => {
                     return `
                         <div class="exam-question-card phase2-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Término ${idx + 1} de 10</span>
-                                ${q.categoria ? `<span class="q-badge-cat">${q.categoria}</span>` : ''}
+                                <span class="q-number">${typeof I18N !== "undefined" ? I18N.t("examReviewTermNum", { num: idx + 1 }) : `Término ${idx + 1} de 10`}</span>
+                                ${q.categoria ? `<span class="q-badge-cat">${(window.getCategoryLabel ? window.getCategoryLabel(q.categoria) : q.categoria)}</span>` : ''}
                             </div>
                             <div class="phase2-hanzi-banner">
                                 <div class="phase2-hanzi">${q.hanzi}</div>
@@ -1202,7 +1202,7 @@ const renderPhase6 = () => {
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
                                 <span class="q-number">第 ${idx + 1} 題（共 5 題）</span>
-                                <span class="q-badge-required">必須包含漢字：<strong>${q.caracter_asignado}</strong></span>
+                                <span class="q-badge-required">${typeof I18N !== "undefined" ? I18N.t("examRequiredChar") : "必須包含漢字："}<strong>${q.caracter_asignado}</strong></span>
                             </div>
                             <div class="phase6-q-box">
                                 <div class="phase6-chinese-q">${q.pregunta}</div>
@@ -1267,13 +1267,13 @@ const renderPhase7 = () => {
                                             class="btn-vf ${chosen === true ? 'selected-true' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="true">
-                                        ✓ 是 (正確)
+                                        ${typeof I18N !== "undefined" ? I18N.t("examBtnTrue") : "✓ 是 (正確)"}
                                     </button>
                                     <button type="button" 
                                             class="btn-vf ${chosen === false ? 'selected-false' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="false">
-                                        ✗ 否 (錯誤)
+                                        ${typeof I18N !== "undefined" ? I18N.t("examBtnFalse") : "✗ 否 (錯誤)"}
                                     </button>
                                 </div>
                             </div>
@@ -1521,7 +1521,7 @@ const renderExamResults = (container) => {
                 <div class="review-tabs">
                     ${[1, 2, 3, 4, 5, 6, 7].map(num => `
                         <button class="review-tab-btn ${num === 1 ? 'active' : ''}" data-review-phase="${num}">
-                            Fase ${num}
+                            ${typeof I18N !== "undefined" ? I18N.t("examReviewPhaseBtn", { phase: num }) : `Fase ${num}`}
                         </button>
                     `).join('')}
                 </div>

@@ -94,7 +94,7 @@ const createFlashcard = (word, options = {}) => {
         ${word.zhuyin ? `<span class="zhuyin-corner">${word.zhuyin}</span>` : ''}
         <div class="chinese-char ${lenClass}">${word.tradicional}</div>
         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-        <span class="card-category-badge badge badge-${word.categoria}">${CATEGORY_LABELS[word.categoria] || word.categoria}${word.leccion ? ` · L${word.leccion}` : ''}</span>
+        <span class="card-category-badge badge badge-${word.categoria}">${(window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria))}${word.leccion ? ` · L${word.leccion}` : ''}</span>
     `;
 
     // --- BACK FACE ---

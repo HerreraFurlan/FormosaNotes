@@ -306,7 +306,32 @@ const I18N_DICT = {
         builderToastCleared: "Zona de construcción vaciada",
         builderToastAdded: "Caracteres agregados al constructor",
         printToastNoSelection: "Selecciona al menos una flashcard para exportar",
-        printToastComplete: "Proceso completado"
+        printToastComplete: "Proceso completado",
+        builderVerdictCorrect: "✅ ¡Oración Correcta!",
+        builderVerdictIncorrect: "❌ Necesita Corrección",
+        builderExamining: "Examinando...",
+        examPreviewP1Title: "Reconocimiento de Caracteres",
+        examPreviewP1Desc: "10 preguntas: Identifica el Hanzi correcto a partir de su Pinyin y Zhuyin entre 10 opciones.",
+        examPreviewP2Title: "Escritura de Pinyin con Tonos",
+        examPreviewP2Desc: "10 preguntas: Escribe el Pinyin exacto con diacríticos tonales mediante el teclado numérico (1-5).",
+        examPreviewP3Title: "Rellenar Espacios en Blanco",
+        examPreviewP3Desc: "5 oraciones: Deduce y escribe el carácter o término faltante en oraciones directas.",
+        examPreviewP4Title: "Gramática y Estructuras Complejas",
+        examPreviewP4Desc: "10 oraciones: Completa patrones avanzados con selección múltiple de 3 opciones (A, B, C).",
+        examPreviewP5Title: "Respuestas en Situaciones Reales",
+        examPreviewP5Desc: "5 escenarios: Responde a preguntas cotidianas en Taiwán con oraciones libres evaluadas por IA.",
+        examPreviewP6Title: "Desafío de Banco de Caracteres",
+        examPreviewP6Desc: "5 preguntas: Formula oraciones incorporando obligatoriamente los 5 caracteres asignados.",
+        examPreviewP7Title: "Comprensión Lectora Integral",
+        examPreviewP7Desc: "Historia corta inédita: 5 afirmaciones de Verdadero/Falso + 5 preguntas de opción múltiple.",
+        examBtnTrue: "✓ Verdadero (正確)",
+        examBtnFalse: "✗ Falso (錯誤)",
+        examRequiredChar: "必須包含漢字：",
+        convoToastSelectStructs: "Selecciona entre 1 y 5 estructuras o cambia a Modo Libre",
+        convoToastStarted: "¡Conversación iniciada con {name}!",
+        convoToastEmptyMessage: "Escribe tu mensaje en chino antes de enviar",
+        convoToastConcluded: "¡Has concluido la conversación!",
+        convoToastMaxStructs: "Puedes elegir como máximo 5 estructuras para enfocar la conversación",
     },
     en: {
         appTitle: "Formosa Notes - Chinese Flashcards",
@@ -608,7 +633,32 @@ const I18N_DICT = {
         builderToastCleared: "Construction zone cleared",
         builderToastAdded: "Characters added to builder",
         printToastNoSelection: "Select at least one flashcard to export",
-        printToastComplete: "Process completed"
+        printToastComplete: "Process completed",
+        builderVerdictCorrect: "✅ Correct Sentence!",
+        builderVerdictIncorrect: "❌ Needs Correction",
+        builderExamining: "Examining...",
+        examPreviewP1Title: "Character Recognition",
+        examPreviewP1Desc: "10 questions: Identify the correct Hanzi from its Pinyin and Zhuyin among 10 options.",
+        examPreviewP2Title: "Writing Pinyin with Tones",
+        examPreviewP2Desc: "10 questions: Type the exact Pinyin with tone diacritics using numeric keys (1-5).",
+        examPreviewP3Title: "Fill in the Blanks",
+        examPreviewP3Desc: "5 sentences: Deduce and type the missing character or term in direct sentences.",
+        examPreviewP4Title: "Complex Grammar & Structures",
+        examPreviewP4Desc: "10 sentences: Complete advanced patterns with 3-option multiple choice (A, B, C).",
+        examPreviewP5Title: "Real-life Situational Answers",
+        examPreviewP5Desc: "5 scenarios: Answer everyday questions in Taiwan with open sentences evaluated by AI.",
+        examPreviewP6Title: "Character Bank Challenge",
+        examPreviewP6Desc: "5 questions: Formulate sentences mandatory incorporating the 5 assigned characters.",
+        examPreviewP7Title: "Comprehensive Reading",
+        examPreviewP7Desc: "Original short story: 5 True/False statements + 5 multiple choice questions.",
+        examBtnTrue: "✓ True (正確)",
+        examBtnFalse: "✗ False (錯誤)",
+        examRequiredChar: "Must include character: ",
+        convoToastSelectStructs: "Select between 1 and 5 structures or switch to Free Mode",
+        convoToastStarted: "Conversation started with {name}!",
+        convoToastEmptyMessage: "Type your message in Chinese before sending",
+        convoToastConcluded: "You have completed the conversation!",
+        convoToastMaxStructs: "You can select at most 5 structures to focus the conversation",
     }
 };
 
@@ -732,6 +782,26 @@ const setLanguage = (newLang) => {
     }
 };
 
+/**
+ * Resolves category label according to active language.
+ * @param {string} cat
+ * @returns {string}
+ */
+const getCategoryLabel = (cat) => {
+    if (!cat) return '';
+    const lang = getLanguage();
+    const dict = I18N_DICT[lang] || I18N_DICT['es'];
+    const key = 'cat_' + String(cat).toLowerCase();
+    if (dict && dict[key]) {
+        return dict[key];
+    }
+    if (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[cat]) {
+        return CATEGORY_LABELS[cat];
+    }
+    return cat;
+};
+window.getCategoryLabel = getCategoryLabel;
+
 // Global export
 window.I18N = {
     getLanguage,
@@ -739,6 +809,7 @@ window.I18N = {
     t,
     updateCategoryLabels,
     applyI18nToDOM,
+    getCategoryLabel,
     TRANSLATIONS: I18N_DICT
 };
 

@@ -74,7 +74,7 @@ const initBuilder = () => {
         
         const btn = document.getElementById('btn-examine-sentence');
         const originalHTML = btn.innerHTML;
-        btn.innerHTML = `<svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg> Examinando...`;
+        btn.innerHTML = `<svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg> ${typeof I18N !== "undefined" ? I18N.t("builderExamining") : "Examinando..."}`;
         btn.disabled = true;
 
         try {
@@ -83,11 +83,11 @@ const initBuilder = () => {
             // Populate modal
             const verdictEl = document.getElementById('ai-verdict');
             if (result.correcta) {
-                verdictEl.innerHTML = '✅ ¡Oración Correcta!';
+                verdictEl.innerHTML = typeof I18N !== "undefined" ? I18N.t("builderVerdictCorrect") : "✅ ¡Oración Correcta!";
                 verdictEl.style.backgroundColor = 'var(--success)';
                 verdictEl.style.color = '#fff';
             } else {
-                verdictEl.innerHTML = '❌ Necesita Corrección';
+                verdictEl.innerHTML = typeof I18N !== "undefined" ? I18N.t("builderVerdictIncorrect") : "❌ Necesita Corrección";
                 verdictEl.style.backgroundColor = 'var(--danger)';
                 verdictEl.style.color = '#fff';
             }
@@ -196,7 +196,7 @@ const initBuilder = () => {
         highlightedIdx = -1;
         suggestionsEl.innerHTML = results.map((w, i) => {
             const color = CATEGORY_COLORS[w.categoria] || 'var(--text-muted)';
-            const label = CATEGORY_LABELS[w.categoria] || w.categoria;
+            const label = (window.getCategoryLabel ? window.getCategoryLabel(w.categoria) : (CATEGORY_LABELS[w.categoria] || w.categoria));
             return `
                 <div class="pinyin-suggestion-item" data-index="${i}">
                     <span class="sug-char">${w.tradicional}</span>

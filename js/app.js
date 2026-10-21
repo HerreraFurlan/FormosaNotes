@@ -331,7 +331,7 @@ const renderExportGrid = () => {
 
 const updateExportCount = () => {
     const checked = document.querySelectorAll('#export-grid input[type="checkbox"]:checked');
-    document.getElementById('export-count').textContent = `${checked.length} seleccionadas`;
+    document.getElementById('export-count').textContent = typeof I18N !== 'undefined' ? I18N.t('printSelectedCount', { count: checked.length }) : `${checked.length} seleccionadas`;
 };
 
 /**
