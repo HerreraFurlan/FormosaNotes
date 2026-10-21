@@ -231,7 +231,11 @@ const startNewExam = async () => {
     const allStructures = getAllStructures();
 
     if (!examWords || examWords.length < 10) {
-        showToast(`Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${examWords ? examWords.length : 0}).`, "warning");
+        const count = examWords ? examWords.length : 0;
+        const msg = typeof I18N !== "undefined"
+            ? I18N.t("examMinWordsWarning", { count })
+            : `Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${count}).`;
+        showToast(msg, "warning");
         return;
     }
 
@@ -290,7 +294,9 @@ const startNewExam = async () => {
 const finishAndEvaluateExam = async () => {
     const missingPhases = checkIncompletePhases();
     if (missingPhases.length > 0) {
-        const confirmMsg = `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
+        const confirmMsg = typeof I18N !== "undefined"
+            ? I18N.t("examConfirmIncomplete", { phases: missingPhases.join(', ') })
+            : `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
         if (!confirm(confirmMsg)) {
             return;
         }
@@ -773,13 +779,26 @@ const renderExamWelcome = (container) => {
  * Renders Loading / Generating screen.
  */
 const renderExamLoading = (container) => {
+    const isEvaluating = examSession.status === 'evaluating';
+    const title = typeof I18N !== "undefined"
+        ? (isEvaluating ? I18N.t("examEvaluatingTitle") : I18N.t("examLoadingTitle"))
+        : (isEvaluating ? "Evaluando Examen" : "Preparando Examen");
+
+    const message = typeof I18N !== "undefined"
+        ? (isEvaluating ? I18N.t("examLoadingEvaluating") : I18N.t("examLoadingDesigning"))
+        : (isEvaluating ? "El profesor IA está evaluando tus respuestas y calculando tu puntuación..." : "Diseñando tu examen con Gemini basado en tus flashcards y estructuras...");
+
+    const tip = typeof I18N !== "undefined"
+        ? I18N.t("examLoadingTip")
+        : "Tip: En la Fase 2, recuerda presionar 1, 2, 3 o 4 después de cada sílaba para colocar las tildes tonales automáticamente (ej: hao3 → hǎo).";
+
     container.innerHTML = `
         <div class="exam-loading-card">
             <div class="exam-spinner"></div>
-            <h2 class="exam-loading-title">Preparando Examen</h2>
-            <p class="exam-loading-text">${examSession.loadingMessage || 'Generando contenido con IA...'}</p>
+            <h2 class="exam-loading-title">${title}</h2>
+            <p class="exam-loading-text">${message}</p>
             <div class="exam-loading-tips">
-                <p>💡 <em>Tip: En la Fase 2, recuerda presionar 1, 2, 3 o 4 después de cada sílaba para colocar las tildes tonales automáticamente (ej: <code>hao3</code> &rarr; <code>hǎo</code>).</em></p>
+                <p>💡 <em>${tip}</em></p>
             </div>
         </div>
     `;

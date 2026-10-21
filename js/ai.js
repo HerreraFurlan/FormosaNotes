@@ -191,21 +191,57 @@ const safeParseJSON = (text) => {
     try {
         return JSON.parse(clean);
     } catch (err1) {
-        // Fallback: clean trailing commas before closing braces/brackets
+        // Multi-stage auto-repair for Gemini formatting defects
+        let s = clean;
+
+        // Stage A: Remove trailing commas before closing braces or brackets
+        s = s.replace(/,\s*([\]}])/g, '$1');
+
+        // Stage B: Missing commas between adjacent objects: } { -> }, {
+        s = s.replace(/}\s*\{/g, '}, {');
+
+        // Stage C: Missing commas between adjacent arrays: ] [ -> ], [
+        s = s.replace(/]\s*\[/g, '], [');
+
+        // Stage D: Missing commas between strings in array: "A"\n"B" (not a key followed by :)
+        s = s.replace(/(?<=")\s*\n\s*(?="(?![\w\s]+":))/g, ',\n');
+
+        // Stage E: Missing comma after property value before next property key
+        s = s.replace(/("|\d+|true|false|null|\]|\})\s*\n\s*(?="[\w]+":)/g, '$1,\n');
+
         try {
-            const noTrailing = clean.replace(/,\s*([\]}])/g, '$1');
-            return JSON.parse(noTrailing);
-        } catch (err2) {
-            console.warn("safeParseJSON fallo directo:", err2.message);
-            throw err2;
+            return JSON.parse(s);
+        } catch (_) {}
+
+        // Stage F: Balance unclosed braces or brackets in case of token boundary truncation
+        let openBraces = (s.match(/\{/g) || []).length - (s.match(/\}/g) || []).length;
+        let openBrackets = (s.match(/\[/g) || []).length - (s.match(/\]/g) || []).length;
+
+        // If an odd number of unescaped quotes, close the open string
+        const quotes = (s.match(/(?<!\\)"/g) || []).length;
+        if (quotes % 2 !== 0) {
+            s += '"';
+        }
+
+        while (openBrackets > 0) {
+            s += ']';
+            openBrackets--;
+        }
+        while (openBraces > 0) {
+            s += '}';
+            openBraces--;
+        }
+        s = s.replace(/,\s*([\]}])/g, '$1');
+
+        try {
+            return JSON.parse(s);
+        } catch (errFinal) {
+            console.warn("safeParseJSON no pudo reparar el JSON:", errFinal.message);
+            throw errFinal;
         }
     }
 };
 
-/**
- * Clean regex field extractor fallback for sentence verification
- * in case direct JSON parsing encounters any syntax anomalies.
- */
 const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
     if (!rawText || typeof rawText !== 'string') return null;
     try {
@@ -716,11 +752,14 @@ Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "f
 
 REGLAS OBLIGATORIAS DE FORMATO JSON:
 1. Devuelve EXCLUSIVAMENTE el objeto JSON crudo, sin bloques de código markdown (\`\`\`json) ni texto introductorio o final.
-2. DENTRO DE LOS TEXTOS:
-   - NUNCA uses comillas dobles (") para citar palabras o caracteres chinos. Si necesitas citar, usa comillas simples (' ') o comillas angulares (« »).
+2. SINTAXIS JSON VÁLIDA Y COMAS OBLIGATORIAS:
+   - CADA elemento dentro de arrays DEBE estar separado obligatoriamente por una coma (,). Ejemplo: ["A", "B", "C"].
+   - CADA objeto dentro de arrays DEBE estar separado por una coma obligatoria (,). Ejemplo: [{"id": 1}, {"id": 2}].
+3. DENTRO DE LOS TEXTOS EN CHINO:
+   - NUNCA uses comillas dobles inglesas (") dentro de oraciones, afirmaciones o preguntas. Si necesitas citar, usa OBLIGATORIAMENTE comillas de esquina tradicionales (« » o 「 」) o comillas simples (' ').
    - NUNCA escapes corchetes con barras invertidas (usa exactamente [ ___ ], NUNCA \\[ ___ \\]).
    - NO insertes saltos de línea literales dentro de las cadenas.
-3. Asegúrate de que todas las propiedades, llaves y corchetes estén perfectamente cerrados.`;
+4. Asegúrate de que todas las propiedades, llaves y corchetes estén perfectamente cerrados.`;
 
     const body = {
         contents: [{ parts: [{ text: prompt }] }],
@@ -731,32 +770,35 @@ REGLAS OBLIGATORIAS DE FORMATO JSON:
         }
     };
 
-    try {
-        const candidate = await callGeminiAPI(body);
-        const parsed = safeParseJSON(candidate);
-        if (!parsed || !parsed.fase3 || !parsed.fase4) {
-            throw new Error("El formato del examen generado por Gemini es incompleto.");
-        }
-        // Normalize phases to ensure safe defaults
-        parsed.fase3 = Array.isArray(parsed.fase3) ? parsed.fase3 : [];
-        parsed.fase4 = Array.isArray(parsed.fase4) ? parsed.fase4 : [];
-        parsed.fase5 = Array.isArray(parsed.fase5) ? parsed.fase5 : [];
-        parsed.fase6 = parsed.fase6 && Array.isArray(parsed.fase6.preguntas) ? parsed.fase6 : { banco_caracteres: [], preguntas: [] };
-        parsed.fase7 = parsed.fase7 && Array.isArray(parsed.fase7.verdadero_falso) ? parsed.fase7 : { historia: '', verdadero_falso: [], opcion_multiple: [] };
+    for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+            const candidate = await callGeminiAPI(body);
+            const parsed = safeParseJSON(candidate);
+            if (!parsed || !parsed.fase3 || !parsed.fase4) {
+                throw new Error("El formato del examen generado por Gemini es incompleto.");
+            }
+            // Normalize phases to ensure safe defaults
+            parsed.fase3 = Array.isArray(parsed.fase3) ? parsed.fase3 : [];
+            parsed.fase4 = Array.isArray(parsed.fase4) ? parsed.fase4 : [];
+            parsed.fase5 = Array.isArray(parsed.fase5) ? parsed.fase5 : [];
+            parsed.fase6 = parsed.fase6 && Array.isArray(parsed.fase6.preguntas) ? parsed.fase6 : { banco_caracteres: [], preguntas: [] };
+            parsed.fase7 = parsed.fase7 && Array.isArray(parsed.fase7.verdadero_falso) ? parsed.fase7 : { historia: '', verdadero_falso: [], opcion_multiple: [] };
 
-        return parsed;
-    } catch (error) {
-        console.error("Error generating exam data with Gemini:", error);
-        throw error;
+            return parsed;
+        } catch (error) {
+            console.warn(`Intento ${attempt} de generación de examen con Gemini falló:`, error.message);
+            if (attempt === 2) {
+                console.error("Error definitivo generando examen con Gemini:", error);
+                throw error;
+            }
+            // Pequeña pausa antes del reintento automático
+            await new Promise(resolve => setTimeout(resolve, 800));
+        }
     }
 };
 
 /**
  * Evaluates the user's free-form answers for Phase 5 and Phase 6 using Gemini.
- * 
- * @param {Array<object>} phase5Submissions - Array of { id, escenario, pregunta, respuesta_usuario }
- * @param {Array<object>} phase6Submissions - Array of { id, caracter_asignado, pregunta, respuesta_usuario }
- * @returns {Promise<object>} Evaluation results with scores and pedagogical comments
  */
 const evaluateExamAIAnswers = async (phase5Submissions, phase6Submissions) => {
     const isEn = isAILangEnglish();

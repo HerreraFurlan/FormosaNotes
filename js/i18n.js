@@ -338,6 +338,13 @@ const I18N_DICT = {
         convoResetTitle: "Finalizar e iniciar otra",
         convoConfirmReset: "¿Deseas finalizar la conversación actual e iniciar una nueva?",
         convoTargetStructuresHeader: "Estructuras a practicar en esta sesión ({count}):",
+        examLoadingTitle: "Preparando Examen",
+        examEvaluatingTitle: "Evaluando Examen",
+        examLoadingDesigning: "Diseñando tu examen con Gemini basado en tus flashcards y estructuras...",
+        examLoadingEvaluating: "El profesor IA está evaluando tus respuestas y calculando tu puntuación...",
+        examLoadingTip: "Tip: En la Fase 2, recuerda presionar 1, 2, 3 o 4 después de cada sílaba para colocar las tildes tonales automáticamente (ej: hao3 → hǎo).",
+        examMinWordsWarning: "Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: {count}).",
+        examConfirmIncomplete: "Tienes preguntas sin responder en: {phases}. ¿Deseas calificar y finalizar el examen de todos modos?",
     },
     en: {
         appTitle: "Formosa Notes - Chinese Flashcards",
@@ -671,6 +678,13 @@ const I18N_DICT = {
         convoResetTitle: "Finish and start another",
         convoConfirmReset: "Do you want to end the current conversation and start a new one?",
         convoTargetStructuresHeader: "Target structures to practice in this session ({count}):",
+        examLoadingTitle: "Preparing Exam",
+        examEvaluatingTitle: "Evaluating Exam",
+        examLoadingDesigning: "Designing your exam with Gemini based on your flashcards and structures...",
+        examLoadingEvaluating: "The AI teacher is evaluating your answers and calculating your score...",
+        examLoadingTip: "Tip: In Phase 2, remember to press 1, 2, 3 or 4 after each syllable to automatically place tone marks (e.g., hao3 → hǎo).",
+        examMinWordsWarning: "At least 10 words within selected lessons are required to take the exam (currently selected: {count}).",
+        examConfirmIncomplete: "You have unanswered questions in: {phases}. Do you want to grade and finish the exam anyway?",
     }
 };
 
