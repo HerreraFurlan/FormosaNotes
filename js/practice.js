@@ -1,31 +1,15 @@
 /**
  * =====================================================
  * AppChino — practice.js
- * Practice Mode:
- * 1. Sentence Construction Challenges (5 exercises generated
- *    from known vocabulary and random structures).
- * 2. Interactive Real-life Conversation Simulator (turn-by-turn
- *    dialogue in Taiwan contexts with immediate sentence evaluation).
+ * Live Conversation Mode:
+ * Interactive Real-life Conversation Simulator (turn-by-turn
+ * dialogue in Taiwan contexts with immediate sentence evaluation).
  * =====================================================
  */
 
-const PRACTICE_STORAGE_KEY = 'appchino_practice_state_v1';
 const CONVERSATION_STORAGE_KEY = 'appchino_conversation_state_v1';
-const PRACTICE_TAB_KEY = 'appchino_practice_tab_v1';
 const CONVO_MODE_KEY = 'appchino_convo_mode_v1';
 const CONVO_TARGET_STRUCTS_KEY = 'appchino_convo_target_structs_v1';
-
-// Tab state: 'retos' | 'conversacion'
-let activePracticeTab = 'retos';
-
-// ------------------------------------------------------
-// State: Sentence Challenges
-// ------------------------------------------------------
-let practiceChallenges = [];
-let practiceAnswers = {};
-let practiceEvaluations = {};
-let isPracticeGenerating = false;
-let isPracticeEvaluating = false;
 
 // ------------------------------------------------------
 // State: Interactive Conversation
@@ -48,15 +32,10 @@ let conversationSession = {
 let isConversationLoading = false;
 
 /**
- * Loads cached practice and conversation sessions from sessionStorage.
+ * Loads cached conversation session from sessionStorage.
  */
 const loadPracticeState = () => {
     try {
-        const savedTab = sessionStorage.getItem(PRACTICE_TAB_KEY);
-        if (savedTab === 'conversacion' || savedTab === 'retos') {
-            activePracticeTab = savedTab;
-        }
-
         const savedMode = sessionStorage.getItem(CONVO_MODE_KEY);
         if (savedMode === 'libre' || savedMode === 'especifico') {
             convoTargetMode = savedMode;
@@ -67,20 +46,12 @@ const loadPracticeState = () => {
             selectedTargetStructureIds = JSON.parse(savedStructs) || [];
         }
 
-        const savedChallenges = sessionStorage.getItem(PRACTICE_STORAGE_KEY);
-        if (savedChallenges) {
-            const data = JSON.parse(savedChallenges);
-            practiceChallenges = data.challenges || [];
-            practiceAnswers = data.answers || {};
-            practiceEvaluations = data.evaluations || {};
-        }
-
         const savedConvo = sessionStorage.getItem(CONVERSATION_STORAGE_KEY);
         if (savedConvo) {
             conversationSession = JSON.parse(savedConvo);
         }
     } catch (e) {
-        console.warn("No se pudo cargar el estado de práctica:", e);
+        console.warn("No se pudo cargar el estado de conversación:", e);
     }
 };
 
@@ -90,21 +61,6 @@ const saveConvoSettings = () => {
         sessionStorage.setItem(CONVO_TARGET_STRUCTS_KEY, JSON.stringify(selectedTargetStructureIds));
     } catch (e) {
         console.warn("No se pudo guardar la configuración de conversación:", e);
-    }
-};
-
-/**
- * Saves sentence challenges session to sessionStorage.
- */
-const savePracticeState = () => {
-    try {
-        sessionStorage.setItem(PRACTICE_STORAGE_KEY, JSON.stringify({
-            challenges: practiceChallenges,
-            answers: practiceAnswers,
-            evaluations: practiceEvaluations
-        }));
-    } catch (e) {
-        console.warn("No se pudo guardar el estado de retos:", e);
     }
 };
 
@@ -120,19 +76,7 @@ const saveConversationState = () => {
 };
 
 /**
- * Saves active tab choice.
- */
-const saveActiveTab = (tab) => {
-    activePracticeTab = tab;
-    try {
-        sessionStorage.setItem(PRACTICE_TAB_KEY, tab);
-    } catch (e) {
-        console.warn("No se pudo guardar la pestaña activa:", e);
-    }
-};
-
-/**
- * Initializes the practice section.
+ * Initializes the Live Conversation section.
  * Called when navigating to the 'practica' section.
  */
 const initPracticeMode = () => {
@@ -152,156 +96,6 @@ const scrollChatToBottom = () => {
     }, 50);
 };
 
-// ======================================================
-// 1. SENTENCE CHALLENGES LOGIC
-// ======================================================
-
-const generatePracticeChallenges = async () => {
-    if (isPracticeGenerating) return;
-
-    const words = [...new Set(getAllWords().map(w => w.tradicional).filter(Boolean))];
-    const allStructures = getAllStructures();
-
-    if (words.length === 0) {
-        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastNoWords") : "No tienes palabras en tu biblioteca para practicar", "error");
-        return;
-    }
-
-    if (allStructures.length === 0) {
-        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastNoStructs") : "No tienes estructuras gramaticales registradas", "error");
-        return;
-    }
-
-    const shuffled = [...allStructures].sort(() => 0.5 - Math.random());
-    const selectedStructures = shuffled.slice(0, 5).map(s => ({
-        id: s.id,
-        nombre: s.nombre,
-        formula: s.formula
-    }));
-
-    isPracticeGenerating = true;
-    renderPracticeUI();
-
-    try {
-        const challenges = await generatePracticeChallengesWithGemini(words, selectedStructures);
-        if (!Array.isArray(challenges) || challenges.length === 0) {
-            throw new Error("No se recibieron retos válidos de la IA.");
-        }
-
-        practiceChallenges = challenges.map(ch => {
-            const matchedStruct = selectedStructures.find(s => s.id === ch.estructura_id) || {};
-            return {
-                ...ch,
-                formula: ch.formula || matchedStruct.formula || '',
-                nombre_estructura: ch.nombre_estructura || matchedStruct.nombre || ''
-            };
-        });
-        practiceAnswers = {};
-        practiceEvaluations = {};
-        savePracticeState();
-        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastGenerated") : "¡5 retos generados! Listo para practicar", "success");
-    } catch (error) {
-        console.error("Error al generar práctica:", error);
-        showToast(error.message || 'Error al conectar con la IA', 'error');
-    } finally {
-        isPracticeGenerating = false;
-        renderPracticeUI();
-    }
-};
-
-const evaluateSingleChallenge = async (challengeId) => {
-    const challenge = practiceChallenges.find(c => String(c.id) === String(challengeId));
-    if (!challenge) return;
-
-    const answer = (practiceAnswers[challengeId] || '').trim();
-    if (!answer) {
-        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEmptyAnswer") : "Escribe tu respuesta en chino antes de revisar", "error");
-        return;
-    }
-
-    const singleSubmission = [{
-        id: challenge.id,
-        instruccion_espanol: challenge.instruccion_espanol,
-        formula: challenge.formula,
-        respuesta_estudiante: answer
-    }];
-
-    const card = document.querySelector(`.practice-card[data-id="${challengeId}"]`);
-    const btn = card ? card.querySelector('.btn-eval-single') : null;
-    let originalHtml = '';
-    if (btn) {
-        originalHtml = btn.innerHTML;
-        btn.innerHTML = `<svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 12a9 9 0 11-6.219-8.56"/></svg> Revisando...`;
-        btn.disabled = true;
-    }
-
-    try {
-        const results = await evaluatePracticeAnswersWithGemini(singleSubmission);
-        if (Array.isArray(results) && results.length > 0) {
-            practiceEvaluations[challengeId] = results[0];
-            savePracticeState();
-            renderPracticeUI();
-            showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEvalSuccess") : "Reto evaluado con éxito", "success");
-        }
-    } catch (error) {
-        console.error("Error al evaluar reto:", error);
-        showToast(error.message || 'Error al evaluar con la IA', 'error');
-        if (btn) {
-            btn.innerHTML = originalHtml;
-            btn.disabled = false;
-        }
-    }
-};
-
-const evaluateAllChallenges = async () => {
-    if (isPracticeEvaluating || practiceChallenges.length === 0) return;
-
-    const submissions = practiceChallenges.map(c => ({
-        id: c.id,
-        instruccion_espanol: c.instruccion_espanol,
-        formula: c.formula,
-        respuesta_estudiante: (practiceAnswers[c.id] || '').trim()
-    }));
-
-    const hasAnyAnswer = submissions.some(s => s.respuesta_estudiante.length > 0);
-    if (!hasAnyAnswer) {
-        showToast(typeof I18N !== "undefined" ? I18N.t("practiceToastEvalAllEmpty") : "Escribe al menos una respuesta antes de evaluar", "error");
-        return;
-    }
-
-    isPracticeEvaluating = true;
-    renderPracticeUI();
-
-    try {
-        const results = await evaluatePracticeAnswersWithGemini(submissions);
-        if (Array.isArray(results)) {
-            results.forEach(res => {
-                practiceEvaluations[res.id] = res;
-            });
-            savePracticeState();
-
-            const total = practiceChallenges.length;
-            const correctCount = results.filter(r => r.correcta).length;
-            showToast(`¡Evaluación completada! ${correctCount}/${total} correctas`, correctCount === total ? 'success' : 'info');
-        }
-    } catch (error) {
-        console.error("Error al evaluar práctica completa:", error);
-        showToast(error.message || 'Error al evaluar respuestas', 'error');
-    } finally {
-        isPracticeEvaluating = false;
-        renderPracticeUI();
-    }
-};
-
-const resetPracticeSession = () => {
-    practiceChallenges = [];
-    practiceAnswers = {};
-    practiceEvaluations = {};
-    savePracticeState();
-    renderPracticeUI();
-};
-
-// ======================================================
 // 2. INTERACTIVE CONVERSATION LOGIC
 // ======================================================
 
@@ -515,315 +309,20 @@ const resetConversationSession = () => {
 /**
  * Main rendering routine for the practice section.
  */
+
+// ======================================================
+// UI RENDERING — LIVE CONVERSATION
+// ======================================================
+
+/**
+ * Main rendering routine for Live Conversation.
+ */
 const renderPracticeUI = () => {
     const container = document.getElementById('practice-container');
     if (!container) return;
-
-    // Navigation Tabs Header
-    const tabsHtml = `
-        <div class="practice-nav-tabs">
-            <button class="practice-tab-btn ${activePracticeTab === 'retos' ? 'active' : ''}" data-tab="retos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <circle cx="12" cy="12" r="6"></circle>
-                    <circle cx="12" cy="12" r="2"></circle>
-                </svg>
-                ${typeof I18N !== "undefined" ? I18N.t("practiceRetosTab") : "Retos de oraciones"}
-            </button>
-            <button class="practice-tab-btn ${activePracticeTab === 'conversacion' ? 'active' : ''}" data-tab="conversacion">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                </svg>
-                ${typeof I18N !== "undefined" ? I18N.t("practiceConvoTab") : "Conversación en vivo"}
-                ${conversationSession.active && !conversationSession.terminada ? '<span class="practice-tab-dot"></span>' : ''}
-            </button>
-        </div>
-        <div class="practice-body-content" id="practice-body-content"></div>
-    `;
-
-    container.innerHTML = tabsHtml;
-
-    // Attach Tab switching listeners
-    container.querySelectorAll('.practice-tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const tab = btn.dataset.tab;
-            if (tab !== activePracticeTab) {
-                saveActiveTab(tab);
-                renderPracticeUI();
-            }
-        });
-    });
-
-    const bodyContent = document.getElementById('practice-body-content');
-    if (!bodyContent) return;
-
-    if (activePracticeTab === 'retos') {
-        renderChallengesView(bodyContent);
-    } else {
-        renderConversationView(bodyContent);
-    }
+    renderConversationView(container);
 };
 
-/**
- * Renders the 5-challenge sentence construction view.
- */
-const renderChallengesView = (bodyContent) => {
-    // 1. Loading State while generating challenges
-    if (isPracticeGenerating) {
-        bodyContent.innerHTML = `
-            <div class="practice-empty-state">
-                <div class="practice-loading-spinner">
-                    <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="48" height="48">
-                        <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
-                        <path d="M12 2a10 10 0 0 1 10 10" stroke-linecap="round"></path>
-                    </svg>
-                </div>
-                <h3>${typeof I18N !== "undefined" ? I18N.t("practiceGeneratingTitle") : "Formulando 5 retos con Inteligencia Artificial..."}</h3>
-                <p>${typeof I18N !== "undefined" ? I18N.t("practiceGeneratingDesc") : "Gemini está seleccionando tus estructuras..."}</p>
-            </div>
-        `;
-        return;
-    }
-
-    // 2. Empty / Welcome State
-    if (!practiceChallenges || practiceChallenges.length === 0) {
-        const totalWords = getAllWords().length;
-        const totalStructs = getAllStructures().length;
-
-        bodyContent.innerHTML = `
-            <div class="practice-empty-state">
-                <div class="practice-icon-badge">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="40" height="40">
-                        <path d="M12 20h9" />
-                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                    </svg>
-                </div>
-                <h2>${typeof I18N !== "undefined" ? I18N.t("practiceWelcomeTitle") : "Práctica Diaria de Oraciones con IA"}</h2>
-                <p>${typeof I18N !== "undefined" ? I18N.t("practiceWelcomeDesc") : "Pon a prueba tu dominio del mandarín tradicional..."}</p>
-                <div class="practice-stats-bar">
-                    <div class="stat-pill">
-                        <span class="stat-number">${totalWords}</span>
-                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("practiceWordsAvail") : "Palabras disponibles"}</span>
-                    </div>
-                    <div class="stat-pill">
-                        <span class="stat-number">${totalStructs}</span>
-                        <span class="stat-label">${typeof I18N !== "undefined" ? I18N.t("practiceStructsAvail") : "Estructuras disponibles"}</span>
-                    </div>
-                </div>
-                <button class="btn btn-primary btn-lg" id="btn-generate-practice">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                        <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-                    </svg>
-                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnGenerate") : "Generar 5 retos nuevos"}
-                </button>
-            </div>
-        `;
-
-        const btnGen = document.getElementById('btn-generate-practice');
-        if (btnGen) {
-            btnGen.addEventListener('click', generatePracticeChallenges);
-        }
-        return;
-    }
-
-    // 3. Active Practice UI with 5 Challenges
-    const evaluatedList = Object.values(practiceEvaluations);
-    const hasEvaluations = evaluatedList.length > 0;
-    const correctCount = evaluatedList.filter(e => e.correcta).length;
-
-    let toolbarHtml = `
-        <div class="practice-toolbar">
-            <div class="practice-toolbar-info">
-                <h3>${typeof I18N !== "undefined" ? I18N.t("practiceToolbarTitle") : "Práctica activa: 5 retos"}</h3>
-                ${hasEvaluations ? `
-                    <span class="practice-score-badge ${correctCount === practiceChallenges.length ? 'all-correct' : ''}">
-                        ${correctCount} / ${practiceChallenges.length} correctas
-                    </span>
-                ` : `
-                    <span class="practice-status-hint">${typeof I18N !== "undefined" ? I18N.t("practiceStatusHint") : "Escribe tus respuestas y revísalas individualmente o en conjunto."}</span>
-                `}
-            </div>
-            <div class="practice-toolbar-actions">
-                <button class="btn btn-secondary btn-sm" id="btn-reset-practice" title="Reiniciar sesión de práctica">
-                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnReset") : "Reiniciar"}
-                </button>
-                <button class="btn btn-secondary btn-sm" id="btn-regenerate-practice" ${isPracticeEvaluating ? 'disabled' : ''}>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
-                        <polyline points="23 4 23 10 17 10"></polyline>
-                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                    </svg>
-                    ${typeof I18N !== "undefined" ? I18N.t("practiceBtnRegenerate") : "Otros 5 retos"}
-                </button>
-                <button class="btn btn-primary" id="btn-evaluate-all-practice" ${isPracticeEvaluating ? 'disabled' : ''}>
-                    ${isPracticeEvaluating ? `
-                        <svg class="animate-spin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                            <path d="M21 12a9 9 0 11-6.219-8.56"/>
-                        </svg> ${typeof I18N !== "undefined" ? I18N.t("practiceBtnEvaluating") : "Evaluando con IA..."}
-                    ` : `
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                        </svg> ${typeof I18N !== "undefined" ? I18N.t("practiceBtnEvalAll") : "Evaluar todo"}
-                    `}
-                </button>
-            </div>
-        </div>
-    `;
-
-    let cardsHtml = practiceChallenges.map((ch, index) => {
-        const userAnswer = practiceAnswers[ch.id] || '';
-        const evaluation = practiceEvaluations[ch.id];
-
-        let feedbackHtml = '';
-        if (evaluation) {
-            const isCorrect = evaluation.correcta;
-            feedbackHtml = `
-                <div class="practice-feedback-box ${isCorrect ? 'is-correct' : 'is-wrong'}">
-                    <div class="practice-feedback-verdict">
-                        ${isCorrect ? (typeof I18N !== "undefined" ? I18N.t("practiceFeedbackCorrect") : "✅ ¡Oración Correcta!") : (typeof I18N !== "undefined" ? I18N.t("practiceFeedbackWrong") : "❌ Necesita Corrección")}
-                    </div>
-
-                    <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiExplanation") : "Explicación"}</div>
-                        <p class="practice-feedback-text">${evaluation.explicacion || ''}</p>
-                    </div>
-
-                    <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiSuggested") : "Versión sugerida"}</div>
-                        <div class="practice-feedback-chinese">${evaluation.correccion || ''}</div>
-                    </div>
-
-                    ${evaluation.pinyin ? `
-                        <div class="practice-feedback-section">
-                            <div class="practice-feedback-label">Pinyin</div>
-                            <div class="practice-feedback-pinyin">${evaluation.pinyin}</div>
-                        </div>
-                    ` : ''}
-
-                    <div class="practice-feedback-section">
-                        <div class="practice-feedback-label">${typeof I18N !== "undefined" ? I18N.t("aiTranslation") : "Traducción"}</div>
-                        <div class="practice-feedback-trans">${evaluation.traduccion || ''}</div>
-                    </div>
-                </div>
-            `;
-        }
-
-        let vocabPills = '';
-        if (Array.isArray(ch.vocabulario_clave) && ch.vocabulario_clave.length > 0) {
-            vocabPills = `
-                <div class="practice-vocab-wrap">
-                    <span class="practice-vocab-title">${typeof I18N !== "undefined" ? I18N.t("practiceKeyVocabLabel") : "Vocabulario clave:"}</span>
-                    ${ch.vocabulario_clave.map(v => `<span class="practice-pill">${v}</span>`).join('')}
-                </div>
-            `;
-        }
-
-        return `
-            <div class="practice-card ${evaluation ? (evaluation.correcta ? 'card-success' : 'card-warning') : ''}" data-id="${ch.id}">
-                <div class="practice-card-header">
-                    <div class="practice-card-badge">${typeof I18N !== "undefined" ? I18N.t("practiceCardChallenge", { n: index + 1, total: 5 }) : `Reto ${index + 1} de 5`}</div>
-                    <div class="practice-formula-tag" title="Estructura a utilizar">
-                        ${ch.formula || ch.nombre_estructura}
-                    </div>
-                </div>
-
-                <div class="practice-instruction">
-                    <div class="practice-instruction-label">${typeof I18N !== "undefined" ? I18N.t("practiceInstructionTranslate") : "Traduce o construye en chino:"}</div>
-                    <div class="practice-instruction-text">"${ch.instruccion_espanol}"</div>
-                </div>
-
-                ${ch.pista ? `
-                    <div class="practice-hint">
-                        <span class="practice-hint-icon">💡</span>
-                        <span><strong>${typeof I18N !== "undefined" ? I18N.t("practiceHintLabel") : "Pista:"}</strong> ${ch.pista}</span>
-                    </div>
-                ` : ''}
-
-                ${vocabPills}
-
-                <div class="practice-input-container">
-                    <textarea 
-                        class="practice-input" 
-                        data-id="${ch.id}" 
-                        rows="2" 
-                        placeholder="${typeof I18N !== "undefined" ? I18N.t("practiceInputPlaceholder") : "Escribe la oración aquí en caracteres tradicionales..."}">${userAnswer}</textarea>
-                    
-                    <div class="practice-card-actions">
-                        <button class="btn btn-secondary btn-sm btn-eval-single" data-id="${ch.id}" ${isPracticeEvaluating ? 'disabled' : ''}>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
-                                <path d="M12 20h9" />
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
-                            </svg>
-                            Revisar este reto
-                        </button>
-                    </div>
-                </div>
-
-                ${feedbackHtml}
-            </div>
-        `;
-    }).join('');
-
-    bodyContent.innerHTML = `
-        ${toolbarHtml}
-        <div class="practice-cards-list">
-            ${cardsHtml}
-        </div>
-        <div class="practice-footer-actions">
-            <button class="btn btn-primary btn-lg" id="btn-footer-evaluate-all" ${isPracticeEvaluating ? 'disabled' : ''}>
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
-                Evaluar todas las respuestas
-            </button>
-        </div>
-    `;
-
-    // Event listeners for challenges
-    bodyContent.querySelectorAll('.practice-input').forEach(textarea => {
-        textarea.addEventListener('input', (e) => {
-            const id = e.target.dataset.id;
-            practiceAnswers[id] = e.target.value;
-            savePracticeState();
-        });
-    });
-
-    bodyContent.querySelectorAll('.btn-eval-single').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const id = btn.dataset.id;
-            evaluateSingleChallenge(id);
-        });
-    });
-
-    const btnEvalAll = document.getElementById('btn-evaluate-all-practice');
-    if (btnEvalAll) {
-        btnEvalAll.addEventListener('click', evaluateAllChallenges);
-    }
-
-    const btnFooterEvalAll = document.getElementById('btn-footer-evaluate-all');
-    if (btnFooterEvalAll) {
-        btnFooterEvalAll.addEventListener('click', evaluateAllChallenges);
-    }
-
-    const btnRegen = document.getElementById('btn-regenerate-practice');
-    if (btnRegen) {
-        btnRegen.addEventListener('click', generatePracticeChallenges);
-    }
-
-    const btnReset = document.getElementById('btn-reset-practice');
-    if (btnReset) {
-        btnReset.addEventListener('click', () => {
-            if (confirm('¿Deseas reiniciar la práctica actual y borrar tus respuestas?')) {
-                resetPracticeSession();
-            }
-        });
-    }
-};
-
-/**
- * Renders the Interactive Conversation Simulator view.
- */
 const renderConversationView = (bodyContent) => {
     // 1. Initial / Not Active State
     if (!conversationSession.active) {
@@ -1311,3 +810,4 @@ const renderConversationView = (bodyContent) => {
 
     scrollChatToBottom();
 };
+

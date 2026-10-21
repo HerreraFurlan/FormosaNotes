@@ -5331,3 +5331,11 @@ input:checked+.slider:before {
     border-color: var(--accent);
     box-shadow: 0 1px 4px rgba(179, 58, 58, 0.35);
 }
+
+/* Static mode: hide word add & edit buttons */
+#btn-add-word,
+.card-actions,
+.edit-btn,
+.delete-btn {
+    display: none !important;
+}

@@ -39,7 +39,7 @@ const showToast = (message, type = 'success') => {
  * @returns {HTMLElement}
  */
 const createFlashcard = (word, options = {}) => {
-    const { showSelect = false, showActions = true } = options;
+    const { showSelect = false, showActions = false } = options;
     const color = CATEGORY_COLORS[word.categoria] || 'var(--color-noun)';
 
     const wrapper = document.createElement('div');

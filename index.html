@@ -94,12 +94,11 @@
                 </svg>
                 <span class="nav-text" data-i18n="navStudy">Modo Estudio</span>
             </button>
-            <button class="nav-item" data-section="practica" data-tooltip="Práctica de oraciones" title="Práctica de oraciones">
+            <button class="nav-item" data-section="practica" data-tooltip="Live Conversation" title="Live Conversation">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M12 20h9" />
-                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
-                <span class="nav-text" data-i18n="navPractice">Práctica de oraciones</span>
+                <span class="nav-text" data-i18n="navLiveConversation">Live Conversation</span>
             </button>
             <button class="nav-item" data-section="exam" data-tooltip="Simulación de examen" title="Simulación de examen">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -138,22 +137,7 @@
                 </svg>
                 <span class="nav-text" data-i18n="navSettings">Configuración</span>
             </button>
-            <button class="nav-item" id="btn-export-json" data-tooltip="Exportar Datos" title="Exportar Datos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                    <polyline points="17 8 12 3 7 8" />
-                    <line x1="12" y1="3" x2="12" y2="15" />
-                </svg>
-                <span class="nav-text" data-i18n="navExportJson">Exportar Datos</span>
-            </button>
-            <button class="nav-item" id="btn-import-json" data-tooltip="Importar Datos" title="Importar Datos">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                </svg>
-                <span class="nav-text" data-i18n="navImportJson">Importar Datos</span>
-            </button>
+
         </div>
     </aside>
 
@@ -171,7 +155,7 @@
                         </svg>
                         <input type="search" id="search-input" placeholder="Buscar tarjetas" data-i18n-ph="searchPlaceholder">
                     </div>
-                    <button class="btn btn-primary" id="btn-add-word" style="height: 42px;">
+                    <button class="btn btn-primary" id="btn-add-word" style="height: 42px; display: none !important;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
@@ -731,7 +715,7 @@
     </dialog>
 
     <!-- Hidden file input for JSON import -->
-    <input type="file" id="json-file-input" accept=".json" style="display:none;">
+    
 
     <!-- Toast container -->
     <div class="toast-container" id="toast-container"></div>

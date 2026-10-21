@@ -1306,12 +1306,12 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('export-grid').addEventListener('change', updateExportCount);
     document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
 
-    // --- JSON import/export ---
-    document.getElementById('btn-export-json').addEventListener('click', handleExportJSON);
-    document.getElementById('btn-import-json').addEventListener('click', () => {
-        document.getElementById('json-file-input').click();
+    // --- JSON import/export (disabled in static mode) ---
+    document.getElementById('btn-export-json')?.addEventListener('click', handleExportJSON);
+    document.getElementById('btn-import-json')?.addEventListener('click', () => {
+        document.getElementById('json-file-input')?.click();
     });
-    document.getElementById('json-file-input').addEventListener('change', (e) => {
+    document.getElementById('json-file-input')?.addEventListener('change', (e) => {
         if (e.target.files.length > 0) handleImportJSON(e.target.files[0]);
     });
 
