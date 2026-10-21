@@ -815,3 +815,10 @@ window.I18N = {
 
 // Initial setup on script load
 updateCategoryLabels();
+if (typeof document !== 'undefined') {
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => applyI18nToDOM());
+    } else {
+        applyI18nToDOM();
+    }
+}
