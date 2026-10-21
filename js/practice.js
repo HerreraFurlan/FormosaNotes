@@ -437,7 +437,7 @@ const renderConversationView = (bodyContent) => {
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
                         </svg>
-                        ${selectedTargetStructureIds.length === 0 ? 'Selecciona entre 1 y 5 estructuras' : `Iniciar conversación (${selectedTargetStructureIds.length} estructura${selectedTargetStructureIds.length > 1 ? 's' : ''})`}
+                        ${selectedTargetStructureIds.length === 0 ? 'Selecciona entre 1 y 5 estructuras' : `${typeof I18N !== 'undefined' && I18N.getLanguage() === 'en' ? `Start conversation (${selectedTargetStructureIds.length} structure${selectedTargetStructureIds.length > 1 ? 's' : ''})` : `Iniciar conversación (${selectedTargetStructureIds.length} estructura${selectedTargetStructureIds.length > 1 ? 's' : ''})`}`}
                     ` : `
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                             <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -506,7 +506,7 @@ const renderConversationView = (bodyContent) => {
                     // Update live badge
                     const badge = document.getElementById('convo-count-badge');
                     if (badge) {
-                        badge.textContent = `${selectedTargetStructureIds.length} / 5 seleccionadas`;
+                        badge.textContent = `${selectedTargetStructureIds.length} / 5 ${typeof I18N !== 'undefined' && I18N.getLanguage() === 'en' ? 'selected' : 'seleccionadas'}`;
                         badge.classList.toggle('max', selectedTargetStructureIds.length === 5);
                     }
 
@@ -515,19 +515,24 @@ const renderConversationView = (bodyContent) => {
                     if (startBtn && convoTargetMode === 'especifico') {
                         if (selectedTargetStructureIds.length === 0) {
                             startBtn.disabled = true;
+                            const emptyTxt = typeof I18N !== "undefined" && I18N.getLanguage() === "en" ? "Select between 1 and 5 structures" : "Selecciona entre 1 y 5 estructuras";
                             startBtn.innerHTML = `
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
                                 </svg>
-                                Selecciona entre 1 y 5 estructuras
+                                ${emptyTxt}
                             `;
                         } else {
                             startBtn.disabled = false;
+                            const count = selectedTargetStructureIds.length;
+                            const readyTxt = typeof I18N !== "undefined" && I18N.getLanguage() === "en"
+                                ? `Start conversation (${count} structure${count > 1 ? 's' : ''})`
+                                : `Iniciar conversación (${count} estructura${count > 1 ? 's' : ''})`;
                             startBtn.innerHTML = `
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                                     <polygon points="5 3 19 12 5 21 5 3"></polygon>
                                 </svg>
-                                Iniciar conversación (${selectedTargetStructureIds.length} estructura${selectedTargetStructureIds.length > 1 ? 's' : ''})
+                                ${readyTxt}
                             `;
                         }
                     }
@@ -641,7 +646,7 @@ const renderConversationView = (bodyContent) => {
             <div class="chat-final-card">
                 <div class="chat-final-header">
                     <div class="chat-final-badge">${typeof I18N !== "undefined" ? I18N.t("convoCompletedBadge") : "🎉 ¡Conversación Completada!"}</div>
-                    <div class="chat-final-score">Puntuación: <strong>${finalEval.puntuacion || 'Excelente'}</strong></div>
+                    <div class="chat-final-score">${typeof I18N !== "undefined" ? I18N.t("convoScoreLabel", { score: finalEval.puntuacion || (typeof I18N !== "undefined" && I18N.getLanguage() === "en" ? "Excellent" : "Excelente") }) : `Puntuación: <strong>${finalEval.puntuacion || "Excelente"}</strong>`}</div>
                 </div>
                 <div class="chat-final-body">
                     <p class="chat-final-summary">${finalEval.resumen || ''}</p>
@@ -721,18 +726,18 @@ const renderConversationView = (bodyContent) => {
                     </div>
                 </div>
                 <div class="chat-top-actions">
-                    <button class="btn btn-secondary btn-sm" id="btn-reset-convo" title="Finalizar e iniciar otra">
+                    <button class="btn btn-secondary btn-sm" id="btn-reset-convo" title="${typeof I18N !== 'undefined' ? I18N.t('convoResetTitle') : 'Finalizar e iniciar otra'}">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
                             <polyline points="23 4 23 10 17 10"></polyline>
                             <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
                         </svg>
-                        Reiniciar
+                        ${typeof I18N !== 'undefined' ? I18N.t('convoBtnRestart') : 'Reiniciar'}
                     </button>
                 </div>
             </div>
 
             <div class="chat-scenario-card">
-                <div class="chat-scenario-label">📍 Escenario:</div>
+                <div class="chat-scenario-label">📍 ${typeof I18N !== "undefined" ? I18N.t("convoScenarioLabel") : "Escenario:"}</div>
                 <div class="chat-scenario-description">${scenario}</div>
             </div>
 
@@ -744,7 +749,7 @@ const renderConversationView = (bodyContent) => {
                             <circle cx="12" cy="12" r="6"></circle>
                             <circle cx="12" cy="12" r="2"></circle>
                         </svg>
-                        <span>Estructuras a practicar en esta sesión (${conversationSession.targetStructures.length}):</span>
+                        <span>${typeof I18N !== "undefined" ? I18N.t("convoTargetStructuresHeader", { count: conversationSession.targetStructures.length }) : `Estructuras a practicar en esta sesión (${conversationSession.targetStructures.length}):`}</span>
                     </div>
                     <div class="chat-target-pills">
                         ${conversationSession.targetStructures.map(s => `
@@ -792,7 +797,7 @@ const renderConversationView = (bodyContent) => {
     const btnResetConvo = document.getElementById('btn-reset-convo');
     if (btnResetConvo) {
         btnResetConvo.addEventListener('click', () => {
-            if (confirm('¿Deseas finalizar la conversación actual e iniciar una nueva?')) {
+            if (confirm(typeof I18N !== 'undefined' ? I18N.t('convoConfirmReset') : '¿Deseas finalizar la conversación actual e iniciar una nueva?')) {
                 resetConversationSession();
             }
         });

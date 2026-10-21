@@ -333,6 +333,11 @@ const I18N_DICT = {
         convoToastEmptyMessage: "Escribe tu mensaje en chino antes de enviar",
         convoToastConcluded: "¡Has concluido la conversación!",
         convoToastMaxStructs: "Puedes elegir como máximo 5 estructuras para enfocar la conversación",
+        convoScenarioLabel: "Escenario:",
+        convoBtnRestart: "Reiniciar",
+        convoResetTitle: "Finalizar e iniciar otra",
+        convoConfirmReset: "¿Deseas finalizar la conversación actual e iniciar una nueva?",
+        convoTargetStructuresHeader: "Estructuras a practicar en esta sesión ({count}):",
     },
     en: {
         appTitle: "Formosa Notes - Chinese Flashcards",
@@ -661,6 +666,11 @@ const I18N_DICT = {
         convoToastEmptyMessage: "Type your message in Chinese before sending",
         convoToastConcluded: "You have completed the conversation!",
         convoToastMaxStructs: "You can select at most 5 structures to focus the conversation",
+        convoScenarioLabel: "Scenario:",
+        convoBtnRestart: "Restart",
+        convoResetTitle: "Finish and start another",
+        convoConfirmReset: "Do you want to end the current conversation and start a new one?",
+        convoTargetStructuresHeader: "Target structures to practice in this session ({count}):",
     }
 };
 
