@@ -148,7 +148,7 @@ const SyntaxEngine = (() => {
             color: '#2E78B7',
             bgSoft: 'rgba(46, 120, 183, 0.10)',
             borderColor: 'rgba(46, 120, 183, 0.45)',
-            labels: { es: 'DÓNDE · LUGAR (在+N)', en: 'WHERE · LOCATION (在+N)' },
+            labels: { es: 'DÓNDE · LUGAR (Prep+N)', en: 'WHERE · LOCATION (Prep+N)' },
             formulaTag: '[Prep(在) + Lugar]'
         },
         COMPANY_SCOPE: {
@@ -208,7 +208,7 @@ const SyntaxEngine = (() => {
             color: '#9A3412',
             bgSoft: 'rgba(154, 52, 18, 0.09)',
             borderColor: 'rgba(154, 52, 18, 0.45)',
-            labels: { es: '離合詞 · VERBO SEPARABLE', en: '離合詞 · SEPARABLE VERB' },
+            labels: { es: 'V-sep · VERBO SEPARABLE', en: 'V-sep · SEPARABLE VERB' },
             formulaTag: '[V-sep expandido]'
         }
     };

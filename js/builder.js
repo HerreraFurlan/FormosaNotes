@@ -426,12 +426,7 @@ const updateBuilderPreview = (precomputedSyntagmas = null) => {
     if (chEl) chEl.textContent = chinese;
     if (pyEl) pyEl.textContent = pinyin;
 
-    // Autocompletar fórmula sintáctica si el usuario no la editó manualmente
-    if (formulaInput && !formulaManuallyEdited && typeof SyntaxEngine !== 'undefined') {
-        const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
-        const syns = precomputedSyntagmas || SyntaxEngine.detectSyntagmas(builderTokens, lang);
-        formulaInput.value = SyntaxEngine.generateStructureFormula(syns);
-    }
+
 };
 
 /**
@@ -493,46 +488,6 @@ const initBuilder = () => {
             btn.innerHTML = originalHTML;
             btn.disabled = false;
         }
-    });
-
-    // Guardar estructura
-    document.getElementById('btn-save-structure').addEventListener('click', () => {
-        if (builderTokens.length === 0) {
-            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastEmpty') : 'Agrega al menos una palabra al constructor', 'error');
-            return;
-        }
-
-        const nombre = document.getElementById('structure-name').value.trim();
-        const formula = document.getElementById('structure-formula').value.trim();
-        const spanish = document.getElementById('structure-spanish').value.trim();
-
-        if (!nombre || !formula) {
-            showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastIncomplete') : 'Completa al menos el nombre y la fórmula', 'error');
-            return;
-        }
-
-        const chinese = builderTokens.map(t => t.tradicional).join('');
-        const pinyin = builderTokens.map(t => t.pinyin).filter(Boolean).join(' ');
-
-        addStructure({
-            nombre,
-            formula,
-            ejemplo_tradicional: chinese,
-            ejemplo_pinyin: pinyin,
-            ejemplo_espanol: spanish,
-            notas: '',
-        });
-
-        showToast(typeof I18N !== 'undefined' ? I18N.t('toastStructureSaved') : 'Estructura guardada correctamente', 'success');
-
-        builderTokens = [];
-        activeGhostCandidate = null;
-        formulaManuallyEdited = false;
-        document.getElementById('structure-name').value = '';
-        document.getElementById('structure-formula').value = '';
-        document.getElementById('structure-spanish').value = '';
-        renderMagneticCanvas({ animateCollision: false });
-        refreshAll();
     });
 
     // AI dialog bindings

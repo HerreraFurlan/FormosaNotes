@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.0.0',
-        dataVersion: '4.0.0',
+        version: '4.0.1',
+        dataVersion: '4.0.1',
     },
 
     // =====================================================
@@ -31,7 +31,7 @@ const APP_CONFIG = {
                 code: 'es',
                 name: 'Español',
                 flag: '🇪🇸',
-                dataScript: 'js/data.js?v=4.0.0',
+                dataScript: 'js/data.js?v=4.0.1',
                 globalVar: 'SEED_DATA',
                 dbKey: 'appchino_db',
                 aiLangName: 'español'
@@ -40,7 +40,7 @@ const APP_CONFIG = {
                 code: 'en',
                 name: 'English',
                 flag: '🇺🇸',
-                dataScript: 'js/data_en.js?v=4.0.0',
+                dataScript: 'js/data_en.js?v=4.0.1',
                 globalVar: 'SEED_DATA_EN',
                 dbKey: 'appchino_db_en',
                 aiLangName: 'English'
@@ -72,13 +72,12 @@ const APP_CONFIG = {
     },
 
     // =====================================================
-    // 3. OCHO CATEGORÍAS GRAMATICALES OFICIALES (八大詞類 - 詞類表)
+    // 3. OCHO CATEGORÍAS GRAMATICALES OFICIALES (N, V, Adv, Conj, Prep, M, Ptc, Det)
     // =====================================================
     categories: [
         {
             id: 'N',
             symbol: 'N',
-            hanziName: '名詞',
             dbCollection: 'palabras',
             order: 1,
             icon: '🔵',
@@ -90,16 +89,14 @@ const APP_CONFIG = {
             pdfColor: '#2E78B7',
             isClassifier: false,
             allowsClassifier: true,
-            examples: '水、桌、昨天、學校、他',
             labels: {
-                es: { singular: 'N · Sustantivo (名詞)', plural: 'N · Sustantivos', short: 'N · Sustantivo' },
-                en: { singular: 'N · Noun (名詞)', plural: 'N · Nouns', short: 'N · Noun' }
+                es: { singular: 'N · Sustantivo', plural: 'N · Sustantivos', short: 'N · Sustantivo' },
+                en: { singular: 'N · Noun', plural: 'N · Nouns', short: 'N · Noun' }
             }
         },
         {
             id: 'V',
             symbol: 'V',
-            hanziName: '動詞',
             dbCollection: 'verbos',
             order: 2,
             icon: '🟠',
@@ -111,16 +108,14 @@ const APP_CONFIG = {
             pdfColor: '#D4760A',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '吃、告訴、漂亮(Vs)、喜歡(Vst)、會(Vaux)',
             labels: {
-                es: { singular: 'V · Verbo / Estado (動詞)', plural: 'V · Verbos', short: 'V · Verbo' },
-                en: { singular: 'V · Verb / State (動詞)', plural: 'V · Verbs', short: 'V · Verb' }
+                es: { singular: 'V · Verbo', plural: 'V · Verbos', short: 'V · Verbo' },
+                en: { singular: 'V · Verb', plural: 'V · Verbs', short: 'V · Verb' }
             }
         },
         {
             id: 'Adv',
             symbol: 'Adv',
-            hanziName: '副詞',
             dbCollection: 'adverbios',
             order: 3,
             icon: '🟢',
@@ -132,16 +127,14 @@ const APP_CONFIG = {
             pdfColor: '#1E8C5E',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '很、不、常、也、都、非常',
             labels: {
-                es: { singular: 'Adv · Adverbio (副詞)', plural: 'Adv · Adverbios', short: 'Adv · Adverbio' },
-                en: { singular: 'Adv · Adverb (副詞)', plural: 'Adv · Adverbs', short: 'Adv · Adverb' }
+                es: { singular: 'Adv · Adverbio', plural: 'Adv · Adverbios', short: 'Adv · Adverbio' },
+                en: { singular: 'Adv · Adverb', plural: 'Adv · Adverbs', short: 'Adv · Adverb' }
             }
         },
         {
             id: 'Conj',
             symbol: 'Conj',
-            hanziName: '連詞',
             dbCollection: 'conjunciones',
             order: 4,
             icon: '🩵',
@@ -153,16 +146,14 @@ const APP_CONFIG = {
             pdfColor: '#0E7490',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '和、還是、可是、因為、所以',
             labels: {
-                es: { singular: 'Conj · Conjunción (連詞)', plural: 'Conj · Conjunciones', short: 'Conj · Conjunción' },
-                en: { singular: 'Conj · Conjunction (連詞)', plural: 'Conj · Conjunctions', short: 'Conj · Conjunction' }
+                es: { singular: 'Conj · Conjunción', plural: 'Conj · Conjunciones', short: 'Conj · Conjunción' },
+                en: { singular: 'Conj · Conjunction', plural: 'Conj · Conjunctions', short: 'Conj · Conjunction' }
             }
         },
         {
             id: 'Prep',
             symbol: 'Prep',
-            hanziName: '介詞',
             dbCollection: 'preposiciones',
             order: 5,
             icon: '🔷',
@@ -174,16 +165,14 @@ const APP_CONFIG = {
             pdfColor: '#4F46E5',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '在、跟、從、對、給、向',
             labels: {
-                es: { singular: 'Prep · Preposición (介詞)', plural: 'Prep · Preposiciones', short: 'Prep · Preposición' },
-                en: { singular: 'Prep · Preposition (介詞)', plural: 'Prep · Prepositions', short: 'Prep · Preposition' }
+                es: { singular: 'Prep · Preposición', plural: 'Prep · Preposiciones', short: 'Prep · Preposición' },
+                en: { singular: 'Prep · Preposition', plural: 'Prep · Prepositions', short: 'Prep · Preposition' }
             }
         },
         {
             id: 'M',
             symbol: 'M',
-            hanziName: '量詞',
             dbCollection: 'clasificadores',
             order: 6,
             icon: '🟤',
@@ -195,16 +184,14 @@ const APP_CONFIG = {
             pdfColor: '#8D5B4C',
             isClassifier: true,
             allowsClassifier: false,
-            examples: '個、張、碗、杯、本、次、歲',
             labels: {
-                es: { singular: 'M · Clasificador (量詞)', plural: 'M · Clasificadores', short: 'M · Clasificador' },
-                en: { singular: 'M · Measure Word (量詞)', plural: 'M · Measure Words', short: 'M · Measure' }
+                es: { singular: 'M · Clasificador', plural: 'M · Clasificadores', short: 'M · Clasificador' },
+                en: { singular: 'M · Measure Word', plural: 'M · Measure Words', short: 'M · Measure Word' }
             }
         },
         {
             id: 'Ptc',
             symbol: 'Ptc',
-            hanziName: '助詞',
             dbCollection: 'particulas',
             order: 7,
             icon: '🟣',
@@ -216,16 +203,14 @@ const APP_CONFIG = {
             pdfColor: '#7D54B5',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '的、得、嗎、呢、吧、啊、了',
             labels: {
-                es: { singular: 'Ptc · Partícula (助詞)', plural: 'Ptc · Partículas', short: 'Ptc · Partícula' },
-                en: { singular: 'Ptc · Particle (助詞)', plural: 'Ptc · Particles', short: 'Ptc · Particle' }
+                es: { singular: 'Ptc · Partícula', plural: 'Ptc · Partículas', short: 'Ptc · Partícula' },
+                en: { singular: 'Ptc · Particle', plural: 'Ptc · Particles', short: 'Ptc · Particle' }
             }
         },
         {
             id: 'Det',
             symbol: 'Det',
-            hanziName: '限定詞',
             dbCollection: 'determinantes',
             order: 8,
             icon: '🟡',
@@ -237,186 +222,173 @@ const APP_CONFIG = {
             pdfColor: '#B45309',
             isClassifier: false,
             allowsClassifier: false,
-            examples: '這、那、哪、每、幾、一…十',
             labels: {
-                es: { singular: 'Det · Determinante (限定詞)', plural: 'Det · Determinantes', short: 'Det · Determinante' },
-                en: { singular: 'Det · Determiner (限定詞)', plural: 'Det · Determiners', short: 'Det · Determiner' }
+                es: { singular: 'Det · Determinante', plural: 'Det · Determinantes', short: 'Det · Determinante' },
+                en: { singular: 'Det · Determiner', plural: 'Det · Determiners', short: 'Det · Determiner' }
             }
         }
     ],
 
     // =====================================================
-    // 3B. SUBCLASIFICACIÓN DE VERBOS (動詞分類 - 12 Subtipos)
+    // 3B. SUBCLASIFICACIÓN DE VERBOS (12 Subtipos)
     // =====================================================
     verbSubtypes: {
         'V': {
             symbol: 'V',
-            hanzi: '及物動作動詞',
             type: 'action',
             transitive: true,
             separable: false,
             takesDegreeAdv: false,
             color: '#D4760A',
-            examples: '買、做、說、吃、喝、看',
+            shortLabels: { es: 'Verbo', en: 'Verb' },
             labels: {
-                es: 'Verbo de acción transitivo (及物動作動詞)',
-                en: 'Transitive action verb (及物動作動詞)'
+                es: 'Verbo de acción transitivo',
+                en: 'Transitive action verb'
             }
         },
         'Vi': {
             symbol: 'Vi',
-            hanzi: '不及物動作動詞',
             type: 'action',
             transitive: false,
             separable: false,
             takesDegreeAdv: false,
             color: '#E07A1F',
-            examples: '跑、坐、睡、笑、休息、來、去',
+            shortLabels: { es: 'Verbo intransitivo', en: 'Intransitive Verb' },
             labels: {
-                es: 'Verbo de acción intransitivo (不及物動作動詞)',
-                en: 'Intransitive action verb (不及物動作動詞)'
+                es: 'Verbo de acción intransitivo',
+                en: 'Intransitive action verb'
             }
         },
         'V-sep': {
             symbol: 'V-sep',
-            hanzi: '不及物動作離合詞',
             type: 'action',
             transitive: false,
             separable: true,
             takesDegreeAdv: false,
             color: '#C2410C',
-            examples: '唱歌、上網、游泳、照相、上課、下課',
+            shortLabels: { es: 'Verbo separable', en: 'Separable Verb' },
             labels: {
-                es: 'Verbo de acción separable · 離合詞 (V-sep)',
-                en: 'Separable action verb · 離合詞 (V-sep)'
+                es: 'Verbo de acción separable',
+                en: 'Separable action verb'
             }
         },
         'Vs': {
             symbol: 'Vs',
-            hanzi: '不及物狀態動詞',
             type: 'state',
             transitive: false,
             separable: false,
             takesDegreeAdv: true,
             color: '#C9971A',
-            examples: '好、大、小、漂亮、貴、便宜、熱、辣',
+            shortLabels: { es: 'Verbo de estado', en: 'State Verb' },
             labels: {
-                es: 'Verbo de estado intransitivo (不及物狀態動詞)',
-                en: 'Intransitive state verb (不及物狀態動詞)'
+                es: 'Verbo de estado intransitivo',
+                en: 'Intransitive state verb'
             }
         },
         'Vst': {
             symbol: 'Vst',
-            hanzi: '及物狀態動詞',
             type: 'state',
             transitive: true,
             separable: false,
             takesDegreeAdv: true,
             color: '#B45309',
-            examples: '喜歡、愛、怕、知道、覺得、想念',
+            shortLabels: { es: 'Verbo de estado tr.', en: 'Trans. State Verb' },
             labels: {
-                es: 'Verbo de estado transitivo (及物狀態動詞)',
-                en: 'Transitive state verb (及物狀態動詞)'
+                es: 'Verbo de estado transitivo',
+                en: 'Transitive state verb'
             }
         },
         'Vs-attr': {
             symbol: 'Vs-attr',
-            hanzi: '唯定不及物狀態動詞',
             type: 'state',
             transitive: false,
             separable: false,
             attributiveOnly: true,
             takesDegreeAdv: false,
             color: '#A16207',
-            examples: '野生、公共、新興',
+            shortLabels: { es: 'Estado atributivo', en: 'Attributive State' },
             labels: {
-                es: 'Verbo de estado solo atributivo (唯定狀態動詞)',
-                en: 'Attributive-only state verb (唯定狀態動詞)'
+                es: 'Verbo de estado solo atributivo',
+                en: 'Attributive-only state verb'
             }
         },
         'Vs-pred': {
             symbol: 'Vs-pred',
-            hanzi: '唯謂不及物狀態動詞',
             type: 'state',
             transitive: false,
             separable: false,
             predicativeOnly: true,
             takesDegreeAdv: true,
             color: '#CA8A04',
-            examples: '夠、多、少',
+            shortLabels: { es: 'Estado predicativo', en: 'Predicative State' },
             labels: {
-                es: 'Verbo de estado solo predicativo (唯謂狀態動詞)',
-                en: 'Predicative-only state verb (唯謂狀態動詞)'
+                es: 'Verbo de estado solo predicativo',
+                en: 'Predicative-only state verb'
             }
         },
         'Vs-sep': {
             symbol: 'Vs-sep',
-            hanzi: '不及物狀態離合詞',
             type: 'state',
             transitive: false,
             separable: true,
             takesDegreeAdv: true,
             color: '#9A3412',
-            examples: '放心、生氣、有名、小心',
+            shortLabels: { es: 'Estado separable', en: 'Separable State' },
             labels: {
-                es: 'Verbo de estado separable · 離合詞 (Vs-sep)',
-                en: 'Separable state verb · 離合詞 (Vs-sep)'
+                es: 'Verbo de estado separable',
+                en: 'Separable state verb'
             }
         },
         'Vaux': {
             symbol: 'Vaux',
-            hanzi: '助動詞',
             type: 'auxiliary',
             transitive: false,
             separable: false,
             takesDegreeAdv: true,
             color: '#0D9488',
-            examples: '會、能、可以、想、要',
+            shortLabels: { es: 'Verbo auxiliar', en: 'Auxiliary Verb' },
             labels: {
-                es: 'Verbo auxiliar / modal (助動詞)',
-                en: 'Auxiliary / modal verb (助動詞)'
+                es: 'Verbo auxiliar / modal',
+                en: 'Auxiliary / modal verb'
             }
         },
         'Vp': {
             symbol: 'Vp',
-            hanzi: '不及物變化動詞',
             type: 'process',
             transitive: false,
             separable: false,
             takesDegreeAdv: false,
             color: '#9333EA',
-            examples: '破、感冒、壞、飽、吃飽',
+            shortLabels: { es: 'Verbo de proceso', en: 'Process Verb' },
             labels: {
-                es: 'Verbo de proceso/cambio intransitivo (不及物變化動詞)',
-                en: 'Intransitive process verb (不及物變化動詞)'
+                es: 'Verbo de proceso intransitivo',
+                en: 'Intransitive process verb'
             }
         },
         'Vpt': {
             symbol: 'Vpt',
-            hanzi: '及物變化動詞',
             type: 'process',
             transitive: true,
             separable: false,
             takesDegreeAdv: false,
             color: '#7E22CE',
-            examples: '忘記、變成、丟、到',
+            shortLabels: { es: 'Proceso transitivo', en: 'Trans. Process Verb' },
             labels: {
-                es: 'Verbo de proceso/cambio transitivo (及物變化動詞)',
-                en: 'Transitive process verb (及物變化動詞)'
+                es: 'Verbo de proceso transitivo',
+                en: 'Transitive process verb'
             }
         },
         'Vp-sep': {
             symbol: 'Vp-sep',
-            hanzi: '不及物變化離合詞',
             type: 'process',
             transitive: false,
             separable: true,
             takesDegreeAdv: false,
             color: '#6B21A8',
-            examples: '結婚、生病、畢業',
+            shortLabels: { es: 'Proceso separable', en: 'Separable Process' },
             labels: {
-                es: 'Verbo de proceso separable · 離合詞 (Vp-sep)',
-                en: 'Separable process verb · 離合詞 (Vp-sep)'
+                es: 'Verbo de proceso separable',
+                en: 'Separable process verb'
             }
         }
     },
@@ -447,7 +419,7 @@ const APP_CONFIG = {
             color: '#0E7490',
             bgSoft: '#ECFEFF',
             labels: { es: 'CON / A QUIÉN', en: 'WITH / TO WHOM' },
-            shortLabels: { es: 'Ámbito (跟/給)', en: 'Company (跟/給)' }
+            shortLabels: { es: 'Ámbito (Prep)', en: 'Scope (Prep)' }
         },
         {
             id: 'PLACE',
@@ -455,7 +427,7 @@ const APP_CONFIG = {
             color: '#3B6998',
             bgSoft: '#EBF3FA',
             labels: { es: 'DÓNDE', en: 'WHERE' },
-            shortLabels: { es: 'Lugar (在...)', en: 'Location (在...)' }
+            shortLabels: { es: 'Lugar (Prep+N)', en: 'Location (Prep+N)' }
         },
         {
             id: 'ADV_MODAL',
@@ -487,7 +459,7 @@ const APP_CONFIG = {
             color: '#7D54B5',
             bgSoft: '#F5EFFB',
             labels: { es: 'PARTÍCULA FINAL', en: 'FINAL PARTICLE' },
-            shortLabels: { es: 'Partícula (嗎/呢/吧)', en: 'Particle (嗎/呢/吧)' }
+            shortLabels: { es: 'Partícula (Ptc)', en: 'Particle (Ptc)' }
         }
     ],
 
@@ -637,14 +609,16 @@ const APP_CONFIG = {
 // =====================================================
 
 /**
- * Normaliza una clave de categoría (convierte claves antiguas como 'sustantivo' -> 'N').
+ * Normaliza una clave de categoría (case-insensitive y convierte claves antiguas como 'sustantivo' -> 'N').
  * @param {string} catId
  * @returns {string}
  */
 APP_CONFIG.normalizeCategoryId = (catId) => {
     if (!catId) return 'N';
-    if (APP_CONFIG.categories.some(c => c.id === catId)) return catId;
-    return APP_CONFIG.legacyCategoryMap[catId] || 'N';
+    const str = String(catId).trim();
+    const match = APP_CONFIG.categories.find(c => c.id.toLowerCase() === str.toLowerCase());
+    if (match) return match.id;
+    return APP_CONFIG.legacyCategoryMap[str.toLowerCase()] || 'N';
 };
 
 /**
@@ -688,35 +662,36 @@ APP_CONFIG.getCategoryLabel = (catId, lang = 'es', plural = false) => {
 };
 
 /**
- * Obtiene la etiqueta corta para la insignia de la tarjeta (ej. "Vs · Estado" o "N · Sustantivo").
+ * Obtiene la etiqueta corta para la insignia de la tarjeta (ej. "Vs · Verbo de estado" o "N · Sustantivo").
  * @param {object} word
  * @param {string} [lang='es']
- * @returns {{ code: string, label: string, tooltip: string, color: string }}
+ * @returns {{ code: string, label: string, shortLabel: string, tooltip: string, color: string }}
  */
 APP_CONFIG.getWordPOSBadgeInfo = (word, lang = 'es') => {
-    if (!word) return { code: 'N', label: 'N', tooltip: '', color: '#2E78B7' };
+    if (!word) return { code: 'N', label: 'N', shortLabel: 'N', tooltip: '', color: '#2E78B7' };
     const catId = APP_CONFIG.normalizeCategoryId(word.categoria);
     const cat = APP_CONFIG.getCategory(catId) || APP_CONFIG.categories[0];
 
     if (catId === 'V' && word.verbSubtype && APP_CONFIG.verbSubtypes[word.verbSubtype]) {
         const sub = APP_CONFIG.verbSubtypes[word.verbSubtype];
-        const tooltip = (sub.labels && sub.labels[lang]) || sub.hanzi;
+        const shortName = (sub.shortLabels && sub.shortLabels[lang]) || (sub.labels && sub.labels[lang]) || sub.symbol;
+        const tooltip = (sub.labels && sub.labels[lang]) || shortName;
         return {
             code: sub.symbol,
-            label: `${sub.symbol} · ${sub.hanzi}`,
+            label: `${sub.symbol} · ${shortName}`,
             shortLabel: sub.symbol,
-            tooltip: `${sub.symbol} (${sub.hanzi}): ${tooltip}`,
+            tooltip: `${sub.symbol}: ${tooltip}`,
             color: sub.color || cat.color,
             isSeparable: !!sub.separable
         };
     }
 
-    const shortText = cat.labels?.[lang]?.short || `${cat.symbol} · ${cat.hanziName}`;
+    const shortText = cat.labels?.[lang]?.short || cat.labels?.[lang]?.singular || cat.symbol;
     return {
         code: word.posSymbol || cat.symbol,
         label: shortText,
         shortLabel: word.posSymbol || cat.symbol,
-        tooltip: `${cat.symbol} (${cat.hanziName}) — ${cat.examples || ''}`,
+        tooltip: shortText,
         color: cat.color,
         isSeparable: false
     };

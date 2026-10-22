@@ -312,8 +312,8 @@ const createBuilderMiniCard = (token, handlers = {}) => {
         splitBtn.className = 'mini-split-btn';
         splitBtn.innerHTML = '⇄';
         splitBtn.title = (window.I18N && window.I18N.getLanguage && window.I18N.getLanguage() === 'en')
-            ? `Split separable verb (${token.posSymbol} · 離合詞) to insert particles/classifiers inside`
-            : `Separar verbo (${token.posSymbol} · 離合詞) para insertar partículas o clasificadores en medio`;
+            ? `Split separable verb (${token.posSymbol}) to insert particles/classifiers inside`
+            : `Separar verbo (${token.posSymbol}) para insertar partículas o clasificadores en medio`;
         splitBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             handlers.onSplitSeparable(token.index);

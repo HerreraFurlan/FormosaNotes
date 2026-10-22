@@ -839,25 +839,25 @@ const t = (key, params = {}) => {
 const getCategoryLabel = (cat, plural = false) => {
     if (!cat) return '';
     const lang = getLanguage();
-    const catKey = String(cat).toLowerCase();
+    const catStr = String(cat).trim();
 
     if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getCategory === 'function') {
-        const catDef = APP_CONFIG.getCategory(catKey);
+        const catDef = APP_CONFIG.getCategory(catStr);
         if (catDef && catDef.labels) {
             const langLabels = catDef.labels[lang] || catDef.labels[APP_CONFIG.languages?.default || 'es'];
             if (langLabels) {
-                return plural ? (langLabels.plural || langLabels.singular) : (langLabels.singular || langLabels.plural);
+                return plural ? (langLabels.plural || langLabels.singular) : (langLabels.short || langLabels.singular || langLabels.plural);
             }
         }
     }
 
     const dict = I18N_DICT[lang] || I18N_DICT['es'];
-    const key = 'cat_' + catKey;
+    const key = 'cat_' + catStr.toLowerCase();
     if (dict && dict[key]) {
         return dict[key];
     }
-    if (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[cat]) {
-        return CATEGORY_LABELS[cat];
+    if (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[catStr]) {
+        return CATEGORY_LABELS[catStr];
     }
     return cat;
 };

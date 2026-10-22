@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- App Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=4.0.0">
+    <link rel="stylesheet" href="css/styles.css?v=4.0.1">
 
     <!-- CDN Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -238,37 +238,14 @@
                             <span data-i18n="builderAdd">Agregar</span>
                         </button>
                     </div>
-                    <div class="builder-preview" id="builder-preview" style="display:none;">
-                        <span class="sentence-chinese" id="preview-chinese"></span>
-                        <span class="sentence-pinyin" id="preview-pinyin"></span>
-                    </div>
-                    <div class="builder-save-row" id="builder-save-row" style="display:none;">
-                        <div class="form-group">
-                            <label data-i18n="builderStructureName">Nombre de la estructura</label>
-                            <input type="text" id="structure-name" placeholder="Ej: Afirmación con 是" data-i18n-ph="builderStructureNamePh">
+                    <div class="builder-preview builder-preview-compact" id="builder-preview" style="display:none;">
+                        <div class="builder-preview-text">
+                            <span class="sentence-chinese" id="preview-chinese"></span>
+                            <span class="sentence-pinyin" id="preview-pinyin"></span>
                         </div>
-                        <div class="form-group">
-                            <label data-i18n="builderFormula">Fórmula</label>
-                            <input type="text" id="structure-formula" placeholder="Ej: S + 是 + N" data-i18n-ph="builderFormulaPh">
-                        </div>
-                        <div class="form-group">
-                            <label data-i18n="builderTranslation">Traducción al español</label>
-                            <input type="text" id="structure-spanish" placeholder="Ej: Yo soy una persona" data-i18n-ph="builderTranslationPh">
-                        </div>
-                        <div style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-secondary" id="btn-examine-sentence"
-                                style="background: var(--color-particle-light); color: var(--color-particle); border-color: var(--color-particle-light);" data-i18n="builderExamineBtn">
-                                🪄 Examinar Oración
-                            </button>
-                            <button class="btn btn-primary" id="btn-save-structure" style="flex: 1;">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z" />
-                                    <polyline points="17 21 17 13 7 13 7 21" />
-                                    <polyline points="7 3 7 8 15 8" />
-                                </svg>
-                                <span data-i18n="builderSaveBtn">Guardar Estructura</span>
-                            </button>
-                        </div>
+                        <button class="btn btn-primary btn-sm" id="btn-examine-sentence" data-i18n="builderExamineBtn">
+                            🪄 Examinar Oración
+                        </button>
                     </div>
                 </div>
                 <div class="word-bank">
@@ -722,18 +699,18 @@
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
     <!-- Load order matters: config → i18n (lazy-loads active language data pack) → storage → components → ai → builder → study → pdf → practice → exam → app -->
-    <script src="js/config.js?v=4.0.0"></script>
-    <script src="js/i18n.js?v=4.0.0"></script>
-    <script src="js/storage.js?v=4.0.0"></script>
-    <script src="js/syntax-engine.js?v=4.0.0"></script>
-    <script src="js/components.js?v=4.0.0"></script>
-    <script src="js/ai.js?v=4.0.0"></script>
-    <script src="js/builder.js?v=4.0.0"></script>
-    <script src="js/study.js?v=4.0.0"></script>
-    <script src="js/pdf.js?v=4.0.0"></script>
-    <script src="js/practice.js?v=4.0.0"></script>
-    <script src="js/exam.js?v=4.0.0"></script>
-    <script src="js/app.js?v=4.0.0"></script>
+    <script src="js/config.js?v=4.0.1"></script>
+    <script src="js/i18n.js?v=4.0.1"></script>
+    <script src="js/storage.js?v=4.0.1"></script>
+    <script src="js/syntax-engine.js?v=4.0.1"></script>
+    <script src="js/components.js?v=4.0.1"></script>
+    <script src="js/ai.js?v=4.0.1"></script>
+    <script src="js/builder.js?v=4.0.1"></script>
+    <script src="js/study.js?v=4.0.1"></script>
+    <script src="js/pdf.js?v=4.0.1"></script>
+    <script src="js/practice.js?v=4.0.1"></script>
+    <script src="js/exam.js?v=4.0.1"></script>
+    <script src="js/app.js?v=4.0.1"></script>
 
 </body>
 
