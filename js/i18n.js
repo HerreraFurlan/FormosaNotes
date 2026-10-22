@@ -1,7 +1,9 @@
 /**
  * =====================================================
  * AppChino — i18n.js
- * Internationalization module: Spanish / English.
+ * Módulo de Internacionalización y Carga Diferida (Lazy Load)
+ * de paquetes de idioma (Español / Inglés / futuros idiomas).
+ * Conectado a APP_CONFIG (js/config.js).
  * =====================================================
  */
 
@@ -26,6 +28,9 @@ const I18N_DICT = {
         navImportJson: "Importar Datos",
         collapseMenu: "Colapsar menú",
         expandMenu: "Expandir menú",
+        // Loading / Placeholders
+        loadingLanguage: "Cargando paquete de idioma...",
+        loadingCards: "Cargando tarjetas...",
         // Library
         searchPlaceholder: "Buscar tarjetas",
         newWordBtn: "Nueva Palabra",
@@ -33,8 +38,10 @@ const I18N_DICT = {
         categoryLabel: "Categoría:",
         allLessons: "Todas",
         allCategories: "Todos",
-        noCardsFound: "No se encontraron tarjetas con los filtros actuales.",
-        // Categories
+        noCardsFound: "No se encontraron resultados",
+        noCardsFoundSub: "Intenta con otro filtro o término de búsqueda.",
+        unassignedLessonTitle: "Sin lección asignada",
+        // Categories (fallback if not in APP_CONFIG)
         catNoun: "Sustantivos",
         catPronoun: "Pronombres",
         catClassifier: "Clasificadores",
@@ -61,6 +68,7 @@ const I18N_DICT = {
         cardEdit: "Editar",
         cardDelete: "Eliminar",
         cardSelectPrint: "Seleccionar para exportar",
+        unknownRadical: "Desconocido",
         // Builder
         builderHeader: "Zona de Construcción",
         builderClear: "Limpiar zona",
@@ -78,6 +86,7 @@ const I18N_DICT = {
         builderBankTitle: "Banco de Palabras",
         // Structures
         structuresEmpty: "No hay estructuras registradas",
+        structuresEmptySub: "Ve al Constructor para crear tu primera estructura de oración.",
         structFormula: "Fórmula",
         structExample: "Ejemplo",
         structTranslation: "Traducción",
@@ -95,6 +104,10 @@ const I18N_DICT = {
         studyFlipHint: "Haz clic en la tarjeta o presiona Espacio para voltear",
         studyEmpty: "No hay tarjetas disponibles con estos filtros.",
         studyNoLessonCat: "Prueba seleccionando otras lecciones o categorías en la barra superior.",
+        studyTabChars: "Ver Caracteres",
+        studyTabPron: "Ver Pronunciación",
+        studyTabDef: "Ver Definición",
+        studyToastShuffled: "Mazo mezclado aleatoriamente",
         // Practice & Exam
         practiceTitle: "Práctica de oraciones",
         examTitle: "Simulación de examen",
@@ -122,7 +135,7 @@ const I18N_DICT = {
         wordDialogZhuyinPh: "Ej: ㄇㄠ",
         wordDialogClassifier: "Clasificador",
         wordDialogNone: "Ninguno",
-        wordDialogLesson: "Lección (1 a 8 o ninguna)",
+        wordDialogLesson: "Lección",
         wordDialogRadicals: "Radicales / Componentes",
         wordDialogFreeText: "Texto Libre",
         wordDialogLibrary: "Biblioteca",
@@ -136,7 +149,7 @@ const I18N_DICT = {
         btnOk: "Entendido",
         // Delete dialog
         deleteTitle: "Confirmar eliminación",
-        deleteConfirmMsg: "¿Estás seguro de que deseas eliminar {name}?",
+        deleteConfirmPrefix: "¿Estás seguro de que deseas eliminar ",
         deleteWarning: "Esta acción no se puede deshacer.",
         // AI Dialog
         aiTitle: "🪄 Resultado del Análisis",
@@ -164,13 +177,19 @@ const I18N_DICT = {
         langEnglish: "English",
         // Toasts
         toastWordSaved: "Palabra guardada correctamente",
+        toastWordUpdated: "\"{word}\" actualizado correctamente",
+        toastWordAdded: "\"{word}\" agregado a tu biblioteca",
         toastWordDeleted: "Palabra eliminada",
         toastStructureSaved: "Estructura guardada correctamente",
         toastStructureDeleted: "Estructura eliminada",
         toastDataExported: "Datos exportados correctamente",
-        toastDataImported: "Datos importados correctamente",
-        toastSettingsSaved: "Configuración guardada",
+        toastDataImported: "Datos importados correctamente. Recargando...",
+        toastDataImportInvalid: "Archivo JSON inválido: falta la estructura esperada.",
+        toastDataImportError: "Error al leer el archivo.",
+        toastSettingsSaved: "Configuración guardada correctamente",
         toastLangChanged: "Idioma cambiado a Español",
+        practiceToastNoWords: "No tienes palabras en tu biblioteca para practicar",
+        practiceToastNoStructs: "No tienes estructuras registradas para practicar",
 
         // Practice - sentence challenges
         practiceRetosTab: "Retos de oraciones",
@@ -209,7 +228,7 @@ const I18N_DICT = {
         convoModeFocusTitle: "Modo Enfocado",
         convoModeFocusDesc: "Elige hasta 5 estructuras obligatorias",
         convoRequiredStructs: "Estructuras obligatorias:",
-        convoSelectedCount: "{count} / 5 seleccionadas",
+        convoSelectedCount: "{count} / {max} seleccionadas",
         convoSearchPlaceholder: "Filtrar por nombre o fórmula...",
         convoBtnUnmark: "Desmarcar",
         convoPickerHint: "💡 Selecciona entre 1 y 5 estructuras. La IA conducirá el diálogo para que debas practicar cada una de ellas al menos una vez.",
@@ -220,7 +239,7 @@ const I18N_DICT = {
         convoStartBtnText: "Iniciar conversación ({count} estructura{plural})",
         convoStartFreeBtnText: "Iniciar conversación libre",
         convoTurnOpening: "🎯 Tu turno para iniciar el diálogo",
-        convoGoalNow: "🎯 Tu objetivo ahora:",
+        convoGoalNow: "🎯 Sugerencia de turno:",
         convoStatusCorrect: "✅ Expresión correcta",
         convoStatusWarning: "💡 Comprensible pero mejorable",
         convoStatusWrong: "❌ Corrección requerida",
@@ -282,8 +301,6 @@ const I18N_DICT = {
         examToneHelpT3: "Tono 3: a3→ǎ",
         examToneHelpT4: "Tono 4: a4→à",
         examToneHelpT5: "Neutro: a5→a",
-
-        // Phase names in active exam
         examPhaseName1: "1. Hanzi (10 opciones)",
         examPhaseName2: "2. Pinyin con Tonos",
         examPhaseName3: "3. Rellenar Espacios",
@@ -291,8 +308,6 @@ const I18N_DICT = {
         examPhaseName5: "5. Escenarios Abiertos",
         examPhaseName6: "6. Banco de Caracteres",
         examPhaseName7: "7. Comprensión Lectora",
-
-        // Breakdown card names
         examBreakdownP1: "Fase 1: Reconocimiento",
         examBreakdownP2: "Fase 2: Escritura Pinyin",
         examBreakdownP3: "Fase 3: Espacios en Blanco",
@@ -300,8 +315,6 @@ const I18N_DICT = {
         examBreakdownP5: "Fase 5: Escenarios Abiertos",
         examBreakdownP6: "Fase 6: Banco de Caracteres",
         examBreakdownP7: "Fase 7: Comprensión Lectora",
-
-        // Additional toasts
         builderToastEmpty: "Agrega al menos una palabra al constructor",
         builderToastIncomplete: "Completa al menos el nombre y la fórmula",
         builderToastCleared: "Zona de construcción vaciada",
@@ -343,8 +356,12 @@ const I18N_DICT = {
         examLoadingDesigning: "Diseñando tu examen con Gemini basado en tus flashcards y estructuras...",
         examLoadingEvaluating: "El profesor IA está evaluando tus respuestas y calculando tu puntuación...",
         examLoadingTip: "Tip: En la Fase 2, recuerda presionar 1, 2, 3 o 4 después de cada sílaba para colocar las tildes tonales automáticamente (ej: hao3 → hǎo).",
-        examMinWordsWarning: "Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: {count}).",
+        examMinWordsWarning: "Se necesitan al menos {min} palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: {count}).",
         examConfirmIncomplete: "Tienes preguntas sin responder en: {phases}. ¿Deseas calificar y finalizar el examen de todos modos?",
+        examConfirmAbandon: "¿Estás seguro de que deseas salir del examen actual? Se perderán las respuestas no guardadas.",
+        examToastGenerated: "¡Examen generado exitosamente! Mucho éxito.",
+        examToastEvaluated: "¡Examen evaluado exitosamente!",
+        examNoAnswer: "(Sin respuesta)"
     },
     en: {
         appTitle: "Formosa Notes - Chinese Flashcards",
@@ -366,6 +383,9 @@ const I18N_DICT = {
         navImportJson: "Import Data",
         collapseMenu: "Collapse menu",
         expandMenu: "Expand menu",
+        // Loading / Placeholders
+        loadingLanguage: "Loading language pack...",
+        loadingCards: "Loading flashcards...",
         // Library
         searchPlaceholder: "Search cards",
         newWordBtn: "New Word",
@@ -373,8 +393,10 @@ const I18N_DICT = {
         categoryLabel: "Category:",
         allLessons: "All",
         allCategories: "All",
-        noCardsFound: "No cards found with the current filters.",
-        // Categories
+        noCardsFound: "No results found",
+        noCardsFoundSub: "Try another filter or search term.",
+        unassignedLessonTitle: "Unassigned lesson",
+        // Categories (fallback)
         catNoun: "Nouns",
         catPronoun: "Pronouns",
         catClassifier: "Classifiers",
@@ -401,6 +423,7 @@ const I18N_DICT = {
         cardEdit: "Edit",
         cardDelete: "Delete",
         cardSelectPrint: "Select to export",
+        unknownRadical: "Unknown",
         // Builder
         builderHeader: "Construction Zone",
         builderClear: "Clear area",
@@ -418,6 +441,7 @@ const I18N_DICT = {
         builderBankTitle: "Word Bank",
         // Structures
         structuresEmpty: "No structures registered",
+        structuresEmptySub: "Go to the Builder to create your first sentence structure.",
         structFormula: "Formula",
         structExample: "Example",
         structTranslation: "Translation",
@@ -435,6 +459,10 @@ const I18N_DICT = {
         studyFlipHint: "Click card or press Space to flip",
         studyEmpty: "No cards available with these filters.",
         studyNoLessonCat: "Try selecting other lessons or categories in the top bar.",
+        studyTabChars: "View Characters",
+        studyTabPron: "View Pronunciation",
+        studyTabDef: "View Definition",
+        studyToastShuffled: "Deck shuffled randomly",
         // Practice & Exam
         practiceTitle: "Sentence Practice",
         examTitle: "Exam Simulation",
@@ -462,7 +490,7 @@ const I18N_DICT = {
         wordDialogZhuyinPh: "Ex: ㄇㄠ",
         wordDialogClassifier: "Classifier",
         wordDialogNone: "None",
-        wordDialogLesson: "Lesson (1 to 8 or none)",
+        wordDialogLesson: "Lesson",
         wordDialogRadicals: "Radicals / Components",
         wordDialogFreeText: "Free Text",
         wordDialogLibrary: "Library",
@@ -476,7 +504,7 @@ const I18N_DICT = {
         btnOk: "Got it",
         // Delete dialog
         deleteTitle: "Confirm deletion",
-        deleteConfirmMsg: "Are you sure you want to delete {name}?",
+        deleteConfirmPrefix: "Are you sure you want to delete ",
         deleteWarning: "This action cannot be undone.",
         // AI Dialog
         aiTitle: "🪄 Analysis Result",
@@ -491,7 +519,7 @@ const I18N_DICT = {
         settingsFontSubtitle: "Select how characters appear in cards, builder, exam, and study:",
         settingsFontKaitiName: "DFKai / 標楷體 · Standard KaiTi (楷體)",
         settingsFontKaitiBadge: "Recommended",
-        settingsFontKaitiDesc: "Official Taiwan standard typography (DFKai-SB / 標楷體). Crisp classical proportions, ideal for dense, complex characters like 臺 and 灣.",
+        settingsFontKaitiDesc: "Official Taiwan standard typography (DFKai-SB / 標楷體). Crisp classical proportions, ideal for dense, complex characters like 臺 y 灣.",
         settingsFontSerifName: "Serif / Print Style (明體 · 宋體)",
         settingsFontSerifDesc: "Classical traditional printed typography with structured serifs (MingTi / SongTi).",
         settingsFontSansName: "Sans-Serif / Computer (黑體)",
@@ -504,13 +532,19 @@ const I18N_DICT = {
         langEnglish: "English",
         // Toasts
         toastWordSaved: "Word saved successfully",
+        toastWordUpdated: "\"{word}\" updated successfully",
+        toastWordAdded: "\"{word}\" added to your library",
         toastWordDeleted: "Word deleted",
         toastStructureSaved: "Structure saved successfully",
         toastStructureDeleted: "Structure deleted",
         toastDataExported: "Data exported successfully",
-        toastDataImported: "Data imported successfully",
-        toastSettingsSaved: "Settings saved",
+        toastDataImported: "Data imported successfully. Reloading...",
+        toastDataImportInvalid: "Invalid JSON file: missing expected structure.",
+        toastDataImportError: "Error reading file.",
+        toastSettingsSaved: "Settings saved successfully",
         toastLangChanged: "Language changed to English",
+        practiceToastNoWords: "You have no words in your library to practice",
+        practiceToastNoStructs: "You have no structures registered to practice",
 
         // Practice - sentence challenges
         practiceRetosTab: "Sentence challenges",
@@ -549,7 +583,7 @@ const I18N_DICT = {
         convoModeFocusTitle: "Focused Mode",
         convoModeFocusDesc: "Choose up to 5 target structures",
         convoRequiredStructs: "Target structures:",
-        convoSelectedCount: "{count} / 5 selected",
+        convoSelectedCount: "{count} / {max} selected",
         convoSearchPlaceholder: "Filter by name or formula...",
         convoBtnUnmark: "Clear",
         convoPickerHint: "💡 Select between 1 and 5 structures. AI will guide the conversation so you practice each one at least once.",
@@ -560,7 +594,7 @@ const I18N_DICT = {
         convoStartBtnText: "Start conversation ({count} structure{plural})",
         convoStartFreeBtnText: "Start free conversation",
         convoTurnOpening: "🎯 Your turn to start the dialogue",
-        convoGoalNow: "🎯 Your goal now:",
+        convoGoalNow: "🎯 Suggested turn goal:",
         convoStatusCorrect: "✅ Correct expression",
         convoStatusWarning: "💡 Understandable but could be improved",
         convoStatusWrong: "❌ Correction needed",
@@ -622,8 +656,6 @@ const I18N_DICT = {
         examToneHelpT3: "Tone 3: a3→ǎ",
         examToneHelpT4: "Tone 4: a4→à",
         examToneHelpT5: "Neutral: a5→a",
-
-        // Phase names in active exam
         examPhaseName1: "1. Hanzi (10 options)",
         examPhaseName2: "2. Pinyin with Tones",
         examPhaseName3: "3. Fill in Blanks",
@@ -631,8 +663,6 @@ const I18N_DICT = {
         examPhaseName5: "5. Open Scenarios",
         examPhaseName6: "6. Character Bank",
         examPhaseName7: "7. Reading Comprehension",
-
-        // Breakdown card names
         examBreakdownP1: "Phase 1: Recognition",
         examBreakdownP2: "Phase 2: Pinyin Writing",
         examBreakdownP3: "Phase 3: Fill in Blanks",
@@ -640,8 +670,6 @@ const I18N_DICT = {
         examBreakdownP5: "Phase 5: Open Scenarios",
         examBreakdownP6: "Phase 6: Character Bank",
         examBreakdownP7: "Phase 7: Reading Comprehension",
-
-        // Additional toasts
         builderToastEmpty: "Add at least one word to the builder",
         builderToastIncomplete: "Complete at least the name and formula",
         builderToastCleared: "Construction zone cleared",
@@ -683,17 +711,108 @@ const I18N_DICT = {
         examLoadingDesigning: "Designing your exam with Gemini based on your flashcards and structures...",
         examLoadingEvaluating: "The AI teacher is evaluating your answers and calculating your score...",
         examLoadingTip: "Tip: In Phase 2, remember to press 1, 2, 3 or 4 after each syllable to automatically place tone marks (e.g., hao3 → hǎo).",
-        examMinWordsWarning: "At least 10 words within selected lessons are required to take the exam (currently selected: {count}).",
+        examMinWordsWarning: "At least {min} words within selected lessons are required to take the exam (currently selected: {count}).",
         examConfirmIncomplete: "You have unanswered questions in: {phases}. Do you want to grade and finish the exam anyway?",
+        examConfirmAbandon: "Are you sure you want to leave the current exam? Unsaved answers will be lost.",
+        examToastGenerated: "Exam generated successfully! Good luck.",
+        examToastEvaluated: "Exam graded successfully!",
+        examNoAnswer: "(No answer)"
     }
 };
 
+// =====================================================
+// LAZY LANGUAGE PACK LOADER
+// =====================================================
+
+const languageScriptPromises = {};
+let isLanguageLoading = false;
+
 /**
- * Returns the currently active language ('es' or 'en').
- * @returns {'es'|'en'}
+ * Devuelve la configuración de idiomas desde APP_CONFIG o valores por defecto.
+ */
+const getLanguagesConfig = () => {
+    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.languages) {
+        return APP_CONFIG.languages;
+    }
+    return {
+        default: 'es',
+        storageKey: 'appchino_lang',
+        available: {
+            es: { code: 'es', name: 'Español', flag: '🇪🇸', dataScript: 'js/data.js?v=3.25', globalVar: 'SEED_DATA', dbKey: 'appchino_db' },
+            en: { code: 'en', name: 'English', flag: '🇺🇸', dataScript: 'js/data_en.js?v=3.25', globalVar: 'SEED_DATA_EN', dbKey: 'appchino_db_en' }
+        }
+    };
+};
+
+/**
+ * Returns the currently active language code ('es' or 'en').
+ * @returns {string}
  */
 const getLanguage = () => {
-    return localStorage.getItem('appchino_lang') === 'en' ? 'en' : 'es';
+    const cfg = getLanguagesConfig();
+    const saved = localStorage.getItem(cfg.storageKey);
+    if (saved && cfg.available[saved]) {
+        return saved;
+    }
+    return cfg.default || 'es';
+};
+
+/**
+ * Dynamically loads the language seed script (`js/data.js` or `js/data_en.js`) on demand.
+ * Resolves immediately if already loaded in memory.
+ * @param {string} langCode
+ * @returns {Promise<object>}
+ */
+const ensureLanguageDataLoaded = (langCode = getLanguage()) => {
+    const cfg = getLanguagesConfig();
+    const langMeta = cfg.available[langCode] || cfg.available[cfg.default];
+    if (!langMeta) return Promise.resolve({});
+
+    // Check if global variable is already present in window
+    if (typeof window !== 'undefined' && window[langMeta.globalVar]) {
+        return Promise.resolve(window[langMeta.globalVar]);
+    }
+
+    // Deduplicate concurrent requests for the same script
+    if (languageScriptPromises[langMeta.code]) {
+        return languageScriptPromises[langMeta.code];
+    }
+
+    isLanguageLoading = true;
+    if (typeof document !== 'undefined') {
+        document.body?.classList.add('is-loading-language');
+    }
+
+    languageScriptPromises[langMeta.code] = new Promise((resolve, reject) => {
+        if (typeof document === 'undefined') {
+            isLanguageLoading = false;
+            resolve({});
+            return;
+        }
+
+        const script = document.createElement('script');
+        script.src = langMeta.dataScript;
+        script.async = true;
+        script.dataset.langPack = langMeta.code;
+
+        script.onload = () => {
+            isLanguageLoading = false;
+            document.body?.classList.remove('is-loading-language');
+            resolve(window[langMeta.globalVar] || {});
+        };
+
+        script.onerror = (err) => {
+            isLanguageLoading = false;
+            document.body?.classList.remove('is-loading-language');
+            delete languageScriptPromises[langMeta.code];
+            console.error(`Error loading language data pack (${langMeta.dataScript}):`, err);
+            reject(new Error(`No se pudo cargar el paquete de datos para ${langMeta.name}`));
+        };
+
+        document.head.appendChild(script);
+    });
+
+    return languageScriptPromises[langMeta.code];
 };
 
 /**
@@ -712,12 +831,116 @@ const t = (key, params = {}) => {
 };
 
 /**
- * Updates global CATEGORY_LABELS based on active language.
+ * Resolves category label according to active language, reading first from APP_CONFIG.
+ * @param {string} cat
+ * @param {boolean} [plural=false]
+ * @returns {string}
+ */
+const getCategoryLabel = (cat, plural = false) => {
+    if (!cat) return '';
+    const lang = getLanguage();
+    const catKey = String(cat).toLowerCase();
+
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getCategory === 'function') {
+        const catDef = APP_CONFIG.getCategory(catKey);
+        if (catDef && catDef.labels) {
+            const langLabels = catDef.labels[lang] || catDef.labels[APP_CONFIG.languages?.default || 'es'];
+            if (langLabels) {
+                return plural ? (langLabels.plural || langLabels.singular) : (langLabels.singular || langLabels.plural);
+            }
+        }
+    }
+
+    const dict = I18N_DICT[lang] || I18N_DICT['es'];
+    const key = 'cat_' + catKey;
+    if (dict && dict[key]) {
+        return dict[key];
+    }
+    if (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[cat]) {
+        return CATEGORY_LABELS[cat];
+    }
+    return cat;
+};
+if (typeof window !== 'undefined') {
+    window.getCategoryLabel = getCategoryLabel;
+}
+
+/**
+ * Resolves lesson label according to active language and APP_CONFIG.
+ * @param {string|number} lessonId
+ * @param {boolean} [short=false]
+ * @returns {string}
+ */
+const getLessonLabel = (lessonId, short = false) => {
+    const lang = getLanguage();
+    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons && Array.isArray(APP_CONFIG.lessons.items)) {
+        const found = APP_CONFIG.lessons.items.find(item => String(item.id) === String(lessonId) || Number(item.number) === Number(lessonId));
+        if (found) {
+            if (short) return found.shortLabel || `L${found.number}`;
+            return found.labels?.[lang] || found.labels?.es || `L${found.number}`;
+        }
+    }
+    return short ? `L${lessonId}` : t('examLessonLabel', { num: lessonId });
+};
+
+/**
+ * Returns the localized meaning of a flashcard word.
+ * @param {object} word
+ * @returns {string}
+ */
+const getWordMeaning = (word) => {
+    if (!word) return '';
+    const lang = getLanguage();
+    if (lang === 'en') {
+        return word.english || word.espanol || '';
+    }
+    return word.espanol || word.english || '';
+};
+
+/**
+ * Returns the localized notes of a flashcard word.
+ * @param {object} word
+ * @returns {string}
+ */
+const getWordNotes = (word) => {
+    if (!word) return '';
+    const lang = getLanguage();
+    if (lang === 'en') {
+        return word.notas_en || word.notas || '';
+    }
+    return word.notas || '';
+};
+
+/**
+ * Returns the localized translation of a grammar structure.
+ * @param {object} struct
+ * @returns {string}
+ */
+const getStructureTranslation = (struct) => {
+    if (!struct) return '';
+    const lang = getLanguage();
+    if (lang === 'en') {
+        return struct.ejemplo_english || struct.ejemplo_espanol || '';
+    }
+    return struct.ejemplo_espanol || struct.ejemplo_english || '';
+};
+
+/**
+ * Updates global CATEGORY_LABELS based on active language and APP_CONFIG.
  */
 const updateCategoryLabels = () => {
-    const lang = getLanguage();
-    if (typeof CATEGORY_LABELS !== 'undefined') {
-        const dict = I18N_DICT[lang];
+    if (typeof CATEGORY_LABELS === 'undefined') return;
+
+    if (typeof APP_CONFIG !== 'undefined' && Array.isArray(APP_CONFIG.categories)) {
+        APP_CONFIG.categories.forEach(cat => {
+            CATEGORY_LABELS[cat.id] = getCategoryLabel(cat.id, false);
+        });
+        Object.values(APP_CONFIG.metaCategories || {}).forEach(metaCat => {
+            CATEGORY_LABELS[metaCat.id] = getCategoryLabel(metaCat.id, false);
+        });
+    } else {
+        const lang = getLanguage();
+        const dict = I18N_DICT[lang] || I18N_DICT['es'];
         CATEGORY_LABELS.sustantivo   = dict.cat_sustantivo;
         CATEGORY_LABELS.pronombre    = dict.cat_pronombre;
         CATEGORY_LABELS.clasificador = dict.cat_clasificador;
@@ -734,6 +957,7 @@ const updateCategoryLabels = () => {
  * Updates all DOM elements with data-i18n attributes.
  */
 const applyI18nToDOM = () => {
+    if (typeof document === 'undefined') return;
     const lang = getLanguage();
     document.documentElement.lang = lang;
     document.title = t('appTitle');
@@ -763,88 +987,103 @@ const applyI18nToDOM = () => {
         el.title = t(key);
     });
 
+    // Dynamic Category & Lesson labels generated from APP_CONFIG
+    document.querySelectorAll('[data-cat-label]').forEach(el => {
+        const catId = el.dataset.catLabel;
+        const isPlural = el.dataset.catPlural === 'true';
+        el.textContent = getCategoryLabel(catId, isPlural);
+    });
+
+    document.querySelectorAll('[data-lesson-label]').forEach(el => {
+        const lessonId = el.dataset.lessonLabel;
+        const isShort = el.dataset.lessonShort === 'true';
+        el.textContent = getLessonLabel(lessonId, isShort);
+    });
+
     // Language toggle text in sidebar
     const langToggleText = document.getElementById('lang-toggle-text');
     if (langToggleText) {
-        langToggleText.textContent = lang === 'en' ? 'English' : 'Español';
+        const cfg = getLanguagesConfig();
+        const langMeta = cfg.available[lang];
+        langToggleText.textContent = langMeta ? langMeta.name : (lang === 'en' ? 'English' : 'Español');
     }
 
     // Language pills / active states in settings or sidebar
     document.querySelectorAll('.lang-choice-btn').forEach(btn => {
-        if (btn.dataset.lang === lang) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+        btn.classList.toggle('active', btn.dataset.lang === lang);
     });
 };
 
 /**
- * Changes active language, saves to localStorage, updates UI, and refreshes active view.
- * @param {'es'|'en'} newLang
+ * Changes active language with Lazy Load + Skeleton Placeholders, saves to localStorage,
+ * updates UI, and refreshes active views.
+ * @param {string} newLang
+ * @returns {Promise<void>}
  */
-const setLanguage = (newLang) => {
-    if (newLang !== 'es' && newLang !== 'en') return;
-    localStorage.setItem('appchino_lang', newLang);
+const setLanguage = async (newLang) => {
+    const cfg = getLanguagesConfig();
+    if (!cfg.available[newLang]) return;
+
+    const prevLang = getLanguage();
+    localStorage.setItem(cfg.storageKey, newLang);
     updateCategoryLabels();
     applyI18nToDOM();
 
-    // Trigger UI refresh across modules if loaded
+    // Show skeleton placeholders while loading language pack
+    if (typeof window.showLanguageSkeletonState === 'function') {
+        window.showLanguageSkeletonState();
+    }
+
+    try {
+        await ensureLanguageDataLoaded(newLang);
+        // Yield a brief frame so the user perceives a smooth skeleton transition
+        if (prevLang !== newLang) {
+            await new Promise(r => requestAnimationFrame(() => setTimeout(r, 140)));
+        }
+    } catch (err) {
+        console.error(err);
+    }
+
+    if (typeof invalidateStorageCache === 'function') {
+        invalidateStorageCache();
+    }
+
+    // Refresh configurable UI and views
+    if (typeof renderConfigurableFiltersAndInputs === 'function') {
+        renderConfigurableFiltersAndInputs();
+    }
     if (typeof refreshAll === 'function') refreshAll();
-    if (typeof renderGrid === 'function') renderGrid();
-    if (typeof renderStructures === 'function') renderStructures();
-    if (typeof renderStructuresList === 'function') renderStructuresList();
     if (typeof updateStudyToolbarUI === 'function') updateStudyToolbarUI();
-    if (typeof initStudyDeck === 'function') initStudyDeck();
-    if (typeof renderStudyCard === 'function') renderStudyCard();
-    if (typeof renderWordBank === 'function') renderWordBank();
-    if (typeof renderExportGrid === 'function') renderExportGrid();
+    if (typeof initStudyMode === 'function') initStudyMode();
+    if (typeof renderWordBank === 'function') {
+        const activeBankChip = document.querySelector('#bank-filter-chips .chip.active');
+        renderWordBank(activeBankChip ? activeBankChip.dataset.filter : 'todos');
+    }
     if (typeof updateExportCount === 'function') updateExportCount();
     if (typeof renderPracticeUI === 'function') renderPracticeUI();
     if (typeof renderExam === 'function') renderExam();
 
-    if (typeof showToast === 'function') {
+    if (typeof showToast === 'function' && prevLang !== newLang) {
         showToast(t('toastLangChanged'));
     }
 };
-
-/**
- * Resolves category label according to active language.
- * @param {string} cat
- * @returns {string}
- */
-const getCategoryLabel = (cat) => {
-    if (!cat) return '';
-    const lang = getLanguage();
-    const dict = I18N_DICT[lang] || I18N_DICT['es'];
-    const key = 'cat_' + String(cat).toLowerCase();
-    if (dict && dict[key]) {
-        return dict[key];
-    }
-    if (typeof CATEGORY_LABELS !== 'undefined' && CATEGORY_LABELS[cat]) {
-        return CATEGORY_LABELS[cat];
-    }
-    return cat;
-};
-window.getCategoryLabel = getCategoryLabel;
 
 // Global export
 window.I18N = {
     getLanguage,
     setLanguage,
     t,
+    ensureLanguageDataLoaded,
+    isLanguageLoading: () => isLanguageLoading,
     updateCategoryLabels,
     applyI18nToDOM,
     getCategoryLabel,
+    getLessonLabel,
+    getWordMeaning,
+    getWordNotes,
+    getStructureTranslation,
     TRANSLATIONS: I18N_DICT
 };
 
 // Initial setup on script load
 updateCategoryLabels();
-if (typeof document !== 'undefined') {
-    if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', () => applyI18nToDOM());
-    } else {
-        applyI18nToDOM();
-    }
-}

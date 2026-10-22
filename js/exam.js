@@ -75,8 +75,8 @@ const saveExamState = () => {
 const EXAM_MAX_LESSON_KEY = 'appchino_exam_max_lesson_v1';
 const EXAM_INC_UNASSIGNED_KEY = 'appchino_exam_inc_unassigned_v1';
 
-let examMaxLesson = 8;
-let examIncludeUnassigned = false;
+let examMaxLesson = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.defaultMaxLesson : 8;
+let examIncludeUnassigned = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.includeUnassignedByDefault : false;
 
 const loadExamLessonPrefs = () => {
     try {
@@ -230,11 +230,12 @@ const startNewExam = async () => {
     const examWords = getWordsForExam();
     const allStructures = getAllStructures();
 
-    if (!examWords || examWords.length < 10) {
+    const minRequired = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.minWordsRequired : 10;
+    if (!examWords || examWords.length < minRequired) {
         const count = examWords ? examWords.length : 0;
         const msg = typeof I18N !== "undefined"
             ? I18N.t("examMinWordsWarning", { count })
-            : `Se necesitan al menos 10 palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${count}).`;
+            : `Se necesitan al menos ${minRequired} palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${count}).`;
         showToast(msg, "warning");
         return;
     }
@@ -411,6 +412,7 @@ const finishAndEvaluateExam = async () => {
             id: q.id,
             escenario: q.escenario,
             pregunta: q.pregunta,
+            ejemplo_respuesta: q.ejemplo_respuesta || '',
             respuesta_usuario: examSession.userAnswers.phase5[q.id] || ''
         }));
 
@@ -418,6 +420,7 @@ const finishAndEvaluateExam = async () => {
             id: q.id,
             caracter_asignado: q.caracter_asignado,
             pregunta: q.pregunta,
+            ejemplo_respuesta: q.ejemplo_respuesta || '',
             respuesta_usuario: examSession.userAnswers.phase6[q.id] || ''
         }));
 
@@ -642,7 +645,10 @@ const renderExamWelcome = (container) => {
                 </div>
 <p class="exam-lesson-hint">${typeof I18N !== "undefined" ? I18N.t("examSelectorHint") : "Evaluación retroactiva..."}</p>
                 <div class="exam-lesson-checkboxes" id="exam-lesson-checkboxes">
-                    ${[1, 2, 3, 4, 5, 6, 7, 8].map(num => `
+                    ${((typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons && APP_CONFIG.lessons.items)
+                        ? APP_CONFIG.lessons.items.map(l => l.number)
+                        : [1, 2, 3, 4, 5, 6, 7, 8]
+                    ).map(num => `
                         <label class="exam-lesson-cb-card ${num <= examMaxLesson ? 'active' : ''}">
                             <input type="checkbox" data-lesson="${num}" ${num <= examMaxLesson ? 'checked' : ''}>
                             <span class="cb-label">${typeof I18N !== "undefined" ? I18N.t("examLessonLabel", { num: num }) : `Lección ${num}`}</span>

@@ -2,8 +2,12 @@
  * =====================================================
  * AppChino — builder.js
  * Sentence builder: drag & drop + save as structure.
+ * Connected to APP_CONFIG, O(1) lookups & Lazy Rendering.
  * =====================================================
  */
+
+let bankObserver = null;
+let bankSortableInstance = null;
 
 /**
  * Updates the live preview of the constructed sentence.
@@ -11,6 +15,7 @@
  */
 const updateBuilderPreview = () => {
     const dropzone = document.getElementById('builder-dropzone');
+    if (!dropzone) return;
     const cards = dropzone.querySelectorAll('.mini-card');
     const previewEl = document.getElementById('builder-preview');
     const saveRow = document.getElementById('builder-save-row');
@@ -41,6 +46,7 @@ const updateBuilderPreview = () => {
  */
 const initBuilder = () => {
     const dropzone = document.getElementById('builder-dropzone');
+    if (!dropzone) return;
 
     // Dropzone — accepts dragged words
     new Sortable(dropzone, {
@@ -49,10 +55,11 @@ const initBuilder = () => {
         onAdd: function(evt) {
             const el = evt.item;
             const wordId = el.dataset.id;
-            const word = getAllWords().find(w => w.id === wordId);
+            const word = (typeof getWordById === 'function')
+                ? getWordById(wordId)
+                : getAllWords().find(w => w.id === wordId);
             if (!word) return;
 
-            // Replace the cloned bank card with a proper builder card (has remove button)
             const builderCard = createBuilderMiniCard(word);
             el.replaceWith(builderCard);
             updateBuilderPreview();
@@ -80,7 +87,6 @@ const initBuilder = () => {
         try {
             const result = await checkSentenceWithGemini(chinese);
             
-            // Populate modal
             const verdictEl = document.getElementById('ai-verdict');
             if (result.correcta) {
                 verdictEl.innerHTML = typeof I18N !== "undefined" ? I18N.t("builderVerdictCorrect") : "✅ ¡Oración Correcta!";
@@ -93,7 +99,12 @@ const initBuilder = () => {
             }
 
             document.getElementById('ai-explanation').textContent = result.explicacion || '';
-            document.getElementById('ai-correction').textContent = result.correccion || '';
+            const corrEl = document.getElementById('ai-correction');
+            if (result.pinyin) {
+                corrEl.innerHTML = `<div>${result.correccion || ''}</div><div style="font-size:0.95rem; font-family:var(--font-main); color:var(--text-secondary); margin-top:0.2rem;">${result.pinyin}</div>`;
+            } else {
+                corrEl.textContent = result.correccion || '';
+            }
             document.getElementById('ai-translation').textContent = result.traduccion || '';
 
             document.getElementById('ai-result-dialog').showModal();
@@ -135,9 +146,8 @@ const initBuilder = () => {
             notas: '',
         });
 
-        showToast(typeof I18N !== 'undefined' ? I18N.t('toastStructureSaved') : 'Estructura guardada como flashcard', 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('toastStructureSaved') : 'Estructura guardada correctamente', 'success');
 
-        // Clear the builder
         dropzone.innerHTML = '';
         document.getElementById('structure-name').value = '';
         document.getElementById('structure-formula').value = '';
@@ -157,21 +167,9 @@ const initBuilder = () => {
     const pinyinInput = document.getElementById('pinyin-quick-input');
     const suggestionsEl = document.getElementById('pinyin-suggestions');
     const addPinyinBtn = document.getElementById('btn-add-pinyin');
-    let pinyinQueue = []; // words selected from suggestions, waiting to be added
+    let pinyinQueue = [];
     let highlightedIdx = -1;
 
-    /**
-     * Strips tone marks from pinyin to allow flexible matching.
-     * e.g. "māo" → "mao", "nǐhǎo" → "nihao"
-     */
-    const stripTones = (str) => {
-        return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-    };
-
-    /**
-     * Searches the user's word database by pinyin.
-     * Matches if any word's pinyin starts with the query (tone-insensitive).
-     */
     const searchByPinyin = (query) => {
         if (!query || query.length < 1) return [];
         try {
@@ -182,9 +180,6 @@ const initBuilder = () => {
         }
     };
 
-    /**
-     * Renders the suggestion dropdown items.
-     */
     const renderSuggestions = (results) => {
         if (results.length === 0) {
             suggestionsEl.classList.remove('visible');
@@ -197,12 +192,13 @@ const initBuilder = () => {
         suggestionsEl.innerHTML = results.map((w, i) => {
             const color = CATEGORY_COLORS[w.categoria] || 'var(--text-muted)';
             const label = (window.getCategoryLabel ? window.getCategoryLabel(w.categoria) : (CATEGORY_LABELS[w.categoria] || w.categoria));
+            const meaning = (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
             return `
                 <div class="pinyin-suggestion-item" data-index="${i}">
                     <span class="sug-char">${w.tradicional}</span>
                     <div class="sug-info">
                         <span class="sug-pinyin">${w.pinyin}</span>
-                        <span class="sug-spanish">${w.espanol}</span>
+                        <span class="sug-spanish">${meaning}</span>
                     </div>
                     <span class="sug-badge" style="background: ${color}20; color: ${color};">${label}</span>
                 </div>
@@ -211,18 +207,10 @@ const initBuilder = () => {
         suggestionsEl.classList.add('visible');
     };
 
-    /**
-     * Returns the Chinese prefix string from the current queue.
-     */
     const getQueuePrefix = () => pinyinQueue.map(w => w.tradicional).join('');
 
-    /**
-     * Selects a word from suggestions, adds it to the queue,
-     * and shows the accumulated characters as real text in the input.
-     */
     const selectSuggestion = (word) => {
         pinyinQueue.push(word);
-        // Show selected characters as real text in the input
         pinyinInput.value = getQueuePrefix();
         suggestionsEl.classList.remove('visible');
         suggestionsEl.innerHTML = '';
@@ -230,14 +218,11 @@ const initBuilder = () => {
         pinyinInput.focus();
     };
 
-    // Input event — search as user types (only the part after the Chinese prefix)
     pinyinInput.addEventListener('input', () => {
         const prefix = getQueuePrefix();
         const fullValue = pinyinInput.value;
 
-        // If user deleted some of the prefix, sync the queue
         if (!fullValue.startsWith(prefix)) {
-            // User backspaced into the Chinese characters — remove last queued word
             if (pinyinQueue.length > 0 && fullValue.length < prefix.length) {
                 pinyinQueue.pop();
                 const newPrefix = getQueuePrefix();
@@ -249,7 +234,6 @@ const initBuilder = () => {
             return;
         }
 
-        // Extract only the pinyin part (after the Chinese prefix)
         const query = fullValue.slice(prefix.length).trim();
         addPinyinBtn.disabled = fullValue.trim().length === 0;
         if (query.length === 0) {
@@ -261,11 +245,10 @@ const initBuilder = () => {
         renderSuggestions(results);
     });
 
-    // Click on a suggestion
     suggestionsEl.addEventListener('click', (e) => {
         const item = e.target.closest('.pinyin-suggestion-item');
         if (!item) return;
-        const idx = parseInt(item.dataset.index);
+        const idx = parseInt(item.dataset.index, 10);
         const prefix = getQueuePrefix();
         const query = pinyinInput.value.slice(prefix.length).trim();
         const results = searchByPinyin(query);
@@ -274,11 +257,9 @@ const initBuilder = () => {
         }
     });
 
-    // Keyboard navigation (Up/Down/Enter/Escape)
     pinyinInput.addEventListener('keydown', (e) => {
         const items = suggestionsEl.querySelectorAll('.pinyin-suggestion-item');
         if (items.length === 0) {
-            // Enter with queue and no suggestions = add to dropzone
             if (e.key === 'Enter' && pinyinQueue.length > 0) {
                 e.preventDefault();
                 addPinyinBtn.click();
@@ -301,7 +282,7 @@ const initBuilder = () => {
             if (highlightedIdx >= 0 && highlightedIdx < items.length) {
                 items[highlightedIdx].click();
             } else if (items.length > 0) {
-                items[0].click(); // Select first result
+                items[0].click();
             }
         } else if (e.key === 'Escape') {
             suggestionsEl.classList.remove('visible');
@@ -310,14 +291,12 @@ const initBuilder = () => {
         }
     });
 
-    // Close suggestions when clicking outside
     document.addEventListener('click', (e) => {
         if (!e.target.closest('.pinyin-input-wrapper')) {
             suggestionsEl.classList.remove('visible');
         }
     });
 
-    // "Agregar" button — push queued words into dropzone as mini-cards
     addPinyinBtn.addEventListener('click', () => {
         const fullValue = pinyinInput.value.trim();
         if (fullValue.length === 0) return;
@@ -330,11 +309,10 @@ const initBuilder = () => {
         const prefix = getQueuePrefix();
         if (fullValue.startsWith(prefix) && fullValue.length > prefix.length) {
             const remaining = fullValue.slice(prefix.length).trim();
-            // Create an anonymous card for each remaining character
             Array.from(remaining).forEach(char => {
                 if (char.trim() === '') return;
                 const anonWord = {
-                    id: 'anon_' + Date.now() + Math.random().toString(36).substr(2, 5),
+                    id: 'anon_' + Date.now() + Math.random().toString(36).slice(2, 7),
                     tradicional: char,
                     pinyin: '',
                     zhuyin: '',
@@ -345,17 +323,15 @@ const initBuilder = () => {
             });
         }
 
-        // Reset
         pinyinQueue = [];
         pinyinInput.value = '';
-        pinyinInput.placeholder = 'Escribe los caracteres o buscalos por significado, pinyin o zhuyin';
+        pinyinInput.placeholder = typeof I18N !== 'undefined' ? I18N.t('builderQuickInputPlaceholder') : 'Escribe los caracteres o buscalos por significado, pinyin o zhuyin';
         addPinyinBtn.disabled = true;
         dropzone.classList.remove('is-empty');
         updateBuilderPreview();
         showToast(typeof I18N !== 'undefined' ? I18N.t('builderToastAdded') : 'Caracteres agregados al constructor', 'success');
     });
 
-    // Clear all builder cards button ("eliminar de un porrazo")
     const clearBtn = document.getElementById('btn-clear-builder');
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
@@ -366,7 +342,7 @@ const initBuilder = () => {
             pinyinQueue = [];
             if (pinyinInput) {
                 pinyinInput.value = '';
-                pinyinInput.placeholder = 'Escribe los caracteres o buscalos por significado, pinyin o zhuyin';
+                pinyinInput.placeholder = typeof I18N !== 'undefined' ? I18N.t('builderQuickInputPlaceholder') : 'Escribe los caracteres o buscalos por significado, pinyin o zhuyin';
             }
             if (addPinyinBtn) addPinyinBtn.disabled = true;
             if (suggestionsEl) {
@@ -378,27 +354,88 @@ const initBuilder = () => {
         });
     }
 
-    // Initial update to sync preview and clear button state
     updateBuilderPreview();
 };
 
 /**
- * Renders the word bank grid and initializes its Sortable instance.
+ * Renders the word bank grid with Lazy Rendering (IntersectionObserver) and Sortable instance.
  * @param {string} filter - Category filter ('todos' or a category key)
  */
 const renderWordBank = (filter = 'todos') => {
     const bankEl = document.getElementById('word-bank-grid');
+    if (!bankEl) return;
+
+    if (bankObserver) {
+        bankObserver.disconnect();
+        bankObserver = null;
+    }
+
     bankEl.innerHTML = '';
+
+    // Show skeletons if language pack is currently loading
+    if (typeof I18N !== 'undefined' && typeof I18N.isLanguageLoading === 'function' && I18N.isLanguageLoading()) {
+        if (typeof createMiniCardSkeletons === 'function') {
+            bankEl.appendChild(createMiniCardSkeletons());
+        }
+        return;
+    }
 
     let words = getAllWords();
     if (filter !== 'todos') {
         words = words.filter(w => w.categoria === filter);
     }
-    words.forEach(word => bankEl.appendChild(createMiniCard(word)));
 
-    // Initialize Sortable on the (re-rendered) bank
-    new Sortable(bankEl, {
+    const initialBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.initialCardBatchSize)
+        ? APP_CONFIG.ui.initialCardBatchSize * 2
+        : 72;
+    const scrollBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.scrollBatchSize)
+        ? APP_CONFIG.ui.scrollBatchSize * 2
+        : 48;
+
+    let renderedCount = 0;
+
+    const appendNextBatch = (batchSize) => {
+        const slice = words.slice(renderedCount, renderedCount + batchSize);
+        if (slice.length === 0) return;
+        const frag = document.createDocumentFragment();
+        slice.forEach(word => frag.appendChild(createMiniCard(word)));
+        const sentinel = bankEl.querySelector('.grid-lazy-sentinel');
+        if (sentinel) {
+            bankEl.insertBefore(frag, sentinel);
+        } else {
+            bankEl.appendChild(frag);
+        }
+        renderedCount += slice.length;
+    };
+
+    appendNextBatch(initialBatch);
+
+    if (renderedCount < words.length && typeof IntersectionObserver !== 'undefined') {
+        const sentinel = document.createElement('div');
+        sentinel.className = 'grid-lazy-sentinel';
+        sentinel.style.gridColumn = '1 / -1';
+        sentinel.style.height = '1px';
+        bankEl.appendChild(sentinel);
+
+        bankObserver = new IntersectionObserver((entries) => {
+            if (entries.some(e => e.isIntersecting)) {
+                appendNextBatch(scrollBatch);
+                if (renderedCount >= words.length) {
+                    sentinel.remove();
+                    bankObserver?.disconnect();
+                }
+            }
+        }, { rootMargin: '250px' });
+
+        bankObserver.observe(sentinel);
+    }
+
+    if (bankSortableInstance) {
+        bankSortableInstance.destroy();
+    }
+    bankSortableInstance = new Sortable(bankEl, {
         group: { name: 'builder', pull: 'clone', put: false },
+        draggable: '.mini-card:not(.mini-card-skeleton)',
         sort: false,
         animation: 150,
     });

@@ -5,12 +5,7 @@
  * Three distinct modalities:
  * 1. "caracteres": Study seeing characters (front: Hanzi [+cat]; back: meaning, pinyin, zhuyin [+cat, notes, rads])
  * 2. "pronunciacion": Study seeing pronunciation (front: Pinyin & Zhuyin [+cat]; back: meaning & Hanzi [+cat, notes, rads])
- * 3. "definicion": Study seeing definition (front: Spanish meaning [+cat]; back: Hanzi, Pinyin & Zhuyin [+cat, notes, rads])
- * 
- * Configurable options:
- * - Category badge toggle (front & back)
- * - Notes toggle (back)
- * - Radicals toggle (back)
+ * 3. "definicion": Study seeing definition (front: meaning [+cat]; back: Hanzi, Pinyin & Zhuyin [+cat, notes, rads])
  * =====================================================
  */
 
@@ -67,7 +62,6 @@ const loadStudyPreferences = () => {
             studyShowRadicals = savedRads === 'true';
         }
 
-        // Lesson filters (supports multi-select array or legacy string)
         const savedLessons = localStorage.getItem(STUDY_LESSON_FILTER_KEY) || localStorage.getItem('appchino_study_lesson_filter_v1');
         if (savedLessons) {
             try {
@@ -82,7 +76,6 @@ const loadStudyPreferences = () => {
             }
         }
 
-        // Category filters (supports multi-select array or legacy string)
         const savedCats = localStorage.getItem(STUDY_CAT_FILTER_KEY);
         if (savedCats) {
             try {
@@ -119,7 +112,6 @@ const saveStudyPreferences = () => {
 
 /**
  * Initializes the study deck with filtered and shuffled words.
- * Filtering by lesson and category supports multi-select / stackable filters.
  * @param {string|Array<string>} categories - Category filter(s)
  * @param {string|Array<string>} lessons - Lesson filter(s)
  */
@@ -142,11 +134,12 @@ const initStudyMode = (categories = currentStudyCategories, lessons = currentStu
         words = words.filter(w => currentStudyCategories.includes(w.categoria));
     }
 
-    // 2. Filter by lessons (stackable, exact match per lesson)
+    // 2. Filter by lessons (stackable)
+    const unassignedKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.unassignedFilterId) || 'ninguna';
     if (!currentStudyLessons.includes('todas') && currentStudyLessons.length > 0) {
         words = words.filter(w => {
             if (!w.leccion) {
-                return currentStudyLessons.includes('ninguna');
+                return currentStudyLessons.includes(unassignedKey);
             }
             return currentStudyLessons.includes(String(w.leccion));
         });
@@ -181,16 +174,10 @@ const setStudyMode = (mode) => {
  * Updates UI active states on the top toolbar without full re-render.
  */
 const updateStudyToolbarUI = () => {
-    // Mode tabs
     document.querySelectorAll('.study-mode-tab').forEach(tab => {
-        if (tab.dataset.studyMode === currentStudyMode) {
-            tab.classList.add('active');
-        } else {
-            tab.classList.remove('active');
-        }
+        tab.classList.toggle('active', tab.dataset.studyMode === currentStudyMode);
     });
 
-    // Option switches
     const toggleCat = document.getElementById('study-toggle-categoria');
     if (toggleCat) toggleCat.checked = studyShowCategory;
 
@@ -200,38 +187,31 @@ const updateStudyToolbarUI = () => {
     const toggleRads = document.getElementById('study-toggle-radicales');
     if (toggleRads) toggleRads.checked = studyShowRadicals;
 
-    // Category filter chips (stackable multi-selection)
     document.querySelectorAll('#study-filters .chip').forEach(chip => {
         const filterVal = chip.dataset.filter;
-        if (currentStudyCategories.includes(filterVal)) {
-            chip.classList.add('active');
-        } else {
-            chip.classList.remove('active');
-        }
+        chip.classList.toggle('active', currentStudyCategories.includes(filterVal));
     });
 
-    // Lesson filter chips (stackable multi-selection)
     document.querySelectorAll('#study-lesson-filters .chip').forEach(chip => {
         const lessonVal = chip.dataset.lessonFilter;
-        if (currentStudyLessons.includes(lessonVal)) {
-            chip.classList.add('active');
-        } else {
-            chip.classList.remove('active');
-        }
+        chip.classList.toggle('active', currentStudyLessons.includes(lessonVal));
     });
 };
 
 /**
- * Helper to build radicals HTML display.
+ * Helper to build radicals HTML display using O(1) getWordById.
  */
 const getRadicalsHtml = (word) => {
     if (!word || !word.radicales) return '';
+    const lookup = (id) => (typeof getWordById === 'function' ? getWordById(id) : getAllWords().find(w => w.id === id));
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+
     if (Array.isArray(word.radicales)) {
         return word.radicales.map(rad => {
             if (rad.type === 'text') return rad.value;
             if (rad.type === 'ref') {
-                const refWord = getAllWords().find(w => w.id === rad.id);
-                return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="0">${refWord.tradicional} (${refWord.espanol})</span>` : '';
+                const refWord = lookup(rad.id);
+                return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="0">${refWord.tradicional} (${getMeaning(refWord)})</span>` : '';
             }
             return '';
         }).filter(Boolean).join(' + ');
@@ -240,11 +220,13 @@ const getRadicalsHtml = (word) => {
 };
 
 /**
- * Helper to build classifier HTML display.
+ * Helper to build classifier HTML display using O(1) getWordById.
  */
 const getClassifierHtml = (word) => {
     if (!word || !word.clasificador) return '';
-    const clf = getAllWords().find(w => w.id === word.clasificador);
+    const clf = (typeof getWordById === 'function')
+        ? getWordById(word.clasificador)
+        : getAllWords().find(w => w.id === word.clasificador);
     if (clf) {
         return `<span class="radical-ref" data-ref-id="${clf.id}" data-level="0">${clf.tradicional} (${clf.pinyin})</span>`;
     }
@@ -259,16 +241,20 @@ const buildCardFacesHtml = (word) => {
     const lenClass = charLen <= 1 ? 'len-1' : charLen === 2 ? 'len-2' : charLen === 3 ? 'len-3' : charLen === 4 ? 'len-4' : charLen === 5 ? 'len-5' : charLen === 6 ? 'len-6' : 'len-long';
     const pinyinLenClass = (word.pinyin || '').length > 16 ? 'pinyin-long' : '';
 
+    const catLabel = window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria);
+    const lessonShort = word.leccion
+        ? ((window.I18N && window.I18N.getLessonLabel) ? window.I18N.getLessonLabel(word.leccion, true) : `L${word.leccion}`)
+        : '';
+
     const categoryBadge = studyShowCategory ? `
         <span class="card-category-badge badge badge-${word.categoria}">
-            ${(window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria))}${word.leccion ? ` · L${word.leccion}` : ''}
+            ${catLabel}${lessonShort ? ` · ${lessonShort}` : ''}
         </span>
     ` : '';
 
     const classifierHtml = getClassifierHtml(word);
     const radicalsHtml = getRadicalsHtml(word);
 
-    // Common extra details for back of the card
     let extraComponentsHtml = '';
     if ((studyShowCategory && classifierHtml) || (studyShowRadicals && radicalsHtml)) {
         extraComponentsHtml = `
@@ -279,9 +265,12 @@ const buildCardFacesHtml = (word) => {
         `;
     }
 
-    const notesHtml = (studyShowNotes && word.notas) ? `
-        <div class="study-card-notes" title="Notas de estudio">
-            ${word.notas}
+    const meaningText = (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(word) : (word.espanol || '');
+    const notesText = (window.I18N && window.I18N.getWordNotes) ? window.I18N.getWordNotes(word) : (word.notas || '');
+
+    const notesHtml = (studyShowNotes && notesText) ? `
+        <div class="study-card-notes" title="${(window.I18N && window.I18N.t) ? window.I18N.t('cardNotes') : 'Notas'}">
+            ${notesText}
         </div>
     ` : '';
 
@@ -289,11 +278,6 @@ const buildCardFacesHtml = (word) => {
         ? window.I18N.t('studyFlipHint')
         : 'Toca o presiona espacio para voltear';
 
-    // =========================================================================
-    // MODALIDAD 1: ESTUDIAR VIENDO CARACTERES
-    // Frente: solo el caracter (+ categoría opcional)
-    // Reverso: significado en español, pinyin y zhuyin (+ opcionales)
-    // =========================================================================
     if (currentStudyMode === 'caracteres') {
         const frontHtml = `
             <div class="card-face card-front study-mode-caracteres-front">
@@ -309,7 +293,7 @@ const buildCardFacesHtml = (word) => {
             <div class="card-face card-back study-mode-caracteres-back">
                 ${categoryBadge}
                 <div class="study-card-body">
-                    <div class="spanish-meaning">${word.espanol}</div>
+                    <div class="spanish-meaning">${meaningText}</div>
                     <div class="study-pronunciation-block">
                         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
                         ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
@@ -322,11 +306,6 @@ const buildCardFacesHtml = (word) => {
         return { frontHtml, backHtml };
     }
 
-    // =========================================================================
-    // MODALIDAD 2: ESTUDIAR VIENDO PRONUNCIACIÓN
-    // Frente: pinyin y zhuyin (+ categoría opcional)
-    // Reverso: definición (español) y caracter (+ opcionales)
-    // =========================================================================
     if (currentStudyMode === 'pronunciacion') {
         const frontHtml = `
             <div class="card-face card-front study-mode-pronunciacion-front">
@@ -344,7 +323,7 @@ const buildCardFacesHtml = (word) => {
                 ${categoryBadge}
                 <div class="study-card-body">
                     <div class="chinese-char ${lenClass}" style="margin-bottom:0.4rem;">${word.tradicional}</div>
-                    <div class="spanish-meaning">${word.espanol}</div>
+                    <div class="spanish-meaning">${meaningText}</div>
                     ${extraComponentsHtml}
                 </div>
                 ${notesHtml}
@@ -353,17 +332,12 @@ const buildCardFacesHtml = (word) => {
         return { frontHtml, backHtml };
     }
 
-    // =========================================================================
-    // MODALIDAD 3: ESTUDIAR VIENDO DEFINICIÓN
-    // Frente: definición en español (+ categoría opcional)
-    // Reverso: caracter, pinyin y zhuyin (+ opcionales)
-    // =========================================================================
     if (currentStudyMode === 'definicion') {
         const frontHtml = `
             <div class="card-face card-front study-mode-definicion-front">
                 ${categoryBadge}
                 <div class="study-card-body">
-                    <div class="study-prompt-definition">${word.espanol}</div>
+                    <div class="study-prompt-definition">${meaningText}</div>
                 </div>
                 <div class="study-flip-hint">${flipHint}</div>
             </div>
@@ -413,7 +387,6 @@ const renderStudyCard = () => {
     }
 
     const word = studyDeck[studyIndex];
-    // Neutral gray if category is hidden to prevent color clues
     const color = studyShowCategory
         ? ((typeof CATEGORY_COLORS !== 'undefined' && CATEGORY_COLORS[word.categoria]) || 'var(--accent)')
         : '#9E948A';
@@ -428,15 +401,9 @@ const renderStudyCard = () => {
     const nextLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyNext') : 'Siguiente';
     const shuffleLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyShuffle') : 'Mezclar';
 
-    const tabChars = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Characters' : 'Ver Caracteres';
-    const tabPron = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Pronunciation' : 'Ver Pronunciación';
-    const tabDef = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage() === 'en') ? 'View Definition' : 'Ver Definición';
-
-    const modeBadge = currentStudyMode === 'caracteres'
-        ? (tabChars)
-        : currentStudyMode === 'pronunciacion'
-            ? (tabPron)
-            : (tabDef);
+    const tabChars = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabChars') : 'Ver Caracteres';
+    const tabPron = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabPron') : 'Ver Pronunciación';
+    const tabDef = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabDef') : 'Ver Definición';
 
     container.innerHTML = `
         <div class="study-card-meta-bar">
@@ -475,15 +442,15 @@ const renderStudyCard = () => {
 
         <div class="study-bottom-bar">
             <div class="study-modes-tabs">
-                <button class="study-mode-tab ${currentStudyMode === 'caracteres' ? 'active' : ''}" data-study-mode="caracteres" title="Frente: Carácter | Reverso: Pronunciación y Significado">
+                <button class="study-mode-tab ${currentStudyMode === 'caracteres' ? 'active' : ''}" data-study-mode="caracteres">
                     <span class="tab-icon">🀄</span>
                     <span class="tab-text">${tabChars}</span>
                 </button>
-                <button class="study-mode-tab ${currentStudyMode === 'pronunciacion' ? 'active' : ''}" data-study-mode="pronunciacion" title="Frente: Pinyin y Zhuyin | Reverso: Carácter y Significado">
+                <button class="study-mode-tab ${currentStudyMode === 'pronunciacion' ? 'active' : ''}" data-study-mode="pronunciacion">
                     <span class="tab-icon">🗣️</span>
                     <span class="tab-text">${tabPron}</span>
                 </button>
-                <button class="study-mode-tab ${currentStudyMode === 'definicion' ? 'active' : ''}" data-study-mode="definicion" title="Frente: Significado | Reverso: Carácter y Pronunciación">
+                <button class="study-mode-tab ${currentStudyMode === 'definicion' ? 'active' : ''}" data-study-mode="definicion">
                     <span class="tab-icon">📖</span>
                     <span class="tab-text">${tabDef}</span>
                 </button>
@@ -494,7 +461,6 @@ const renderStudyCard = () => {
         </div>
     `;
 
-    // Flip handlers
     const studyCard = document.getElementById('study-card');
     const studyWrapper = document.getElementById('study-card-wrapper');
 
@@ -508,7 +474,6 @@ const renderStudyCard = () => {
         toggleFlip();
     });
 
-    // Navigation handlers
     document.getElementById('study-prev')?.addEventListener('click', () => {
         if (studyIndex > 0) {
             studyIndex--;
@@ -521,7 +486,6 @@ const renderStudyCard = () => {
         renderStudyCard();
     });
 
-    // Bottom bar modes tabs
     container.querySelectorAll('.study-bottom-bar .study-mode-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             const mode = tab.dataset.studyMode;
@@ -536,7 +500,7 @@ const renderStudyCard = () => {
         }
         studyIndex = 0;
         renderStudyCard();
-        showToast('Mazo mezclado aleatoriamente', 'success');
+        showToast(typeof I18N !== 'undefined' ? I18N.t('studyToastShuffled') : 'Mazo mezclado aleatoriamente', 'success');
     });
 };
 
@@ -544,7 +508,6 @@ const renderStudyCard = () => {
  * Initializes listeners for study mode controls (called once).
  */
 const initStudyEventListeners = () => {
-    // Mode tabs (delegated for dynamically rendered bottom bar)
     document.addEventListener('click', (e) => {
         const tab = e.target.closest('.study-mode-tab');
         if (tab && tab.dataset.studyMode) {
@@ -552,7 +515,6 @@ const initStudyEventListeners = () => {
         }
     });
 
-    // Option switches
     const toggleCat = document.getElementById('study-toggle-categoria');
     if (toggleCat) {
         toggleCat.addEventListener('change', (e) => {
@@ -580,7 +542,6 @@ const initStudyEventListeners = () => {
         });
     }
 
-    // Category filter chips (stackable multi-selection)
     const filtersContainer = document.getElementById('study-filters');
     if (filtersContainer) {
         filtersContainer.addEventListener('click', (e) => {
@@ -593,10 +554,8 @@ const initStudyEventListeners = () => {
             } else {
                 let cats = currentStudyCategories.filter(c => c !== 'todos');
                 if (cats.includes(filter)) {
-                    // Deselect
                     cats = cats.filter(c => c !== filter);
                 } else {
-                    // Select
                     cats.push(filter);
                 }
                 if (cats.length === 0) {
@@ -608,7 +567,6 @@ const initStudyEventListeners = () => {
         });
     }
 
-    // Lesson filter chips (stackable multi-selection)
     const lessonFiltersContainer = document.getElementById('study-lesson-filters');
     if (lessonFiltersContainer) {
         lessonFiltersContainer.addEventListener('click', (e) => {
@@ -621,10 +579,8 @@ const initStudyEventListeners = () => {
             } else {
                 let lessons = currentStudyLessons.filter(l => l !== 'todas');
                 if (lessons.includes(lessonFilter)) {
-                    // Deselect
                     lessons = lessons.filter(l => l !== lessonFilter);
                 } else {
-                    // Select
                     lessons.push(lessonFilter);
                 }
                 if (lessons.length === 0) {
@@ -636,12 +592,9 @@ const initStudyEventListeners = () => {
         });
     }
 
-    // Keyboard navigation (Space/Enter: flip; ArrowLeft: prev; ArrowRight: next)
     window.addEventListener('keydown', (e) => {
         const studySection = document.getElementById('section-estudio');
         if (!studySection || !studySection.classList.contains('active')) return;
-
-        // Ignore if user is typing in an input or textarea
         if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName)) return;
 
         if (e.code === 'Space' || e.code === 'Enter') {
@@ -664,7 +617,6 @@ const initStudyEventListeners = () => {
     });
 };
 
-// Initialize listeners on DOMContentLoaded
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initStudyEventListeners);
 } else {

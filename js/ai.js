@@ -1,3 +1,12 @@
+/**
+ * =====================================================
+ * AppChino — ai.js
+ * Integración con Gemini API para análisis de oraciones,
+ * retos de práctica, conversación interactiva y simulación de examen.
+ * Conectado a APP_CONFIG (js/config.js).
+ * =====================================================
+ */
+
 // Helper to check active language for AI interactions
 const isAILangEnglish = () => {
     return (typeof I18N !== 'undefined' && typeof I18N.getLanguage === 'function')
@@ -5,14 +14,18 @@ const isAILangEnglish = () => {
         : (typeof localStorage !== 'undefined' && localStorage.getItem('appchino_lang') === 'en');
 };
 
-/**
- * =====================================================
- * AppChino — ai.js
- * LLM Integration with Gemini API for sentence checking.
- * =====================================================
- */
+const getAILangName = () => {
+    const isEn = isAILangEnglish();
+    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.languages?.available) {
+        const code = isEn ? 'en' : 'es';
+        return APP_CONFIG.languages.available[code]?.aiLangName || (isEn ? 'English' : 'español');
+    }
+    return isEn ? 'English' : 'español';
+};
 
-const GEMINI_API_KEY_STORAGE = 'appchino_gemini_key';
+const GEMINI_API_KEY_STORAGE = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.apiKeyStorageKey)
+    ? APP_CONFIG.ai.apiKeyStorageKey
+    : 'appchino_gemini_key';
 
 /**
  * Gets the stored Gemini API Key
@@ -32,28 +45,58 @@ const setGeminiApiKey = (key) => {
     }
 };
 
+let clientCachedModel = null;
+
+const getCandidateModels = () => {
+    if (typeof APP_CONFIG !== 'undefined' && Array.isArray(APP_CONFIG.ai?.models) && APP_CONFIG.ai.models.length > 0) {
+        return APP_CONFIG.ai.models;
+    }
+    return [
+        'gemini-2.5-flash',
+        'gemini-2.5-flash-lite',
+        'gemini-2.0-flash'
+    ];
+};
+
+/**
+ * Builds the pedagogical system instruction for Taiwan Traditional Mandarin (TOCFL / MTC Dangdai).
+ * @param {'es'|'en'} [langCode]
+ * @returns {object} Gemini systemInstruction object
+ */
+const buildTaiwanSystemInstruction = (langCode = isAILangEnglish() ? 'en' : 'es') => {
+    const text = langCode === 'en'
+        ? `You are a senior professor of Taiwanese Traditional Mandarin (繁體中文 - Taiwan Ministry of Education standard) specialized in the TOCFL proficiency framework and the NTNU Mandarin Training Center curriculum "A Course in Contemporary Chinese" (當代中文課程).
+Pedagogical & Linguistic Rules:
+1. ALWAYS write Chinese strictly in Traditional Characters used in Taiwan (e.g., 臺灣/台灣, 裡, 麵, 點, 買, 學, 語, 請問). Never use Simplified Chinese characters.
+2. ALWAYS use authentic Taiwanese Mandarin vocabulary, grammar, and phrasing (e.g., 捷運, 計程車, 腳踏車, 便當, 手機, 塊 for currency, 禮拜/星期, 服務生, 早安) rather than Mainland China terms.
+3. Provide accurate Hanyu Pinyin with standard tone diacritics (e.g., nǐ hǎo, wǒmen, yí ge / yī gè).
+4. Keep all meta-explanations, translations, and feedback in clear, concise English without nested double quotes inside JSON string values.`
+        : `Eres un profesor titular de Chino Mandarín Tradicional de Taiwán (繁體中文 - estándar del Ministerio de Educación de Taiwán), especialista en el examen oficial TOCFL y el currículo "A Course in Contemporary Chinese" (當代中文課程) del Mandarin Training Center (NTNU).
+Reglas Pedagógicas y Lingüísticas:
+1. Escribe el chino SIEMPRE en caracteres tradicionales estándar de Taiwán (ej. 臺灣/台灣, 裡, 麵, 點, 買, 學, 語, 請問). Prohibido usar caracteres simplificados.
+2. Utiliza SIEMPRE léxico, gramática y modismos propios de Taiwán (ej. 捷運, 計程車, 腳踏車, 便當, 手機, 塊 para moneda, 禮拜/星期, 服務生, 早安) en lugar de términos de China continental.
+3. Escribe el Hanyu Pinyin con marcas tonales diacríticas precisas (ej. nǐ hǎo, wǒmen).
+4. Redacta todas las explicaciones, traducciones y retroalimentación en español claro y conciso, sin usar comillas dobles anidadas dentro de valores de texto JSON.`;
+
+    return {
+        parts: [{ text }]
+    };
+};
+
 /**
  * Centralized caller for Gemini API.
  * Uses /api/gemini (serverless proxy on Vercel) if available to protect API key,
  * falling back to client-side localStorage key if running locally or standalone.
  * 
- * @param {object} body - Request payload with contents and generationConfig
- * @param {string} model - Target Gemini model name
+ * @param {object} body - Request payload with contents, systemInstruction and generationConfig
+ * @param {string} [model] - Target Gemini model name
  * @returns {Promise<string>} The raw text response from the first candidate
  */
-let clientCachedModel = null;
-
-const CLIENT_CANDIDATE_MODELS = [
-    'gemini-3.8-flash',
-    'gemini-3.5-flash-lite',
-    'gemini-3.1-flash-lite',
-    'gemini-2.5-flash-lite'
-];
-
-const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
+const callGeminiAPI = async (body, model) => {
+    const candidates = getCandidateModels();
     const localKey = getGeminiApiKey();
     const isLocalFile = window.location.protocol === 'file:';
-    const targetModel = clientCachedModel || model;
+    const targetModel = clientCachedModel || model || candidates[0];
 
     // 1. If not running directly from a file:// URL, try the /api/gemini proxy first
     if (!isLocalFile) {
@@ -99,11 +142,15 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
 
     // 2. Client-side direct fallback using localKey from localStorage
     if (!localKey) {
-        throw new Error("No hay clave de API configurada. Configura la variable GEMINI_API_KEY en Vercel o en tu navegador.");
+        throw new Error(
+            isAILangEnglish()
+                ? "No Gemini API key configured. Set GEMINI_API_KEY in Vercel or enter your key in Settings."
+                : "No hay clave de API configurada. Configura la variable GEMINI_API_KEY en Vercel o ingresa tu clave en Configuración."
+        );
     }
 
     let initialModel = clientCachedModel || targetModel;
-    const clientQueue = [initialModel, ...CLIENT_CANDIDATE_MODELS.filter(m => m !== initialModel)];
+    const clientQueue = [initialModel, ...candidates.filter(m => m !== initialModel)];
 
     for (const currentModel of clientQueue) {
         try {
@@ -149,10 +196,9 @@ const callGeminiAPI = async (body, model = 'gemini-3.8-flash') => {
 
 /**
  * Clean helper to extract and parse JSON from LLM responses without mangling quotes.
- * Removes markdown code fences, isolates outer JSON bounds, and handles trailing commas.
  * 
  * @param {string} text - Raw output from LLM
- * @returns {object|null} Parsed JSON object
+ * @returns {object|Array|null} Parsed JSON object
  */
 const safeParseJSON = (text) => {
     if (!text || typeof text !== 'string') return null;
@@ -191,33 +237,20 @@ const safeParseJSON = (text) => {
     try {
         return JSON.parse(clean);
     } catch (err1) {
-        // Multi-stage auto-repair for Gemini formatting defects
         let s = clean;
-
-        // Stage A: Remove trailing commas before closing braces or brackets
         s = s.replace(/,\s*([\]}])/g, '$1');
-
-        // Stage B: Missing commas between adjacent objects: } { -> }, {
         s = s.replace(/}\s*\{/g, '}, {');
-
-        // Stage C: Missing commas between adjacent arrays: ] [ -> ], [
         s = s.replace(/]\s*\[/g, '], [');
-
-        // Stage D: Missing commas between strings in array: "A"\n"B" (not a key followed by :)
         s = s.replace(/(?<=")\s*\n\s*(?="(?![\w\s]+":))/g, ',\n');
-
-        // Stage E: Missing comma after property value before next property key
         s = s.replace(/("|\d+|true|false|null|\]|\})\s*\n\s*(?="[\w]+":)/g, '$1,\n');
 
         try {
             return JSON.parse(s);
         } catch (_) {}
 
-        // Stage F: Balance unclosed braces or brackets in case of token boundary truncation
         let openBraces = (s.match(/\{/g) || []).length - (s.match(/\}/g) || []).length;
         let openBrackets = (s.match(/\[/g) || []).length - (s.match(/\]/g) || []).length;
 
-        // If an odd number of unescaped quotes, close the open string
         const quotes = (s.match(/(?<!\\)"/g) || []).length;
         if (quotes % 2 !== 0) {
             s += '"';
@@ -259,6 +292,7 @@ const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
 
         const explicacion = extractField('explicacion');
         const correccion = extractField('correccion');
+        const pinyin = extractField('pinyin');
         const traduccion = extractField('traduccion');
 
         if (explicacion || correccion) {
@@ -266,6 +300,7 @@ const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
                 correcta,
                 explicacion: explicacion || (correcta ? 'La oración es sintácticamente correcta.' : 'Requiere revisión o ajuste.'),
                 correccion: correccion || defaultSentence,
+                pinyin: pinyin || '',
                 traduccion: traduccion || ''
             };
         }
@@ -276,70 +311,90 @@ const parseSentenceCheckFallback = (rawText, defaultSentence = '') => {
 };
 
 /**
- * Calls Gemini to analyze a sentence.
- * Constrained with responseSchema, strict quote rules, and tight token limit (200 tokens)
- * to deliver ultra-short, deterministic explanations without syntax breakage.
+ * Helper to format learned grammar structures with their real property names
+ * (nombre, formula, ejemplo_tradicional, notas).
+ * @param {Array<object>} structures
+ * @param {number} [limit=30]
+ * @returns {string}
+ */
+const formatStructuresForPrompt = (structures, limit = 30) => {
+    if (!Array.isArray(structures) || structures.length === 0) {
+        return 'Estructuras elementales de mandarín tradicional (S + 是 + O, S + 很 + Adj, S + 在 + Lugar + V).';
+    }
+    return structures
+        .slice(0, limit)
+        .map(s => {
+            const name = s.nombre || s.patron || 'Estructura';
+            const formula = s.formula ? `[Fórmula: ${s.formula}]` : '';
+            const ex = s.ejemplo_tradicional ? `(Ej: ${s.ejemplo_tradicional})` : '';
+            const note = s.notas || s.explicacion ? `— ${s.notas || s.explicacion}` : '';
+            return `- ${name} ${formula} ${ex} ${note}`.trim();
+        })
+        .join('\n');
+};
+
+/**
+ * 1. ANALIZADOR DE ORACIONES (Constructor)
+ * Evalúa sintaxis (S + Tiempo + Lugar + V + O), uso de clasificadores, partículas,
+ * adverbios (很, 都, 也, 不, 沒) y naturalidad en el mandarín de Taiwán.
  * 
  * @param {string} sentence - The traditional Chinese sentence to check
  * @returns {Promise<Object>} The parsed JSON result
  */
 const checkSentenceWithGemini = async (sentence) => {
     const isEn = isAILangEnglish();
-    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan). Briefly evaluate this sentence: "${sentence}"
+    const langName = getAILangName();
 
-Your response must be EXCLUSIVELY the JSON object with nothing before or after.
-Start directly with the character { and end with }. NEVER include introductory text (such as 'Here is the JSON') or markdown formatting.
+    const prompt = isEn
+        ? `Evaluate the following sentence constructed by a student of Taiwanese Traditional Mandarin:
+Sentence: "${sentence}"
 
-Required format:
-{
-  "correcta": true or false,
-  "explicacion": "A single short sentence in English",
-  "correccion": "Corrected sentence in traditional Chinese",
-  "traduccion": "English translation"
-}
+Evaluation Checklist:
+1. Word Order: Check Mandarin syntax (Subject + Time + Place + Adverb + Verb + Object / Complement).
+2. Adjectives & Linking Verbs: Ensure predicative adjectives use a degree adverb like 很 instead of 是 (unless emphatic), and nouns use 是.
+3. Measure Words (Classifiers): Verify that numerals/demonstratives (這, 那, 幾 + number) use the appropriate Taiwanese classifier (e.g. 個, 位, 本, 杯, 支, 家, 碗, 張).
+4. Particles & Negation: Check proper usage of 的, 了, 嗎, 呢, 吧, and negation (不 vs 沒/沒有 with 有).
 
-STRICT RULES:
-1. FORBIDDEN to use quotation marks (neither double " nor single ') inside text values. Mention words or characters directly without quotes (example: The word 你 is unnecessary here).
-2. "explicacion" MUST be ONE short sentence in English (maximum 15 words).
-3. "traduccion" MUST be in English.
-4. Return only the JSON object with nothing else.` : `Profesor de chino mandarín tradicional (Taiwán). Evalúa brevemente esta oración: "${sentence}"
+Rules for response fields:
+- "correcta": true if grammatically sound and natural in Taiwan; false if it has syntax, classifier, or lexical errors.
+- "explicacion": 1 concise pedagogical sentence in English (max 25 words) explaining why it is right or the exact grammar rule to fix. Do NOT use double quotes inside the string.
+- "correccion": The best natural version in Traditional Chinese (identical to input if already perfect).
+- "pinyin": Hanyu Pinyin with tone marks for "correccion".
+- "traduccion": Natural English translation of the sentence.`
+        : `Evalúa la siguiente oración construida por un estudiante de Mandarín Tradicional de Taiwán:
+Oración: "${sentence}"
 
-Tu respuesta debe ser EXCLUSIVAMENTE el objeto JSON sin nada antes ni después.
-Comienza directamente con el carácter { y termina con }. NUNCA incluyas frases introductorias (como 'Here is the JSON') ni formato markdown.
+Criterios de evaluación:
+1. Orden sintáctico: Verifica el orden en mandarín (Sujeto + Tiempo + Lugar + Adverbio + Verbo + Objeto / Complemento).
+2. Adjetivos y verbo copulativo: Verifica que los adjetivos predicativos usen adverbio de grado (ej. 很) en lugar de 是, y que 是 se use para vincular sustantivos.
+3. Clasificadores: Verifica que numerales y demostrativos (這, 那, 幾) lleven el clasificador taiwanés adecuado (個, 位, 本, 杯, 支, 家, 碗, 張).
+4. Partículas y negación: Verifica el uso correcto de 的, 了, 嗎, 呢, 吧 y la diferencia entre 不 y 沒 (ej. 沒有).
 
-Formato requerido:
-{
-  "correcta": true o false,
-  "explicacion": "Una sola oración breve",
-  "correccion": "Oración en caracteres tradicionales",
-  "traduccion": "Traducción en español"
-}
-
-REGLAS ESTRICTAS:
-1. PROHIBIDO usar comillas (ni dobles " ni simples ') dentro de los valores de texto. Para mencionar palabras o caracteres escríbelos directamente sin comillas (ejemplo: La palabra 你 es innecesaria aquí).
-2. "explicacion" DEBE ser de UNA SOLA oración corta (máximo 15 palabras).
-3. Devuelve únicamente el objeto JSON sin nada más.`;
+Reglas de los campos de respuesta:
+- "correcta": true si es gramaticalmente correcta y natural en Taiwán; false si presenta errores de orden, clasificador o vocabulario.
+- "explicacion": 1 oración pedagógica concisa en ${langName} (máximo 25 palabras) explicando el acierto o la regla exacta a corregir. PROHIBIDO usar comillas dobles dentro del texto.
+- "correccion": La versión más natural en chino tradicional (igual a la original si ya es perfecta).
+- "pinyin": Pinyin con marcas tonales de la versión corregida.
+- "traduccion": Traducción natural al ${langName}.`;
 
     const body = {
-        contents: [
-            {
-                parts: [{ text: prompt }]
-            }
-        ],
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
+        contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
             responseSchema: {
                 type: "OBJECT",
                 properties: {
                     correcta: { type: "BOOLEAN" },
-                    explicacion: { type: "STRING", description: isEn ? "Single brief sentence in English of max 15 words, without quotes." : "Una sola oración breve de máximo 15 palabras, sin comillas." },
-                    correccion: { type: "STRING", description: "Oración corregida en chino tradicional." },
-                    traduccion: { type: "STRING", description: isEn ? "English translation." : "Traducción en español." }
+                    explicacion: { type: "STRING" },
+                    correccion: { type: "STRING" },
+                    pinyin: { type: "STRING" },
+                    traduccion: { type: "STRING" }
                 },
-                required: ["correcta", "explicacion", "correccion", "traduccion"]
+                required: ["correcta", "explicacion", "correccion", "pinyin", "traduccion"]
             },
-            temperature: 0.1,
-            maxOutputTokens: 2048
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.sentenceCheck) || 0.1,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.sentenceCheck) || 1024
         }
     };
 
@@ -357,8 +412,9 @@ REGLAS ESTRICTAS:
         if (!parsed || typeof parsed !== 'object') {
             parsed = parseSentenceCheckFallback(candidate, sentence) || {
                 correcta: false,
-                explicacion: 'No se pudo evaluar detalladamente la oración.',
+                explicacion: isEn ? 'Could not evaluate the sentence in detail.' : 'No se pudo evaluar detalladamente la oración.',
                 correccion: sentence,
+                pinyin: '',
                 traduccion: ''
             };
         }
@@ -371,8 +427,7 @@ REGLAS ESTRICTAS:
 };
 
 /**
- * Generates 5 sentence challenges in Spanish based strictly on provided Chinese vocabulary
- * and 5 target structures.
+ * 2. GENERADOR DE RETOS DE PRÁCTICA (5 oraciones basadas en estructuras y vocabulario)
  * 
  * @param {Array<string>} words - Focused list of traditional Chinese words known by the user
  * @param {Array<object>} structures - List of 5 structures ({ id, nombre, formula })
@@ -380,62 +435,47 @@ REGLAS ESTRICTAS:
  */
 const generatePracticeChallengesWithGemini = async (words, structures) => {
     const isEn = isAILangEnglish();
-    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan - MTC Dangdai pedagogical standard).
-Formulate exactly 5 brief translation challenges in natural English to be written in traditional Chinese, assigning exactly one structure to each challenge.
+    const langName = getAILangName();
 
-Student reference vocabulary:
+    const prompt = `Formulate exactly 5 translation challenges in natural ${langName} for the student to translate into Taiwanese Traditional Chinese (繁體中文).
+Assign exactly one target structure from the list below to each challenge (preserving its exact "id" in "estructura_id").
+
+Student's known vocabulary (use ONLY these words or elementary pronouns/numbers):
 ${words.join(', ')}
 
-Target structures:
+Target structures (1 per challenge):
 ${JSON.stringify(structures, null, 2)}
 
-Requirements:
-1. Exactly 5 challenges (id: 1 to 5).
-2. Each challenge must be a sentence in natural everyday English requiring the assigned structure.
-3. "pista" must be a brief syntactic hint in English.
-4. "vocabulario_clave" must be a list of 2 to 4 key words in traditional Chinese.
-
-Return ONLY a JSON array with the 5 objects:
-[
-  {
-    "id": 1,
-    "estructura_id": "id_structure",
-    "instruccion_espanol": "Sentence in English",
-    "vocabulario_clave": ["詞1", "詞2"],
-    "pista": "Brief hint in English"
-  }
-]` : `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
-Formula exactamente 5 retos breves de traducción al español para escribir en chino tradicional, asignando exactamente una estructura a cada reto.
-
-Vocabulario de referencia del alumno:
-${words.join(', ')}
-
-Estructuras objetivo:
-${JSON.stringify(structures, null, 2)}
-
-Requisitos:
-1. Exactamente 5 retos (id: 1 al 5).
-2. Cada reto debe ser una oración en español natural y cotidiana que requiera la estructura asignada.
-3. "pista" debe ser un recordatorio sintáctico breve.
-4. "vocabulario_clave" debe ser una lista de 2 a 4 palabras clave en chino tradicional.
-
-Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
-[
-  {
-    "id": 1,
-    "estructura_id": "id_estructura",
-    "instruccion_espanol": "Oración en español",
-    "vocabulario_clave": ["詞1", "詞2"],
-    "pista": "Pista breve"
-  }
-]`;
+Pedagogical requirements:
+1. Create 5 everyday Taiwanese scenarios (id: 1 to 5).
+2. "instruccion_espanol" must be the natural sentence in ${langName} to translate into Chinese.
+3. "pista" must be a brief grammatical hint in ${langName} reminding how to apply the formula.
+4. "vocabulario_clave" must list 2 to 4 relevant Traditional Chinese words from the student's vocabulary.`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.3,
-            maxOutputTokens: 2048
+            responseSchema: {
+                type: "ARRAY",
+                items: {
+                    type: "OBJECT",
+                    properties: {
+                        id: { type: "INTEGER" },
+                        estructura_id: { type: "STRING" },
+                        instruccion_espanol: { type: "STRING" },
+                        vocabulario_clave: {
+                            type: "ARRAY",
+                            items: { type: "STRING" }
+                        },
+                        pista: { type: "STRING" }
+                    },
+                    required: ["id", "estructura_id", "instruccion_espanol", "vocabulario_clave", "pista"]
+                }
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.practiceGen) || 0.35,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.practiceGen) || 2048
         }
     };
 
@@ -449,53 +489,50 @@ Devuelve ÚNICAMENTE un array JSON con los 5 objetos:
 };
 
 /**
- * Evaluates student answers for sentence practice challenges.
+ * 3. EVALUADOR DE RETOS DE PRÁCTICA
  * 
  * @param {Array<object>} submissions - Array of objects with { id, instruccion_espanol, formula, respuesta_estudiante }
  * @returns {Promise<Array<object>>} Evaluation results
  */
 const evaluatePracticeAnswersWithGemini = async (submissions) => {
     const isEn = isAILangEnglish();
-    const prompt = isEn ? `Traditional Mandarin Chinese teacher (Taiwan - MTC Dangdai pedagogical standard).
-Evaluate the answers for the following sentence construction/translation exercises. Be concise and direct (maximum 1-2 sentences in explanation).
+    const langName = getAILangName();
 
-Exercises and submitted answers:
+    const prompt = `Evaluate the student's Traditional Chinese translations for the following exercises.
+Verify both semantic accuracy against the prompt and adherence to the required grammar formula.
+
+Exercises and student submissions:
 ${JSON.stringify(submissions, null, 2)}
 
-Return ONLY a JSON array with evaluation objects (one for each submitted item, preserving the same "id"):
-[
-  {
-    "id": 1,
-    "correcta": true,
-    "explicacion": "Concise explanation in English (1-2 sentences maximum)",
-    "correccion": "In traditional Chinese characters",
-    "pinyin": "Pinyin with tone marks",
-    "traduccion": "English translation"
-  }
-]` : `Profesor de chino mandarín tradicional (Taiwán - estándar pedagógico MTC Dangdai).
-Evalúa las respuestas de los siguientes ejercicios de construcción/traducción. Sé conciso y directo al grano (máximo 1-2 oraciones en explicación).
-
-Ejercicios y respuestas entregadas:
-${JSON.stringify(submissions, null, 2)}
-
-Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada elemento entregado, conservando el mismo "id"):
-[
-  {
-    "id": 1,
-    "correcta": true,
-    "explicacion": "Explicación concisa (1-2 oraciones máximo)",
-    "correccion": "En caracteres tradicionales",
-    "pinyin": "Pinyin con marcas de tono",
-    "traduccion": "Traducción al español"
-  }
-]`;
+For each submission (preserving the exact "id"):
+- "correcta": true if accurate and uses the target structure properly, false otherwise.
+- "explicacion": Constructive feedback in ${langName} (1-2 concise sentences).
+- "correccion": Ideal sentence in Taiwanese Traditional Chinese.
+- "pinyin": Hanyu Pinyin with tone marks.
+- "traduccion": Translation in ${langName}.`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.1,
-            maxOutputTokens: 2048
+            responseSchema: {
+                type: "ARRAY",
+                items: {
+                    type: "OBJECT",
+                    properties: {
+                        id: { type: "INTEGER" },
+                        correcta: { type: "BOOLEAN" },
+                        explicacion: { type: "STRING" },
+                        correccion: { type: "STRING" },
+                        pinyin: { type: "STRING" },
+                        traduccion: { type: "STRING" }
+                    },
+                    required: ["id", "correcta", "explicacion", "correccion", "pinyin", "traduccion"]
+                }
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.practiceEval) || 0.1,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.practiceEval) || 2048
         }
     };
 
@@ -509,8 +546,7 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
 };
 
 /**
- * Initiates an interactive real-life Chinese dialogue simulation tailored to known words and structures.
- * Optionally focuses on specific target structures (up to 5) that must be practiced during the dialogue.
+ * 4. SIMULADOR DE CONVERSACIÓN EN VIVO — Inicio de Diálogo
  * 
  * @param {Array<string>} words - List of known traditional Chinese vocabulary
  * @param {Array<object>} structures - List of all structures ({ nombre, formula })
@@ -519,59 +555,64 @@ Devuelve ÚNICAMENTE un array JSON con los objetos de evaluación (uno por cada 
  */
 const startConversationWithGemini = async (words, structures, targetStructures = []) => {
     const isEn = isAILangEnglish();
-    const langName = isEn ? 'English' : 'español';
-    const structSummary = Array.isArray(structures) && structures.length > 0
-        ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
-        : 'Estructuras elementales de mandarín';
+    const langName = getAILangName();
+    const structSummary = formatStructuresForPrompt(structures, 30);
 
     let targetSection = '';
     if (Array.isArray(targetStructures) && targetStructures.length > 0) {
         const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
         targetSection = `
-TARGET STRUCTURES TO GUIDE THE CONVERSATION (NATURAL INVITATION):
-The student aims to practice these structures during this session:
+PRIORITY TARGET STRUCTURES FOR THIS SESSION:
+The student specifically selected these structures to practice:
 ${targetList}
-Lead the conversation naturally so the student can use them spontaneously.
-`;
+Design the scenario and your opening line so the student is naturally invited to reply using one of these structures right away.`;
     }
 
-    const prompt = `You are a conversational partner and tutor in Traditional Chinese (Taiwan - MTC Dangdai pedagogical standard).
-Create the start of a realistic, natural everyday conversation in Taiwan.
-Language for pedagogical notes/context: ${langName}.
+    const prompt = `Design the start of an engaging, realistic everyday conversation in Taiwan (e.g., ordering at a tea shop, meeting a classmate at NTNU, asking directions at an MRT station, shopping at a night market).
+Language for scenario context and user role: ${langName}.
 
-STUDENT ADAPTIVE LEVEL:
-The student's level is defined by their known vocabulary and learned grammar structures listed below.
-Known words:
-${words.join(', ')}
+STUDENT LEVEL & VOCABULARY:
+Use ONLY words from the student's known vocabulary below (plus basic courtesy expressions like 請問, 你好, 謝謝):
+${words.slice(0, 180).join(', ')}
 
-Learned grammar structures:
+LEARNED GRAMMAR STRUCTURES:
 ${structSummary}
 ${targetSection}
 
-RULES:
-1. Speak only in natural Traditional Chinese (繁體中文) appropriate for the student's level.
-2. Keep sentences clear, authentic, and of moderate length.
-3. This is a plain, natural conversation. Do NOT generate translations or turn goals.
-4. The interlocutor opens the dialogue with a natural first message (greeting or situation opener in Traditional Chinese + pinyin).
-
-Return ONLY a valid JSON object:
-{
-  "contexto": "Concise scenario description in ${langName}",
-  "rol_usuario": "User role in ${langName} (e.g. Exchange student)",
-  "interlocutor": "Partner name (e.g. 安同, 美玲)",
-  "inicia_ai": true,
-  "primer_mensaje": {
-    "texto": "Opening greeting / sentence in Traditional Chinese",
-    "pinyin": "Pinyin with tones"
-  }
-}`;
+Requirements:
+1. "contexto": Brief setting description in ${langName} (1-2 sentences).
+2. "rol_usuario": Student's role in ${langName} (e.g., Estudiante de intercambio en Taipéi / Exchange student in Taipei).
+3. "interlocutor": Taiwanese partner name + role (e.g., 陳美玲 (Compañera taiwanesa) or 林老闆 (Dueño de tienda de té)).
+4. "inicia_ai": true.
+5. "primer_mensaje":
+   - "texto": Natural opening greeting and question in Traditional Chinese (繁體中文) adapted to the student's vocabulary.
+   - "pinyin": Hanyu Pinyin with tone marks for "texto".`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.3,
-            maxOutputTokens: 2048
+            responseSchema: {
+                type: "OBJECT",
+                properties: {
+                    contexto: { type: "STRING" },
+                    rol_usuario: { type: "STRING" },
+                    interlocutor: { type: "STRING" },
+                    inicia_ai: { type: "BOOLEAN" },
+                    primer_mensaje: {
+                        type: "OBJECT",
+                        properties: {
+                            texto: { type: "STRING" },
+                            pinyin: { type: "STRING" }
+                        },
+                        required: ["texto", "pinyin"]
+                    }
+                },
+                required: ["contexto", "rol_usuario", "interlocutor", "inicia_ai", "primer_mensaje"]
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.convoStart) || 0.4,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.convoStart) || 2048
         }
     };
 
@@ -584,86 +625,107 @@ Return ONLY a valid JSON object:
     }
 };
 
+/**
+ * 5. SIMULADOR DE CONVERSACIÓN EN VIVO — Continuación y Evaluación por Turno
+ */
 const continueConversationWithGemini = async (contexto, history, userReply, words, structures, targetStructures = []) => {
     const isEn = isAILangEnglish();
-    const langName = isEn ? 'English' : 'español';
-    const structSummary = Array.isArray(structures) && structures.length > 0
-        ? structures.map(s => `${s.nombre || ''}: ${s.formula || ''}`).filter(Boolean).join(' | ')
-        : 'Estructuras elementales de mandarín';
+    const langName = getAILangName();
+    const structSummary = formatStructuresForPrompt(structures, 25);
+
+    const userTurnsCount = Array.isArray(history)
+        ? history.filter(h => h.emisor === 'Estudiante').length
+        : 1;
 
     let targetContinueSection = '';
     if (Array.isArray(targetStructures) && targetStructures.length > 0) {
-        const targetList = targetStructures.map(s => `- ${s.nombre}: ${s.formula}`).join('\n');
+        const targetList = targetStructures.map(s => `- ${s.nombre} (${s.formula})`).join('\n');
         targetContinueSection = `
-TARGET STRUCTURES:
+TARGET STRUCTURES SELECTED BY STUDENT:
 ${targetList}
-Guide the dialogue naturally so remaining structures can be practiced.
-`;
+Check which of these structures the student has already practiced in the history, and steer your next question naturally so they can practice any remaining ones before concluding.`;
     }
 
-    const prompt = `You are a conversational partner and tutor in Traditional Chinese (Taiwan - MTC Dangdai standard).
-You are in a natural, plain everyday conversation with a student.
-Language for comments and feedback: ${langName}.
+    const prompt = `Continue the interactive Taiwanese Mandarin conversation and evaluate the student's latest message.
+Language for feedback and summary: ${langName}.
 
-Context:
-${contexto}
+Scenario context: ${contexto}
+Completed student turns so far: ${userTurnsCount}
 
-Recent conversation history:
+Recent dialogue history:
 ${JSON.stringify(history.slice(-8), null, 2)}
 
-Latest message received from student:
+Student's latest message to evaluate:
 "${userReply}"
 
-Student vocabulary:
-${words.join(', ')}
+Student's known vocabulary:
+${words.slice(0, 180).join(', ')}
 
-Student grammar structures:
+Learned grammar structures:
 ${structSummary}
 ${targetContinueSection}
 
-Tasks:
-1. Evaluate student's message:
-   - "correcta": boolean
-   - "estado": "correcta" | "mejorable" | "error"
-   - "comentario": brief constructive feedback in ${langName} (1-2 sentences)
-   - "correccion": natural Traditional Chinese sentence adapted to their level (same text if already correct)
-   - "pinyin": pinyin with tones for the correction
-2. Decide if the conversation should conclude ("terminada": true or false, after 3-5 user turns or when reaching a natural conclusion).
-3. If terminada is false:
-   - "respuesta_interlocutor": { "texto": "natural reply in Traditional Chinese", "pinyin": "pinyin with tones" }
-   - Plain conversation: NO translation, NO user goals/instructions.
-4. If terminada is true:
-   - "respuesta_interlocutor": { "texto": "farewell in Traditional Chinese", "pinyin": "pinyin with tones" }
-   - "evaluacion_final": {
-       "puntuacion": "Score (e.g. 9/10)",
-       "resumen": "Brief overall summary in ${langName}",
-       "puntos_fuertes": ["Strength 1 in ${langName}", "Strength 2 in ${langName}"],
-       "consejos": ["Suggestion in ${langName}"]
-     }
-
-Return ONLY a valid JSON object:
-{
-  "evaluacion_usuario": {
-    "correcta": true,
-    "estado": "correcta",
-    "comentario": "...",
-    "correccion": "...",
-    "pinyin": "..."
-  },
-  "terminada": false,
-  "respuesta_interlocutor": {
-    "texto": "...",
-    "pinyin": "..."
-  },
-  "evaluacion_final": null
-}`;
+Instructions:
+1. Evaluate the student's latest message in "evaluacion_usuario":
+   - "correcta": true if grammatically valid and contextually coherent, false if it has errors.
+   - "estado":
+     * "correcta" if natural and grammatically accurate.
+     * "mejorable" if understandable and coherent, but slightly unnatural or missing a minor nuance/classifier.
+     * "error" if grammatically broken, off-topic, or not in Chinese.
+   - "comentario": Specific, encouraging feedback in ${langName} (1-2 sentences) explaining grammar/vocabulary usage.
+   - "correccion": Best natural phrasing in Traditional Chinese for what the student wanted to say.
+   - "pinyin": Hanyu Pinyin with tone marks for "correccion".
+2. Decide whether the conversation should conclude ("terminada": true or false):
+   - Keep "terminada": false for the first 3 student turns.
+   - Set "terminada": true after 4 to 5 student turns (or once all target structures have been practiced and the dialogue reaches a natural closing).
+3. In "respuesta_interlocutor":
+   - If "terminada" is false: reply naturally in Traditional Chinese + Pinyin, asking a follow-up question that keeps the dialogue flowing within the student's vocabulary.
+   - If "terminada" is true: give a warm, natural farewell in Traditional Chinese + Pinyin, and populate "evaluacion_final" with "puntuacion" (e.g. "9/10"), "resumen", "puntos_fuertes" (2 items), and "consejos" (1-2 actionable tips) in ${langName}.`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.2,
-            maxOutputTokens: 2048
+            responseSchema: {
+                type: "OBJECT",
+                properties: {
+                    evaluacion_usuario: {
+                        type: "OBJECT",
+                        properties: {
+                            correcta: { type: "BOOLEAN" },
+                            estado: { type: "STRING", enum: ["correcta", "mejorable", "error"] },
+                            comentario: { type: "STRING" },
+                            correccion: { type: "STRING" },
+                            pinyin: { type: "STRING" }
+                        },
+                        required: ["correcta", "estado", "comentario", "correccion", "pinyin"]
+                    },
+                    terminada: { type: "BOOLEAN" },
+                    respuesta_interlocutor: {
+                        type: "OBJECT",
+                        properties: {
+                            texto: { type: "STRING" },
+                            pinyin: { type: "STRING" }
+                        },
+                        required: ["texto", "pinyin"]
+                    },
+                    evaluacion_final: {
+                        type: "OBJECT",
+                        nullable: true,
+                        properties: {
+                            puntuacion: { type: "STRING" },
+                            resumen: { type: "STRING" },
+                            puntos_fuertes: { type: "ARRAY", items: { type: "STRING" } },
+                            consejos: { type: "ARRAY", items: { type: "STRING" } }
+                        },
+                        required: ["puntuacion", "resumen", "puntos_fuertes", "consejos"]
+                    }
+                },
+                required: ["evaluacion_usuario", "terminada", "respuesta_interlocutor"]
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.convoContinue) || 0.25,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.convoContinue) || 2560
         }
     };
 
@@ -676,97 +738,169 @@ Return ONLY a valid JSON object:
     }
 };
 
+/**
+ * 6. GENERADOR DE SIMULACIÓN DE EXAMEN OFICIAL (Fases 3 a 7)
+ * Inmersión 100% en Chino Tradicional de Taiwán (estilo TOCFL Band A).
+ */
 const generateExamAIData = async (wordsList, structuresList) => {
-    const wordsSummary = wordsList.slice(0, 150).map(w => w.tradicional).join(', ');
-    const structuresSummary = structuresList.slice(0, 25).map(s => `- ${s.patron} (${s.explicacion})`).join('\n');
+    const wordsByCat = {};
+    wordsList.slice(0, 180).forEach(w => {
+        if (!w || !w.tradicional) return;
+        const cat = w.categoria || 'vocabulario';
+        if (!wordsByCat[cat]) wordsByCat[cat] = [];
+        wordsByCat[cat].push(w.tradicional);
+    });
 
-    const prompt = `Eres un profesor experto de chino mandarín tradicional de Taiwán (繁體中文).
-Estás diseñando una "Simulación de Examen" rigurosa pero justa para un estudiante, compuesta por 5 fases de evaluación.
+    const wordsSummary = Object.entries(wordsByCat)
+        .map(([cat, list]) => `- ${cat}: ${list.join(', ')}`)
+        .join('\n');
 
-REGLAS ABSOLUTAS DE IDIOMA Y CONTENIDO:
-1. IDIOMA 100% EN CHINO TRADICIONAL (繁體中文):
-   - NO incluyas pinyin ni traducciones al español en ninguna de las oraciones, opciones, preguntas, historias o escenarios.
-   - El examen es de inmersión total en chino tradicional de Taiwán (繁體字), exactamente como un examen oficial (TOCFL).
-2. VOCABULARIO Y ESTRUCTURAS:
-   - Todas las oraciones, preguntas e historias deben construirse usando EXCLUSIVAMENTE el vocabulario conocido del estudiante y las estructuras aprendidas a continuación (o vocabulario elemental indispensable de cortesía en Taiwán).
+    const structuresSummary = formatStructuresForPrompt(structuresList, 30);
 
-VOCABULARIO CONOCIDO:
+    const prompt = `Diseña las Fases 3, 4, 5, 6 y 7 de un Examen Oficial Adaptativo estilo TOCFL (Test of Chinese as a Foreign Language - Taiwán).
+
+REGLAS ESTRICTAS DE INMERSIÓN Y VOCABULARIO:
+1. INMERSIÓN 100% EN CHINO TRADICIONAL (繁體中文):
+   - Todas las oraciones, opciones, escenarios, preguntas e historia deben estar escritas ÚNICAMENTE en caracteres tradicionales de Taiwán.
+   - NO incluyas pinyin ni traducciones dentro de las oraciones ni opciones del examen.
+2. RESTRICCIÓN LÉXICA ESTRICTA:
+   - Usa EXCLUSIVAMENTE las palabras del vocabulario del estudiante listadas abajo y las estructuras gramaticales aprendidas.
+
+VOCABULARIO CONOCIDO DEL ESTUDIANTE (Agrupado por categoría):
 ${wordsSummary}
 
 ESTRUCTURAS GRAMATICALES APRENDIDAS:
 ${structuresSummary}
 
-DEBES GENERAR LAS SIGUIENTES 5 FASES DEL EXAMEN (TODO EXCLUSIVAMENTE EN CHINO TRADICIONAL, SIN PINYIN Y SIN ESPAÑOL):
+ESPECIFICACIÓN DE CADA FASE A GENERAR:
 
-1. FASE 3 (Completar espacios en blanco - 5 oraciones directas):
-   - 5 oraciones directas donde falta 1 palabra o carácter clave que el alumno debe escribir.
-   - Marca el espacio faltante exactamente con "[ ___ ]".
-   - Cada elemento debe tener:
-     - "id": número 1 a 5
-     - "oracion": oración en chino tradicional con "[ ___ ]" (ej. "我想去夜市 [ ___ ] 珍珠奶茶。")
-     - "palabra_faltante": el carácter o palabra exacta faltante en chino tradicional (ej. "買")
+- "fase3" (Completar espacios en blanco — exactamente 5 reactivos, id: 1..5):
+  * 5 oraciones cotidianas en Taiwán donde falta exactamente 1 palabra clave del vocabulario del alumno, representada por "[ ___ ]".
+  * IMPORTANTE: El contexto de la oración debe hacer inequívoca la palabra faltante (ej. si falta "喝", acompaña con "珍珠奶茶" o "烏龍茶"; si falta un clasificador como "碗", acompaña con "一 [ ___ ] 牛肉麵").
+  * "palabra_faltante" debe ser exactamente la palabra o carácter que va en "[ ___ ]".
 
-2. FASE 4 (Opción múltiple con oraciones complejas - 10 oraciones):
-   - 10 oraciones con "[ ___ ]", basadas en estructuras gramaticales más complejas o compuestas (ej. 因為...所以, 雖然...但是, clasificadores, adverbios o modales).
-   - Ofrece exactamente 3 opciones de respuesta en caracteres tradicionales (A, B, C) por oración.
-   - Cada elemento debe tener:
-     - "id": número 1 a 10
-     - "oracion": oración en chino tradicional con "[ ___ ]"
-     - "opciones": array de exactamente 3 opciones en caracteres tradicionales (ej. ["但是", "因為", "所以"])
-     - "opcion_correcta": string idéntico a una de las 3 opciones
+- "fase4" (Gramática y estructuras complejas — exactamente 10 reactivos, id: 1..10):
+  * 10 oraciones con "[ ___ ]" que evalúen las estructuras gramaticales aprendidas (orden sintáctico, partículas 的/了/嗎/呢, clasificadores, ubicación con 在, negación 不 vs 沒, conectores o modales).
+  * "opciones": array de exactamente 3 opciones en caracteres tradicionales.
+  * IMPORTANTE: Solo 1 opción ("opcion_correcta") debe ser gramatical y semánticamente válida en esa oración; los otros 2 distractores deben ser claramente incorrectos en ese contexto para evitar ambigüedad.
 
-3. FASE 5 (Preguntas abiertas contextuales en 5 escenarios cotidianos):
-   - 5 escenarios realistas de la vida cotidiana en Taiwán descritos brevemente en chino tradicional, y 1 pregunta en chino tradicional para que el usuario responda con una oración simple en chino tradicional.
-   - Cada elemento debe tener:
-     - "id": número 1 a 5
-     - "escenario": contexto breve en chino tradicional (ej. "在夜市飲料攤", "在茶藝館買茶", "在餐廳點菜", "跟朋友約週末時間", "在捷運站問路")
-     - "pregunta": pregunta en chino tradicional (ej. "請問你想喝冰的還是溫的？")
-     - "ejemplo_respuesta": respuesta modelo esperada en chino tradicional (ej. "我想喝冰的珍珠奶茶。")
+- "fase5" (Preguntas abiertas en escenarios reales en Taiwán — exactamente 5 reactivos, id: 1..5):
+  * 5 situaciones cotidianas en Taiwán ("escenario", ej. "在台北捷運站", "在夜市飲料店", "在大學教室", "在茶藝館", "跟台灣朋友聊天").
+  * "pregunta": pregunta natural en chino tradicional dirigida al alumno.
+  * "ejemplo_respuesta": oración completa modelo en chino tradicional que responde a la pregunta usando el vocabulario del alumno.
 
-4. FASE 6 (Uso forzado de banco de 5 caracteres fijos):
-   - Proporciona un banco de exactamente 5 caracteres fijos conocidos (ej. ["想", "很", "在", "不", "都"]).
-   - Genera 5 preguntas en chino tradicional. En cada pregunta, el alumno deberá responder con una oración en chino tradicional que utilice obligatoriamente el carácter asignado.
-   - "banco_caracteres": array de 5 strings con los caracteres elegidos
-   - "preguntas": array de 5 objetos con:
-     - "id": número 1 a 5
-     - "caracter_asignado": el carácter del banco que debe usar el estudiante
-     - "pregunta": pregunta en chino tradicional
-     - "ejemplo_respuesta": respuesta modelo en chino tradicional usando el carácter asignado
+- "fase6" (Banco de 5 caracteres obligatorios — exactamente 5 preguntas, id: 1..5):
+  * "banco_caracteres": selecciona 5 palabras/caracteres versátiles del vocabulario del alumno (ej. verbos, adverbios o partículas como 想, 很, 在, 有, 買, 去, 都, 喜歡).
+  * "preguntas": 5 preguntas en chino tradicional (id: 1..5), cada una asignando uno de los 5 caracteres en "caracter_asignado" y su "ejemplo_respuesta".
 
-5. FASE 7 (Comprensión lectora - Historia corta + 5 V/F + 5 Opción múltiple):
-   - Una historia corta y coherente (aprox. 80-140 caracteres) escrita en chino tradicional taiwanés sobre una situación cotidiana usando las palabras y estructuras del estudiante.
-   - 5 afirmaciones de Verdadero o Falso en chino tradicional.
-   - 5 preguntas de selección múltiple (A, B, C) con 3 opciones en caracteres tradicionales.
-   - "historia": texto de la historia en caracteres tradicionales
-   - "verdadero_falso": array de 5 objetos:
-     - "id": número 1 a 5
-     - "afirmacion": afirmación en chino tradicional
-     - "es_verdadera": boolean (true o false)
-   - "opcion_multiple": array de 5 objetos:
-     - "id": número 1 a 5
-     - "pregunta": pregunta en chino tradicional
-     - "opciones": array de exactamente 3 opciones en caracteres tradicionales
-     - "respuesta_correcta": string idéntico a una de las opciones
-
-Devuelve ÚNICAMENTE un objeto JSON válido con las claves: "fase3", "fase4", "fase5", "fase6", "fase7".
-
-REGLAS OBLIGATORIAS DE FORMATO JSON:
-1. Devuelve EXCLUSIVAMENTE el objeto JSON crudo, sin bloques de código markdown (\`\`\`json) ni texto introductorio o final.
-2. SINTAXIS JSON VÁLIDA Y COMAS OBLIGATORIAS:
-   - CADA elemento dentro de arrays DEBE estar separado obligatoriamente por una coma (,). Ejemplo: ["A", "B", "C"].
-   - CADA objeto dentro de arrays DEBE estar separado por una coma obligatoria (,). Ejemplo: [{"id": 1}, {"id": 2}].
-3. DENTRO DE LOS TEXTOS EN CHINO:
-   - NUNCA uses comillas dobles inglesas (") dentro de oraciones, afirmaciones o preguntas. Si necesitas citar, usa OBLIGATORIAMENTE comillas de esquina tradicionales (« » o 「 」) o comillas simples (' ').
-   - NUNCA escapes corchetes con barras invertidas (usa exactamente [ ___ ], NUNCA \\[ ___ \\]).
-   - NO insertes saltos de línea literales dentro de las cadenas.
-4. Asegúrate de que todas las propiedades, llaves y corchetes estén perfectamente cerrados.`;
+- "fase7" (Comprensión lectora integral — Historia + 5 V/F + 5 Opción múltiple):
+  * "historia": Un relato corto coherente e interesante de 90 a 150 caracteres en chino tradicional sobre la vida de un estudiante o familia en Taiwán, empleando el vocabulario y estructuras conocidas.
+  * "verdadero_falso": 5 afirmaciones (id: 1..5) en chino tradicional basadas directamente en detalles de la historia ("es_verdadera": true o false, balanceando verdaderas y falsas).
+  * "opcion_multiple": 5 preguntas de comprensión (id: 1..5) en chino tradicional sobre la historia, cada una con 3 "opciones" y su "respuesta_correcta" idéntica a una de las 3 opciones.`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction('es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.3,
-            maxOutputTokens: 8192
+            responseSchema: {
+                type: "OBJECT",
+                properties: {
+                    fase3: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                id: { type: "INTEGER" },
+                                oracion: { type: "STRING" },
+                                palabra_faltante: { type: "STRING" }
+                            },
+                            required: ["id", "oracion", "palabra_faltante"]
+                        }
+                    },
+                    fase4: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                id: { type: "INTEGER" },
+                                oracion: { type: "STRING" },
+                                opciones: { type: "ARRAY", items: { type: "STRING" } },
+                                opcion_correcta: { type: "STRING" }
+                            },
+                            required: ["id", "oracion", "opciones", "opcion_correcta"]
+                        }
+                    },
+                    fase5: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                id: { type: "INTEGER" },
+                                escenario: { type: "STRING" },
+                                pregunta: { type: "STRING" },
+                                ejemplo_respuesta: { type: "STRING" }
+                            },
+                            required: ["id", "escenario", "pregunta", "ejemplo_respuesta"]
+                        }
+                    },
+                    fase6: {
+                        type: "OBJECT",
+                        properties: {
+                            banco_caracteres: { type: "ARRAY", items: { type: "STRING" } },
+                            preguntas: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        id: { type: "INTEGER" },
+                                        caracter_asignado: { type: "STRING" },
+                                        pregunta: { type: "STRING" },
+                                        ejemplo_respuesta: { type: "STRING" }
+                                    },
+                                    required: ["id", "caracter_asignado", "pregunta", "ejemplo_respuesta"]
+                                }
+                            }
+                        },
+                        required: ["banco_caracteres", "preguntas"]
+                    },
+                    fase7: {
+                        type: "OBJECT",
+                        properties: {
+                            historia: { type: "STRING" },
+                            verdadero_falso: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        id: { type: "INTEGER" },
+                                        afirmacion: { type: "STRING" },
+                                        es_verdadera: { type: "BOOLEAN" }
+                                    },
+                                    required: ["id", "afirmacion", "es_verdadera"]
+                                }
+                            },
+                            opcion_multiple: {
+                                type: "ARRAY",
+                                items: {
+                                    type: "OBJECT",
+                                    properties: {
+                                        id: { type: "INTEGER" },
+                                        pregunta: { type: "STRING" },
+                                        opciones: { type: "ARRAY", items: { type: "STRING" } },
+                                        respuesta_correcta: { type: "STRING" }
+                                    },
+                                    required: ["id", "pregunta", "opciones", "respuesta_correcta"]
+                                }
+                            }
+                        },
+                        required: ["historia", "verdadero_falso", "opcion_multiple"]
+                    }
+                },
+                required: ["fase3", "fase4", "fase5", "fase6", "fase7"]
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.examGen) || 0.3,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.examGen) || 8192
         }
     };
 
@@ -777,7 +911,6 @@ REGLAS OBLIGATORIAS DE FORMATO JSON:
             if (!parsed || !parsed.fase3 || !parsed.fase4) {
                 throw new Error("El formato del examen generado por Gemini es incompleto.");
             }
-            // Normalize phases to ensure safe defaults
             parsed.fase3 = Array.isArray(parsed.fase3) ? parsed.fase3 : [];
             parsed.fase4 = Array.isArray(parsed.fase4) ? parsed.fase4 : [];
             parsed.fase5 = Array.isArray(parsed.fase5) ? parsed.fase5 : [];
@@ -791,84 +924,91 @@ REGLAS OBLIGATORIAS DE FORMATO JSON:
                 console.error("Error definitivo generando examen con Gemini:", error);
                 throw error;
             }
-            // Pequeña pausa antes del reintento automático
             await new Promise(resolve => setTimeout(resolve, 800));
         }
     }
 };
 
 /**
- * Evaluates the user's free-form answers for Phase 5 and Phase 6 using Gemini.
+ * 7. EVALUADOR DE RESPUESTAS ABIERTAS DEL EXAMEN (Fases 5 y 6)
  */
 const evaluateExamAIAnswers = async (phase5Submissions, phase6Submissions) => {
     const isEn = isAILangEnglish();
-    const langName = isEn ? 'English' : 'español';
-    const prompt = `Eres un profesor evaluador de chino mandarín tradicional de Taiwán (繁體中文).
-Debes evaluar las respuestas escritas por el alumno en dos fases abiertas de su examen.
+    const langName = getAILangName();
 
-CRITERIOS DE CALIFICACIÓN:
-- Fase 5 (Respuestas simples en contexto):
-  - Verifica si la oración responde coherentemente a la pregunta del escenario.
-  - Verifica si es gramaticalmente correcta y natural en mandarín tradicional.
-  - Puntaje: 1.0 (correcta), 0.5 (comprensible pero con pequeños errores léxicos/gramaticales), 0.0 (ininteligible, incorrecta o no responde).
+    const prompt = `Evaluate the student's open-ended Traditional Chinese responses for Phase 5 and Phase 6 of the official exam.
+Write all comments, translations, and the general summary in ${langName}.
 
-- Fase 6 (Uso forzado de carácter del banco):
-  - Verifica si la oración responde coherentemente a la pregunta.
-  - OBLIGATORIO: Verifica si el estudiante incluyó y usó correctamente el "caracter_asignado".
-  - Puntaje: 1.0 (responde y usa correctamente el caracter asignado), 0.5 (responde pero olvidó el caracter o lo usó con error menor), 0.0 (no responde o totalmente incorrecta).
+GRADING RUBRIC:
+- Phase 5 (Contextual Scenarios):
+  * 1.0 pt ("es_correcta": true): Coherently answers the scenario question in grammatically valid Traditional Chinese.
+  * 0.5 pts ("es_correcta": false): Understandable and relevant to the question, but contains minor grammar, word-order, or character errors.
+  * 0.0 pts ("es_correcta": false): Blank, unrelated to the question, or not written in Chinese.
+- Phase 6 (Forced Character Bank):
+  * 1.0 pt ("es_correcta": true, "uso_caracter_banco": true): Coherently answers the question AND properly uses "caracter_asignado".
+  * 0.5 pts ("es_correcta": false): Either answers the question well without "caracter_asignado", OR uses "caracter_asignado" with minor grammatical flaws.
+  * 0.0 pts ("es_correcta": false): Blank, off-topic, or unintelligible.
 
-ENTRADAS A EVALUAR:
-
-Fase 5 (Escenarios cotidianos):
+SUBMISSIONS TO GRADE:
+Phase 5 (Scenarios):
 ${JSON.stringify(phase5Submissions, null, 2)}
 
-Fase 6 (Uso de caracteres del banco):
+Phase 6 (Character Bank):
 ${JSON.stringify(phase6Submissions, null, 2)}
 
-TAREAS:
-1. Evalúa cada respuesta de la Fase 5.
-2. Evalúa cada respuesta de la Fase 6.
-3. Proporciona un breve balance general del desempeño del estudiante.
-
-REGLAS DE FORMATO JSON:
-- Devuelve únicamente el objeto JSON válido.
-- En comentarios o correcciones, nunca uses comillas dobles dentro del texto; usa comillas simples (' ').
-- No uses saltos de línea literales dentro de strings.
-
-Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
-{
-  "fase5_evaluacion": [
-    {
-      "id": 1,
-      "es_correcta": true,
-      "puntaje": 1.0,
-      "comentario": "Feedback constructivo en " + langName + " (1-2 sentences)",
-      "correccion_sugerida": "Oración en caracteres tradicionales",
-      "pinyin_correccion": "Pinyin con tonos",
-      "traduccion_correccion": "Traducción / Translation in " + langName
-    }
-  ],
-  "fase6_evaluacion": [
-    {
-      "id": 1,
-      "es_correcta": true,
-      "uso_caracter_banco": true,
-      "puntaje": 1.0,
-      "comentario": "Feedback constructivo en " + langName,
-      "correccion_sugerida": "Oración en caracteres tradicionales",
-      "pinyin_correccion": "Pinyin con tonos",
-      "traduccion_correccion": "Traducción / Translation in " + langName
-    }
-  ],
-  "resumen_general": "Breve balance pedagógico general en " + langName + " (2 sentences)"
-}`;
+Provide for each item:
+- Constructive pedagogical feedback in "comentario" (${langName}, 1-2 sentences).
+- "correccion_sugerida" in Taiwanese Traditional Chinese (if the student's answer was empty, provide a model answer based on "ejemplo_respuesta").
+- "pinyin_correccion" with tone marks.
+- "traduccion_correccion" in ${langName}.`;
 
     const body = {
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: 0.2,
-            maxOutputTokens: 4000
+            responseSchema: {
+                type: "OBJECT",
+                properties: {
+                    fase5_evaluacion: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                id: { type: "INTEGER" },
+                                es_correcta: { type: "BOOLEAN" },
+                                puntaje: { type: "NUMBER" },
+                                comentario: { type: "STRING" },
+                                correccion_sugerida: { type: "STRING" },
+                                pinyin_correccion: { type: "STRING" },
+                                traduccion_correccion: { type: "STRING" }
+                            },
+                            required: ["id", "es_correcta", "puntaje", "comentario", "correccion_sugerida", "pinyin_correccion", "traduccion_correccion"]
+                        }
+                    },
+                    fase6_evaluacion: {
+                        type: "ARRAY",
+                        items: {
+                            type: "OBJECT",
+                            properties: {
+                                id: { type: "INTEGER" },
+                                es_correcta: { type: "BOOLEAN" },
+                                uso_caracter_banco: { type: "BOOLEAN" },
+                                puntaje: { type: "NUMBER" },
+                                comentario: { type: "STRING" },
+                                correccion_sugerida: { type: "STRING" },
+                                pinyin_correccion: { type: "STRING" },
+                                traduccion_correccion: { type: "STRING" }
+                            },
+                            required: ["id", "es_correcta", "uso_caracter_banco", "puntaje", "comentario", "correccion_sugerida", "pinyin_correccion", "traduccion_correccion"]
+                        }
+                    },
+                    resumen_general: { type: "STRING" }
+                },
+                required: ["fase5_evaluacion", "fase6_evaluacion", "resumen_general"]
+            },
+            temperature: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.temperatures?.examEval) || 0.15,
+            maxOutputTokens: (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ai?.maxTokens?.examEval) || 4096
         }
     };
 
@@ -884,4 +1024,3 @@ Devuelve ÚNICAMENTE un objeto JSON válido con la siguiente estructura:
         throw error;
     }
 };
-

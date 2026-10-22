@@ -2,16 +2,11 @@
  * =====================================================
  * AppChino — pdf.js (Native Print Version)
  * PDF generation via the browser's native print engine.
- *
- * Layout per sheet:
- *   - 6 cards per page (2 columns × 3 rows)
- *   - Page N: FRONT faces (character + pinyin + zhuyin)
- *   - Page N+1: BACK faces (spanish + details), columns
- *     mirrored per row for long-edge duplex printing
+ * Connected to APP_CONFIG & O(1) getWordById.
  * =====================================================
  */
 
-const CARDS_PER_PAGE = 6;
+const getCardsPerPage = () => (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.cardsPerPrintPage) || 6;
 
 /**
  * Gets active Chinese font stack for PDF rendering
@@ -68,10 +63,13 @@ const buildFrontCard = (word, showPinyin = true, showZhuyin = true, showCategory
  */
 const buildBackCard = (word, showCategory = true) => {
     const color = showCategory ? (PDF_COLORS[word.categoria] || '#999') : '#94A3B8';
-    
+    const lookup = (id) => (typeof getWordById === 'function' ? getWordById(id) : getAllWords().find(w => w.id === id));
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+    const getNotes = (w) => (window.I18N && window.I18N.getWordNotes) ? window.I18N.getWordNotes(w) : (w.notas || '');
+
     let clfText = '';
     if (word.clasificador) {
-        const clf = getAllWords().find(w => w.id === word.clasificador);
+        const clf = lookup(word.clasificador);
         clfText = clf ? `${clf.tradicional} (${clf.pinyin})` : word.clasificador;
     }
 
@@ -81,8 +79,8 @@ const buildBackCard = (word, showCategory = true) => {
             radText = word.radicales.map(rad => {
                 if (rad.type === 'text') return rad.value;
                 if (rad.type === 'ref') {
-                    const refWord = getAllWords().find(w => w.id === rad.id);
-                    return refWord ? `${refWord.tradicional} (${refWord.espanol})` : '';
+                    const refWord = lookup(rad.id);
+                    return refWord ? `${refWord.tradicional} (${getMeaning(refWord)})` : '';
                 }
                 return '';
             }).filter(Boolean).join(' + ');
@@ -91,7 +89,10 @@ const buildBackCard = (word, showCategory = true) => {
         }
     }
 
+    const meaningText = getMeaning(word);
+    const notesText = getNotes(word);
     const chineseFont = getPdfChineseFont();
+
     return `
         <div style="
             border: 2px solid #D1D5DB;
@@ -112,7 +113,7 @@ const buildBackCard = (word, showCategory = true) => {
             
             <div style="margin: auto 0; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;">
                 <div style="font-size: 1.35rem; font-weight: 800; color: #0F172A; text-align: center; line-height: 1.25; word-break: break-word;">
-                    ${word.espanol}
+                    ${meaningText}
                 </div>
                 
                 <div style="text-align: center; display: flex; flex-direction: column; align-items: center; gap: 2px;">
@@ -134,9 +135,9 @@ const buildBackCard = (word, showCategory = true) => {
                 ` : ''}
             </div>
 
-            ${word.notas ? `
+            ${notesText ? `
             <div style="font-size: 0.78rem; color: #64748B; text-align: center; margin-top: auto; padding: 6px 8px; line-height: 1.3; font-weight: 500; background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 6px; width: 100%; box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact;">
-                ${word.notas}
+                ${notesText}
             </div>
             ` : ''}
         </div>
@@ -157,8 +158,8 @@ const buildEmptyCard = () => {
  * @returns {string} HTML for one page
  */
 const buildPage = (cardHTMLs) => {
-    // Ensure exactly 6 slots
-    while (cardHTMLs.length < CARDS_PER_PAGE) {
+    const perPage = getCardsPerPage();
+    while (cardHTMLs.length < perPage) {
         cardHTMLs.push(buildEmptyCard());
     }
 
@@ -178,21 +179,29 @@ const buildPage = (cardHTMLs) => {
 
 /**
  * Main export function using window.print()
+ * Supports global selectedExportIds Set (works seamlessly with Lazy Rendering).
  */
 const exportPDF = () => {
-    const checked = document.querySelectorAll('#export-grid input[type="checkbox"]:checked');
-    if (checked.length === 0) {
+    let selectedIds = [];
+    if (window.selectedExportIds && window.selectedExportIds instanceof Set && window.selectedExportIds.size > 0) {
+        selectedIds = Array.from(window.selectedExportIds);
+    } else {
+        const checked = document.querySelectorAll('#export-grid input[type="checkbox"]:checked');
+        selectedIds = Array.from(checked).map(cb => cb.dataset.id);
+    }
+
+    if (selectedIds.length === 0) {
         showToast(typeof I18N !== 'undefined' ? I18N.t('printToastNoSelection') : 'Selecciona al menos una flashcard para exportar', 'error');
         return;
     }
 
-    const selectedIds = Array.from(checked).map(cb => cb.dataset.id);
-    const words = getAllWords().filter(w => selectedIds.includes(w.id));
+    const selectedSet = new Set(selectedIds);
+    const words = getAllWords().filter(w => selectedSet.has(w.id));
+    const perPage = getCardsPerPage();
 
-    // Chunk words into groups of 6
     const chunks = [];
-    for (let i = 0; i < words.length; i += CARDS_PER_PAGE) {
-        chunks.push(words.slice(i, i + CARDS_PER_PAGE));
+    for (let i = 0; i < words.length; i += perPage) {
+        chunks.push(words.slice(i, i + perPage));
     }
 
     const showPinyin = document.getElementById('print-toggle-pinyin').checked;
@@ -201,11 +210,9 @@ const exportPDF = () => {
 
     let pagesHTML = '';
     chunks.forEach(chunk => {
-        // --- FRONT PAGE ---
         const frontCards = chunk.map(w => buildFrontCard(w, showPinyin, showZhuyin, showCategory));
         pagesHTML += buildPage([...frontCards]);
 
-        // --- BACK PAGE (columns mirrored per row for duplex printing) ---
         const backCards = [];
         for (let row = 0; row < 3; row++) {
             const left = chunk[row * 2];
@@ -216,7 +223,6 @@ const exportPDF = () => {
         pagesHTML += buildPage(backCards);
     });
 
-    // Create the print container
     let printArea = document.getElementById('print-area');
     if (!printArea) {
         printArea = document.createElement('div');
@@ -226,17 +232,13 @@ const exportPDF = () => {
     }
 
     printArea.innerHTML = pagesHTML;
-
-    // Remove event listener if previously attached to avoid duplicates
     window.onafterprint = null;
 
-    // Listen for print completion/cancellation to clean up
     window.onafterprint = () => {
         printArea.innerHTML = '';
         showToast(typeof I18N !== 'undefined' ? I18N.t('printToastComplete') : 'Proceso completado', 'success');
     };
 
-    // Give the browser a moment to render the DOM changes before opening print dialog
     setTimeout(() => {
         window.print();
     }, 100);

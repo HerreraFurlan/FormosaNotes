@@ -1,133 +1,173 @@
 /**
  * =====================================================
  * AppChino — storage.js
- * Persistence layer: localStorage CRUD operations.
- * Designed to be swapped for SQLite/API calls later.
+ * Capa de persistencia (localStorage CRUD) con caché en memoria
+ * e indexación O(1) por ID, alimentada desde APP_CONFIG (js/config.js).
  * =====================================================
  */
 
 const DB_KEY = 'appchino_db';
 
+// Caché en memoria por clave de base de datos para evitar JSON.parse masivos (O(N²))
+const memoryDBCache = {};
+const cachedWordsList = {};
+const cachedWordsByIdMap = {};
+
 /**
- * Resolves the active database key in localStorage based on selected language.
- * @returns {'appchino_db'|'appchino_db_en'}
+ * Invalida la caché en memoria para un idioma específico o todos.
+ * @param {string} [specificKey]
+ */
+const invalidateStorageCache = (specificKey = null) => {
+    if (specificKey) {
+        delete memoryDBCache[specificKey];
+        delete cachedWordsList[specificKey];
+        delete cachedWordsByIdMap[specificKey];
+    } else {
+        Object.keys(memoryDBCache).forEach(k => delete memoryDBCache[k]);
+        Object.keys(cachedWordsList).forEach(k => delete cachedWordsList[k]);
+        Object.keys(cachedWordsByIdMap).forEach(k => delete cachedWordsByIdMap[k]);
+    }
+};
+if (typeof window !== 'undefined') {
+    window.invalidateStorageCache = invalidateStorageCache;
+}
+
+/**
+ * Obtiene la lista de colecciones de palabras desde APP_CONFIG.
+ * @returns {Array<string>}
+ */
+const getStorageCollections = () => {
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getDBCollections === 'function') {
+        return APP_CONFIG.getDBCollections();
+    }
+    return ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores'];
+};
+
+/**
+ * Obtiene las colecciones que no son clasificadores.
+ * @returns {Array<string>}
+ */
+const getNonClassifierCollections = () => {
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getNonClassifierCollections === 'function') {
+        return APP_CONFIG.getNonClassifierCollections();
+    }
+    return ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas'];
+};
+
+/**
+ * Resolves the active database key in localStorage based on selected language and APP_CONFIG.
+ * @returns {string}
  */
 const getActiveDBKey = () => {
     const lang = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage)
         ? window.I18N.getLanguage()
         : (localStorage.getItem('appchino_lang') === 'en' ? 'en' : 'es');
+
+    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.languages?.available?.[lang]?.dbKey) {
+        return APP_CONFIG.languages.available[lang].dbKey;
+    }
     return lang === 'en' ? 'appchino_db_en' : 'appchino_db';
 };
 
 /**
- * Resolves the active SEED_DATA based on selected language.
- * @returns {object}
+ * Resolves the active SEED_DATA based on selected language and APP_CONFIG.
+ * @returns {object|null}
  */
 const getActiveSeedData = () => {
     const lang = (typeof window !== 'undefined' && window.I18N && window.I18N.getLanguage)
         ? window.I18N.getLanguage()
         : (localStorage.getItem('appchino_lang') === 'en' ? 'en' : 'es');
+
+    if (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.languages?.available?.[lang]) {
+        const globalVar = APP_CONFIG.languages.available[lang].globalVar;
+        if (typeof window !== 'undefined' && window[globalVar]) {
+            return window[globalVar];
+        }
+    }
+
     if (lang === 'en' && typeof SEED_DATA_EN !== 'undefined') {
         return SEED_DATA_EN;
     }
-    return typeof SEED_DATA !== 'undefined' ? SEED_DATA : {};
-};
-
-// --------------------------------------------------
-// Core read/write
-// --------------------------------------------------
-
-const CLASSIFIER_MAPPING = {
-    '個 gè': 'id_mtfhewfx_gtw3b',
-    '個': 'id_mtfhewfx_gtw3b',
-    '隻 zhī': 'id_mtfigeht_eqxfj',
-    '隻': 'id_mtfigeht_eqxfj',
-    '位': 'id_clf_wei',
-    '位 wèi': 'id_clf_wei',
-    '張 zhāng': 'id_mty004_zhang',
-    '張': 'id_mty004_zhang',
-    '本 běn': 'id_clf_ben',
-    '本': 'id_clf_ben',
-    '杯 / 瓶 / 壺': 'id_clf_bei',
-    '杯 bēi': 'id_clf_bei',
-    '杯': 'id_clf_bei',
-    '瓶 píng': 'id_clf_ping',
-    '瓶': 'id_clf_ping',
-    '棟 dòng': 'id_clf_dong',
-    '棟': 'id_clf_dong',
-    '歲 suì': 'id_mtgn2mv8_7ji91',
-    '歲': 'id_mtgn2mv8_7ji91',
-    '顆 kē': 'id_clf_ke',
-    '顆': 'id_clf_ke',
-    '間 jiān': 'id_clf_jian',
-    '間': 'id_clf_jian',
-    '朵 duǒ': 'id_clf_duo',
-    '朵': 'id_clf_duo',
-    '門 mén': 'id_clf_men',
-    '門': 'id_clf_men',
-    '次 cì': 'id_clf_ci',
-    '次': 'id_clf_ci',
-    '點': 'id_clf_dian',
-    '點 diǎn': 'id_clf_dian',
-    '分': 'id_clf_fen',
-    '分 fēn': 'id_clf_fen',
-    '刻': 'id_clf_ke_time',
-    '刻 kè': 'id_clf_ke_time',
-    '日': 'id_clf_ri',
-    '日 rì': 'id_clf_ri',
-    '號': 'id_clf_hao',
-    '號 hào': 'id_clf_hao',
-    '些': 'id_clf_xie',
-    '些 xiē': 'id_clf_xie',
-    '支': 'id_clf_zhi_phone',
-    '支 zhī': 'id_clf_zhi_phone',
-    '塊': 'id_clf_kuai',
-    '塊 kuài': 'id_clf_kuai',
-    '種': 'id_clf_zhong',
-    '種 zhǒng': 'id_clf_zhong',
-    '家': 'id_clf_jia_shop',
-    '家 jiā': 'id_clf_jia_shop',
-    '碗': 'id_clf_wan',
-    '碗 wǎn': 'id_clf_wan',
+    if (typeof SEED_DATA !== 'undefined') {
+        return SEED_DATA;
+    }
+    return null;
 };
 
 /**
- * Sanitizes and migrates database data ensuring all 10 classifiers exist,
+ * Maps a user-facing category to its storage key in the database via APP_CONFIG.
+ * @param {string} categoria
+ * @returns {string}
+ */
+const getCategoryKey = (categoria) => {
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getCategoryToDBMap === 'function') {
+        const map = APP_CONFIG.getCategoryToDBMap();
+        if (map[categoria]) return map[categoria];
+    }
+    const fallbackMap = {
+        sustantivo:   'palabras',
+        pronombre:    'palabras',
+        clasificador: 'clasificadores',
+        verbo:        'verbos',
+        adjetivo:     'adjetivos',
+        adverbio:     'adverbios',
+        expresion:    'expresiones',
+        particula:    'particulas',
+    };
+    return fallbackMap[categoria] || 'palabras';
+};
+
+// Alias map from APP_CONFIG
+const CLASSIFIER_MAPPING = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.classifierAliases)
+    ? APP_CONFIG.classifierAliases
+    : {};
+
+/**
+ * Sanitizes and migrates database data ensuring all classifiers exist,
  * moving misplaced classifiers, and converting plain-text classifier strings to IDs.
  * @param {object} data
+ * @param {object} [seedSource]
  * @returns {object}
  */
 const sanitizeAndMigrateData = (data, seedSource) => {
     if (!data) return data;
     const activeSeed = seedSource || getActiveSeedData();
-    const activeDefaultClf = (activeSeed && activeSeed.clasificadores && activeSeed.clasificadores.length > 0)
+    const fallbackClf = (typeof DEFAULT_CLASSIFIERS !== 'undefined' ? DEFAULT_CLASSIFIERS : []);
+    const activeDefaultClf = (activeSeed && Array.isArray(activeSeed.clasificadores) && activeSeed.clasificadores.length > 0)
         ? activeSeed.clasificadores
-        : DEFAULT_CLASSIFIERS;
+        : fallbackClf;
+
+    const allCollections = getStorageCollections();
+    const nonClfCollections = getNonClassifierCollections();
 
     if (!data.meta) data.meta = { version: '1.0', ultimaEdicion: new Date().toISOString().split('T')[0] };
 
     // 1. Ensure data.clasificadores exists and has all default classifiers
-    if (!data.clasificadores || !Array.isArray(data.clasificadores) || data.clasificadores.length === 0) {
-        data.clasificadores = JSON.parse(JSON.stringify(activeDefaultClf));
-    } else {
-        const existingIds = new Set(data.clasificadores.map(c => c.id));
-        activeDefaultClf.forEach(defClf => {
-            if (!existingIds.has(defClf.id)) {
-                data.clasificadores.push(JSON.parse(JSON.stringify(defClf)));
-            }
-        });
+    if (activeDefaultClf.length > 0) {
+        if (!data.clasificadores || !Array.isArray(data.clasificadores) || data.clasificadores.length === 0) {
+            data.clasificadores = JSON.parse(JSON.stringify(activeDefaultClf));
+        } else {
+            const existingIds = new Set(data.clasificadores.map(c => c.id));
+            activeDefaultClf.forEach(defClf => {
+                if (!existingIds.has(defClf.id)) {
+                    data.clasificadores.push(JSON.parse(JSON.stringify(defClf)));
+                }
+            });
+        }
+    } else if (!Array.isArray(data.clasificadores)) {
+        data.clasificadores = [];
     }
 
     // 2. Remove any classifiers that might be lingering in other category arrays
-    const clfIds = new Set(data.clasificadores.map(c => c.id));
-    for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas']) {
+    const clfIds = new Set((data.clasificadores || []).map(c => c.id));
+    for (const cat of nonClfCollections) {
         if (Array.isArray(data[cat])) {
             data[cat] = data[cat].filter(w => !clfIds.has(w.id));
         }
     }
 
     // 3. Convert plain-text classifiers to IDs across all categories
-    for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+    for (const cat of allCollections) {
         if (Array.isArray(data[cat])) {
             data[cat].forEach(w => {
                 if (w.clasificador && CLASSIFIER_MAPPING[w.clasificador]) {
@@ -138,7 +178,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
     }
 
     // 4. Ensure no card references a classifier as a radical
-    for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+    for (const cat of allCollections) {
         if (Array.isArray(data[cat])) {
             data[cat].forEach(w => {
                 if (Array.isArray(w.radicales)) {
@@ -157,25 +197,15 @@ const sanitizeAndMigrateData = (data, seedSource) => {
 
     // 5. Ensure all structure words are present
     if (typeof NEW_STRUCTURE_WORDS !== 'undefined' && Array.isArray(NEW_STRUCTURE_WORDS)) {
-        const catMap = {
-            sustantivo: 'palabras',
-            pronombre: 'palabras',
-            clasificador: 'clasificadores',
-            verbo: 'verbos',
-            adjetivo: 'adjetivos',
-            adverbio: 'adverbios',
-            expresion: 'expresiones',
-            particula: 'particulas'
-        };
         const existingWords = new Set();
-        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+        for (const cat of allCollections) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => existingWords.add(w.tradicional));
             }
         }
         NEW_STRUCTURE_WORDS.forEach(word => {
             if (!existingWords.has(word.tradicional)) {
-                const targetKey = catMap[word.categoria] || 'palabras';
+                const targetKey = getCategoryKey(word.categoria);
                 if (!Array.isArray(data[targetKey])) data[targetKey] = [];
                 data[targetKey].push(JSON.parse(JSON.stringify(word)));
                 existingWords.add(word.tradicional);
@@ -198,7 +228,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
     // 7. Sync updated definitions, mnemonics, radicals, leccion, and examples from activeSeed
     if (activeSeed) {
         const seedMap = new Map();
-        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+        for (const cat of allCollections) {
             if (Array.isArray(activeSeed[cat])) {
                 activeSeed[cat].forEach(w => {
                     seedMap.set(w.id, w);
@@ -211,22 +241,18 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                 });
             }
         }
-        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+        for (const cat of allCollections) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => {
                     const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
                     if (seedWord) {
                         w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
                         w.notas = seedWord.notas;
-                        if (seedWord.espanol) {
-                            w.espanol = seedWord.espanol;
-                        }
-                        if (seedWord.english) {
-                            w.english = seedWord.english;
-                        }
-                        if (seedWord.ejemplos) {
-                            w.ejemplos = JSON.parse(JSON.stringify(seedWord.ejemplos));
-                        }
+                        if (seedWord.notas_en) w.notas_en = seedWord.notas_en;
+                        if (seedWord.espanol) w.espanol = seedWord.espanol;
+                        if (seedWord.english) w.english = seedWord.english;
+                        if (seedWord.ejemplos) w.ejemplos = JSON.parse(JSON.stringify(seedWord.ejemplos));
+                        if (seedWord.ejemplos_en) w.ejemplos_en = JSON.parse(JSON.stringify(seedWord.ejemplos_en));
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
                         }
@@ -236,7 +262,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
         }
 
         // 8. Ensure all cards from activeSeed exist in data (including split cards)
-        for (const cat of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+        for (const cat of allCollections) {
             if (Array.isArray(activeSeed[cat])) {
                 if (!Array.isArray(data[cat])) data[cat] = [];
                 const existingIds = new Set(data[cat].map(w => w.id));
@@ -254,36 +280,57 @@ const sanitizeAndMigrateData = (data, seedSource) => {
 };
 
 /**
- * Loads the full database from localStorage.
- * Seeds with SEED_DATA on first visit and migrates if needed.
+ * Loads the full database from memory cache or localStorage.
+ * Seeds with active SEED_DATA on first visit and migrates if needed.
  * @returns {object} The complete database object
  */
 const loadDB = () => {
     const key = getActiveDBKey();
+    const targetDataVersion = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.app?.dataVersion)
+        ? APP_CONFIG.app.dataVersion
+        : '3.25';
+
+    if (memoryDBCache[key]) {
+        return memoryDBCache[key];
+    }
+
     const seed = getActiveSeedData();
     const raw = localStorage.getItem(key);
+
     if (raw) {
         try {
             const data = JSON.parse(raw);
-            if (!data.meta || data.meta.migratedWordsVersion !== '3.24' || !data.clasificadores || data.clasificadores.length === 0) {
+            const hasSeedLoaded = seed && Object.keys(seed).length > 0;
+            if (hasSeedLoaded && (!data.meta || data.meta.migratedWordsVersion !== targetDataVersion || !data.clasificadores || data.clasificadores.length === 0)) {
                 sanitizeAndMigrateData(data, seed);
                 data.meta = data.meta || {};
-                data.meta.migratedWordsVersion = '3.24';
+                data.meta.migratedWordsVersion = targetDataVersion;
                 saveDB(data);
+            } else {
+                memoryDBCache[key] = data;
             }
             return data;
+        } catch (e) {
+            console.error('Error parsing DB:', e);
         }
-        catch (e) { console.error('Error parsing DB:', e); }
     }
-    // First visit — seed with initial data
+
+    // If seed data is not yet loaded (during initial lazy load), return a temporary empty structure without overwriting localStorage
+    if (!seed || Object.keys(seed).length === 0) {
+        return { meta: { version: '1.0' }, palabras: [], clasificadores: [], verbos: [], adjetivos: [], adverbios: [], expresiones: [], particulas: [], estructuras: [] };
+    }
+
+    // First visit with seed ready — seed with initial data
     const seeded = JSON.parse(JSON.stringify(seed));
     sanitizeAndMigrateData(seeded, seed);
+    seeded.meta = seeded.meta || {};
+    seeded.meta.migratedWordsVersion = targetDataVersion;
     saveDB(seeded);
     return seeded;
 };
 
 /**
- * Persists the full database to localStorage.
+ * Persists the full database to localStorage and updates in-memory cache.
  * @param {object} data - The complete database object
  */
 const saveDB = (data) => {
@@ -291,45 +338,85 @@ const saveDB = (data) => {
     if (!data.meta) data.meta = { version: '1.0' };
     data.meta.ultimaEdicion = new Date().toISOString().split('T')[0];
     localStorage.setItem(key, JSON.stringify(data));
+    memoryDBCache[key] = data;
+    delete cachedWordsList[key];
+    delete cachedWordsByIdMap[key];
 };
 
 // --------------------------------------------------
-// Query helpers
+// Query helpers (O(1) cached)
 // --------------------------------------------------
 
 /**
- * Returns a flat array of ALL words across every category.
+ * Returns a flat, sorted array of ALL words across every category.
+ * Cached in memory per language key until DB mutates.
  * @returns {Array<object>}
  */
 const getAllWords = () => {
+    const key = getActiveDBKey();
+    if (cachedWordsList[key]) {
+        return cachedWordsList[key];
+    }
+
     const db = loadDB();
-    const words = [
-        ...(db.palabras || []),
-        ...(db.verbos || []),
-        ...(db.adjetivos || []),
-        ...(db.adverbios || []),
-        ...(db.expresiones || []),
-        ...(db.particulas || []),
-        ...(db.clasificadores || []),
-    ];
+    const collections = getStorageCollections();
+    const words = [];
 
-    const order = {
-        pronombre: 1,
-        sustantivo: 2,
-        clasificador: 3,
-        verbo: 4,
-        adverbio: 5,
-        adjetivo: 6,
-        expresion: 7,
-        particula: 8
-    };
+    collections.forEach(col => {
+        if (Array.isArray(db[col])) {
+            words.push(...db[col]);
+        }
+    });
 
-    return words.sort((a, b) => {
+    const order = (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getCategoryOrderMap === 'function')
+        ? APP_CONFIG.getCategoryOrderMap()
+        : {
+            pronombre: 1,
+            sustantivo: 2,
+            clasificador: 3,
+            verbo: 4,
+            adverbio: 5,
+            adjetivo: 6,
+            expresion: 7,
+            particula: 8
+        };
+
+    words.sort((a, b) => {
         const orderA = order[a.categoria] || 99;
         const orderB = order[b.categoria] || 99;
         return orderA - orderB;
     });
+
+    // Only cache if DB was hydrated
+    if (memoryDBCache[key]) {
+        cachedWordsList[key] = words;
+        const idMap = new Map();
+        words.forEach(w => idMap.set(w.id, w));
+        cachedWordsByIdMap[key] = idMap;
+    }
+
+    return words;
 };
+
+/**
+ * Fast O(1) lookup of a word by ID using the cached Map.
+ * @param {string} id
+ * @returns {object|undefined}
+ */
+const getWordById = (id) => {
+    if (!id) return undefined;
+    const key = getActiveDBKey();
+    if (!cachedWordsByIdMap[key]) {
+        getAllWords();
+    }
+    if (cachedWordsByIdMap[key]) {
+        return cachedWordsByIdMap[key].get(id);
+    }
+    return getAllWords().find(w => w.id === id);
+};
+if (typeof window !== 'undefined') {
+    window.getWordById = getWordById;
+}
 
 /**
  * Returns all registered classifiers in the database.
@@ -347,25 +434,6 @@ const getAllClassifiers = () => {
 const getAllStructures = () => {
     const db = loadDB();
     return db.estructuras || [];
-};
-
-/**
- * Maps a user-facing category to its storage key in the database.
- * @param {string} categoria
- * @returns {string}
- */
-const getCategoryKey = (categoria) => {
-    const map = {
-        sustantivo:   'palabras',
-        pronombre:    'palabras',
-        clasificador: 'clasificadores',
-        verbo:        'verbos',
-        adjetivo:     'adjetivos',
-        adverbio:     'adverbios',
-        expresion:    'expresiones',
-        particula:    'particulas',
-    };
-    return map[categoria] || 'palabras';
 };
 
 // --------------------------------------------------
@@ -397,7 +465,7 @@ const addWord = (wordData) => {
  */
 const updateWord = (id, updatedData) => {
     const db = loadDB();
-    const keys = ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores'];
+    const keys = getStorageCollections();
 
     for (const key of keys) {
         if (!db[key]) continue;
@@ -408,7 +476,6 @@ const updateWord = (id, updatedData) => {
         const newKey = getCategoryKey(updatedData.categoria);
 
         if (key !== newKey) {
-            // Category changed — move to new array
             db[key].splice(idx, 1);
             if (!db[newKey]) db[newKey] = [];
             db[newKey].push({ ...oldEntry, ...updatedData, id });
@@ -429,7 +496,8 @@ const updateWord = (id, updatedData) => {
  */
 const deleteWord = (id) => {
     const db = loadDB();
-    for (const key of ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores']) {
+    const keys = getStorageCollections();
+    for (const key of keys) {
         if (!db[key]) continue;
         const idx = db[key].findIndex(w => w.id === id);
         if (idx !== -1) {

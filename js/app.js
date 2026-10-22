@@ -1,33 +1,38 @@
 /**
  * =====================================================
  * AppChino — app.js
- * Main controller: navigation, rendering, dialogs,
- * event bindings, and application bootstrap.
+ * Main controller: configurable UI generation, lazy rendering
+ * (IntersectionObserver), skeleton loading states, navigation,
+ * dialogs, event bindings, and application bootstrap.
  * =====================================================
  */
 
 // ==========================================================
-// CONFIGURACIÓN (SETTINGS) & FUENTES
+// CONFIGURACIÓN (SETTINGS) & FUENTES DESDE APP_CONFIG
 // ==========================================================
 
-const CHINESE_FONTS = {
-    kaiti: "'DFKai-SB', '標楷體', 'BiauKai', 'BiauKai TC', 'KaiTi', 'STKaiti', serif",
-    serif: "'Noto Serif TC', 'PMingLiU', '新細明體', serif",
-    sans: "'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif"
-};
+const CHINESE_FONTS = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.fonts?.stacks)
+    ? APP_CONFIG.fonts.stacks
+    : {
+        kaiti: "'DFKai-SB', '標楷體', 'BiauKai', 'BiauKai TC', 'KaiTi', 'STKaiti', serif",
+        serif: "'Noto Serif TC', 'PMingLiU', '新細明體', serif",
+        sans: "'Noto Sans TC', 'Microsoft JhengHei', '微軟正黑體', sans-serif"
+    };
 
-const CHINESE_FONT_STORAGE_KEY = 'appchino_chinese_font';
+const CHINESE_FONT_STORAGE_KEY = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.fonts?.storageKey)
+    ? APP_CONFIG.fonts.storageKey
+    : 'appchino_chinese_font';
 
 /**
  * Applies the selected Chinese font stack globally.
  */
 const applyChineseFont = (fontKey) => {
-    const validKey = CHINESE_FONTS[fontKey] ? fontKey : 'kaiti';
+    const defaultFont = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.fonts?.default) || 'kaiti';
+    const validKey = CHINESE_FONTS[fontKey] ? fontKey : defaultFont;
     const fontStack = CHINESE_FONTS[validKey];
     document.documentElement.style.setProperty('--font-chinese', fontStack);
     localStorage.setItem(CHINESE_FONT_STORAGE_KEY, validKey);
 
-    // Update settings dialog cards if present
     document.querySelectorAll('.settings-font-card').forEach(card => {
         const val = card.dataset.font;
         const radio = card.querySelector('input[type="radio"]');
@@ -39,25 +44,153 @@ const applyChineseFont = (fontKey) => {
 
 // Apply font immediately on script execution to avoid layout shift
 try {
-    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+    const defaultFont = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.fonts?.default) || 'kaiti';
+    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || defaultFont;
     applyChineseFont(savedFont);
 } catch (e) {
     console.warn("Could not load initial font preference:", e);
 }
 
 // ==========================================================
-// RENDERING
+// FILTER & RENDERING STATE
 // ==========================================================
 
 let currentCategoriesFilter = ['todos'];
 let currentLessonFilter = ['todas'];
 let currentSearch = '';
+let currentPrintSearch = '';
+
+let libraryGridObserver = null;
+let exportGridObserver = null;
+
+// Set of selected word IDs for PDF export (persists across lazy rendering batches)
+const selectedExportIds = new Set();
+window.selectedExportIds = selectedExportIds;
 
 // Backward compatibility properties
 Object.defineProperty(window, 'currentFilter', {
     get: () => currentCategoriesFilter[0] || 'todos',
     set: (val) => { currentCategoriesFilter = val ? [val] : ['todos']; }
 });
+
+// ==========================================================
+// GENERADOR DE UI DINÁMICA DESDE APP_CONFIG
+// ==========================================================
+
+/**
+ * Genera dinámicamente los chips de categorías, chips de lecciones,
+ * opciones de <select id="w-categoria"> y píldoras de lecciones en el modal
+ * a partir de APP_CONFIG (js/config.js).
+ */
+const renderConfigurableFiltersAndInputs = () => {
+    if (typeof APP_CONFIG === 'undefined') return;
+
+    const categories = APP_CONFIG.categories || [];
+    const lessonsCfg = APP_CONFIG.lessons || { items: [], allowUnassigned: true, unassignedFilterId: 'ninguna', unassignedSymbol: '/', allFilterId: 'todas' };
+    const lessonItems = lessonsCfg.items || [];
+
+    const tFn = (key) => (typeof I18N !== 'undefined' ? I18N.t(key) : key);
+    const getCatLbl = (id, plural) => (typeof I18N !== 'undefined' ? I18N.getCategoryLabel(id, plural) : id);
+
+    // 1. Library Lesson Filter Chips (#library-lesson-chips)
+    const libLessonEl = document.getElementById('library-lesson-chips');
+    if (libLessonEl) {
+        const allKey = lessonsCfg.allFilterId || 'todas';
+        let html = `<button class="chip ${currentLessonFilter.includes(allKey) ? 'active' : ''}" data-lesson-filter="${allKey}" data-i18n="allLessons">${tFn('allLessons')}</button>`;
+        lessonItems.forEach(item => {
+            const isActive = currentLessonFilter.includes(String(item.id));
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${item.id}" data-lesson-label="${item.id}" data-lesson-short="true">${item.shortLabel || `L${item.number}`}</button>`;
+        });
+        if (lessonsCfg.allowUnassigned) {
+            const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
+            const isActive = currentLessonFilter.includes(unKey);
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+        }
+        libLessonEl.innerHTML = html;
+    }
+
+    // 2. Study Mode Lesson Filter Chips (#study-lesson-filters)
+    const studyLessonEl = document.getElementById('study-lesson-filters');
+    if (studyLessonEl) {
+        const allKey = lessonsCfg.allFilterId || 'todas';
+        let html = `<button class="chip active" data-lesson-filter="${allKey}" data-i18n="allLessons">${tFn('allLessons')}</button>`;
+        lessonItems.forEach(item => {
+            html += `<button class="chip" data-lesson-filter="${item.id}" data-lesson-label="${item.id}" data-lesson-short="true">${item.shortLabel || `L${item.number}`}</button>`;
+        });
+        if (lessonsCfg.allowUnassigned) {
+            const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
+            html += `<button class="chip" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+        }
+        studyLessonEl.innerHTML = html;
+    }
+
+    // 3. Library Category Filter Chips (#filter-chips)
+    const libCatEl = document.getElementById('filter-chips');
+    if (libCatEl) {
+        let html = `<button class="chip ${currentCategoriesFilter.includes('todos') ? 'active' : ''}" data-filter="todos" data-i18n="allCategories">${tFn('allCategories')}</button>`;
+        categories.forEach(cat => {
+            const isActive = currentCategoriesFilter.includes(cat.id);
+            const iconHtml = cat.icon ? `${cat.icon} ` : '';
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-filter="${cat.id}">${iconHtml}<span data-cat-label="${cat.id}" data-cat-plural="true">${getCatLbl(cat.id, true)}</span></button>`;
+        });
+        libCatEl.innerHTML = html;
+    }
+
+    // 4. Builder Word Bank Category Filter Chips (#bank-filter-chips)
+    const bankCatEl = document.getElementById('bank-filter-chips');
+    if (bankCatEl) {
+        const currentBankFilter = bankCatEl.querySelector('.chip.active')?.dataset.filter || 'todos';
+        let html = `<button class="chip ${currentBankFilter === 'todos' ? 'active' : ''}" data-filter="todos" data-i18n="allCategories">${tFn('allCategories')}</button>`;
+        categories.forEach(cat => {
+            const isActive = currentBankFilter === cat.id;
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-filter="${cat.id}" data-cat-label="${cat.id}" data-cat-plural="true">${getCatLbl(cat.id, true)}</button>`;
+        });
+        bankCatEl.innerHTML = html;
+    }
+
+    // 5. Study Mode Category Filter Chips (#study-filters)
+    const studyCatEl = document.getElementById('study-filters');
+    if (studyCatEl) {
+        let html = `<button class="chip active" data-filter="todos" data-i18n="allCategories">${tFn('allCategories')}</button>`;
+        categories.forEach(cat => {
+            html += `<button class="chip" data-filter="${cat.id}" data-cat-label="${cat.id}" data-cat-plural="true">${getCatLbl(cat.id, true)}</button>`;
+        });
+        studyCatEl.innerHTML = html;
+    }
+
+    // 6. Word Dialog Category Select (#w-categoria)
+    const wordCatSelect = document.getElementById('w-categoria');
+    if (wordCatSelect) {
+        const prevVal = wordCatSelect.value || APP_CONFIG.ui?.defaultCategoryId || 'sustantivo';
+        wordCatSelect.innerHTML = categories.map(cat => `
+            <option value="${cat.id}" data-cat-label="${cat.id}" data-cat-plural="false">${getCatLbl(cat.id, false)}</option>
+        `).join('');
+        if (categories.some(c => c.id === prevVal)) {
+            wordCatSelect.value = prevVal;
+        }
+    }
+
+    // 7. Word Dialog Lesson Pill Group (#w-lesson-group)
+    const wordLessonGroup = document.getElementById('w-lesson-group');
+    if (wordLessonGroup) {
+        const currentHiddenVal = document.getElementById('w-leccion')?.value || '';
+        let html = '';
+        if (lessonsCfg.allowUnassigned) {
+            html += `<button type="button" class="btn-lesson-pill ${currentHiddenVal === '' ? 'active' : ''}" data-lesson="" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+        }
+        lessonItems.forEach(item => {
+            const isActive = String(currentHiddenVal) === String(item.id);
+            const fullLbl = typeof I18N !== 'undefined' ? I18N.getLessonLabel(item.id, false) : `Lección ${item.number}`;
+            html += `<button type="button" class="btn-lesson-pill ${isActive ? 'active' : ''}" data-lesson="${item.id}" title="${fullLbl}">${item.number}</button>`;
+        });
+        wordLessonGroup.innerHTML = html;
+    }
+};
+window.renderConfigurableFiltersAndInputs = renderConfigurableFiltersAndInputs;
+
+// ==========================================================
+// BÚSQUEDA Y NORMALIZACIÓN FONÉTICA
+// ==========================================================
 
 /**
  * Strips tone marks from pinyin and standardizes string.
@@ -85,9 +218,7 @@ const stripZhuyinTones = (str) => {
 
 /**
  * Enhanced search and sort for words.
- * Performs alike/fuzzy search across Hanzi, Pinyin, Zhuyin, and Spanish,
- * but strongly prioritizes EXACT matches without tones (Pinyin & Zhuyin),
- * prefix syllable matches, and shorter words before longer compound words.
+ * Performs alike/fuzzy search across Hanzi, Pinyin, Zhuyin, and localized meaning (Spanish + English).
  *
  * @param {string} query - The search query
  * @param {Array|null} wordsList - Optional list of words (defaults to getAllWords())
@@ -103,7 +234,7 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
     const qPinyinCompact = qPinyin.replace(/\s+/g, '');
     const qZhuyin = stripZhuyinTones(rawQ);
     const qZhuyinCompact = qZhuyin.replace(/\s+/g, '');
-    const qEspanol = stripPinyinTones(rawQ);
+    const qMeaning = stripPinyinTones(rawQ);
 
     const hasZhuyinInQuery = /[\u3105-\u312F\u31A0-\u31BF]/.test(rawQ);
     const hasHanziInQuery = /[\u4e00-\u9fff]/.test(rawQ);
@@ -124,16 +255,18 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
         const zhuyinCompact = zhuyinNorm.replace(/\s+/g, '');
         const zhuyinSyllables = zhuyinNorm.split(/\s+/).filter(Boolean);
 
-        const espanolRaw = (w.espanol || '').toLowerCase().trim();
-        const espanolNorm = stripPinyinTones(espanolRaw);
-        const espanolWords = espanolNorm.split(/[\s,./\(\)\-—]+/).filter(Boolean);
+        const meaningActive = (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+        const combinedMeaningRaw = `${meaningActive} ${w.espanol || ''} ${w.english || ''}`.toLowerCase().trim();
+        const meaningNorm = stripPinyinTones(combinedMeaningRaw);
+        const activeMeaningNorm = stripPinyinTones(meaningActive.toLowerCase());
+        const meaningWords = meaningNorm.split(/[\s,./\(\)\-—]+/).filter(Boolean);
 
         const charMatch = (options.includeChar !== false) && (trad.includes(rawQ) || trad.includes(qLower));
         const pinyinMatch = !!(qPinyin && (pinyinNorm.includes(qPinyin) || pinyinCompact.includes(qPinyinCompact)));
         const zhuyinMatch = !!(hasZhuyinInQuery && qZhuyin && (zhuyinNorm.includes(qZhuyin) || zhuyinCompact.includes(qZhuyinCompact)));
-        const espanolMatch = !!(qEspanol && espanolNorm.includes(qEspanol));
+        const meaningMatch = !!(qMeaning && meaningNorm.includes(qMeaning));
 
-        if (!charMatch && !pinyinMatch && !zhuyinMatch && !espanolMatch) {
+        if (!charMatch && !pinyinMatch && !zhuyinMatch && !meaningMatch) {
             continue;
         }
 
@@ -147,18 +280,18 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
         if (qPinyin && (pinyinNorm === qPinyin || pinyinCompact === qPinyinCompact)) {
             score = Math.max(score, 80000);
             if (pinyinRaw === qLower) {
-                score += 5000; // Bonus for exact tone match
+                score += 5000;
             }
         }
 
         if (hasZhuyinInQuery && qZhuyin && (zhuyinNorm === qZhuyin || zhuyinCompact === qZhuyinCompact)) {
             score = Math.max(score, 80000);
             if (zhuyinRaw === rawQ) {
-                score += 5000; // Bonus for exact tone match
+                score += 5000;
             }
         }
 
-        if (qEspanol && (espanolNorm === qEspanol || espanolWords.some(ew => ew === qEspanol))) {
+        if (qMeaning && (activeMeaningNorm === qMeaning || meaningWords.some(ew => ew === qMeaning))) {
             score = Math.max(score, 60000);
         }
 
@@ -173,7 +306,7 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
             if (hasHanziInQuery && trad.startsWith(rawQ)) {
                 score = Math.max(score, 40000);
             }
-            if (qEspanol && (espanolNorm.startsWith(qEspanol) || espanolWords.some(ew => ew.startsWith(qEspanol)))) {
+            if (qMeaning && (activeMeaningNorm.startsWith(qMeaning) || meaningWords.some(ew => ew.startsWith(qMeaning)))) {
                 score = Math.max(score, 30000);
             }
         }
@@ -215,12 +348,11 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
             }
         }
 
-        // Tier 7: Only Spanish arbitrary substring match
-        if (score === 0 && espanolMatch) {
+        // Tier 7: Substring match in meaning
+        if (score === 0 && meaningMatch) {
             score = Math.max(score, 200);
         }
 
-        // Tie-breaker penalty for length: shorter traditional Hanzi and shorter pinyin rank first
         score -= trad.length * 50;
         score -= pinyinNorm.length * 5;
 
@@ -242,14 +374,32 @@ window.searchAndSortWords = (query, wordsList = null, options = { includeChar: t
     return scoredWords.map(sw => sw.word);
 };
 
-
+// ==========================================================
+// RENDERING CON LAZY LOADING (IntersectionObserver) & SKELETONS
+// ==========================================================
 
 /**
- * Renders the main flashcard grid (Library section).
+ * Renders the main flashcard grid (Library section) with progressive batch rendering.
  */
 const renderGrid = () => {
     const gridEl = document.getElementById('card-grid');
+    if (!gridEl) return;
+
+    if (libraryGridObserver) {
+        libraryGridObserver.disconnect();
+        libraryGridObserver = null;
+    }
+
     gridEl.innerHTML = '';
+
+    // Show skeleton placeholders if language pack is currently loading
+    if (typeof I18N !== 'undefined' && typeof I18N.isLanguageLoading === 'function' && I18N.isLanguageLoading()) {
+        if (typeof createFlashcardSkeletons === 'function') {
+            gridEl.appendChild(createFlashcardSkeletons());
+        }
+        return;
+    }
+
     let words = getAllWords();
 
     // 1. Filter by category (stackable)
@@ -258,10 +408,11 @@ const renderGrid = () => {
     }
 
     // 2. Filter by lesson (stackable)
+    const unassignedKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.unassignedFilterId) || 'ninguna';
     if (!currentLessonFilter.includes('todas') && currentLessonFilter.length > 0) {
         words = words.filter(w => {
             if (!w.leccion) {
-                return currentLessonFilter.includes('ninguna');
+                return currentLessonFilter.includes(unassignedKey);
             }
             return currentLessonFilter.includes(String(w.leccion));
         });
@@ -272,17 +423,57 @@ const renderGrid = () => {
     }
 
     if (words.length === 0) {
+        const emptyTitle = typeof I18N !== 'undefined' ? I18N.t('noCardsFound') : 'No se encontraron resultados';
+        const emptySub = typeof I18N !== 'undefined' ? I18N.t('noCardsFoundSub') : 'Intenta con otro filtro o término de búsqueda.';
         gridEl.innerHTML = `
             <div class="empty-state" style="grid-column: 1 / -1;">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                <h3>No se encontraron resultados</h3>
-                <p>Intenta con otro filtro o término de búsqueda.</p>
+                <h3>${emptyTitle}</h3>
+                <p>${emptySub}</p>
             </div>
         `;
         return;
     }
 
-    words.forEach(word => gridEl.appendChild(createFlashcard(word)));
+    const initialBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.initialCardBatchSize) || 36;
+    const scrollBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.scrollBatchSize) || 24;
+    let renderedCount = 0;
+
+    const appendNextBatch = (batchSize) => {
+        const slice = words.slice(renderedCount, renderedCount + batchSize);
+        if (slice.length === 0) return;
+        const frag = document.createDocumentFragment();
+        slice.forEach(word => frag.appendChild(createFlashcard(word)));
+        const sentinel = gridEl.querySelector('.grid-lazy-sentinel');
+        if (sentinel) {
+            gridEl.insertBefore(frag, sentinel);
+        } else {
+            gridEl.appendChild(frag);
+        }
+        renderedCount += slice.length;
+    };
+
+    appendNextBatch(initialBatch);
+
+    if (renderedCount < words.length && typeof IntersectionObserver !== 'undefined') {
+        const sentinel = document.createElement('div');
+        sentinel.className = 'grid-lazy-sentinel';
+        sentinel.style.gridColumn = '1 / -1';
+        sentinel.style.height = '1px';
+        gridEl.appendChild(sentinel);
+
+        libraryGridObserver = new IntersectionObserver((entries) => {
+            if (entries.some(e => e.isIntersecting)) {
+                appendNextBatch(scrollBatch);
+                if (renderedCount >= words.length) {
+                    sentinel.remove();
+                    libraryGridObserver?.disconnect();
+                }
+            }
+        }, { rootMargin: '320px' });
+
+        libraryGridObserver.observe(sentinel);
+    }
 };
 
 /**
@@ -290,48 +481,128 @@ const renderGrid = () => {
  */
 const renderStructures = () => {
     const listEl = document.getElementById('structures-list');
+    if (!listEl) return;
     listEl.innerHTML = '';
     const db = loadDB();
     const structures = db.estructuras || [];
 
     if (structures.length === 0) {
+        const emptyTitle = typeof I18N !== 'undefined' ? I18N.t('structuresEmpty') : 'No hay estructuras registradas';
+        const emptySub = typeof I18N !== 'undefined' ? I18N.t('structuresEmptySub') : 'Ve al Constructor para crear tu primera estructura de oración.';
         listEl.innerHTML = `
             <div class="empty-state">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                <h3>No hay estructuras registradas</h3>
-                <p>Ve al Constructor para crear tu primera estructura de oración.</p>
+                <h3>${emptyTitle}</h3>
+                <p>${emptySub}</p>
             </div>
         `;
         return;
     }
 
-    structures.forEach(s => listEl.appendChild(createStructureCard(s)));
+    const frag = document.createDocumentFragment();
+    structures.forEach(s => frag.appendChild(createStructureCard(s)));
+    listEl.appendChild(frag);
 };
 
-let currentPrintSearch = '';
-
 /**
- * Renders the export grid with selectable flashcards.
+ * Returns filtered words for the Export / Print view.
  */
-const renderExportGrid = () => {
-    const gridEl = document.getElementById('export-grid');
-    gridEl.innerHTML = '';
-    
+const getFilteredExportWords = () => {
     let words = getAllWords();
-    
     if (currentPrintSearch) {
         words = window.searchAndSortWords(currentPrintSearch, words);
     }
+    return words;
+};
 
-    words.forEach(word => {
-        gridEl.appendChild(createFlashcard(word, { showSelect: true, showActions: false }));
-    });
+/**
+ * Renders the export grid with selectable flashcards and Lazy Rendering.
+ */
+const renderExportGrid = () => {
+    const gridEl = document.getElementById('export-grid');
+    if (!gridEl) return;
+
+    if (exportGridObserver) {
+        exportGridObserver.disconnect();
+        exportGridObserver = null;
+    }
+
+    gridEl.innerHTML = '';
+
+    if (typeof I18N !== 'undefined' && typeof I18N.isLanguageLoading === 'function' && I18N.isLanguageLoading()) {
+        if (typeof createFlashcardSkeletons === 'function') {
+            gridEl.appendChild(createFlashcardSkeletons(6));
+        }
+        return;
+    }
+
+    const words = getFilteredExportWords();
+    const initialBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.initialCardBatchSize) || 36;
+    const scrollBatch = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.scrollBatchSize) || 24;
+    let renderedCount = 0;
+
+    const handleCardSelectToggle = (wordId, isChecked) => {
+        if (isChecked) {
+            selectedExportIds.add(wordId);
+        } else {
+            selectedExportIds.delete(wordId);
+        }
+        updateExportCount();
+    };
+
+    const appendNextBatch = (batchSize) => {
+        const slice = words.slice(renderedCount, renderedCount + batchSize);
+        if (slice.length === 0) return;
+        const frag = document.createDocumentFragment();
+        slice.forEach(word => {
+            frag.appendChild(createFlashcard(word, {
+                showSelect: true,
+                showActions: false,
+                isSelected: selectedExportIds.has(word.id),
+                onSelectToggle: handleCardSelectToggle
+            }));
+        });
+        const sentinel = gridEl.querySelector('.grid-lazy-sentinel');
+        if (sentinel) {
+            gridEl.insertBefore(frag, sentinel);
+        } else {
+            gridEl.appendChild(frag);
+        }
+        renderedCount += slice.length;
+    };
+
+    appendNextBatch(initialBatch);
+
+    if (renderedCount < words.length && typeof IntersectionObserver !== 'undefined') {
+        const sentinel = document.createElement('div');
+        sentinel.className = 'grid-lazy-sentinel';
+        sentinel.style.gridColumn = '1 / -1';
+        sentinel.style.height = '1px';
+        gridEl.appendChild(sentinel);
+
+        exportGridObserver = new IntersectionObserver((entries) => {
+            if (entries.some(e => e.isIntersecting)) {
+                appendNextBatch(scrollBatch);
+                if (renderedCount >= words.length) {
+                    sentinel.remove();
+                    exportGridObserver?.disconnect();
+                }
+            }
+        }, { rootMargin: '320px' });
+
+        exportGridObserver.observe(sentinel);
+    }
+
     updateExportCount();
 };
 
 const updateExportCount = () => {
-    const checked = document.querySelectorAll('#export-grid input[type="checkbox"]:checked');
-    document.getElementById('export-count').textContent = typeof I18N !== 'undefined' ? I18N.t('printSelectedCount', { count: checked.length }) : `${checked.length} seleccionadas`;
+    const countEl = document.getElementById('export-count');
+    if (!countEl) return;
+    const count = selectedExportIds.size;
+    countEl.textContent = typeof I18N !== 'undefined'
+        ? I18N.t('printSelectedCount', { count })
+        : `${count} seleccionadas`;
 };
 
 /**
@@ -362,8 +633,12 @@ let currentRadicals = [];
 
 const renderRadicalChips = () => {
     const container = document.getElementById('radical-chips-container');
-    if(!container) return;
+    if (!container) return;
     container.innerHTML = '';
+    const lookup = (id) => (typeof getWordById === 'function' ? getWordById(id) : getAllWords().find(w => w.id === id));
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+    const unknownTxt = (window.I18N && window.I18N.t) ? window.I18N.t('unknownRadical') : 'Desconocido';
+
     currentRadicals.forEach((rad, index) => {
         const chip = document.createElement('div');
         chip.className = 'radical-chip' + (rad.type === 'ref' ? ' chip-ref' : '');
@@ -371,13 +646,13 @@ const renderRadicalChips = () => {
         if (rad.type === 'text') {
             chip.innerHTML = `<span>${rad.value}</span>`;
         } else if (rad.type === 'ref') {
-            const word = getAllWords().find(w => w.id === rad.id);
+            const word = lookup(rad.id);
             if (word) {
                 const color = CATEGORY_COLORS[word.categoria] || 'var(--accent)';
                 chip.style.setProperty('--chip-color', color);
-                chip.innerHTML = `<span class="sug-char">${word.tradicional}</span> <span class="sug-spanish">(${word.espanol})</span>`;
+                chip.innerHTML = `<span class="sug-char">${word.tradicional}</span> <span class="sug-spanish">(${getMeaning(word)})</span>`;
             } else {
-                chip.innerHTML = `<span>Desconocido</span>`;
+                chip.innerHTML = `<span>${unknownTxt}</span>`;
             }
         }
         
@@ -398,7 +673,6 @@ let sortableRadicals = null;
 const initSortableRadicals = () => {
     const container = document.getElementById('radical-chips-container');
     if (container && !sortableRadicals) {
-        // We assume Sortable is globally available (loaded in index.html)
         if (typeof Sortable !== 'undefined') {
             sortableRadicals = new Sortable(container, {
                 animation: 150,
@@ -409,8 +683,6 @@ const initSortableRadicals = () => {
                     
                     const [movedItem] = currentRadicals.splice(oldIndex, 1);
                     currentRadicals.splice(newIndex, 0, movedItem);
-                    
-                    // Re-render immediately to update index closures in delete buttons
                     renderRadicalChips();
                 }
             });
@@ -418,11 +690,10 @@ const initSortableRadicals = () => {
     }
 };
 
-
 const formatClassifierShort = (c) => {
-    let desc = c.espanol || '';
-    desc = desc.replace(/^Clasificador\s+(para\s+|de\s+|numeral\s+para\s+|universal\s+)?/i, '');
-    desc = desc.replace(/^verbal\s+de\s+/i, '');
+    let desc = (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(c) : (c.espanol || '');
+    desc = desc.replace(/^(Clasificador|Classifier)\s+(para\s+|de\s+|numeral\s+para\s+|universal\s+|for\s+|of\s+)?/i, '');
+    desc = desc.replace(/^verbal\s+(de\s+|for\s+)?/i, '');
     desc = desc.charAt(0).toUpperCase() + desc.slice(1);
     if (desc.length > 28) desc = desc.slice(0, 26) + '...';
     return `${c.tradicional} (${c.pinyin}) — ${desc}`;
@@ -436,12 +707,14 @@ const populateClassifierSelect = (selectedId = '') => {
     const clfSelect = document.getElementById('w-clasificador');
     if (!clfSelect) return;
     const classifiers = getAllClassifiers();
-    clfSelect.innerHTML = '<option value="">Ninguno</option>';
+    const noneLabel = typeof I18N !== 'undefined' ? I18N.t('wordDialogNone') : 'Ninguno';
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+    clfSelect.innerHTML = `<option value="" data-i18n="wordDialogNone">${noneLabel}</option>`;
     classifiers.forEach(c => {
         const opt = document.createElement('option');
         opt.value = c.id;
         opt.textContent = formatClassifierShort(c);
-        opt.title = `${c.tradicional} (${c.pinyin}) - ${c.espanol}`;
+        opt.title = `${c.tradicional} (${c.pinyin}) - ${getMeaning(c)}`;
         if (c.id === selectedId) {
             opt.selected = true;
         }
@@ -451,8 +724,6 @@ const populateClassifierSelect = (selectedId = '') => {
 
 // ==========================================================
 // PINYIN TONE NUMBER CONVERTER (Field #w-pinyin)
-// Converts tone numbers (1-5) into proper diacritic marks:
-// e.g. a2 -> á, hao3 -> hǎo, jue2 -> jué, lv4 -> lǜ
 // ==========================================================
 
 const PINYIN_UNACCENT_MAP = {
@@ -487,17 +758,6 @@ const PINYIN_TONE_MAP = {
     'Ü': ['Ǖ', 'Ǘ', 'Ǚ', 'Ǜ']
 };
 
-/**
- * Converts a pinyin syllable (or single vowel) + tone number (1-5) into accented Pinyin.
- * Adheres to standard Hanyu Pinyin tone placement rules:
- * 1. 'a' or 'e' always takes the tone mark.
- * 2. In 'ou', 'o' takes the tone mark.
- * 3. In other vowel pairs (ui, iu), the last vowel takes the tone mark.
- * 4. Single vowels take the tone mark.
- * @param {string} syllable
- * @param {number} toneNum (1..5)
- * @returns {string|null}
- */
 const convertPinyinSyllable = (syllable, toneNum) => {
     if (!syllable) return null;
 
@@ -506,7 +766,6 @@ const convertPinyinSyllable = (syllable, toneNum) => {
         base += PINYIN_UNACCENT_MAP[ch] || ch;
     }
 
-    // Tone 5 or 0: neutral tone (removes tone marks and normalizes v to ü)
     if (toneNum === 0 || toneNum === 5) {
         return base.replace(/v/g, 'ü').replace(/V/g, 'Ü');
     }
@@ -554,15 +813,6 @@ const isPinyinConsonant = (ch) => {
     return /[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z]/.test(ch) && ch.toLowerCase() !== 'v';
 };
 
-/**
- * Extracts the single trailing pinyin syllable immediately preceding the cursor.
- * Correctly boundaries contiguous words (like 'shangke' -> 'ke', 'shàngke' -> 'ke', 'taibei' -> 'bei')
- * by tracing backwards from the cursor to find the syllable's coda, vowel nucleus, and onset consonant,
- * preventing tone marks from being placed on preceding syllables in a connected chain.
- * 
- * @param {string} textBefore - Text before cursor
- * @returns {{ syllable: string, prefix: string } | null}
- */
 const extractLastPinyinSyllable = (textBefore) => {
     if (!textBefore || textBefore.length === 0) return null;
 
@@ -574,7 +824,6 @@ const extractLastPinyinSyllable = (textBefore) => {
 
     let i = endIdx;
 
-    // 1. Check optional coda at the end: 'ng', 'n', or 'r'
     if (i >= 2 && textBefore.slice(i - 1, i + 1).toLowerCase() === 'ng' && isPinyinVowel(textBefore[i - 2])) {
         i -= 2;
     } else if (i >= 1 && textBefore[i].toLowerCase() === 'n' && isPinyinVowel(textBefore[i - 1])) {
@@ -583,19 +832,16 @@ const extractLastPinyinSyllable = (textBefore) => {
         i -= 1;
     }
 
-    // 2. Collect 1 to 3 vowels (nucleus)
     const vowelEnd = i;
     while (i >= 0 && isPinyinVowel(textBefore[i])) {
         i--;
     }
     const vowelStart = i + 1;
 
-    // Must contain at least one vowel to be toneable
     if (vowelStart > vowelEnd) {
         return null;
     }
 
-    // 3. Check optional initial consonant(s) (onset) immediately before vowels
     let onsetStart = vowelStart;
     if (i >= 1) {
         const twoChar = textBefore.slice(i - 1, i + 1).toLowerCase();
@@ -614,10 +860,6 @@ const extractLastPinyinSyllable = (textBefore) => {
     return { syllable, prefix };
 };
 
-/**
- * Attaches the number-to-tone converter to any input element.
- * @param {HTMLInputElement} input
- */
 const attachPinyinToneInput = (input) => {
     if (!input) return;
 
@@ -637,11 +879,9 @@ const attachPinyinToneInput = (input) => {
         const selEnd = input.selectionEnd;
         const val = input.value;
 
-        // Slice text before selection
         const textBefore = val.slice(0, cursorPos);
         const textAfter = val.slice(selEnd);
 
-        // Find trailing syllable right before the cursor
         const extracted = extractLastPinyinSyllable(textBefore);
         if (!extracted) return;
 
@@ -664,9 +904,6 @@ window.attachPinyinToneInput = attachPinyinToneInput;
 window.convertPinyinSyllable = convertPinyinSyllable;
 window.extractLastPinyinSyllable = extractLastPinyinSyllable;
 
-/**
- * Attaches the number-to-tone converter exclusively to the #w-pinyin input.
- */
 const initPinyinToneInput = () => {
     const input = document.getElementById('w-pinyin');
     if (!input) return;
@@ -684,11 +921,7 @@ const setWordDialogLesson = (lessonVal) => {
         hiddenInput.value = valStr;
     }
     document.querySelectorAll('#w-lesson-group .btn-lesson-pill').forEach(btn => {
-        if (btn.dataset.lesson === valStr) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
+        btn.classList.toggle('active', btn.dataset.lesson === valStr);
     });
 };
 
@@ -697,18 +930,17 @@ const setWordDialogLesson = (lessonVal) => {
  */
 const openAddDialog = () => {
     editingWordId = null;
-    document.getElementById('word-dialog-title').textContent = 'Nueva Palabra';
+    document.getElementById('word-dialog-title').textContent = typeof I18N !== 'undefined' ? I18N.t('wordDialogNewTitle') : 'Nueva Palabra';
     wordForm.reset();
     setWordDialogLesson('');
     populateClassifierSelect('');
     const clfSelect = document.getElementById('w-clasificador');
     if (clfSelect) clfSelect.disabled = false;
     
-    // Reset radicals
     currentRadicals = [];
     renderRadicalChips();
     initSortableRadicals();
-    document.querySelector('.radical-tab[data-type="text"]').click();
+    document.querySelector('.radical-tab[data-type="text"]')?.click();
     
     wordDialog.showModal();
 };
@@ -719,12 +951,18 @@ const openAddDialog = () => {
  */
 const openEditDialog = (id) => {
     editingWordId = id;
-    const word = getAllWords().find(w => w.id === id);
+    const word = (typeof getWordById === 'function')
+        ? getWordById(id)
+        : getAllWords().find(w => w.id === id);
     if (!word) return;
 
-    document.getElementById('word-dialog-title').textContent = 'Editar Palabra';
-    document.getElementById('w-espanol').value      = word.espanol || '';
-    document.getElementById('w-categoria').value    = word.categoria || 'sustantivo';
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+    const getNotes = (w) => (window.I18N && window.I18N.getWordNotes) ? window.I18N.getWordNotes(w) : (w.notas || '');
+    const defaultCat = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.defaultCategoryId) || 'sustantivo';
+
+    document.getElementById('word-dialog-title').textContent = typeof I18N !== 'undefined' ? I18N.t('wordDialogEditTitle') : 'Editar Palabra';
+    document.getElementById('w-espanol').value      = getMeaning(word);
+    document.getElementById('w-categoria').value    = word.categoria || defaultCat;
     document.getElementById('w-tradicional').value  = word.tradicional || '';
     document.getElementById('w-pinyin').value       = word.pinyin || '';
     document.getElementById('w-zhuyin').value       = word.zhuyin || '';
@@ -732,11 +970,11 @@ const openEditDialog = (id) => {
     populateClassifierSelect(word.clasificador || '');
     const clfSelect = document.getElementById('w-clasificador');
     if (clfSelect) {
-        clfSelect.disabled = (word.categoria === 'clasificador');
+        const catDef = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.getCategory(word.categoria) : null;
+        clfSelect.disabled = catDef ? (catDef.allowsClassifier === false) : (word.categoria === 'clasificador');
     }
-    document.getElementById('w-notas').value        = word.notas || '';
+    document.getElementById('w-notas').value        = getNotes(word);
 
-    // Load radicals
     if (typeof word.radicales === 'string' && word.radicales.trim() !== '') {
         currentRadicals = [{ type: 'text', value: word.radicales }];
     } else if (Array.isArray(word.radicales)) {
@@ -746,7 +984,7 @@ const openEditDialog = (id) => {
     }
     renderRadicalChips();
     initSortableRadicals();
-    document.querySelector('.radical-tab[data-type="text"]').click();
+    document.querySelector('.radical-tab[data-type="text"]')?.click();
 
     wordDialog.showModal();
 };
@@ -769,24 +1007,21 @@ const openDeleteDialog = (id, name, type = 'palabra') => {
 // ==========================================================
 
 /**
- * Navigates to a section by name. Handles visibility toggling
- * and section-specific initialization.
+ * Navigates to a section by name.
  * @param {string} sectionName
  */
 const navigateTo = (sectionName) => {
-    // Toggle section visibility
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     const target = document.getElementById(`section-${sectionName}`);
     if (target) target.classList.add('active');
 
-    // Update sidebar active state
     document.querySelectorAll('.nav-item[data-section]').forEach(n => n.classList.remove('active'));
     const navItem = document.querySelector(`.nav-item[data-section="${sectionName}"]`);
     if (navItem) navItem.classList.add('active');
 
-    // Section-specific init
     if (sectionName === 'constructor') {
-        renderWordBank();
+        const activeBankChip = document.querySelector('#bank-filter-chips .chip.active');
+        renderWordBank(activeBankChip ? activeBankChip.dataset.filter : 'todos');
     } else if (sectionName === 'estudio') {
         initStudyMode();
     } else if (sectionName === 'practica') {
@@ -799,13 +1034,12 @@ const navigateTo = (sectionName) => {
         renderStructures();
     }
 
-    // Close mobile sidebar
     document.getElementById('sidebar').classList.remove('open');
     document.getElementById('sidebar-overlay').classList.remove('open');
 };
 
 // ==========================================================
-// IMPORT / EXPORT JSON (UI wrappers around storage functions)
+// IMPORT / EXPORT JSON
 // ==========================================================
 
 const handleExportJSON = () => {
@@ -818,45 +1052,54 @@ const handleExportJSON = () => {
     a.download = `appchino-datos-${db.meta.ultimaEdicion}.json`;
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Datos exportados correctamente', 'success');
+    showToast(typeof I18N !== 'undefined' ? I18N.t('toastDataExported') : 'Datos exportados correctamente', 'success');
 };
 
 const handleImportJSON = (file) => {
     const reader = new FileReader();
     reader.onload = (e) => {
         if (importData(e.target.result)) {
-            showToast('Datos importados correctamente. Recargando...', 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastDataImported') : 'Datos importados correctamente. Recargando...', 'success');
             setTimeout(() => location.reload(), 1000);
         } else {
-            showToast('Archivo JSON inválido: falta la estructura esperada.', 'error');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastDataImportInvalid') : 'Archivo JSON inválido: falta la estructura esperada.', 'error');
         }
     };
-    reader.onerror = () => showToast('Error al leer el archivo.', 'error');
+    reader.onerror = () => showToast(typeof I18N !== 'undefined' ? I18N.t('toastDataImportError') : 'Error al leer el archivo.', 'error');
     reader.readAsText(file);
 };
 
 // ==========================================================
-// BOOTSTRAP — DOMContentLoaded
+// BOOTSTRAP — DOMContentLoaded (Async Lazy Load + Skeletons)
 // ==========================================================
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize Gemini API Key from localStorage if available
-    setGeminiApiKey(localStorage.getItem('appchino_gemini_key'));
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Inject dynamic category CSS variables and badge rules from APP_CONFIG
+    if (typeof injectDynamicCategoryStyles === 'function') {
+        injectDynamicCategoryStyles();
+    }
+
+    // 2. Build dynamic filters and inputs from APP_CONFIG
+    renderConfigurableFiltersAndInputs();
+
+    // 3. Initialize Gemini API Key from localStorage if available
+    setGeminiApiKey(localStorage.getItem(GEMINI_API_KEY_STORAGE));
     window.setGeminiApiKey = setGeminiApiKey;
 
-
-    // --- Sidebar navigation ---
+    // 4. Sidebar navigation
     document.querySelectorAll('.nav-item[data-section]').forEach(item => {
         item.addEventListener('click', () => navigateTo(item.dataset.section));
     });
 
-    // --- Collapsible sidebar ---
+    // 5. Collapsible sidebar
     const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
     const brandIcon = document.querySelector('.sidebar-brand .brand-icon');
 
     const updateSidebarTooltip = (isCollapsed) => {
         if (sidebarCollapseBtn) {
-            const label = isCollapsed ? 'Expandir menú' : 'Colapsar menú';
+            const label = typeof I18N !== 'undefined'
+                ? I18N.t(isCollapsed ? 'expandMenu' : 'collapseMenu')
+                : (isCollapsed ? 'Expandir menú' : 'Colapsar menú');
             sidebarCollapseBtn.setAttribute('data-tooltip', label);
             sidebarCollapseBtn.setAttribute('title', label);
             sidebarCollapseBtn.setAttribute('aria-label', label);
@@ -890,7 +1133,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Mobile sidebar ---
+    // 6. Mobile sidebar
     document.getElementById('sidebar-toggle').addEventListener('click', () => {
         document.getElementById('sidebar').classList.toggle('open');
         document.getElementById('sidebar-overlay').classList.toggle('open');
@@ -900,35 +1143,36 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('sidebar-overlay').classList.remove('open');
     });
 
-    // --- Add word ---
+    // 7. Add word & Pinyin input
     document.getElementById('btn-add-word').addEventListener('click', openAddDialog);
     initPinyinToneInput();
 
-    // --- Search ---
+    // 8. Search
     document.getElementById('search-input').addEventListener('input', (e) => {
         currentSearch = e.target.value;
         renderGrid();
     });
 
-    // --- Library lesson filter chips (stackable multi-selection) ---
+    // 9. Library lesson filter chips (stackable multi-selection)
     const libraryLessonChips = document.getElementById('library-lesson-chips');
     if (libraryLessonChips) {
         libraryLessonChips.addEventListener('click', (e) => {
             const chip = e.target.closest('.chip');
             if (!chip) return;
-            const lessonVal = chip.dataset.lessonFilter || 'todas';
+            const allKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.allFilterId) || 'todas';
+            const lessonVal = chip.dataset.lessonFilter || allKey;
 
-            if (lessonVal === 'todas') {
-                currentLessonFilter = ['todas'];
+            if (lessonVal === allKey) {
+                currentLessonFilter = [allKey];
             } else {
-                let lessons = currentLessonFilter.filter(l => l !== 'todas');
+                let lessons = currentLessonFilter.filter(l => l !== allKey);
                 if (lessons.includes(lessonVal)) {
                     lessons = lessons.filter(l => l !== lessonVal);
                 } else {
                     lessons.push(lessonVal);
                 }
                 if (lessons.length === 0) {
-                    lessons = ['todas'];
+                    lessons = [allKey];
                 }
                 currentLessonFilter = lessons;
             }
@@ -942,7 +1186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Library category filter chips (stackable multi-selection) ---
+    // 10. Library category filter chips (stackable multi-selection)
     const libraryCatChips = document.getElementById('filter-chips');
     if (libraryCatChips) {
         libraryCatChips.addEventListener('click', (e) => {
@@ -974,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Builder bank filter chips ---
+    // 11. Builder bank filter chips
     document.getElementById('bank-filter-chips').addEventListener('click', (e) => {
         const chip = e.target.closest('.chip');
         if (!chip) return;
@@ -983,14 +1227,14 @@ document.addEventListener('DOMContentLoaded', () => {
         renderWordBank(chip.dataset.filter);
     });
 
-    // --- Study mode filter chips handled in study.js ---
-
-    // --- Category change listener (Word Dialog) ---
+    // 12. Category change listener (Word Dialog)
     const catSelect = document.getElementById('w-categoria');
     const clfSelect = document.getElementById('w-clasificador');
     if (catSelect && clfSelect) {
         catSelect.addEventListener('change', (e) => {
-            if (e.target.value === 'clasificador') {
+            const catDef = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.getCategory(e.target.value) : null;
+            const disableClf = catDef ? (catDef.allowsClassifier === false) : (e.target.value === 'clasificador');
+            if (disableClf) {
                 clfSelect.value = '';
                 clfSelect.disabled = true;
             } else {
@@ -999,7 +1243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Lesson picker pills listener (Word Dialog) ---
+    // 13. Lesson picker pills listener (Word Dialog)
     const lessonGroup = document.getElementById('w-lesson-group');
     if (lessonGroup) {
         lessonGroup.addEventListener('click', (e) => {
@@ -1009,7 +1253,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Tabs logic
+    // 14. Radical builder tabs & inputs
     document.querySelectorAll('.radical-tab').forEach(tab => {
         tab.addEventListener('click', (e) => {
             document.querySelectorAll('.radical-tab').forEach(t => t.classList.remove('active'));
@@ -1020,9 +1264,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Add text radical
     const btnAddText = document.getElementById('btn-add-radical-text');
-    if(btnAddText) {
+    if (btnAddText) {
         btnAddText.addEventListener('click', () => {
             const input = document.getElementById('w-radicales-text');
             const val = input.value.trim();
@@ -1034,33 +1277,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Library radical search
     const radSearchInput = document.getElementById('w-radicales-search');
     const radSuggestions = document.getElementById('radical-suggestions');
-    let radHighlightedIdx = -1;
-
-    const stripTonesRad = (str) => str.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
 
     const searchLibraryRadicals = (query) => {
         if (!query || query.length < 1) return [];
-        return window.searchAndSortWords(query).filter(w => w.categoria !== 'clasificador').slice(0, 8);
+        return window.searchAndSortWords(query).filter(w => {
+            const catDef = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.getCategory(w.categoria) : null;
+            return catDef ? !catDef.isClassifier : w.categoria !== 'clasificador';
+        }).slice(0, 8);
     };
 
     const renderRadSuggestions = (results) => {
         if (results.length === 0) {
             radSuggestions.classList.remove('visible');
             radSuggestions.innerHTML = '';
-            radHighlightedIdx = -1;
             return;
         }
-        radHighlightedIdx = -1;
+        const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
         radSuggestions.innerHTML = results.map((w, i) => {
             const color = CATEGORY_COLORS[w.categoria] || 'var(--text-muted)';
             return `
                 <div class="pinyin-suggestion-item" data-index="${i}">
                     <span class="sug-char" style="color: ${color}">${w.tradicional}</span>
                     <span class="sug-pinyin">${w.pinyin}</span>
-                    <span class="sug-spanish">(${w.espanol})</span>
+                    <span class="sug-spanish">(${getMeaning(w)})</span>
                 </div>
             `;
         }).join('');
@@ -1078,14 +1319,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    if(radSearchInput) {
+    if (radSearchInput) {
         radSearchInput.addEventListener('input', (e) => {
             const results = searchLibraryRadicals(e.target.value);
             renderRadSuggestions(results);
         });
     }
-    
-    // Close suggestions on outside click
+
     document.addEventListener('click', (e) => {
         if (radSuggestions && !e.target.closest('#radical-library-area')) {
             radSuggestions.classList.remove('visible');
@@ -1093,7 +1333,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================================
-    // NESTED HOVERS LOGIC
+    // NESTED HOVERS LOGIC (O(1) getWordById)
     // ==========================================================
     let hoverTimeout;
     let currentPopovers = [];
@@ -1106,7 +1346,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     document.addEventListener('mouseover', (e) => {
-        // Clear timeout if hovering over any popover or radical ref
         if (e.target.closest('.radical-ref') || e.target.closest('.radical-popover')) {
             clearTimeout(hoverTimeout);
         }
@@ -1116,16 +1355,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const refId = refEl.dataset.refId;
             const popoverLevel = parseInt(refEl.dataset.level || '0', 10);
             
-            // If this exact popover is already open at this level, do nothing
             if (currentPopovers[popoverLevel] && currentPopovers[popoverLevel].dataset.refId === refId) {
                 return;
             }
             
-            // If we hover over a lower level ref, close higher level popovers
             closePopoversFrom(popoverLevel);
             
-            // Render the popover
-            const word = getAllWords().find(w => w.id === refId);
+            const lookup = (id) => (typeof getWordById === 'function' ? getWordById(id) : getAllWords().find(w => w.id === id));
+            const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+            const getNotes = (w) => (window.I18N && window.I18N.getWordNotes) ? window.I18N.getWordNotes(w) : (w.notas || '');
+
+            const word = lookup(refId);
             if (!word) return;
 
             const popover = document.createElement('div');
@@ -1134,21 +1374,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let clfDisplay = '';
             if (word.clasificador) {
-                const clf = getAllWords().find(w => w.id === word.clasificador);
+                const clf = lookup(word.clasificador);
                 clfDisplay = clf
                     ? `<span class="radical-ref" data-ref-id="${clf.id}" data-level="${popoverLevel + 1}">${clf.tradicional} (${clf.pinyin})</span>`
                     : word.clasificador;
             }
             
-            // Custom radicals rendering for popover
             let radHtml = '';
             if (word.radicales) {
                 if (Array.isArray(word.radicales)) {
                     radHtml = word.radicales.map(rad => {
                         if (rad.type === 'text') return rad.value;
                         if (rad.type === 'ref') {
-                            const refWord = getAllWords().find(w => w.id === rad.id);
-                            return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="${popoverLevel + 1}">${refWord.tradicional} (${refWord.espanol})</span>` : '';
+                            const refWord = lookup(rad.id);
+                            return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="${popoverLevel + 1}">${refWord.tradicional} (${getMeaning(refWord)})</span>` : '';
                         }
                         return '';
                     }).filter(Boolean).join(' + ');
@@ -1158,11 +1397,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const popoverCatColor = CATEGORY_COLORS[word.categoria] || 'var(--accent)';
+            const wordNotes = getNotes(word);
 
             popover.innerHTML = `
                 <div class="card-back" style="padding: 1.25rem; min-width: 220px;">
                     <div class="card-back-body" style="margin: auto 0; text-align: center;">
-                        <div class="spanish-meaning" style="margin-bottom: 0.5rem;">${word.espanol}</div>
+                        <div class="spanish-meaning" style="margin-bottom: 0.5rem;">${getMeaning(word)}</div>
                         <div class="chinese-char" style="font-size: 2.2rem; line-height: 1.1; margin-bottom: 0.5rem; color: ${popoverCatColor};">${word.tradicional}</div>
                         <div class="card-pronunciation-block" style="margin-bottom: 0.5rem;">
                             <div class="pinyin-label">${word.pinyin}</div>
@@ -1175,21 +1415,18 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         ` : ''}
                     </div>
-                    ${word.notas ? `
+                    ${wordNotes ? `
                     <div class="card-notes-block" style="margin-top: 0.5rem;">
-                        ${word.notas}
+                        ${wordNotes}
                     </div>
                     ` : ''}
                 </div>
             `;
             
-            // Append to body
             document.body.appendChild(popover);
             currentPopovers.push(popover);
             
-            // Position it
             const rect = refEl.getBoundingClientRect();
-            // Try to position to the right, if not enough space, to the left. If no space, below.
             let left = rect.right + 10;
             let top = rect.top;
             
@@ -1215,8 +1452,10 @@ document.addEventListener('DOMContentLoaded', () => {
     wordForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const leccionRaw = document.getElementById('w-leccion')?.value?.trim();
+        const meaningVal = document.getElementById('w-espanol').value.trim();
+        const isEn = typeof I18N !== 'undefined' && I18N.getLanguage() === 'en';
         const data = {
-            espanol:      document.getElementById('w-espanol').value.trim(),
+            espanol:      meaningVal,
             tradicional:  document.getElementById('w-tradicional').value.trim(),
             pinyin:       document.getElementById('w-pinyin').value.trim(),
             zhuyin:       document.getElementById('w-zhuyin').value.trim(),
@@ -1226,13 +1465,17 @@ document.addEventListener('DOMContentLoaded', () => {
             radicales:    currentRadicals.length > 0 ? currentRadicals : '',
             notas:        document.getElementById('w-notas').value.trim()
         };
+        if (isEn) {
+            data.english = meaningVal;
+            data.notas_en = data.notas;
+        }
 
         if (editingWordId) {
             updateWord(editingWordId, data);
-            showToast(`"${data.tradicional}" actualizado correctamente`, 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastWordUpdated', { word: data.tradicional }) : `"${data.tradicional}" actualizado correctamente`, 'success');
         } else {
             addWord(data);
-            showToast(`"${data.tradicional}" agregado a tu biblioteca`, 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastWordAdded', { word: data.tradicional }) : `"${data.tradicional}" agregado a tu biblioteca`, 'success');
         }
 
         wordDialog.close();
@@ -1243,10 +1486,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('delete-dialog-confirm').addEventListener('click', () => {
         if (deletingItemType === 'estructura') {
             deleteStructure(deletingItemId);
-            showToast('Estructura eliminada', 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastStructureDeleted') : 'Estructura eliminada', 'success');
         } else {
             deleteWord(deletingItemId);
-            showToast('Palabra eliminada', 'success');
+            selectedExportIds.delete(deletingItemId);
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastWordDeleted') : 'Palabra eliminada', 'success');
         }
         deleteDialog.close();
         refreshAll();
@@ -1258,55 +1502,49 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('delete-dialog-close').addEventListener('click',  () => deleteDialog.close());
     document.getElementById('delete-dialog-cancel').addEventListener('click', () => deleteDialog.close());
 
-    // --- Export controls ---
+    // --- Export controls (compatible with Lazy Rendering) ---
     document.getElementById('print-search-input').addEventListener('input', (e) => {
         currentPrintSearch = e.target.value;
         renderExportGrid();
     });
+
     const printPinyinToggle = document.getElementById('print-toggle-pinyin');
     if (printPinyinToggle) {
         printPinyinToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-pinyin-print');
-            } else {
-                document.body.classList.add('hide-pinyin-print');
-            }
+            document.body.classList.toggle('hide-pinyin-print', !e.target.checked);
         });
     }
 
     const printZhuyinToggle = document.getElementById('print-toggle-zhuyin');
     if (printZhuyinToggle) {
         printZhuyinToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-zhuyin-print');
-            } else {
-                document.body.classList.add('hide-zhuyin-print');
-            }
+            document.body.classList.toggle('hide-zhuyin-print', !e.target.checked);
         });
     }
 
     const printCategoriaToggle = document.getElementById('print-toggle-categoria');
     if (printCategoriaToggle) {
         printCategoriaToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.body.classList.remove('hide-categoria-print');
-            } else {
-                document.body.classList.add('hide-categoria-print');
-            }
+            document.body.classList.toggle('hide-categoria-print', !e.target.checked);
         });
     }
+
     document.getElementById('btn-select-all').addEventListener('click', () => {
+        const filteredWords = getFilteredExportWords();
+        filteredWords.forEach(w => selectedExportIds.add(w.id));
         document.querySelectorAll('#export-grid input[type="checkbox"]').forEach(cb => cb.checked = true);
         updateExportCount();
     });
+
     document.getElementById('btn-deselect-all').addEventListener('click', () => {
+        selectedExportIds.clear();
         document.querySelectorAll('#export-grid input[type="checkbox"]').forEach(cb => cb.checked = false);
         updateExportCount();
     });
-    document.getElementById('export-grid').addEventListener('change', updateExportCount);
+
     document.getElementById('btn-export-pdf').addEventListener('click', exportPDF);
 
-    // --- JSON import/export (disabled in static mode) ---
+    // --- JSON import/export ---
     document.getElementById('btn-export-json')?.addEventListener('click', handleExportJSON);
     document.getElementById('btn-import-json')?.addEventListener('click', () => {
         document.getElementById('json-file-input')?.click();
@@ -1323,7 +1561,24 @@ document.addEventListener('DOMContentLoaded', () => {
         I18N.applyI18nToDOM();
     }
 
-    // --- Initialize ---
+    // --- Show Skeleton Placeholders and Lazy Load active language dataset ---
+    if (typeof showLanguageSkeletonState === 'function') {
+        showLanguageSkeletonState();
+    }
+
+    if (typeof I18N !== 'undefined' && typeof I18N.ensureLanguageDataLoaded === 'function') {
+        try {
+            await I18N.ensureLanguageDataLoaded();
+        } catch (err) {
+            console.error("Failed to lazy-load initial language pack:", err);
+        }
+    }
+
+    if (typeof invalidateStorageCache === 'function') {
+        invalidateStorageCache();
+    }
+
+    // --- Initialize views after language pack is hydrated ---
     refreshAll();
     initBuilder();
 });
@@ -1332,7 +1587,8 @@ document.addEventListener('DOMContentLoaded', () => {
  * Initializes settings dialog and font preferences.
  */
 const initSettings = () => {
-    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+    const defaultFont = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.fonts?.default) || 'kaiti';
+    const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || defaultFont;
     applyChineseFont(savedFont);
 
     const settingsDialog = document.getElementById('settings-dialog');
@@ -1348,9 +1604,12 @@ const initSettings = () => {
     if (toggleLangBtn) {
         toggleLangBtn.addEventListener('click', () => {
             if (typeof I18N !== 'undefined') {
+                const avail = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.languages?.available)
+                    ? Object.keys(APP_CONFIG.languages.available)
+                    : ['es', 'en'];
                 const current = I18N.getLanguage();
-                const next = current === 'es' ? 'en' : 'es';
-                I18N.setLanguage(next);
+                const nextIdx = (avail.indexOf(current) + 1) % avail.length;
+                I18N.setLanguage(avail[nextIdx]);
             }
         });
     }
@@ -1367,10 +1626,9 @@ const initSettings = () => {
 
     if (!settingsDialog) return;
 
-    // Open settings
     if (openSettingsBtn) {
         openSettingsBtn.addEventListener('click', () => {
-            const currentFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
+            const currentFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || defaultFont;
             applyChineseFont(currentFont);
 
             if (geminiKeyInput && typeof getGeminiApiKey === 'function') {
@@ -1388,17 +1646,15 @@ const initSettings = () => {
         });
     }
 
-    // Close / Cancel
     const closeDialog = () => {
-        const savedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || 'kaiti';
-        applyChineseFont(savedFont);
+        const currentSavedFont = localStorage.getItem(CHINESE_FONT_STORAGE_KEY) || defaultFont;
+        applyChineseFont(currentSavedFont);
         settingsDialog.close();
     };
 
     if (closeSettingsBtn) closeSettingsBtn.addEventListener('click', closeDialog);
     if (cancelSettingsBtn) cancelSettingsBtn.addEventListener('click', closeDialog);
 
-    // Font card selection in dialog
     document.querySelectorAll('.settings-font-card').forEach(card => {
         card.addEventListener('click', () => {
             const fontKey = card.dataset.font;
@@ -1408,18 +1664,16 @@ const initSettings = () => {
         });
     });
 
-    // Toggle password visibility
     if (toggleGeminiKeyBtn && geminiKeyInput) {
         toggleGeminiKeyBtn.addEventListener('click', () => {
             geminiKeyInput.type = geminiKeyInput.type === 'password' ? 'text' : 'password';
         });
     }
 
-    // Save changes
     if (saveSettingsBtn) {
         saveSettingsBtn.addEventListener('click', () => {
             const selectedRadio = document.querySelector('input[name="chinese-font-choice"]:checked');
-            const fontKey = selectedRadio ? selectedRadio.value : 'kaiti';
+            const fontKey = selectedRadio ? selectedRadio.value : defaultFont;
             applyChineseFont(fontKey);
 
             if (geminiKeyInput && typeof setGeminiApiKey === 'function') {
@@ -1427,7 +1681,7 @@ const initSettings = () => {
                 setGeminiApiKey(newKey);
             }
 
-            showToast('Configuración guardada correctamente', 'success');
+            showToast(typeof I18N !== 'undefined' ? I18N.t('toastSettingsSaved') : 'Configuración guardada correctamente', 'success');
             settingsDialog.close();
         });
     }

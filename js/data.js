@@ -1,67 +1,11 @@
 /**
  * =====================================================
- * AppChino — data.js
- * Constants, category mappings, and initial seed data.
+ * AppChino — data.js (Spanish Data Pack - Lazy Loaded)
+ * Curated vocabulary cards (277) and structures (45).
+ * Category & lesson config lives in js/config.js.
  * =====================================================
  */
 
-/**
- * Generates a unique identifier for new database entries.
- * @returns {string} A short unique ID string
- */
-const generateId = () => 'id_' + Date.now().toString(36) + '_' + Math.random().toString(36).substr(2, 5);
-
-/**
- * Maps each word category to its CSS variable color.
- * Used throughout the UI for dynamic styling.
- */
-const CATEGORY_COLORS = {
-    sustantivo:   'var(--color-noun)',
-    pronombre:    'var(--color-pronoun)',
-    clasificador: 'var(--color-classifier)',
-    verbo:        'var(--color-verb)',
-    adjetivo:     'var(--color-adjective)',
-    adverbio:     'var(--color-adverb)',
-    expresion:    'var(--color-expression)',
-    particula:    'var(--color-particle)',
-    estructura:   'var(--color-structure)',
-};
-
-/**
- * Human-readable labels for each category (Spanish).
- */
-const CATEGORY_LABELS = {
-    sustantivo:   'Sustantivo',
-    pronombre:    'Pronombre',
-    clasificador: 'Clasificador',
-    verbo:        'Verbo',
-    adjetivo:     'Adjetivo',
-    adverbio:     'Adverbio',
-    expresion:    'Expresión',
-    particula:    'Partícula',
-    estructura:   'Estructura',
-};
-
-/**
- * Resolved HEX colors per category — used for PDF generation
- * where CSS variables may not be reliably captured by html2canvas.
- */
-const PDF_COLORS = {
-    sustantivo:   '#2E78B7',
-    pronombre:    '#6B7B8D',
-    clasificador: '#8D5B4C',
-    verbo:        '#D4760A',
-    adjetivo:     '#C9971A',
-    adverbio:     '#1E8C5E',
-    expresion:    '#C0392B',
-    particula:    '#7D54B5',
-    estructura:   '#C2527A',
-};
-
-/**
- * Seed data — loaded on first visit or synced to refresh database.
- * Contains 277 curated cards across all categories and 45 structures.
- */
 const SEED_DATA = {
     "palabras": [
         {
@@ -9220,3 +9164,7 @@ const NEW_STRUCTURE_WORDS = [
     ...(SEED_DATA.particulas || []),
     ...(SEED_DATA.clasificadores || []),
 ];
+
+window.SEED_DATA = SEED_DATA;
+window.DEFAULT_CLASSIFIERS = DEFAULT_CLASSIFIERS;
+window.NEW_STRUCTURE_WORDS = NEW_STRUCTURE_WORDS;

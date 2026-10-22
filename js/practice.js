@@ -14,6 +14,7 @@ const CONVO_TARGET_STRUCTS_KEY = 'appchino_convo_target_structs_v1';
 // ------------------------------------------------------
 // State: Interactive Conversation
 // ------------------------------------------------------
+const getMaxTargetStructures = () => (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.practice && APP_CONFIG.practice.maxTargetStructures) ? APP_CONFIG.practice.maxTargetStructures : 5;
 let convoTargetMode = 'libre'; // 'libre' | 'especifico'
 let selectedTargetStructureIds = []; // max 5
 let structFilterSearch = '';
@@ -126,7 +127,7 @@ const startInteractiveConversation = async () => {
         }
         targetStructures = allStructures
             .filter(s => selectedTargetStructureIds.includes(String(s.id)))
-            .slice(0, 5)
+            .slice(0, getMaxTargetStructures())
             .map(s => ({
                 id: s.id,
                 nombre: s.nombre,
@@ -494,8 +495,8 @@ const renderConversationView = (bodyContent) => {
                         selectedTargetStructureIds.splice(idx, 1);
                         card.classList.remove('selected');
                     } else {
-                        if (selectedTargetStructureIds.length >= 5) {
-                            showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastMaxStructs') : 'Puedes elegir como máximo 5 estructuras para enfocar la conversación', 'warning');
+                        if (selectedTargetStructureIds.length >= getMaxTargetStructures()) {
+                            showToast(typeof I18N !== 'undefined' ? I18N.t('convoToastMaxStructs') : `Puedes elegir como máximo ${getMaxTargetStructures()} estructuras para enfocar la conversación`, 'warning');
                             return;
                         }
                         selectedTargetStructureIds.push(id);

@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- App Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=3.24">
+    <link rel="stylesheet" href="css/styles.css?v=3.25">
 
     <!-- CDN Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -561,7 +561,7 @@
             </button>
         </div>
         <div class="dialog-body">
-            <p>¿Estás seguro de que deseas eliminar <strong id="delete-item-name"></strong>?</p>
+            <p><span data-i18n="deleteConfirmPrefix">¿Estás seguro de que deseas eliminar</span> <strong id="delete-item-name"></strong>?</p>
             <p style="color:var(--text-muted); font-size:0.85rem; margin-top:0.5rem;" data-i18n="deleteWarning">Esta acción no se puede deshacer.
             </p>
         </div>
@@ -721,19 +721,18 @@
     <div class="toast-container" id="toast-container"></div>
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
-    <!-- Load order matters: data → storage → components → ai → builder → study → pdf → app -->
-    <script src="js/data.js?v=3.24"></script>
-    <script src="js/data_en.js?v=3.24"></script>
-    <script src="js/i18n.js?v=3.24"></script>
-    <script src="js/storage.js?v=3.24"></script>
-    <script src="js/components.js?v=3.24"></script>
-    <script src="js/ai.js?v=3.24"></script>
-    <script src="js/builder.js?v=3.24"></script>
-    <script src="js/study.js?v=3.24"></script>
-    <script src="js/pdf.js?v=3.24"></script>
-    <script src="js/practice.js?v=3.24"></script>
-    <script src="js/exam.js?v=3.24"></script>
-    <script src="js/app.js?v=3.24"></script>
+    <!-- Load order matters: config → i18n (lazy-loads active language data pack) → storage → components → ai → builder → study → pdf → practice → exam → app -->
+    <script src="js/config.js?v=3.25"></script>
+    <script src="js/i18n.js?v=3.25"></script>
+    <script src="js/storage.js?v=3.25"></script>
+    <script src="js/components.js?v=3.25"></script>
+    <script src="js/ai.js?v=3.25"></script>
+    <script src="js/builder.js?v=3.25"></script>
+    <script src="js/study.js?v=3.25"></script>
+    <script src="js/pdf.js?v=3.25"></script>
+    <script src="js/practice.js?v=3.25"></script>
+    <script src="js/exam.js?v=3.25"></script>
+    <script src="js/app.js?v=3.25"></script>
 
 </body>
 

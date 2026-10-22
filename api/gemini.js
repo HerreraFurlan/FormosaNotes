@@ -1,11 +1,9 @@
 let cachedWorkingModel = null;
 
 const CANDIDATE_MODELS = [
-    'gemini-3.8-flash',
-    'gemini-3.5-flash-lite',
-    'gemini-3.1-flash-lite',
+    'gemini-2.5-flash',
     'gemini-2.5-flash-lite',
-    'gemini-2.5-flash'
+    'gemini-2.0-flash'
 ];
 
 module.exports = async (req, res) => {
@@ -30,17 +28,17 @@ module.exports = async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY || req.headers['x-gemini-key'];
     if (!apiKey) {
         return res.status(500).json({
-            error: 'Clave de Gemini no configurada en el servidor. Agrega la variable de entorno GEMINI_API_KEY en los ajustes de Vercel.'
+            error: 'Clave de Gemini no configurada en el servidor. Agrega la variable de entorno GEMINI_API_KEY en los ajustes de Vercel o configúrala en Ajustes de la aplicación.'
         });
     }
 
     // Determine initial model to try
     let requestedModel = (req.query && req.query.model) || '';
-    if (requestedModel.includes('1.5') || requestedModel.includes('2.0') || requestedModel.includes('2.5-flash') && !requestedModel.includes('lite')) {
+    if (requestedModel.includes('1.5') || requestedModel.includes('3.8') || requestedModel.includes('3.5') || requestedModel.includes('3.1')) {
         requestedModel = '';
     }
 
-    let modelToTry = cachedWorkingModel || requestedModel || 'gemini-3.8-flash';
+    let modelToTry = cachedWorkingModel || requestedModel || CANDIDATE_MODELS[0];
     const payload = typeof req.body === 'string' ? req.body : JSON.stringify(req.body || {});
 
     // Try candidates until success

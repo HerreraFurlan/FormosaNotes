@@ -1,7 +1,7 @@
 /**
  * =====================================================
  * AppChino — components.js
- * Reusable UI component factory functions.
+ * Reusable UI component factory functions + Skeleton Placeholders.
  * Each function returns a DOM element — no side effects.
  * =====================================================
  */
@@ -13,13 +13,15 @@
 /**
  * Displays a temporary notification toast.
  * @param {string} message - Text to display
- * @param {'success'|'error'} type - Toast type
+ * @param {'success'|'error'|'warning'|'info'} type - Toast type
  */
 const showToast = (message, type = 'success') => {
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
-    toast.innerHTML = `${type === 'success' ? '✓' : '⚠'} ${message}`;
+    const icon = type === 'success' ? '✓' : (type === 'info' ? 'ℹ' : '⚠');
+    toast.innerHTML = `${icon} ${message}`;
     container.appendChild(toast);
 
     setTimeout(() => {
@@ -29,17 +31,95 @@ const showToast = (message, type = 'success') => {
 };
 
 // --------------------------------------------------
-// Flashcard (library grid)
+// Skeleton Placeholders (Language & Lazy Load UI)
+// --------------------------------------------------
+
+/**
+ * Creates a DocumentFragment containing skeleton placeholder flashcards.
+ * @param {number} [count=12]
+ * @returns {DocumentFragment}
+ */
+const createFlashcardSkeletons = (count = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.skeletonCount) || 12) => {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        const skel = document.createElement('div');
+        skel.className = 'flashcard-wrapper flashcard-skeleton';
+        skel.setAttribute('aria-hidden', 'true');
+        skel.innerHTML = `
+            <div class="skeleton-card-surface">
+                <div class="skeleton-line skeleton-corner"></div>
+                <div class="skeleton-block skeleton-hanzi"></div>
+                <div class="skeleton-line skeleton-pinyin"></div>
+                <div class="skeleton-pill skeleton-badge"></div>
+            </div>
+        `;
+        frag.appendChild(skel);
+    }
+    return frag;
+};
+
+/**
+ * Creates a DocumentFragment containing skeleton placeholder mini-cards for the Word Bank.
+ * @param {number} [count=24]
+ * @returns {DocumentFragment}
+ */
+const createMiniCardSkeletons = (count = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.ui?.miniSkeletonCount) || 24) => {
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+        const skel = document.createElement('div');
+        skel.className = 'mini-card mini-card-skeleton';
+        skel.setAttribute('aria-hidden', 'true');
+        skel.innerHTML = `
+            <span class="skeleton-block skeleton-mini-char"></span>
+            <span class="skeleton-line skeleton-mini-pinyin"></span>
+        `;
+        frag.appendChild(skel);
+    }
+    return frag;
+};
+
+/**
+ * Displays skeleton placeholder state across main grids while language data is loading.
+ */
+const showLanguageSkeletonState = () => {
+    const cardGrid = document.getElementById('card-grid');
+    if (cardGrid) {
+        cardGrid.innerHTML = '';
+        cardGrid.appendChild(createFlashcardSkeletons());
+    }
+
+    const exportGrid = document.getElementById('export-grid');
+    if (exportGrid) {
+        exportGrid.innerHTML = '';
+        exportGrid.appendChild(createFlashcardSkeletons(6));
+    }
+
+    const bankGrid = document.getElementById('word-bank-grid');
+    if (bankGrid) {
+        bankGrid.innerHTML = '';
+        bankGrid.appendChild(createMiniCardSkeletons());
+    }
+};
+
+if (typeof window !== 'undefined') {
+    window.createFlashcardSkeletons = createFlashcardSkeletons;
+    window.createMiniCardSkeletons = createMiniCardSkeletons;
+    window.showLanguageSkeletonState = showLanguageSkeletonState;
+}
+
+// --------------------------------------------------
+// Flashcard (library & export grid)
 // --------------------------------------------------
 
 /**
  * Creates a full flashcard element with front/back flip.
+ * Uses O(1) getWordById lookup for classifiers and radicals.
  * @param {object} word - Word data object
- * @param {object} options - { showSelect: boolean, showActions: boolean }
+ * @param {object} options - { showSelect: boolean, showActions: boolean, isSelected: boolean, onSelectToggle: Function }
  * @returns {HTMLElement}
  */
 const createFlashcard = (word, options = {}) => {
-    const { showSelect = false, showActions = false } = options;
+    const { showSelect = false, showActions = false, isSelected = false, onSelectToggle = null } = options;
     const color = CATEGORY_COLORS[word.categoria] || 'var(--color-noun)';
 
     const wrapper = document.createElement('div');
@@ -53,7 +133,15 @@ const createFlashcard = (word, options = {}) => {
         const selectDiv = document.createElement('div');
         selectDiv.className = 'card-select';
         const selectTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardSelectPrint') : 'Seleccionar para exportar';
-        selectDiv.innerHTML = `<input type="checkbox" data-id="${word.id}" title="${selectTitle}">`;
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        input.dataset.id = word.id;
+        input.title = selectTitle;
+        input.checked = Boolean(isSelected);
+        if (typeof onSelectToggle === 'function') {
+            input.addEventListener('change', (e) => onSelectToggle(word.id, e.target.checked));
+        }
+        selectDiv.appendChild(input);
         selectDiv.addEventListener('click', (e) => e.stopPropagation());
         wrapper.appendChild(selectDiv);
     }
@@ -88,22 +176,31 @@ const createFlashcard = (word, options = {}) => {
     const lenClass = charLen <= 1 ? 'len-1' : charLen === 2 ? 'len-2' : charLen === 3 ? 'len-3' : charLen === 4 ? 'len-4' : charLen === 5 ? 'len-5' : charLen === 6 ? 'len-6' : 'len-long';
     const pinyinLenClass = (word.pinyin || '').length > 16 ? 'pinyin-long' : '';
 
+    const catLabel = window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria);
+    const lessonShort = word.leccion
+        ? ((window.I18N && window.I18N.getLessonLabel) ? window.I18N.getLessonLabel(word.leccion, true) : `L${word.leccion}`)
+        : '';
+
     const front = document.createElement('div');
     front.className = 'card-face card-front';
     front.innerHTML = `
         ${word.zhuyin ? `<span class="zhuyin-corner">${word.zhuyin}</span>` : ''}
         <div class="chinese-char ${lenClass}">${word.tradicional}</div>
         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-        <span class="card-category-badge badge badge-${word.categoria}">${(window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria))}${word.leccion ? ` · L${word.leccion}` : ''}</span>
+        <span class="card-category-badge badge badge-${word.categoria}">${catLabel}${lessonShort ? ` · ${lessonShort}` : ''}</span>
     `;
 
     // --- BACK FACE ---
     const back = document.createElement('div');
     back.className = 'card-face card-back';
 
+    const lookupWord = (id) => (typeof getWordById === 'function' ? getWordById(id) : getAllWords().find(w => w.id === id));
+    const getMeaning = (w) => (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(w) : (w.espanol || '');
+    const getNotes = (w) => (window.I18N && window.I18N.getWordNotes) ? window.I18N.getWordNotes(w) : (w.notas || '');
+
     let clfDisplay = '';
     if (word.clasificador) {
-        const clf = getAllWords().find(w => w.id === word.clasificador);
+        const clf = lookupWord(word.clasificador);
         clfDisplay = clf
             ? `<span class="radical-ref" data-ref-id="${clf.id}" data-level="0">${clf.tradicional} (${clf.pinyin})</span>`
             : word.clasificador;
@@ -115,8 +212,8 @@ const createFlashcard = (word, options = {}) => {
             radHtml = word.radicales.map(rad => {
                 if (rad.type === 'text') return rad.value;
                 if (rad.type === 'ref') {
-                    const refWord = getAllWords().find(w => w.id === rad.id);
-                    return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="0">${refWord.tradicional} (${refWord.espanol})</span>` : '';
+                    const refWord = lookupWord(rad.id);
+                    return refWord ? `<span class="radical-ref" data-ref-id="${rad.id}" data-level="0">${refWord.tradicional} (${getMeaning(refWord)})</span>` : '';
                 }
                 return '';
             }).filter(Boolean).join(' + ');
@@ -125,9 +222,12 @@ const createFlashcard = (word, options = {}) => {
         }
     }
 
+    const meaningText = getMeaning(word);
+    const notesText = getNotes(word);
+
     back.innerHTML = `
         <div class="card-back-body">
-            <div class="spanish-meaning">${word.espanol}</div>
+            <div class="spanish-meaning">${meaningText}</div>
             <div class="card-pronunciation-block">
                 <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
                 ${word.zhuyin ? `<div class="zhuyin-label">${word.zhuyin}</div>` : ''}
@@ -139,9 +239,9 @@ const createFlashcard = (word, options = {}) => {
                 </div>
             ` : ''}
         </div>
-        ${word.notas ? `
+        ${notesText ? `
             <div class="card-notes-block" title="${(typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardNotes') : 'Notas'}">
-                ${word.notas}
+                ${notesText}
             </div>
         ` : ''}
     `;
@@ -216,6 +316,9 @@ const createStructureCard = (struct) => {
     const deleteTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('cardDelete') : 'Eliminar';
     const exLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('structExample') : 'Ejemplo';
     const transLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('structTranslation') : 'Traducción';
+    const transValue = (typeof window !== 'undefined' && window.I18N && window.I18N.getStructureTranslation)
+        ? window.I18N.getStructureTranslation(struct)
+        : (struct.ejemplo_espanol || struct.ejemplo_english || '');
 
     div.innerHTML = `
         <div class="structure-actions">
@@ -236,7 +339,7 @@ const createStructureCard = (struct) => {
             </div>
             <div>
                 <span class="ex-label">${transLabel}</span>
-                <span class="ex-value">${struct.ejemplo_espanol || struct.ejemplo_english || ''}</span>
+                <span class="ex-value">${transValue}</span>
             </div>
         </div>
         ${struct.notas ? `<p style="font-size:0.8rem;color:var(--text-muted);margin-top:0.75rem;">💡 ${struct.notas}</p>` : ''}
