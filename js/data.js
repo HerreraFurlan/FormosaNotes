@@ -1,8 +1,9 @@
 /**
  * =====================================================
  * AppChino — data.js (Spanish Data Pack - Lazy Loaded)
- * Curated vocabulary cards (277) and structures (45).
- * Category & lesson config lives in js/config.js.
+ * Clasificación Oficial de Taiwán (當代中文課程 · 詞類表):
+ * 八大詞類: N, V, Adv, Conj, Prep, M, Ptc, Det
+ * 動詞分類: V, Vi, V-sep, Vs, Vst, Vs-attr, Vs-pred, Vs-sep, Vaux, Vp, Vpt, Vp-sep
  * =====================================================
  */
 
@@ -14,7 +15,7 @@ const SEED_DATA = {
             "tradicional": "爸爸",
             "pinyin": "bàba",
             "zhuyin": "ㄅㄚˋ ㄅㄚ˙",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -31,7 +32,11 @@ const SEED_DATA = {
                 "他是我的爸爸 — Él es mi papá",
                 "我爸爸愛喝烏龍茶 — A mi papá le encanta tomar té Oolong"
             ],
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "n2",
@@ -39,7 +44,7 @@ const SEED_DATA = {
             "tradicional": "媽媽",
             "pinyin": "māma",
             "zhuyin": "ㄇㄚ ㄇㄚ˙",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -56,7 +61,11 @@ const SEED_DATA = {
                 "她是我的媽媽 — Ella es mi mamá",
                 "我媽媽很漂亮 — Mi mamá es muy hermosa"
             ],
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "n3",
@@ -64,7 +73,7 @@ const SEED_DATA = {
             "tradicional": "兒子",
             "pinyin": "érzi",
             "zhuyin": "ㄦˊ ㄗ˙",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -80,6 +89,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是我的兒子 — Él es mi hijo",
                 "李先生有一個兒子 — El señor Li tiene un hijo"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
             ]
         },
         {
@@ -88,7 +101,7 @@ const SEED_DATA = {
             "tradicional": "女兒",
             "pinyin": "nǚ'ér",
             "zhuyin": "ㄋㄩˇ ㄦˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -104,6 +117,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "她是我的女兒 — Ella es mi hija",
                 "陳小姐有兩個女兒 — La señorita Chen tiene dos hijas"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
             ]
         },
         {
@@ -112,7 +129,7 @@ const SEED_DATA = {
             "tradicional": "中國",
             "pinyin": "Zhōngguó",
             "zhuyin": "ㄓㄨㄥ ㄍㄨㄛˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -128,6 +145,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "他是中國人 — Él es chino",
                 "我不是中國人 — Yo no soy chino"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
             ]
         },
         {
@@ -136,7 +157,7 @@ const SEED_DATA = {
             "tradicional": "美國",
             "pinyin": "Měiguó",
             "zhuyin": "ㄇㄟˇ ㄍㄨㄛˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -153,7 +174,11 @@ const SEED_DATA = {
                 "他是美國人 — Él es estadounidense",
                 "王開文是美國人 — Wang Kaiwen es de EE.UU."
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "n7",
@@ -161,7 +186,7 @@ const SEED_DATA = {
             "tradicional": "人",
             "pinyin": "rén",
             "zhuyin": "ㄖㄣˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -174,7 +199,11 @@ const SEED_DATA = {
                 "他是好人 — Él es buena persona",
                 "你是哪國人？ — ¿De qué país eres?"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "n8",
@@ -182,7 +211,7 @@ const SEED_DATA = {
             "tradicional": "貓",
             "pinyin": "māo",
             "zhuyin": "ㄇㄠ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfigeht_eqxfj",
             "radicales": [
                 {
@@ -198,6 +227,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "我愛貓 — Yo amo a los gatos",
                 "這隻貓很漂亮 — Este gato es muy lindo"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -206,7 +239,7 @@ const SEED_DATA = {
             "tradicional": "狗",
             "pinyin": "gǒu",
             "zhuyin": "ㄍㄡˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfigeht_eqxfj",
             "radicales": [
                 {
@@ -222,6 +255,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "他愛狗 — Él ama a los perros",
                 "我家有一隻狗 — En mi casa hay un perro"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -230,7 +267,7 @@ const SEED_DATA = {
             "tradicional": "我",
             "pinyin": "wǒ",
             "zhuyin": "ㄨㄛˇ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -247,7 +284,12 @@ const SEED_DATA = {
                 "我是人 — Yo soy una persona",
                 "我是臺灣人 — Soy taiwanés/a"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "p2",
@@ -255,7 +297,7 @@ const SEED_DATA = {
             "tradicional": "你",
             "pinyin": "nǐ",
             "zhuyin": "ㄋㄧˇ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -272,7 +314,12 @@ const SEED_DATA = {
                 "你好 — Hola",
                 "你要喝茶嗎？ — ¿Quieres tomar té?"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "p3",
@@ -280,7 +327,7 @@ const SEED_DATA = {
             "tradicional": "他",
             "pinyin": "tā",
             "zhuyin": "ㄊㄚ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -297,14 +344,19 @@ const SEED_DATA = {
                 "他是我的爸爸 — Él es mi papá",
                 "他是美國人 — Él es estadounidense"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "espanol": "Hermano mayor",
             "tradicional": "哥哥",
             "pinyin": "gēge",
             "zhuyin": "ㄍㄜ ˙ㄍㄜ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -323,14 +375,18 @@ const SEED_DATA = {
             ],
             "id": "id_msik39qn_a7u9l",
             "fechaCreacion": "2026-08-07",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Hermano menor",
             "tradicional": "弟弟",
             "pinyin": "dìdi",
             "zhuyin": "ㄉㄧˋ ㄉㄧ˙",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -348,14 +404,18 @@ const SEED_DATA = {
                 "我弟弟愛喝咖啡 — A mi hermano menor le encanta el café"
             ],
             "id": "id_msik5odg_jbtys",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Hermana mayor",
             "tradicional": "姐姐",
             "pinyin": "jiějie",
             "zhuyin": "ㄐㄧㄝˇ ˙ㄐㄧㄝ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -374,14 +434,18 @@ const SEED_DATA = {
             ],
             "id": "id_msik8oqu_qbhis",
             "fechaCreacion": "2026-08-07",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Hermana menor",
             "tradicional": "妹妹",
             "pinyin": "mèimei",
             "zhuyin": "ㄇㄟˋ ˙ㄇㄟ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -400,14 +464,18 @@ const SEED_DATA = {
             ],
             "id": "id_msikblio_cwfgf",
             "fechaCreacion": "2026-08-07",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Panda",
             "tradicional": "熊貓",
             "pinyin": "xióngmāo",
             "zhuyin": "ㄒㄩㄥˊ ㄇㄠ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -425,14 +493,18 @@ const SEED_DATA = {
                 "熊貓很可愛 — Los osos panda son muy lindos"
             ],
             "id": "id_msk017n8_4gul2",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Oso",
             "tradicional": "熊",
             "pinyin": "xióng",
             "zhuyin": "ㄒㄩㄥˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -449,14 +521,18 @@ const SEED_DATA = {
                 "山上有熊 — En la montaña hay osos"
             ],
             "id": "id_msk03o1q_bn3lq",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Fuego",
             "tradicional": "火",
             "pinyin": "huǒ",
             "zhuyin": "ㄏㄨㄛˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -469,14 +545,18 @@ const SEED_DATA = {
                 "小心火 — Cuidado con el fuego"
             ],
             "id": "id_msk0536g_z9es3",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Cerdo",
             "tradicional": "豬",
             "pinyin": "zhū",
             "zhuyin": "ㄓㄨ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -493,14 +573,18 @@ const SEED_DATA = {
                 "他不吃豬肉 — Él no come carne de cerdo"
             ],
             "id": "id_msk1t99s_rmiqu",
-            "fechaCreacion": "2026-08-08"
+            "fechaCreacion": "2026-08-08",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Vaca",
             "tradicional": "牛",
             "pinyin": "niú",
             "zhuyin": "ㄋㄧㄡˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -514,6 +598,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "我不吃牛肉 — No como carne de res",
                 "那是一頭牛 — Eso es una vaca"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -521,7 +609,7 @@ const SEED_DATA = {
             "tradicional": "羊",
             "pinyin": "yáng",
             "zhuyin": "ㄧㄤˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -534,6 +622,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-09",
             "ejemplos": [
                 "草原上有很多羊 — En la pradera hay muchas ovejas"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -541,7 +633,7 @@ const SEED_DATA = {
             "tradicional": "魚",
             "pinyin": "yú",
             "zhuyin": "ㄩˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -554,6 +646,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-09",
             "ejemplos": [
                 "貓愛吃魚 — A los gatos les encanta comer pescado"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -561,7 +657,7 @@ const SEED_DATA = {
             "tradicional": "雞",
             "pinyin": "jī",
             "zhuyin": "ㄐㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -578,6 +674,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-09",
             "ejemplos": [
                 "他喜歡吃雞肉 — A él le gusta comer carne de pollo"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -585,7 +685,7 @@ const SEED_DATA = {
             "tradicional": "鳥",
             "pinyin": "niǎo",
             "zhuyin": "ㄋㄧㄠˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -598,6 +698,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-09",
             "ejemplos": [
                 "這隻鳥很漂亮 — Este pájaro es muy hermoso"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -605,7 +709,7 @@ const SEED_DATA = {
             "tradicional": "她",
             "pinyin": "tā",
             "zhuyin": "ㄊㄚ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -623,6 +727,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "她是我的媽媽 — Ella es mi mamá",
                 "她是陳月美 — Ella es Chen Yuemei"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
             ]
         },
         {
@@ -630,7 +739,7 @@ const SEED_DATA = {
             "tradicional": "肉",
             "pinyin": "ròu",
             "zhuyin": "ㄖㄡˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -644,6 +753,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "你吃肉嗎？ — ¿Comes carne?",
                 "牛肉很好吃 — La carne de res es muy rica"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -651,7 +764,7 @@ const SEED_DATA = {
             "tradicional": "麵包",
             "pinyin": "miànbāo",
             "zhuyin": "ㄇㄧㄢˋ ㄅㄠ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -669,6 +782,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "我早餐吃麵包 — Desayuno pan",
                 "這個麵包很好吃 — Este pan es muy sabroso"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -676,7 +793,7 @@ const SEED_DATA = {
             "tradicional": "蔬菜",
             "pinyin": "shūcài",
             "zhuyin": "ㄕㄨ ㄘㄞˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -693,6 +810,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-12",
             "ejemplos": [
                 "多吃蔬菜很好 — Comer muchas verduras es muy bueno"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -700,7 +821,7 @@ const SEED_DATA = {
             "tradicional": "咖啡",
             "pinyin": "kāfēi",
             "zhuyin": "ㄎㄚ ㄈㄟ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -719,14 +840,18 @@ const SEED_DATA = {
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?",
                 "臺灣的咖啡很好喝 — El café de Taiwán es muy rico"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Licor",
             "tradicional": "酒",
             "pinyin": "jiǔ",
             "zhuyin": "ㄐㄧㄡˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -743,6 +868,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-13",
             "ejemplos": [
                 "我不喝酒 — Yo no bebo alcohol"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -750,7 +879,7 @@ const SEED_DATA = {
             "tradicional": "果汁",
             "pinyin": "guǒzhī",
             "zhuyin": "ㄍㄨㄛˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -771,6 +900,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-13",
             "ejemplos": [
                 "請給我一杯果汁 — Por favor deme un vaso de zumo de frutas"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -778,7 +911,7 @@ const SEED_DATA = {
             "tradicional": "可樂",
             "pinyin": "kělè",
             "zhuyin": "ㄎㄜˇ ㄌㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -795,6 +928,10 @@ const SEED_DATA = {
             "fechaCreacion": "2026-08-13",
             "ejemplos": [
                 "你要喝可樂嗎？ — ¿Quieres tomar refresco de cola?"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -803,7 +940,7 @@ const SEED_DATA = {
             "tradicional": "女",
             "pinyin": "nǚ",
             "zhuyin": "ㄋㄩˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -815,6 +952,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "女性 — Mujer / género femenino",
                 "她是一位女老師 — Ella es una profesora"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
             ]
         },
         {
@@ -823,7 +964,7 @@ const SEED_DATA = {
             "tradicional": "水",
             "pinyin": "shuǐ",
             "zhuyin": "ㄕㄨㄟˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -835,6 +976,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "請喝水 — Por favor toma agua",
                 "我要喝水 — Quiero beber agua"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -842,7 +987,7 @@ const SEED_DATA = {
             "tradicional": "名字",
             "pinyin": "míngzì",
             "zhuyin": "ㄇㄧㄥˊ ㄗˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -861,306 +1006,18 @@ const SEED_DATA = {
                 "你叫什麼名字？ — ¿Cómo te llamas?",
                 "我的名字是陳月美 — Mi nombre es Chen Yuemei"
             ],
-            "leccion": 2
-        },
-        {
-            "espanol": "Uno",
-            "tradicional": "一",
-            "pinyin": "yī",
-            "zhuyin": "ㄧ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                }
-            ],
-            "notas": "Cambia a 4º tono (yì) ante tonos 1, 2 y 3; y cambia a 2º tono (yí) ante otro 4º tono (一個 yí ge).",
-            "id": "id_mtfhl7d1_9g4op",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "一個人 — Una persona",
-                "一張照片 — Una foto"
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
-        },
-        {
-            "espanol": "Dos",
-            "tradicional": "二",
-            "pinyin": "èr",
-            "zhuyin": "ㄦˋ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "二 (èr - dos)"
-                }
-            ],
-            "notas": "Para contar o números abstractos (二月, 第二). Para cantidades con clasificador se usa 兩 (liǎng).",
-            "id": "id_mtfhmm38_dxhfq",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "第二課 — Lección dos",
-                "二月 — Febrero"
-            ]
-        },
-        {
-            "espanol": "Dos",
-            "tradicional": "兩",
-            "pinyin": "liǎng",
-            "zhuyin": "ㄌㄧㄤˇ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtfhl7d1_9g4op"
-                },
-                {
-                    "type": "text",
-                    "value": "兩 (liǎng - dos)"
-                }
-            ],
-            "notas": "Balanza de dos pesas en equilibrio. Se usa obligatoriamente antes de clasificadores: 兩個人, 兩張照片.",
-            "id": "id_mtfhneyq_qzbbd",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "我有兩個兄弟 — Tengo dos hermanos varones",
-                "請給我兩杯茶 — Por favor deme dos tazas de té"
-            ],
-            "leccion": 2
-        },
-        {
-            "espanol": "Tres",
-            "tradicional": "三",
-            "pinyin": "sān",
-            "zhuyin": "ㄙㄢ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "三 (sān - tres)"
-                }
-            ],
-            "notas": "Representa la tríada tradicional china: Cielo (arriba), Hombre (centro) y Tierra (abajo).",
-            "id": "id_mtfho0pr_vvcsx",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "三個家人 — Tres familiares",
-                "三本書 — Tres libros"
-            ]
-        },
-        {
-            "espanol": "Cuatro",
-            "tradicional": "四",
-            "pinyin": "sì",
-            "zhuyin": "ㄙˋ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "四 (sì - cuatro)"
-                }
-            ],
-            "notas": "Aliento 八 que escapa dentro de un recinto cerrado 囗.",
-            "id": "id_mtfhola6_hpc0l",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "我家有四個人 — En mi casa hay cuatro personas"
-            ]
-        },
-        {
-            "espanol": "Cinco",
-            "tradicional": "五",
-            "pinyin": "wǔ",
-            "zhuyin": "ㄨˇ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtfhmm38_dxhfq"
-                },
-                {
-                    "type": "text",
-                    "value": "乂 (yì - cruce)"
-                }
-            ],
-            "notas": "Las dos líneas 二 representan cielo y tierra, y 乂 el cruce armónico de los 5 elementos.",
-            "id": "id_mtfhp4rg_j765n",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "五本書 — Cinco libros",
-                "我有五個家人 — En mi familia somos cinco personas"
-            ],
-            "leccion": 2
-        },
-        {
-            "espanol": "Seis",
-            "tradicional": "六",
-            "pinyin": "liù",
-            "zhuyin": "ㄌㄧㄡˋ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "六 (liù - seis)"
-                }
-            ],
-            "notas": "Número de gran fortuna en la cultura china porque suena parecido a 流 (liú = fluir suavemente).",
-            "id": "id_mtfhppx6_xkjcv",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "六本書 — Seis libros",
-                "六個人 — Seis personas"
-            ]
-        },
-        {
-            "espanol": "Siete",
-            "tradicional": "七",
-            "pinyin": "qī",
-            "zhuyin": "ㄑㄧ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "七 (qī - siete)"
-                }
-            ],
-            "notas": "Pictograma arcaico de un corte transversal con una espada.",
-            "id": "id_mtfhql3k_jx2ub",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "七天 — Siete días",
-                "七杯茶 — Siete tazas de té"
-            ]
-        },
-        {
-            "espanol": "Ocho",
-            "tradicional": "八",
-            "pinyin": "bā",
-            "zhuyin": "ㄅㄚ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "八 (bā - ocho)"
-                }
-            ],
-            "notas": "Dos trazos que se abren. Número de máxima prosperidad porque 八 (bā) suena similar a 發 (fā = prosperar).",
-            "id": "id_mtfhr3n5_6xcbj",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "八張照片 — Ocho fotos",
-                "八個人 — Ocho personas"
-            ]
-        },
-        {
-            "espanol": "Nueve",
-            "tradicional": "九",
-            "pinyin": "jiǔ",
-            "zhuyin": "ㄐㄧㄡˇ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "九 (jiǔ - nueve)"
-                }
-            ],
-            "notas": "Brazo doblado con fuerza. Asociado a la longevidad y al emperador porque suena igual que 久 (jiǔ = duradero).",
-            "id": "id_mtfhrrgs_bcgj8",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "九本書 — Nueve libros",
-                "九個月 — Nueve meses"
-            ]
-        },
-        {
-            "espanol": "Diez",
-            "tradicional": "十",
-            "pinyin": "shí",
-            "zhuyin": "ㄕˊ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "十 (shí - diez)"
-                }
-            ],
-            "notas": "Cruce perfecto de la línea horizontal y vertical simbolizando la plenitud y totalidad.",
-            "id": "id_mtfikvkd_74gu4",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "十個人 — Diez personas",
-                "十本書 — Diez libros"
-            ]
-        },
-        {
-            "espanol": "Cien",
-            "tradicional": "百",
-            "pinyin": "bǎi",
-            "zhuyin": "ㄅㄞˇ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtfhl7d1_9g4op"
-                },
-                {
-                    "type": "text",
-                    "value": "白 (bái - blanco)"
-                }
-            ],
-            "notas": "Compuesto por 一 (uno) y 白 (bái = hablar claro / blanco).",
-            "id": "id_mtfimiho_d6pa7",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "一百 — Cien",
-                "一百塊 — Cien dólares / monedas"
-            ],
-            "leccion": 4
-        },
-        {
-            "espanol": "Mil",
-            "tradicional": "千",
-            "pinyin": "qiān",
-            "zhuyin": "ㄑㄧㄢ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtfikvkd_74gu4"
-                },
-                {
-                    "type": "text",
-                    "value": "丿 (piě - trazo)"
-                }
-            ],
-            "notas": "Compuesto por 十 (diez) con un trazo oblicuo superior 丿 que multiplica la cifra.",
-            "id": "id_mtfiof0b_eq6u5",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "一千 — Mil",
-                "兩千 — Dos mil"
-            ],
-            "leccion": 4
         },
         {
             "espanol": "Estudiante",
             "tradicional": "學生",
             "pinyin": "xuéshēng",
             "zhuyin": "ㄒㄩㄝˊ ㄕㄥ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1178,6 +1035,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "我們都是學生 — Todos nosotros somos estudiantes",
                 "他是中文學生 — Él es estudiante de chino"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
             ]
         },
         {
@@ -1185,7 +1046,7 @@ const SEED_DATA = {
             "tradicional": "心",
             "pinyin": "xīn",
             "zhuyin": "ㄒㄧㄣ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ke",
             "radicales": [
                 {
@@ -1199,6 +1060,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "小心 — Cuidado (lit. \"pequeño corazón / corazón atento\")",
                 "好心 — Buen corazón / bondadoso"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
             ]
         },
         {
@@ -1206,7 +1071,7 @@ const SEED_DATA = {
             "tradicional": "老師",
             "pinyin": "lǎoshī",
             "zhuyin": "ㄌㄠˇ ㄕ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1225,14 +1090,18 @@ const SEED_DATA = {
                 "老師好！ — ¡Buenos días, profesor!",
                 "他是我們的老師 — Él es nuestro profesor"
             ],
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Señorita",
             "tradicional": "小姐",
             "pinyin": "xiǎojiě",
             "zhuyin": "ㄒㄧㄠˇ ㄐㄧㄝˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1251,14 +1120,18 @@ const SEED_DATA = {
                 "陳月美小姐是越南人 — La señorita Chen Yuemei es de Vietnam",
                 "小姐，請喝茶 — Señorita, tome té por favor"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Señor",
             "tradicional": "先生",
             "pinyin": "xiānsheng",
             "zhuyin": "ㄒㄧㄢ ㄕㄥ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1277,14 +1150,18 @@ const SEED_DATA = {
                 "李明華先生是臺灣人 — El señor Li Minghua es taiwanés",
                 "先生，請進 — Señor, adelante por favor"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "espanol": "Apellido",
             "tradicional": "姓",
             "pinyin": "xìng",
             "zhuyin": "ㄒㄧㄥˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1295,14 +1172,18 @@ const SEED_DATA = {
             "notas": "Funciona como verbo ('apellidarse'): 我姓李 (Mi apellido es Li). Pregunta de cortesía: 您貴姓？",
             "id": "id_mtvgdcy9_754wt",
             "fechaCreacion": "2026-09-10",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "espanol": "Plataforma",
             "tradicional": "臺 / 台",
             "pinyin": "tái",
             "zhuyin": "ㄊㄞˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1329,14 +1210,18 @@ const SEED_DATA = {
                 "臺北 — Taipéi",
                 "在臺南 — En Tainan"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "espanol": "Bahía",
             "tradicional": "灣",
             "pinyin": "wān",
             "zhuyin": "ㄨㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1354,6 +1239,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "臺灣 — Taiwán",
                 "海灣 — Bahía marítima"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
             ]
         },
         {
@@ -1361,7 +1250,7 @@ const SEED_DATA = {
             "tradicional": "茶",
             "pinyin": "chá",
             "zhuyin": "ㄔㄚˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_bei",
             "radicales": [
                 {
@@ -1384,7 +1273,11 @@ const SEED_DATA = {
                 "請喝茶 — Por favor toma té",
                 "臺灣茶很好喝 — El té de Taiwán es muy sabroso"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_mty013_wulongcha",
@@ -1392,7 +1285,7 @@ const SEED_DATA = {
             "tradicional": "烏龍茶",
             "pinyin": "wūlóngchá",
             "zhuyin": "ㄨ ㄌㄨㄥˊ ㄔㄚˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_bei",
             "radicales": [
                 {
@@ -1414,7 +1307,11 @@ const SEED_DATA = {
                 "你要喝烏龍茶嗎？ — ¿Quieres tomar té Oolong?"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_mty015_chenyuemei",
@@ -1422,7 +1319,7 @@ const SEED_DATA = {
             "tradicional": "陳月美",
             "pinyin": "Chén Yuèměi",
             "zhuyin": "ㄔㄣˊ ㄩㄝˋ ㄇㄟˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1442,7 +1339,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "她是陳月美 — Ella es Chen Yuemei"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty016_liminghua",
@@ -1450,7 +1351,7 @@ const SEED_DATA = {
             "tradicional": "李明華",
             "pinyin": "Lǐ Mínghuá",
             "zhuyin": "ㄌㄧˇ ㄇㄧㄥˊ ㄏㄨㄚˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1470,7 +1371,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "李明華是臺灣人 — Li Minghua es taiwanés"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty017_wangkaiwen",
@@ -1478,7 +1383,7 @@ const SEED_DATA = {
             "tradicional": "王開文",
             "pinyin": "Wáng Kāiwén",
             "zhuyin": "ㄨㄤˊ ㄎㄞ ㄨㄣˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1498,7 +1403,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "王開文是美國人 — Wang Kaiwen es estadounidense"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty005_women",
@@ -1506,7 +1415,7 @@ const SEED_DATA = {
             "tradicional": "我們",
             "pinyin": "wǒmen",
             "zhuyin": "ㄨㄛˇ ㄇㄣ˙",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -1524,7 +1433,12 @@ const SEED_DATA = {
                 "我們都喝茶 — Todos nosotros tomamos té"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "id_mty006_nimen",
@@ -1532,7 +1446,7 @@ const SEED_DATA = {
             "tradicional": "你們",
             "pinyin": "nǐmen",
             "zhuyin": "ㄋㄧˇ ㄇㄣ˙",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -1550,7 +1464,12 @@ const SEED_DATA = {
                 "你們要喝咖啡嗎？ — ¿Quieren tomar café?"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "id_mty007_taiwan",
@@ -1558,7 +1477,7 @@ const SEED_DATA = {
             "tradicional": "臺灣",
             "pinyin": "Táiwān",
             "zhuyin": "ㄊㄞˊ ㄨㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1576,7 +1495,11 @@ const SEED_DATA = {
                 "我是臺灣人 — Soy taiwanés/a"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_mty011_riben",
@@ -1584,7 +1507,7 @@ const SEED_DATA = {
             "tradicional": "日本",
             "pinyin": "Rìběn",
             "zhuyin": "ㄖˋ ㄅㄣˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1602,7 +1525,11 @@ const SEED_DATA = {
                 "我不是日本人 — Yo no soy japonés"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_mty018_zhangyijun",
@@ -1610,7 +1537,7 @@ const SEED_DATA = {
             "tradicional": "張怡君",
             "pinyin": "Zhāng Yíjūn",
             "zhuyin": "ㄓㄤ ㄧˊ ㄐㄩㄣ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1635,7 +1562,11 @@ const SEED_DATA = {
                 "張怡君是臺灣人 — Zhang Yijun es de Taiwán",
                 "張怡君請馬安同喝茶 — Zhang Yijun invita a Ma Antong a tomar té"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty019_maantong",
@@ -1643,7 +1574,7 @@ const SEED_DATA = {
             "tradicional": "馬安同",
             "pinyin": "Mǎ Āntóng",
             "zhuyin": "ㄇㄚˇ ㄢ ㄊㄨㄥˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1664,7 +1595,11 @@ const SEED_DATA = {
                 "馬安同是宏都拉斯人 — Ma Antong es hondureño",
                 "馬安同來臺灣學中文 — Ma Antong viene a Taiwán a estudiar chino"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty003_jia",
@@ -1672,7 +1607,7 @@ const SEED_DATA = {
             "tradicional": "家",
             "pinyin": "jiā",
             "zhuyin": "ㄐㄧㄚ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1690,7 +1625,11 @@ const SEED_DATA = {
                 "我家在臺灣 — Mi hogar está en Taiwán"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_mty020_jiaren",
@@ -1698,7 +1637,7 @@ const SEED_DATA = {
             "tradicional": "家人",
             "pinyin": "jiārén",
             "zhuyin": "ㄐㄧㄚ ㄖㄣˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1716,7 +1655,11 @@ const SEED_DATA = {
                 "你有幾個家人？ — ¿Cuántos miembros son en tu familia?"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty024_zhaopian",
@@ -1724,7 +1667,7 @@ const SEED_DATA = {
             "tradicional": "照片",
             "pinyin": "zhàopiàn",
             "zhuyin": "ㄓㄠˋ ㄆㄧㄢˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mty004_zhang",
             "radicales": [
                 {
@@ -1746,7 +1689,11 @@ const SEED_DATA = {
                 "你的照片很漂亮 — Tu foto es muy linda"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_mty028_tianzhong",
@@ -1754,7 +1701,7 @@ const SEED_DATA = {
             "tradicional": "田中誠一",
             "pinyin": "Tiánzhōng Chéngyī",
             "zhuyin": "ㄊㄧㄢˊ ㄓㄨㄥ ㄔㄥˊ ㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1778,7 +1725,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "田中誠一是日本人 — Tanaka Seiichi es japonés"
             ],
-            "fechaCreacion": "2026-09-26"
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty029_bomu",
@@ -1786,7 +1737,7 @@ const SEED_DATA = {
             "tradicional": "伯母",
             "pinyin": "bómǔ",
             "zhuyin": "ㄅㄛˊ ㄇㄨˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -1808,7 +1759,11 @@ const SEED_DATA = {
                 "她是王開文的伯母 — Ella es la tía/madre de amigo de Wang Kaiwen"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty030_nin",
@@ -1816,7 +1771,7 @@ const SEED_DATA = {
             "tradicional": "您",
             "pinyin": "nín",
             "zhuyin": "ㄋㄧㄣˊ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -1834,7 +1789,12 @@ const SEED_DATA = {
                 "伯母，您好嗎？ — Señora, ¿cómo está usted?"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "id_mty002_shu",
@@ -1842,7 +1802,7 @@ const SEED_DATA = {
             "tradicional": "書",
             "pinyin": "shū",
             "zhuyin": "ㄕㄨ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ben",
             "radicales": [
                 {
@@ -1864,7 +1824,11 @@ const SEED_DATA = {
                 "我有很多中文書 — Tengo muchos libros en chino"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_mty033_xiongdi",
@@ -1872,7 +1836,7 @@ const SEED_DATA = {
             "tradicional": "兄弟",
             "pinyin": "xiōngdì",
             "zhuyin": "ㄒㄩㄥ ㄉㄧˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1890,7 +1854,11 @@ const SEED_DATA = {
                 "我有兩個兄弟 — Tengo dos hermanos varones"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty034_jiemei",
@@ -1898,7 +1866,7 @@ const SEED_DATA = {
             "tradicional": "姐妹",
             "pinyin": "jiěmèi",
             "zhuyin": "ㄐㄧㄝˇ ㄇㄟˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -1916,7 +1884,11 @@ const SEED_DATA = {
                 "我沒有姐妹 — No tengo hermanas"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_mty035_fangzi",
@@ -1924,7 +1896,7 @@ const SEED_DATA = {
             "tradicional": "房子",
             "pinyin": "fángzi",
             "zhuyin": "ㄈㄤˊ ㄗ˙",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_dong",
             "radicales": [
                 {
@@ -1942,7 +1914,11 @@ const SEED_DATA = {
                 "那是他的房子 — Esa es su casa"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_voc_shijian",
@@ -1950,7 +1926,7 @@ const SEED_DATA = {
             "tradicional": "時間",
             "pinyin": "shíjiān",
             "zhuyin": "ㄕˊ ㄐㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -1975,7 +1951,11 @@ const SEED_DATA = {
                 "你明天有時間嗎？ — ¿Tienes tiempo mañana?",
                 "時間過得真快 — El tiempo pasa verdaderamente rápido"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_jiaoshi",
@@ -1983,7 +1963,7 @@ const SEED_DATA = {
             "tradicional": "教室",
             "pinyin": "jiàoshì",
             "zhuyin": "ㄐㄧㄠˋ ㄕˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_jian",
             "radicales": [
                 {
@@ -2000,7 +1980,11 @@ const SEED_DATA = {
                 "教室在哪裡？ — ¿Dónde está el salón de clases?",
                 "學生們都在教室裡 — Los estudiantes están todos dentro del salón de clases"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_voc_wenti",
@@ -2008,7 +1992,7 @@ const SEED_DATA = {
             "tradicional": "問題",
             "pinyin": "wèntí",
             "zhuyin": "ㄨㄣˋ ㄊㄧˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -2025,7 +2009,11 @@ const SEED_DATA = {
                 "老師，我要問問題 — Profesor, quiero hacer una pregunta",
                 "這不是問題 — Esto no es un problema / No hay problema"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_ke",
@@ -2033,7 +2021,7 @@ const SEED_DATA = {
             "tradicional": "課",
             "pinyin": "kè",
             "zhuyin": "ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2050,7 +2038,11 @@ const SEED_DATA = {
                 "你今天有幾門課？ — ¿Cuántas asignaturas tienes hoy?",
                 "我們去上課吧 — Vamos a clase"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_xuanxiuke",
@@ -2058,7 +2050,7 @@ const SEED_DATA = {
             "tradicional": "選修課",
             "pinyin": "xuǎnxiūkè",
             "zhuyin": "ㄒㄩㄢˇ ㄒㄧㄡ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2079,7 +2071,11 @@ const SEED_DATA = {
                 "這門選修課很有意思 — Esta materia optativa es sumamente interesante",
                 "你選修了什麼課？ — ¿Qué materias optativas elegiste?"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_yufake",
@@ -2087,7 +2083,7 @@ const SEED_DATA = {
             "tradicional": "語法課",
             "pinyin": "yǔfǎkè",
             "zhuyin": "ㄩˇ ㄈㄚˇ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2108,7 +2104,11 @@ const SEED_DATA = {
                 "明天上午我們有語法課 — Mañana por la mañana tenemos clase de gramática",
                 "語法課的作業很多 — Hay mucha tarea en la clase de gramática"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_fayinke",
@@ -2116,7 +2116,7 @@ const SEED_DATA = {
             "tradicional": "發音課",
             "pinyin": "fāyīnkè",
             "zhuyin": "ㄈㄚ ㄧㄣ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2137,7 +2137,11 @@ const SEED_DATA = {
                 "發音課對外國學生很有幫助 — La clase de pronunciación ayuda mucho a los alumnos extranjeros",
                 "今天發音課練習漢語拼音 — Hoy en la clase de pronunciación practicamos Hanyu Pinyin"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_hanzike",
@@ -2145,7 +2149,7 @@ const SEED_DATA = {
             "tradicional": "漢字課",
             "pinyin": "hànzìkè",
             "zhuyin": "ㄏㄢˋ ㄗˋ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2166,7 +2170,11 @@ const SEED_DATA = {
                 "漢字課很有挑戰性 — La clase de caracteres chinos es muy desafiante",
                 "我在漢字課學了五十個字 — En la clase de caracteres aprendí cincuenta caracteres"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_huihuake",
@@ -2174,7 +2182,7 @@ const SEED_DATA = {
             "tradicional": "會話課",
             "pinyin": "huìhuàkè",
             "zhuyin": "ㄏㄨㄟˋ ㄏㄨㄚˋ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2195,7 +2203,11 @@ const SEED_DATA = {
                 "我們在會話課都說中文 — En la clase de conversación todos hablamos en chino",
                 "會話課老師很幽默 — El profesor de la clase de conversación es muy gracioso"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_shufake",
@@ -2203,7 +2215,7 @@ const SEED_DATA = {
             "tradicional": "書法課",
             "pinyin": "shūfǎkè",
             "zhuyin": "ㄕㄨ ㄈㄚˇ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2224,7 +2236,11 @@ const SEED_DATA = {
                 "我下午上書法課 — En la tarde tomo la clase de caligrafía",
                 "書法課要買毛筆和墨汁 — Para la clase de caligrafía hay que comprar pincel y tinta"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_guohuake",
@@ -2232,7 +2248,7 @@ const SEED_DATA = {
             "tradicional": "國畫課",
             "pinyin": "guóhuàkè",
             "zhuyin": "ㄍㄨㄛˊ ㄏㄨㄚˋ ㄎㄜˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_men",
             "radicales": [
                 {
@@ -2253,7 +2269,11 @@ const SEED_DATA = {
                 "他很喜歡上國畫課 — A él le gusta mucho tomar clases de pintura tradicional china",
                 "國畫課的作品非常美麗 — Las obras de la clase de pintura tradicional china son bellísimas"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_wushu",
@@ -2261,7 +2281,7 @@ const SEED_DATA = {
             "tradicional": "武術",
             "pinyin": "wǔshù",
             "zhuyin": "ㄨˇ ㄕㄨˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2278,7 +2298,11 @@ const SEED_DATA = {
                 "他在臺灣學中國武術 — Él aprende artes marciales chinas en Taiwán",
                 "武術對身體很好 — Las artes marciales son muy buenas para el cuerpo"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_hua",
@@ -2286,7 +2310,7 @@ const SEED_DATA = {
             "tradicional": "花",
             "pinyin": "huā",
             "zhuyin": "ㄏㄨㄚ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_duo",
             "radicales": [
                 {
@@ -2303,7 +2327,11 @@ const SEED_DATA = {
                 "公園裡有很多漂亮的花 — En el parque hay muchas flores hermosas",
                 "這朵花真香 — Esta flor tiene un aroma verdaderamente agradable"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_voc_banye",
@@ -2311,7 +2339,7 @@ const SEED_DATA = {
             "tradicional": "半夜",
             "pinyin": "bànyè",
             "zhuyin": "ㄅㄢˋ ㄧㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2328,7 +2356,11 @@ const SEED_DATA = {
                 "半夜十二點 — Las doce de la noche (medianoche)",
                 "他常常半夜看書 — A menudo él lee libros en plena madrugada"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_zaoshang",
@@ -2336,7 +2368,7 @@ const SEED_DATA = {
             "tradicional": "早上",
             "pinyin": "zǎoshàng",
             "zhuyin": "ㄗㄠˇ ㄕㄤˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2354,7 +2386,11 @@ const SEED_DATA = {
                 "早上空氣真好 — El aire de la mañana temprano es verdaderamente agradable"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shangwu",
@@ -2362,7 +2398,7 @@ const SEED_DATA = {
             "tradicional": "上午",
             "pinyin": "shàngwǔ",
             "zhuyin": "ㄕㄤˋ ㄨˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2379,7 +2415,11 @@ const SEED_DATA = {
                 "我們上午十點有漢字課 — A las diez de la mañana tenemos clase de caracteres chinos",
                 "今天上午我不去學校 — Esta mañana no voy a la escuela"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_zhongwu",
@@ -2387,7 +2427,7 @@ const SEED_DATA = {
             "tradicional": "中午",
             "pinyin": "zhōngwǔ",
             "zhuyin": "ㄓㄨㄥ ㄨˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2404,7 +2444,11 @@ const SEED_DATA = {
                 "中午十二點我們一起吃午飯 — A las doce del mediodía almorzamos juntos",
                 "中午請在教室休息 — Al mediodía por favor descansa en el aula"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xiawu",
@@ -2412,7 +2456,7 @@ const SEED_DATA = {
             "tradicional": "下午",
             "pinyin": "xiàwǔ",
             "zhuyin": "ㄒㄧㄚˋ ㄨˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2429,7 +2473,11 @@ const SEED_DATA = {
                 "下午兩點在教室上課 — A las dos de la tarde tenemos clase en el aula",
                 "你今天下午有時間嗎？ — ¿Tienes tiempo esta tarde?"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_wanshang",
@@ -2437,7 +2485,7 @@ const SEED_DATA = {
             "tradicional": "晚上",
             "pinyin": "wǎnshàng",
             "zhuyin": "ㄨㄢˇ ㄕㄤˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2455,7 +2503,11 @@ const SEED_DATA = {
                 "晚上請早點休息 — Por favor descansa temprano en la noche"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_nian",
@@ -2463,7 +2515,7 @@ const SEED_DATA = {
             "tradicional": "年",
             "pinyin": "nián",
             "zhuyin": "ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2476,7 +2528,11 @@ const SEED_DATA = {
                 "一年有十二個月 — Un año tiene doce meses",
                 "今年是2026年 — Este año es el 2026"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_daqiannian",
@@ -2484,7 +2540,7 @@ const SEED_DATA = {
             "tradicional": "大前年",
             "pinyin": "dàqiánnián",
             "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2505,7 +2561,11 @@ const SEED_DATA = {
                 "大前年我來臺灣學中文 — Hace tres años vine a Taiwán a estudiar chino",
                 "大前年他還沒上大學 — Hace tres años él todavía no entraba a la universidad"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_qiannian",
@@ -2513,7 +2573,7 @@ const SEED_DATA = {
             "tradicional": "前年",
             "pinyin": "qiánnián",
             "zhuyin": "ㄑㄧㄢˊ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2530,7 +2590,11 @@ const SEED_DATA = {
                 "前年買的書 — Libro comprado el año antepasado",
                 "前年我們全家去旅行 — El año antepasado toda nuestra familia fue de viaje"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_qunian",
@@ -2538,7 +2602,7 @@ const SEED_DATA = {
             "tradicional": "去年",
             "pinyin": "qùnián",
             "zhuyin": "ㄑㄩˋ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2555,7 +2619,11 @@ const SEED_DATA = {
                 "我去年開始學書法 — El año pasado comencé a estudiar caligrafía",
                 "去年九月我們見過面 — En septiembre del año pasado nos vimos"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_jinnian",
@@ -2563,7 +2631,7 @@ const SEED_DATA = {
             "tradicional": "今年",
             "pinyin": "jīnnián",
             "zhuyin": "ㄐㄧㄣ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2580,7 +2648,11 @@ const SEED_DATA = {
                 "今年你幾歲？ — ¿Cuántos años cumples/tienes este año?",
                 "今年我選了四門課 — Este año tomé cuatro asignaturas"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_mingnian",
@@ -2588,7 +2660,7 @@ const SEED_DATA = {
             "tradicional": "明年",
             "pinyin": "míngnián",
             "zhuyin": "ㄇㄧㄥˊ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2605,7 +2677,11 @@ const SEED_DATA = {
                 "明年我想去臺灣旅行 — El próximo año quiero viajar a Taiwán",
                 "明年我們再見 — Nos vemos el próximo año"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_hounian",
@@ -2613,7 +2689,7 @@ const SEED_DATA = {
             "tradicional": "後年",
             "pinyin": "hòunián",
             "zhuyin": "ㄏㄡˋ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2630,7 +2706,11 @@ const SEED_DATA = {
                 "後年他要大學畢業 — En dos años él se graduará de la universidad",
                 "後年見！ — ¡Nos vemos en dos años!"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_dahounian",
@@ -2638,7 +2718,7 @@ const SEED_DATA = {
             "tradicional": "大後年",
             "pinyin": "dàhòunián",
             "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄋㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2659,7 +2739,11 @@ const SEED_DATA = {
                 "大後年我們學校有一百週年校慶 — En tres años nuestra escuela celebra su centenario",
                 "這棟樓大後年完工 — Este edificio se terminará en tres años"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_yue",
@@ -2667,7 +2751,7 @@ const SEED_DATA = {
             "tradicional": "月",
             "pinyin": "yuè",
             "zhuyin": "ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -2680,7 +2764,11 @@ const SEED_DATA = {
                 "一年有十二個月 — Un año tiene doce meses",
                 "九月開學 — Las clases inician en septiembre"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shangshanggeyue",
@@ -2688,7 +2776,7 @@ const SEED_DATA = {
             "tradicional": "上上個月",
             "pinyin": "shàng shàng ge yuè",
             "zhuyin": "ㄕㄤˋ ㄕㄤˋ ˙ㄍㄜ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2705,7 +2793,11 @@ const SEED_DATA = {
                 "這本書是我上上個月買的 — Este libro lo compré el mes antepasado",
                 "上上個月天氣非常熱 — El mes antepasado el clima estuvo sumamente caluroso"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shanggeyue",
@@ -2713,7 +2805,7 @@ const SEED_DATA = {
             "tradicional": "上個月",
             "pinyin": "shàng ge yuè",
             "zhuyin": "ㄕㄤˋ ˙ㄍㄜ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2730,7 +2822,11 @@ const SEED_DATA = {
                 "上個月我看了三本書 — El mes pasado leí tres libros",
                 "上個月的考試很難 — El examen del mes pasado fue muy difícil"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_zhegeyue",
@@ -2738,7 +2834,7 @@ const SEED_DATA = {
             "tradicional": "這個月",
             "pinyin": "zhè ge yuè",
             "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2755,7 +2851,11 @@ const SEED_DATA = {
                 "這個月有選修課 — Este mes hay materias optativas",
                 "這個月我很忙 — Este mes estoy muy ocupado"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xiageyue",
@@ -2763,7 +2863,7 @@ const SEED_DATA = {
             "tradicional": "下個月",
             "pinyin": "xià ge yuè",
             "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2780,7 +2880,11 @@ const SEED_DATA = {
                 "下個月我們要去臺灣 — El próximo mes iremos a Taiwán",
                 "下個月有書法課 — El próximo mes hay clase de caligrafía"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xiaxiageyue",
@@ -2788,7 +2892,7 @@ const SEED_DATA = {
             "tradicional": "下下個月",
             "pinyin": "xià xià ge yuè",
             "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2805,7 +2909,11 @@ const SEED_DATA = {
                 "下下個月就要放假了 — En dos meses ya comienzan las vacaciones",
                 "這門課下下個月才開始 — Esta asignatura recién comienza en dos meses"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xingqi",
@@ -2813,7 +2921,7 @@ const SEED_DATA = {
             "tradicional": "星期",
             "pinyin": "xīngqī",
             "zhuyin": "ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -2830,7 +2938,11 @@ const SEED_DATA = {
                 "一個星期有七天 — Una semana tiene siete días",
                 "你這個星期忙不忙？ — ¿Estás ocupado esta semana?"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shangshanggexingqi",
@@ -2838,7 +2950,7 @@ const SEED_DATA = {
             "tradicional": "上上個星期",
             "pinyin": "shàng shàng ge xīngqī",
             "zhuyin": "ㄕㄤˋ ㄕㄤˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2855,7 +2967,11 @@ const SEED_DATA = {
                 "上上個星期我們沒有上課 — La semana antepasada no tuvimos clases",
                 "這是我上上個星期借的書 — Este es el libro que pedí prestado la semana antepasada"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shanggexingqi",
@@ -2863,7 +2979,7 @@ const SEED_DATA = {
             "tradicional": "上個星期",
             "pinyin": "shàng ge xīngqī",
             "zhuyin": "ㄕㄤˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2880,7 +2996,11 @@ const SEED_DATA = {
                 "上個星期我們見過面 — Nos vimos la semana pasada",
                 "上個星期的功課很多 — La semana pasada hubo mucha tarea"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_zhegexingqi",
@@ -2888,7 +3008,7 @@ const SEED_DATA = {
             "tradicional": "這個星期",
             "pinyin": "zhè ge xīngqī",
             "zhuyin": "ㄓㄜˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2905,7 +3025,11 @@ const SEED_DATA = {
                 "這個星期五有漢字考試 — Este viernes hay examen de caracteres",
                 "這個星期每天都有課 — Esta semana tengo clases todos los días"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xiagexingqi",
@@ -2913,7 +3037,7 @@ const SEED_DATA = {
             "tradicional": "下個星期",
             "pinyin": "xià ge xīngqī",
             "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2930,7 +3054,11 @@ const SEED_DATA = {
                 "下個星期見！ — ¡Nos vemos la próxima semana!",
                 "下個星期我們開始學語法 — La próxima semana comenzamos a estudiar gramática"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xiaxiagexingqi",
@@ -2938,7 +3066,7 @@ const SEED_DATA = {
             "tradicional": "下下個星期",
             "pinyin": "xià xià ge xīngqī",
             "zhuyin": "ㄒㄧㄚˋ ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2955,7 +3083,11 @@ const SEED_DATA = {
                 "下下個星期一放假 — El lunes subsiguiente es feriado / no hay clases",
                 "下下個星期我們要交報告 — En dos semanas tenemos que entregar el informe"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_tian",
@@ -2963,7 +3095,7 @@ const SEED_DATA = {
             "tradicional": "天",
             "pinyin": "tiān",
             "zhuyin": "ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -2980,7 +3112,11 @@ const SEED_DATA = {
                 "一個星期有七天 — Una semana tiene siete días",
                 "天天開心 — Feliz todos los días"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_daqiantian",
@@ -2988,7 +3124,7 @@ const SEED_DATA = {
             "tradicional": "大前天",
             "pinyin": "dàqiántiān",
             "zhuyin": "ㄉㄚˋ ㄑㄧㄢˊ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3009,7 +3145,11 @@ const SEED_DATA = {
                 "大前天我買了一本新書 — Hace tres días compré un libro nuevo",
                 "大前天下午很冷 — Anteanteayer por la tarde estuvo muy frío"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_qiantian",
@@ -3017,7 +3157,7 @@ const SEED_DATA = {
             "tradicional": "前天",
             "pinyin": "qiántiān",
             "zhuyin": "ㄑㄧㄢˊ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3034,7 +3174,11 @@ const SEED_DATA = {
                 "前天你去哪裡？ — ¿A dónde fuiste anteayer?",
                 "前天我們上書法課 — Anteayer tuvimos clase de caligrafía"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_zuotian",
@@ -3042,7 +3186,7 @@ const SEED_DATA = {
             "tradicional": "昨天",
             "pinyin": "zuótiān",
             "zhuyin": "ㄗㄨㄛˊ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3060,7 +3204,11 @@ const SEED_DATA = {
                 "昨天的漢字課很有意思 — La clase de caracteres de ayer fue muy interesante"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_jintian",
@@ -3068,7 +3216,7 @@ const SEED_DATA = {
             "tradicional": "今天",
             "pinyin": "jīntiān",
             "zhuyin": "ㄐㄧㄣ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3086,7 +3234,11 @@ const SEED_DATA = {
                 "今天天氣真好 — Hoy el clima está verdaderamente bueno"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_mingtian",
@@ -3094,7 +3246,7 @@ const SEED_DATA = {
             "tradicional": "明天",
             "pinyin": "míngtiān",
             "zhuyin": "ㄇㄧㄥˊ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3112,7 +3264,11 @@ const SEED_DATA = {
                 "明天上午我有選修課 — Mañana por la mañana tengo materia electiva"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_houtian",
@@ -3120,7 +3276,7 @@ const SEED_DATA = {
             "tradicional": "後天",
             "pinyin": "hòutiān",
             "zhuyin": "ㄏㄡˋ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3137,7 +3293,11 @@ const SEED_DATA = {
                 "後天我們去買書 — Pasado mañana vamos a comprar libros",
                 "後天你有空嗎？ — ¿Tienes tiempo libre pasado mañana?"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_dahoutian",
@@ -3145,7 +3305,7 @@ const SEED_DATA = {
             "tradicional": "大後天",
             "pinyin": "dàhòutiān",
             "zhuyin": "ㄉㄚˋ ㄏㄡˋ ㄊㄧㄢ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3166,7 +3326,11 @@ const SEED_DATA = {
                 "大後天我們在學校見面 — En tres días nos vemos en la escuela",
                 "大後天下午下課以後去喝茶 — En tres días por la tarde después de clase vamos a tomar té"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_shihou",
@@ -3174,7 +3338,7 @@ const SEED_DATA = {
             "tradicional": "時候",
             "pinyin": "shíhòu",
             "zhuyin": "ㄕˊ ㄏㄡˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3191,7 +3355,11 @@ const SEED_DATA = {
                 "吃飯的時候不要說話 — Al momento de comer no hables",
                 "小的時候我很喜歡貓 — Cuando era pequeño me gustaban mucho los gatos"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_fenzhong",
@@ -3199,7 +3367,7 @@ const SEED_DATA = {
             "tradicional": "分鐘",
             "pinyin": "fēnzhōng",
             "zhuyin": "ㄈㄣ ㄓㄨㄥ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3216,7 +3384,11 @@ const SEED_DATA = {
                 "下課休息十分鐘 — El receso de clase dura diez minutos",
                 "請等我五分鐘 — Por favor espérame cinco minutos"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_minguo",
@@ -3224,7 +3396,7 @@ const SEED_DATA = {
             "tradicional": "民國",
             "pinyin": "Mínguó",
             "zhuyin": "ㄇㄧㄣˊ ㄍㄨㄛˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3241,7 +3413,11 @@ const SEED_DATA = {
                 "今年是民國115年 — Este año es el 115 de la República de China",
                 "民國115年9月27日 — 27 de septiembre del año 115 de la República de China"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_libai",
@@ -3249,7 +3425,7 @@ const SEED_DATA = {
             "tradicional": "禮拜",
             "pinyin": "lǐbài",
             "zhuyin": "ㄌㄧˇ ㄅㄞˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3266,7 +3442,11 @@ const SEED_DATA = {
                 "下個禮拜見 — Nos vemos la próxima semana",
                 "一個禮拜有七天 — Una semana tiene siete días"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_voc_xuexiao",
@@ -3274,7 +3454,7 @@ const SEED_DATA = {
             "tradicional": "學校",
             "pinyin": "xuéxiào",
             "zhuyin": "ㄒㄩㄝˊ ㄒㄧㄠˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_dong",
             "radicales": [
                 {
@@ -3291,7 +3471,11 @@ const SEED_DATA = {
                 "我們學校很大 — Nuestra escuela es grande",
                 "你怎麼去學校？ — ¿Cómo vas a la escuela?"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_voc_nali",
@@ -3299,7 +3483,7 @@ const SEED_DATA = {
             "tradicional": "哪裡",
             "pinyin": "nǎlǐ",
             "zhuyin": "ㄋㄚˇ ㄌㄧˇ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3316,57 +3500,12 @@ const SEED_DATA = {
                 "教室在哪裡？ — ¿Dónde está el salón de clases?",
                 "你要去哪裡？ — ¿A dónde vas?"
             ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_zhexie",
-            "espanol": "Estos",
-            "tradicional": "這些",
-            "pinyin": "zhèxiē",
-            "zhuyin": "ㄓㄜˋ ㄒㄧㄝ",
-            "categoria": "pronombre",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_msr4oeq7_zhe"
-                },
-                {
-                    "type": "text",
-                    "value": "些 (xiē - unos pocos)"
-                }
-            ],
-            "notas": "Demostrativo plural cercano: 這些書 (estos libros).",
-            "ejemplos": [
-                "這些書都不貴 — Ninguno de estos libros es caro",
-                "這些是我的照片 — Estas son mis fotos"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_naxie",
-            "espanol": "Esos",
-            "tradicional": "那些",
-            "pinyin": "nàxiē",
-            "zhuyin": "ㄋㄚˋ ㄒㄧㄝ",
-            "categoria": "pronombre",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_msr4qdf2_na"
-                },
-                {
-                    "type": "text",
-                    "value": "些 (xiē - unos pocos)"
-                }
-            ],
-            "notas": "Demostrativo plural lejano: 那些人 (aquellas personas).",
-            "ejemplos": [
-                "那些花非常漂亮 — Aquellas flores son extremadamente hermosas",
-                "那些不是我的書 — Esos no son mis libros"
-            ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "place",
+                "question"
+            ]
         },
         {
             "id": "id_l3_zhoumo",
@@ -3374,7 +3513,7 @@ const SEED_DATA = {
             "tradicional": "週末",
             "pinyin": "zhōumò",
             "zhuyin": "ㄓㄡ ㄇㄛˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3392,7 +3531,11 @@ const SEED_DATA = {
                 "明天是週末，你要不要來我家？ — Mañana es fin de semana, ¿quieres venir a mi casa?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         },
         {
             "id": "id_l3_yinyue",
@@ -3400,7 +3543,7 @@ const SEED_DATA = {
             "tradicional": "音樂",
             "pinyin": "yīnyuè",
             "zhuyin": "ㄧㄣ ㄩㄝˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3418,7 +3561,11 @@ const SEED_DATA = {
                 "你喜歡聽音樂嗎？ — ¿Te gusta escuchar música?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_wangqiu",
@@ -3426,7 +3573,7 @@ const SEED_DATA = {
             "tradicional": "網球",
             "pinyin": "wǎngqiú",
             "zhuyin": "ㄨㄤˇ ㄑㄧㄡˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ke",
             "radicales": [
                 {
@@ -3444,7 +3591,11 @@ const SEED_DATA = {
                 "我不喜歡打網球 — No me gusta jugar al tenis"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_bangqiu",
@@ -3452,7 +3603,7 @@ const SEED_DATA = {
             "tradicional": "棒球",
             "pinyin": "bàngqiú",
             "zhuyin": "ㄅㄤˋ ㄑㄧㄡˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ke",
             "radicales": [
                 {
@@ -3470,7 +3621,11 @@ const SEED_DATA = {
                 "田中喜歡打棒球 — A Tanaka le gusta jugar al béisbol"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_lanqiu",
@@ -3478,7 +3633,7 @@ const SEED_DATA = {
             "tradicional": "籃球",
             "pinyin": "lánqiú",
             "zhuyin": "ㄌㄢˊ ㄑㄧㄡˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ke",
             "radicales": [
                 {
@@ -3496,7 +3651,11 @@ const SEED_DATA = {
                 "我們週末去打籃球，怎麼樣？ — ¿Qué te parece si vamos a jugar al baloncesto el fin de semana?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_zuqiu",
@@ -3504,7 +3663,7 @@ const SEED_DATA = {
             "tradicional": "足球",
             "pinyin": "zúqiú",
             "zhuyin": "ㄗㄨˊ ㄑㄧㄡˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_ke",
             "radicales": [
                 {
@@ -3522,7 +3681,11 @@ const SEED_DATA = {
                 "我們早上去踢足球，怎麼樣？ — ¿Qué tal si vamos a jugar al fútbol por la mañana?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_bairuyu",
@@ -3530,7 +3693,7 @@ const SEED_DATA = {
             "tradicional": "白如玉",
             "pinyin": "Bái Rúyù",
             "zhuyin": "ㄅㄞˊ ㄖㄨˊ ㄩˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wei",
             "radicales": [
                 {
@@ -3551,7 +3714,11 @@ const SEED_DATA = {
                 "白如玉是美國人 — Bai Ruyu es estadounidense",
                 "白如玉想看臺灣電影 — Bai Ruyu quiere ver una película taiwanesa"
             ],
-            "fechaCreacion": "2026-09-30"
+            "fechaCreacion": "2026-09-30",
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_l3_dianying",
@@ -3559,7 +3726,7 @@ const SEED_DATA = {
             "tradicional": "電影",
             "pinyin": "diànyǐng",
             "zhuyin": "ㄉㄧㄢˋ ㄧㄥˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3577,7 +3744,11 @@ const SEED_DATA = {
                 "臺灣電影和美國電影都很好看 — Tanto las películas taiwanesas como las estadounidenses son muy buenas"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_ni_fem",
@@ -3585,7 +3756,7 @@ const SEED_DATA = {
             "tradicional": "妳",
             "pinyin": "nǐ",
             "zhuyin": "ㄋㄧˇ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3603,7 +3774,12 @@ const SEED_DATA = {
                 "妳想看美國電影還是臺灣電影？ — ¿Quieres ver una película estadounidense o una taiwanesa?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "id_l3_zhongwen",
@@ -3611,7 +3787,7 @@ const SEED_DATA = {
             "tradicional": "中文",
             "pinyin": "Zhōngwén",
             "zhuyin": "ㄓㄨㄥ ㄨㄣˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3629,7 +3805,11 @@ const SEED_DATA = {
                 "看電影可以學中文 — Ver películas sirve para aprender chino"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_wanfan",
@@ -3637,7 +3817,7 @@ const SEED_DATA = {
             "tradicional": "晚飯",
             "pinyin": "wǎnfàn",
             "zhuyin": "ㄨㄢˇ ㄈㄢˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3655,7 +3835,11 @@ const SEED_DATA = {
                 "晚上要不要一起吃晚飯？ — ¿Cenamos juntos esta noche?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_cai",
@@ -3663,7 +3847,7 @@ const SEED_DATA = {
             "tradicional": "菜",
             "pinyin": "cài",
             "zhuyin": "ㄘㄞˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3681,7 +3865,11 @@ const SEED_DATA = {
                 "妳喜歡吃哪國菜？ — ¿La comida de qué país te gusta?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l3_yuenan",
@@ -3689,7 +3877,7 @@ const SEED_DATA = {
             "tradicional": "越南",
             "pinyin": "Yuènán",
             "zhuyin": "ㄩㄝˋ ㄋㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3707,7 +3895,11 @@ const SEED_DATA = {
                 "我很喜歡吃越南菜 — Me gusta mucho comer comida vietnamita"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_l4_qian",
@@ -3715,7 +3907,7 @@ const SEED_DATA = {
             "tradicional": "錢",
             "pinyin": "qián",
             "zhuyin": "ㄑㄧㄢˊ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -3732,7 +3924,11 @@ const SEED_DATA = {
                 "我沒有很多錢。 — No tengo mucho dinero.",
                 "這支手機要多少錢？ — ¿Cuánto dinero cuesta este teléfono celular?"
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l4_laoban",
@@ -3740,7 +3936,7 @@ const SEED_DATA = {
             "tradicional": "老闆",
             "pinyin": "lǎobǎn",
             "zhuyin": "ㄌㄠˇ ㄅㄢˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3761,32 +3957,11 @@ const SEED_DATA = {
                 "老闆，我要一杯烏龍茶！ — ¡Jefe, quiero un té Oolong!",
                 "那個老闆人很好，常請我們吃東西。 — Ese dueño es muy amable, a menudo nos invita a comer algo."
             ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l4_wan",
-            "espanol": "Diez mil",
-            "tradicional": "萬",
-            "pinyin": "wàn",
-            "zhuyin": "ㄨㄢˋ",
-            "categoria": "sustantivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "艹 (cǎo - hierba)"
-                },
-                {
-                    "type": "text",
-                    "value": "禸 (róu - huella)"
-                }
-            ],
-            "notas": "Unidad numérica china fundamental: diez mil (10.000). En chino los números grandes se agrupan en múltiplos de cuatro ceros (一萬 = 10.000).",
-            "ejemplos": [
-                "這支新手機要一萬塊。 — Este celular nuevo cuesta diez mil dólares.",
-                "那間房子要兩千萬。 — Esa casa cuesta veinte millones."
-            ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
         },
         {
             "id": "id_l4_shouji",
@@ -3794,7 +3969,7 @@ const SEED_DATA = {
             "tradicional": "手機",
             "pinyin": "shǒujī",
             "zhuyin": "ㄕㄡˇ ㄐㄧ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_zhi_phone",
             "radicales": [
                 {
@@ -3815,7 +3990,11 @@ const SEED_DATA = {
                 "我的手機很舊，我想買新的。 — Mi teléfono móvil es muy viejo, quiero comprar uno nuevo.",
                 "這支手機能不能上網？ — ¿Puede este teléfono conectarse a internet?"
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l4_baozi",
@@ -3823,7 +4002,7 @@ const SEED_DATA = {
             "tradicional": "包子",
             "pinyin": "bāozi",
             "zhuyin": "ㄅㄠ ˙ㄗ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3844,7 +4023,11 @@ const SEED_DATA = {
                 "老闆，我要買三個熱包子。 — Jefe, quiero comprar tres baozis calientes.",
                 "這家店的包子非常好吃。 — Los baozis de este local son riquísimos."
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_n_weibo_micro",
@@ -3852,7 +4035,7 @@ const SEED_DATA = {
             "tradicional": "微波",
             "pinyin": "wéibō",
             "zhuyin": "ㄨㄟˊ ㄅㄛ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3868,7 +4051,11 @@ const SEED_DATA = {
             "ejemplos": [
                 "超商有微波 — La tienda de conveniencia tiene microondas"
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_n_yundong_sport",
@@ -3876,7 +4063,7 @@ const SEED_DATA = {
             "tradicional": "運動",
             "pinyin": "yùndòng",
             "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -3892,7 +4079,12 @@ const SEED_DATA = {
             "ejemplos": [
                 "你喜歡什麼運動？ — ¿Qué deporte te gusta?"
             ],
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object",
+                "activity"
+            ]
         },
         {
             "id": "id_l5_niurou",
@@ -3900,7 +4092,7 @@ const SEED_DATA = {
             "tradicional": "牛肉",
             "pinyin": "niúròu",
             "zhuyin": "ㄋㄧㄡˊ ㄖㄡˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wan",
             "radicales": [
                 {
@@ -3918,7 +4110,11 @@ const SEED_DATA = {
                 "你不吃牛肉嗎？ — ¿No comes carne de res?"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_mian",
@@ -3926,7 +4122,7 @@ const SEED_DATA = {
             "tradicional": "麵",
             "pinyin": "miàn",
             "zhuyin": "ㄇㄧㄢˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wan",
             "radicales": [
                 {
@@ -3944,7 +4140,11 @@ const SEED_DATA = {
                 "這家店的麵很有名 — Los fideos de este restaurante son muy famosos"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_xiaochi",
@@ -3952,7 +4152,7 @@ const SEED_DATA = {
             "tradicional": "小吃",
             "pinyin": "xiǎochī",
             "zhuyin": "ㄒㄧㄠˇ ㄔ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_zhong",
             "radicales": [
                 {
@@ -3970,7 +4170,11 @@ const SEED_DATA = {
                 "你想吃什麼小吃？ — ¿Qué aperitivo quieres comer?"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_tang",
@@ -3978,7 +4182,7 @@ const SEED_DATA = {
             "tradicional": "湯",
             "pinyin": "tāng",
             "zhuyin": "ㄊㄤ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_wan",
             "radicales": [
                 {
@@ -3996,7 +4200,11 @@ const SEED_DATA = {
                 "你想喝什麼湯？ — ¿Qué sopa quieres tomar?"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_dian",
@@ -4004,7 +4212,7 @@ const SEED_DATA = {
             "tradicional": "店",
             "pinyin": "diàn",
             "zhuyin": "ㄉㄧㄢˋ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_jia_shop",
             "radicales": [
                 {
@@ -4022,7 +4230,11 @@ const SEED_DATA = {
                 "我們去那家店點菜吧 — Vayamos a esa tienda a pedir platos"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_l5_xiaolongbao",
@@ -4030,7 +4242,7 @@ const SEED_DATA = {
             "tradicional": "小籠包",
             "pinyin": "xiǎolóngbāo",
             "zhuyin": "ㄒㄧㄠˇ ㄌㄨㄥˊ ㄅㄠ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
                 {
@@ -4052,7 +4264,11 @@ const SEED_DATA = {
                 "我們點兩籠小籠包吧 — Pidamos dos canastas de xiaolongbao"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_choudoufu",
@@ -4060,7 +4276,7 @@ const SEED_DATA = {
             "tradicional": "臭豆腐",
             "pinyin": "chòu dòufǔ",
             "zhuyin": "ㄔㄡˋ ㄉㄡˋ ㄈㄨˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_kuai",
             "radicales": [
                 {
@@ -4082,7 +4298,11 @@ const SEED_DATA = {
                 "你敢吃臭豆腐嗎？ — ¿Te atreves a comer tofu apestoso?"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
         },
         {
             "id": "id_l5_canting",
@@ -4090,7 +4310,7 @@ const SEED_DATA = {
             "tradicional": "餐廳",
             "pinyin": "cāntīng",
             "zhuyin": "ㄘㄢ ㄊㄧㄥ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_jia_shop",
             "radicales": [
                 {
@@ -4108,7 +4328,11 @@ const SEED_DATA = {
                 "這家餐廳的菜非常辣 — La comida de este restaurante es sumamente picante"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
         },
         {
             "id": "id_l5_ziji",
@@ -4116,7 +4340,7 @@ const SEED_DATA = {
             "tradicional": "自己",
             "pinyin": "zìjǐ",
             "zhuyin": "ㄗˋ ㄐㄧˇ",
-            "categoria": "pronombre",
+            "categoria": "N",
             "clasificador": "",
             "radicales": [
                 {
@@ -4134,7 +4358,12 @@ const SEED_DATA = {
                 "他自己一個人去臺灣旅行 — Él fue solo de viaje a Taiwán por su cuenta"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
         },
         {
             "id": "id_l5_tiandian",
@@ -4142,7 +4371,7 @@ const SEED_DATA = {
             "tradicional": "甜點",
             "pinyin": "tiándiǎn",
             "zhuyin": "ㄊㄧㄢˊ ㄉㄧㄢˇ",
-            "categoria": "sustantivo",
+            "categoria": "N",
             "clasificador": "id_clf_zhong",
             "radicales": [
                 {
@@ -4160,7 +4389,40 @@ const SEED_DATA = {
                 "這家餐廳的甜點很有名 — Los postres de este restaurante son muy famosos"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_voc_xianzai",
+            "espanol": "Ahora",
+            "tradicional": "現在",
+            "pinyin": "xiànzài",
+            "zhuyin": "ㄒㄧㄢˋ ㄗㄞˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "現 (xiàn - presente)"
+                },
+                {
+                    "type": "text",
+                    "value": "在 (zài - estar)"
+                }
+            ],
+            "notas": "Jade que brilla y se hace visible en el presente. Marco temporal para 'en este momento', colocado antes del verbo.",
+            "ejemplos": [
+                "現在幾點？ — ¿Qué hora es ahora?",
+                "我現在要去教室 — Ahora voy al salón de clases"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "N",
+            "semanticTags": [
+                "time"
+            ]
         }
     ],
     "verbos": [
@@ -4170,7 +4432,7 @@ const SEED_DATA = {
             "tradicional": "是",
             "pinyin": "shì",
             "zhuyin": "ㄕˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4187,7 +4449,13 @@ const SEED_DATA = {
                 "我是學生 — Soy estudiante",
                 "他不是美國人 — Él no es estadounidense"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "copula"
+            ]
         },
         {
             "id": "v2",
@@ -4195,7 +4463,7 @@ const SEED_DATA = {
             "tradicional": "愛",
             "pinyin": "ài",
             "zhuyin": "ㄞˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4219,6 +4487,12 @@ const SEED_DATA = {
             "ejemplos": [
                 "我愛你 — Te amo / Te quiero",
                 "我們都愛臺灣 — Todos amamos Taiwán"
+            ],
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
             ]
         },
         {
@@ -4226,7 +4500,7 @@ const SEED_DATA = {
             "tradicional": "有",
             "pinyin": "yǒu",
             "zhuyin": "ㄧㄡˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4245,14 +4519,21 @@ const SEED_DATA = {
             ],
             "id": "id_msikgc9s_g7seh",
             "fechaCreacion": "2026-08-07",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "possession",
+                "existential"
+            ]
         },
         {
             "espanol": "No tener",
             "tradicional": "沒有",
             "pinyin": "méiyǒu",
             "zhuyin": "ㄇㄟˊ ㄧㄡˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4270,14 +4551,21 @@ const SEED_DATA = {
                 "他沒有兄弟姐妹 — Él no tiene hermanos ni hermanas"
             ],
             "id": "id_msikk3ee_c6734",
-            "fechaCreacion": "2026-08-07"
+            "fechaCreacion": "2026-08-07",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "possession",
+                "existential"
+            ]
         },
         {
             "espanol": "Comer",
             "tradicional": "吃",
             "pinyin": "chī",
             "zhuyin": "ㄔ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4296,14 +4584,19 @@ const SEED_DATA = {
                 "你吃牛肉嗎？ — ¿Comes carne de res?",
                 "我不吃肉 — No como carne"
             ],
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "espanol": "Beber",
             "tradicional": "喝",
             "pinyin": "hē",
             "zhuyin": "ㄏㄜ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4322,14 +4615,19 @@ const SEED_DATA = {
                 "請喝茶 — Por favor toma té",
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "espanol": "Gustar",
             "tradicional": "喜歡",
             "pinyin": "xǐhuān",
             "zhuyin": "ㄒㄧˇ ㄏㄨㄢ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4348,14 +4646,20 @@ const SEED_DATA = {
                 "我喜歡喝臺灣茶 — Me gusta tomar té de Taiwán",
                 "他喜歡看書 — A él le gusta leer"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
+            ]
         },
         {
             "espanol": "Llegar",
             "tradicional": "來",
             "pinyin": "lái",
             "zhuyin": "ㄌㄞˊ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4370,14 +4674,21 @@ const SEED_DATA = {
             "notas": "Pictograma arcaico de una espiga de trigo que llegó de tierras lejanas. Verbo de desplazamiento hacia donde está el hablante.",
             "id": "id_mtvfh8aa_8aaax",
             "fechaCreacion": "2026-09-10",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive",
+                "directionalVerb"
+            ]
         },
         {
             "espanol": "Llamarse",
             "tradicional": "叫",
             "pinyin": "jiào",
             "zhuyin": "ㄐㄧㄠˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4396,14 +4707,20 @@ const SEED_DATA = {
                 "請問，你叫什麼名字？ — Disculpe, ¿cómo se llama usted?",
                 "我叫王開文 — Me llamo Wang Kaiwen"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "naming"
+            ]
         },
         {
             "espanol": "Bienvenida",
             "tradicional": "歡迎",
             "pinyin": "huānyíng",
             "zhuyin": "ㄏㄨㄢ ㄧㄥˊ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4418,14 +4735,20 @@ const SEED_DATA = {
             "notas": "Salir al encuentro con alegría. Fórmula de acogida: 歡迎 + Sujeto + 來 + Lugar (ej. 歡迎你來臺灣！).",
             "id": "id_mtvgtotw_2spn1",
             "fechaCreacion": "2026-09-10",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
+            ]
         },
         {
             "espanol": "Invitar / Por favor",
             "tradicional": "請",
             "pinyin": "qǐng",
             "zhuyin": "ㄑㄧㄥˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4444,14 +4767,19 @@ const SEED_DATA = {
                 "請進，請坐 — Por favor pase, tome asiento",
                 "請喝烏龍茶 — Por favor tome té Oolong"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "espanol": "Querer",
             "tradicional": "要",
             "pinyin": "yào",
             "zhuyin": "ㄧㄠˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4466,7 +4794,12 @@ const SEED_DATA = {
             "notas": "Pictograma de una mujer con las manos en la cintura señalando lo esencial. Expresa voluntad o futuro inmediato; negación: 不要.",
             "id": "id_mtvifgj8_j51mk",
             "fechaCreacion": "2026-09-10",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_mty001_kan",
@@ -4474,7 +4807,7 @@ const SEED_DATA = {
             "tradicional": "看",
             "pinyin": "kàn",
             "zhuyin": "ㄎㄢˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4493,7 +4826,12 @@ const SEED_DATA = {
                 "我看書法展覽 — Miro la exposición de caligrafía"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_mty022_zuo",
@@ -4501,7 +4839,7 @@ const SEED_DATA = {
             "tradicional": "坐",
             "pinyin": "zuò",
             "zhuyin": "ㄗㄨㄛˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4523,7 +4861,14 @@ const SEED_DATA = {
                 "請進，請坐 — Por favor pase, tome asiento"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive",
+                "allowsPostPlace"
+            ]
         },
         {
             "id": "id_mty025_zhaoxiang",
@@ -4531,7 +4876,7 @@ const SEED_DATA = {
             "tradicional": "照相",
             "pinyin": "zhàoxiàng",
             "zhuyin": "ㄓㄠˋ ㄒㄧㄤˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4549,7 +4894,17 @@ const SEED_DATA = {
                 "照一張相 — Tomar una foto"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "照",
+                "相"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_mty031_kanshu",
@@ -4557,7 +4912,7 @@ const SEED_DATA = {
             "tradicional": "看書",
             "pinyin": "kànshū",
             "zhuyin": "ㄎㄢˋ ㄕㄨ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4575,14 +4930,24 @@ const SEED_DATA = {
                 "他在家看書 — Él lee libros en casa"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "看",
+                "書"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "espanol": "Recoger (a alguien)",
             "tradicional": "接",
             "pinyin": "jiē",
             "zhuyin": "ㄐㄧㄝ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4601,7 +4966,12 @@ const SEED_DATA = {
                 "我去機場接李先生 — Voy al aeropuerto a recoger al señor Li",
                 "謝謝你來接我 — Gracias por venir a recibirme"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_xiuxi",
@@ -4609,7 +4979,7 @@ const SEED_DATA = {
             "tradicional": "休息",
             "pinyin": "xiūxí",
             "zhuyin": "ㄒㄧㄡ ㄒㄧˊ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4630,7 +5000,13 @@ const SEED_DATA = {
                 "我們休息十分鐘 — Descansamos diez minutos",
                 "請好好休息 — Por favor descansa bien"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
         },
         {
             "id": "id_voc_xiake",
@@ -4638,7 +5014,7 @@ const SEED_DATA = {
             "tradicional": "下課",
             "pinyin": "xiàkè",
             "zhuyin": "ㄒㄧㄚˋ ㄎㄜˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4655,7 +5031,17 @@ const SEED_DATA = {
                 "我們中午十二點下課 — Salimos de clase a las doce del mediodía",
                 "下課了，大家再見！ — ¡Terminó la clase, nos vemos todos!"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "下",
+                "課"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_voc_shuo",
@@ -4663,7 +5049,7 @@ const SEED_DATA = {
             "tradicional": "說",
             "pinyin": "shuō",
             "zhuyin": "ㄕㄨㄛ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4681,7 +5067,12 @@ const SEED_DATA = {
                 "他說得很清楚 — Él lo dice muy claramente"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_mai",
@@ -4689,7 +5080,7 @@ const SEED_DATA = {
             "tradicional": "買",
             "pinyin": "mǎi",
             "zhuyin": "ㄇㄞˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4707,7 +5098,12 @@ const SEED_DATA = {
                 "我在書店買了一本漢字書 — Compré un libro de caracteres chinos en la librería"
             ],
             "fechaCreacion": "2026-09-27",
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_zuo",
@@ -4715,7 +5111,7 @@ const SEED_DATA = {
             "tradicional": "做",
             "pinyin": "zuò",
             "zhuyin": "ㄗㄨㄛˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4732,7 +5128,12 @@ const SEED_DATA = {
                 "他在做什麼？ — ¿Qué está haciendo él?",
                 "我喜歡做菜 — Me gusta cocinar / preparar comida"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_cha",
@@ -4740,7 +5141,7 @@ const SEED_DATA = {
             "tradicional": "差",
             "pinyin": "chà",
             "zhuyin": "ㄔㄚ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4757,7 +5158,13 @@ const SEED_DATA = {
                 "差十分兩點 — Diez para las dos (1:50)",
                 "這兩個東西差不多 — Estas dos cosas son casi iguales"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Vpt",
+            "verbSubtype": "Vpt",
+            "semanticTags": [
+                "process",
+                "transitiveProcess"
+            ]
         },
         {
             "id": "id_voc_jian_see",
@@ -4765,7 +5172,7 @@ const SEED_DATA = {
             "tradicional": "見",
             "pinyin": "jiàn",
             "zhuyin": "ㄐㄧㄢˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4782,7 +5189,12 @@ const SEED_DATA = {
                 "明天見！ — ¡Nos vemos mañana!",
                 "下個禮拜見 — Nos vemos la próxima semana"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_wen",
@@ -4790,7 +5202,7 @@ const SEED_DATA = {
             "tradicional": "問",
             "pinyin": "wèn",
             "zhuyin": "ㄨㄣˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4807,7 +5219,12 @@ const SEED_DATA = {
                 "我要問問題 — Quiero hacer una pregunta",
                 "請問洗手間在哪裡？ — Disculpe, ¿dónde está el baño?"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_qu",
@@ -4815,7 +5232,7 @@ const SEED_DATA = {
             "tradicional": "去",
             "pinyin": "qù",
             "zhuyin": "ㄑㄩˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4833,32 +5250,14 @@ const SEED_DATA = {
                 "我明天去臺灣 — Mañana voy a Taiwán"
             ],
             "fechaCreacion": "2026-09-28",
-            "leccion": 3
-        },
-        {
-            "id": "id_voc_zai_loc",
-            "espanol": "Estar en",
-            "tradicional": "在",
-            "pinyin": "zài",
-            "zhuyin": "ㄗㄞˋ",
-            "categoria": "verbo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "𠂇 (yòu - mano)"
-                },
-                {
-                    "type": "text",
-                    "value": "土 (tǔ - tierra)"
-                }
-            ],
-            "notas": "Estar presente y arraigado en la tierra 土. Estructura locativa estándar: Sujeto + 在 + Lugar.",
-            "ejemplos": [
-                "老師在教室裡 — El profesor está en el salón de clases",
-                "你在哪裡？ — ¿Dónde estás?"
-            ],
-            "fechaCreacion": "2026-09-28"
+            "leccion": 3,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive",
+                "directionalVerb"
+            ]
         },
         {
             "id": "id_voc_chibao",
@@ -4866,7 +5265,7 @@ const SEED_DATA = {
             "tradicional": "吃飽",
             "pinyin": "chī bǎo",
             "zhuyin": "ㄔ ㄅㄠˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4883,7 +5282,12 @@ const SEED_DATA = {
                 "你吃飽了嗎？ — ¿Ya comiste? / ¿Quedaste satisfecho?",
                 "大家都吃飽了 — Todos ya comieron y quedaron satisfechos"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Vp",
+            "verbSubtype": "Vp",
+            "semanticTags": [
+                "process"
+            ]
         },
         {
             "id": "id_voc_shangke",
@@ -4891,7 +5295,7 @@ const SEED_DATA = {
             "tradicional": "上課",
             "pinyin": "shàngkè",
             "zhuyin": "ㄕㄤˋ ㄎㄜˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4908,7 +5312,17 @@ const SEED_DATA = {
                 "我們早上八點半上課 — Empezamos la clase a las 8:30 de la mañana",
                 "我要去上書法課 — Voy a tomar clase de caligrafía"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "上",
+                "課"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_voc_shang",
@@ -4916,7 +5330,7 @@ const SEED_DATA = {
             "tradicional": "上",
             "pinyin": "shàng",
             "zhuyin": "ㄕㄤˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4929,7 +5343,12 @@ const SEED_DATA = {
                 "他上兩門選修課 — Él cursa dos materias electivas",
                 "我們上課了 — Empezamos la clase"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_xia",
@@ -4937,7 +5356,7 @@ const SEED_DATA = {
             "tradicional": "下",
             "pinyin": "xià",
             "zhuyin": "ㄒㄧㄚˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4950,7 +5369,12 @@ const SEED_DATA = {
                 "我們十二點下課 — Terminamos la clase a las 12:00",
                 "下星期見 — Nos vemos la próxima semana"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_juede",
@@ -4958,7 +5382,7 @@ const SEED_DATA = {
             "tradicional": "覺得",
             "pinyin": "juéde",
             "zhuyin": "ㄐㄩㄝˊ ˙ㄉㄜ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -4977,7 +5401,13 @@ const SEED_DATA = {
                 "我覺得今天很冷 — Siento / pienso que hoy hace mucho frío"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
+            ]
         },
         {
             "id": "id_l3_ting",
@@ -4985,7 +5415,7 @@ const SEED_DATA = {
             "tradicional": "聽",
             "pinyin": "tīng",
             "zhuyin": "ㄊㄧㄥ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5003,7 +5433,12 @@ const SEED_DATA = {
                 "我喜歡聽音樂和打網球 — Me gusta escuchar música y jugar al tenis"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l3_yundong",
@@ -5011,7 +5446,7 @@ const SEED_DATA = {
             "tradicional": "運動",
             "pinyin": "yùndòng",
             "zhuyin": "ㄩㄣˋ ㄉㄨㄥˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "id_clf_ci",
             "radicales": [
                 {
@@ -5029,7 +5464,12 @@ const SEED_DATA = {
                 "我今天要去運動，不去你家 — Hoy voy a hacer ejercicio, no iré a tu casa"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l3_da",
@@ -5037,7 +5477,7 @@ const SEED_DATA = {
             "tradicional": "打",
             "pinyin": "dǎ",
             "zhuyin": "ㄉㄚˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5055,7 +5495,12 @@ const SEED_DATA = {
                 "你喜歡打網球嗎？ — ¿Te gusta jugar al tenis?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l3_youyong",
@@ -5063,7 +5508,7 @@ const SEED_DATA = {
             "tradicional": "游泳",
             "pinyin": "yóuyǒng",
             "zhuyin": "ㄧㄡˊ ㄩㄥˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "id_clf_ci",
             "radicales": [
                 {
@@ -5081,7 +5526,17 @@ const SEED_DATA = {
                 "你喜歡不喜歡游泳？ — ¿Te gusta nadar?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "游",
+                "泳"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_l3_ti",
@@ -5089,7 +5544,7 @@ const SEED_DATA = {
             "tradicional": "踢",
             "pinyin": "tī",
             "zhuyin": "ㄊㄧ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5107,7 +5562,12 @@ const SEED_DATA = {
                 "李明華不常踢足球 — Li Minghua no juega al fútbol muy seguido"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l3_xiang",
@@ -5115,7 +5575,7 @@ const SEED_DATA = {
             "tradicional": "想",
             "pinyin": "xiǎng",
             "zhuyin": "ㄒㄧㄤˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5133,7 +5593,12 @@ const SEED_DATA = {
                 "美國電影、臺灣電影，我都想看 — Quiero ver tanto películas estadounidenses como taiwanesas"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_l3_keyi",
@@ -5141,7 +5606,7 @@ const SEED_DATA = {
             "tradicional": "可以",
             "pinyin": "kěyǐ",
             "zhuyin": "ㄎㄜˇ ㄧˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5159,7 +5624,12 @@ const SEED_DATA = {
                 "月美覺得看臺灣電影可以學中文 — Yuemei piensa que viendo películas taiwanesas se puede aprender chino"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_l3_xue",
@@ -5167,7 +5637,7 @@ const SEED_DATA = {
             "tradicional": "學",
             "pinyin": "xué",
             "zhuyin": "ㄒㄩㄝˊ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5185,7 +5655,12 @@ const SEED_DATA = {
                 "看電影可以學中文 — Ver películas ayuda a aprender chino"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l4_neng",
@@ -5193,7 +5668,7 @@ const SEED_DATA = {
             "tradicional": "能",
             "pinyin": "néng",
             "zhuyin": "ㄋㄥˊ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5210,7 +5685,12 @@ const SEED_DATA = {
                 "這支舊手機不能上網。 — Este celular viejo no puede navegar por internet.",
                 "你能幫我買一杯熱咖啡嗎？ — ¿Puedes ayudarme comprándome una taza de café caliente?"
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_l4_shangwang",
@@ -5218,7 +5698,7 @@ const SEED_DATA = {
             "tradicional": "上網",
             "pinyin": "shàngwǎng",
             "zhuyin": "ㄕㄤˋ ㄨㄤˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5235,7 +5715,17 @@ const SEED_DATA = {
                 "我想上網買東西。 — Quiero conectarme a internet para comprar cosas.",
                 "他的手機可以在這裡上網。 — Su celular puede conectarse a internet aquí."
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "上",
+                "網"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_l4_mai_vender",
@@ -5243,7 +5733,7 @@ const SEED_DATA = {
             "tradicional": "賣",
             "pinyin": "mài",
             "zhuyin": "ㄇㄞˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5260,32 +5750,12 @@ const SEED_DATA = {
                 "請問你們賣熱咖啡嗎？ — Disculpe, ¿ustedes venden café caliente?",
                 "這家店賣的手機很便宜。 — Los teléfonos que vende esta tienda son muy económicos."
             ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l4_bang",
-            "espanol": "Ayudar",
-            "tradicional": "幫",
-            "pinyin": "bāng",
-            "zhuyin": "ㄅㄤ",
-            "categoria": "verbo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "巾 (jīn - tela/paño)"
-                },
-                {
-                    "type": "text",
-                    "value": "邦 (bāng - nación/estado)"
-                }
-            ],
-            "notas": "Significa ayudar a alguien o actuar como preposición de servicio: 幫 + Persona + Verbo (hacer algo por o en lugar de alguien).",
-            "ejemplos": [
-                "請幫我微波這個包子。 — Por favor ayúdame calentando este baozi en el microondas.",
-                "他常幫朋友買好喝的茶。 — Él suele ayudar a sus amigos comprándoles té delicioso."
-            ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l4_weibo",
@@ -5293,7 +5763,7 @@ const SEED_DATA = {
             "tradicional": "微波",
             "pinyin": "wéibō",
             "zhuyin": "ㄨㄟˊ ㄅㄛ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5314,7 +5784,12 @@ const SEED_DATA = {
                 "老闆，請幫我微波一下。 — Jefe, por favor caliéntemelo un momento en el microondas.",
                 "這個便當需要微波。 — Este bento necesita calentarse en microondas."
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_v_dian_order",
@@ -5322,7 +5797,7 @@ const SEED_DATA = {
             "tradicional": "點",
             "pinyin": "diǎn",
             "zhuyin": "ㄉㄧㄢˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "radicales": [
                 {
                     "type": "text",
@@ -5338,7 +5813,12 @@ const SEED_DATA = {
                 "我們點菜吧 — Vamos a pedir platos",
                 "你想點什麼？ — ¿Qué quieres pedir?"
             ],
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l5_zhidao",
@@ -5346,7 +5826,7 @@ const SEED_DATA = {
             "tradicional": "知道",
             "pinyin": "zhīdào",
             "zhuyin": "ㄓ ㄉㄠˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5364,7 +5844,13 @@ const SEED_DATA = {
                 "我不知道他明天來不來 — No sé si él vendrá mañana"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
+            ]
         },
         {
             "id": "id_l5_pa",
@@ -5372,7 +5858,7 @@ const SEED_DATA = {
             "tradicional": "怕",
             "pinyin": "pà",
             "zhuyin": "ㄆㄚˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5390,7 +5876,13 @@ const SEED_DATA = {
                 "你怕冷還是怕熱？ — ¿Le temes al frío o al calor?"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState"
+            ]
         },
         {
             "id": "id_l5_zuofan",
@@ -5398,7 +5890,7 @@ const SEED_DATA = {
             "tradicional": "做飯",
             "pinyin": "zuòfàn",
             "zhuyin": "ㄗㄨㄛˋ ㄈㄢˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5416,7 +5908,17 @@ const SEED_DATA = {
                 "他做飯做得很不錯 — Él cocina bastante bien"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "做",
+                "飯"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_l5_hui",
@@ -5424,7 +5926,7 @@ const SEED_DATA = {
             "tradicional": "會",
             "pinyin": "huì",
             "zhuyin": "ㄏㄨㄟˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5442,7 +5944,12 @@ const SEED_DATA = {
                 "我會說一點中文 — Sé hablar un poco de chino"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_l5_keyi",
@@ -5450,7 +5957,7 @@ const SEED_DATA = {
             "tradicional": "可以",
             "pinyin": "kěyǐ",
             "zhuyin": "ㄎㄜˇ ㄧˇ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5468,7 +5975,12 @@ const SEED_DATA = {
                 "有空的話我們可以去夜市 — Si tienes tiempo libre podemos ir al mercado nocturno"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "semanticTags": [
+                "modal"
+            ]
         },
         {
             "id": "id_l5_jiao",
@@ -5476,7 +5988,7 @@ const SEED_DATA = {
             "tradicional": "教",
             "pinyin": "jiāo",
             "zhuyin": "ㄐㄧㄠ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5494,7 +6006,12 @@ const SEED_DATA = {
                 "李老師在大學教中文 — El profesor Li enseña chino en la universidad"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_l5_dao",
@@ -5502,7 +6019,7 @@ const SEED_DATA = {
             "tradicional": "到",
             "pinyin": "dào",
             "zhuyin": "ㄉㄠˋ",
-            "categoria": "verbo",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5520,155 +6037,13 @@ const SEED_DATA = {
                 "坐捷運可以到那家餐廳 — Tomando el metro se puede llegar a ese restaurante"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        }
-    ],
-    "adverbios": [
-        {
-            "id": "a1",
-            "espanol": "No",
-            "tradicional": "不",
-            "pinyin": "bù",
-            "zhuyin": "ㄅㄨˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "不 (bù - negación)"
-                }
-            ],
-            "notas": "Pictograma de una semilla bajo tierra que aún no brota. Cambia a 2º tono (bú) antes de otro 4º tono (不是 bú shì). Para negar 有 se usa 沒.",
-            "ejemplos": [
-                "我不是美國人 — Yo no soy estadounidense",
-                "他不喝咖啡 — Él no toma café"
-            ],
-            "leccion": 1
-        },
-        {
-            "id": "a2",
-            "espanol": "Todos",
-            "tradicional": "都",
-            "pinyin": "dōu",
-            "zhuyin": "ㄉㄡ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "者 (zhě - persona)"
-                },
-                {
-                    "type": "text",
-                    "value": "阝 (yì - ciudad)"
-                }
-            ],
-            "notas": "Representa a los habitantes reunidos en la ciudad. Se coloca siempre entre el sujeto plural y el verbo: Sujeto + 都 + Verbo.",
-            "ejemplos": [
-                "我們都愛臺灣 — Todos nosotros amamos Taiwán",
-                "他們都不喝咖啡 — Ninguno de ellos toma café"
-            ],
-            "leccion": 2
-        },
-        {
-            "espanol": "También",
-            "tradicional": "也",
-            "pinyin": "yě",
-            "zhuyin": "ㄧㄝˇ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "乙 (yǐ - brote)"
-                }
-            ],
-            "notas": "Representa un brote curvo que añade una rama. Siempre va tras el sujeto y antes del verbo: 我也是 (yo también soy). Si se combina con 都, va primero: 也都.",
-            "ejemplos": [
-                "我也是學生 — Yo también soy estudiante",
-                "他也愛喝茶 — A él también le encanta tomar té"
-            ],
-            "id": "id_msk0pp4g_bdeqd",
-            "fechaCreacion": "2026-08-08",
-            "leccion": 3
-        },
-        {
-            "espanol": "Muy",
-            "tradicional": "很",
-            "pinyin": "hěn",
-            "zhuyin": "ㄏㄣˇ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "彳 (chì - paso)"
-                },
-                {
-                    "type": "text",
-                    "value": "艮 (gèn - detener)"
-                }
-            ],
-            "notas": "En Sujeto + 很 + Adjetivo actúa como estabilizador predicativo neutro obligatorio, sin implicar necesariamente grado superlativo.",
-            "id": "id_mtjnbg7d_2ozn7",
-            "fechaCreacion": "2026-09-02",
-            "ejemplos": [
-                "他很好 — Él está muy bien / es bueno",
-                "這張照片很漂亮 — Esta foto es muy linda",
-                "這本書很貴 — Este libro es muy caro"
-            ],
-            "leccion": 1
-        },
-        {
-            "id": "id_mty032_mei",
-            "espanol": "No (haber/pasado)",
-            "tradicional": "沒",
-            "pinyin": "méi",
-            "zhuyin": "ㄇㄟˊ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "rad_agua_1786603351443"
-                },
-                {
-                    "type": "text",
-                    "value": "殳 (shū - arma)"
-                }
-            ],
-            "notas": "Representa sumergirse y desaparecer en el agua. Negación obligatoria del verbo 有 (沒有 = no tener/haber) y de acciones completadas.",
-            "ejemplos": [
-                "我沒有書 — No tengo libros",
-                "他沒有照片 — Él no tiene fotos"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 2
-        },
-        {
-            "id": "id_voc_feichang",
-            "espanol": "Extremadamente",
-            "tradicional": "非常",
-            "pinyin": "fēicháng",
-            "zhuyin": "ㄈㄟ ㄔㄤˊ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "非 (fēi - no)"
-                },
-                {
-                    "type": "text",
-                    "value": "常 (cháng - común)"
-                }
-            ],
-            "notas": "Etimológicamente 'fuera de lo común'. Adverbio de grado intenso superior a 很, colocado antes de adjetivos o verbos psicológicos.",
-            "ejemplos": [
-                "國畫課非常有趣 — La clase de pintura tradicional china es sumamente divertida",
-                "他非常想去臺灣學中文 — Él desea enormemente ir a Taiwán a estudiar chino"
-            ],
-            "fechaCreacion": "2026-09-27"
+            "leccion": 5,
+            "posSymbol": "Vpt",
+            "verbSubtype": "Vpt",
+            "semanticTags": [
+                "process",
+                "transitiveProcess"
+            ]
         },
         {
             "id": "id_voc_henduo",
@@ -5676,7 +6051,7 @@ const SEED_DATA = {
             "tradicional": "很多",
             "pinyin": "hěn duō",
             "zhuyin": "ㄏㄣˇ ㄉㄨㄛ",
-            "categoria": "adverbio",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -5693,299 +6068,22 @@ const SEED_DATA = {
                 "我們學校有很多外國學生 — Nuestra escuela tiene muchos alumnos extranjeros",
                 "他有很多漂亮的照片 — Él tiene muchas fotos hermosas"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Vs-pred",
+            "verbSubtype": "Vs-pred",
+            "semanticTags": [
+                "state",
+                "predicativeOnly",
+                "hasDegree"
+            ]
         },
-        {
-            "id": "id_voc_xianzai",
-            "espanol": "Ahora",
-            "tradicional": "現在",
-            "pinyin": "xiànzài",
-            "zhuyin": "ㄒㄧㄢˋ ㄗㄞˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "現 (xiàn - presente)"
-                },
-                {
-                    "type": "text",
-                    "value": "在 (zài - estar)"
-                }
-            ],
-            "notas": "Jade que brilla y se hace visible en el presente. Marco temporal para 'en este momento', colocado antes del verbo.",
-            "ejemplos": [
-                "現在幾點？ — ¿Qué hora es ahora?",
-                "我現在要去教室 — Ahora voy al salón de clases"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_zai_again",
-            "espanol": "Otra vez",
-            "tradicional": "再",
-            "pinyin": "zài",
-            "zhuyin": "ㄗㄞˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "再 (zài - otra vez)"
-                }
-            ],
-            "notas": "Simboliza una segunda estructura superpuesta. Expresa la repetición de una acción hacia el futuro: 請再說一次 (dilo otra vez).",
-            "ejemplos": [
-                "請再說一次 — Por favor repítalo una vez más",
-                "歡迎再來 — Bienvenidos nuevamente"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_zenme",
-            "espanol": "¿Cómo?",
-            "tradicional": "怎麼",
-            "pinyin": "zěnme",
-            "zhuyin": "ㄗㄣˇ ㄇㄜ˙",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "怎 (zěn - cómo)"
-                },
-                {
-                    "type": "text",
-                    "value": "麼 (me - sufijo)"
-                }
-            ],
-            "notas": "Interroga el método, modo o instrumento para ejecutar una acción: S + 怎麼 + Verbo (ej. 怎麼去 = ¿cómo ir?).",
-            "ejemplos": [
-                "請問，怎麼去圖書館？ — Disculpe, ¿cómo se va a la biblioteca?",
-                "你怎麼來學校？ — ¿Cómo vienes a la escuela?"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_l3_chang",
-            "espanol": "A menudo",
-            "tradicional": "常",
-            "pinyin": "cháng",
-            "zhuyin": "ㄔㄤˊ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "巾 (jīn - tela)"
-                },
-                {
-                    "type": "text",
-                    "value": "尚 (shàng - noble)"
-                }
-            ],
-            "notas": "Una vestidura usada con regularidad. Adverbio preverbal de hábito o frecuencia (S + 常 + V). Su negación es 不常 (rara vez).",
-            "ejemplos": [
-                "我常打籃球，也常踢足球 — A menudo juego al baloncesto y también suelo jugar al fútbol",
-                "王開文常喝茶 — Kaiwen Wang bebe té a menudo"
-            ],
-            "fechaCreacion": "2026-09-30",
-            "leccion": 3
-        },
-        {
-            "id": "id_l3_yiqi",
-            "espanol": "Juntos",
-            "tradicional": "一起",
-            "pinyin": "yìqǐ",
-            "zhuyin": "ㄧˋ ㄑㄧˇ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                },
-                {
-                    "type": "text",
-                    "value": "起 (qǐ - levantarse)"
-                }
-            ],
-            "notas": "Levantarse y ponerse en marcha como una sola unidad. Se coloca antes del verbo para indicar acción compartida: 我們一起看書.",
-            "ejemplos": [
-                "晚上要不要一起吃晚飯？ — ¿Quieres que cenemos juntos esta noche?",
-                "週末我們要不要一起看書？ — ¿Leemos libros juntos el fin de semana?"
-            ],
-            "fechaCreacion": "2026-09-30",
-            "leccion": 3
-        },
-        {
-            "id": "id_l4_yigong",
-            "espanol": "En total",
-            "tradicional": "一共",
-            "pinyin": "yígòng",
-            "zhuyin": "ㄧˊ ㄍㄨㄥˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                },
-                {
-                    "type": "text",
-                    "value": "共 (gòng - juntos/común)"
-                }
-            ],
-            "notas": "Indica suma global o total acumulado. Imprescindible para pedir la cuenta o calcular compras (一共多少錢？).",
-            "ejemplos": [
-                "三杯熱茶一共一百五十塊。 — Tres tazas de té caliente son en total ciento cincuenta dólares.",
-                "我們一共五個人去看電影。 — En total fuimos cinco personas a ver la película."
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l5_zhen",
-            "espanol": "Realmente",
-            "tradicional": "真",
-            "pinyin": "zhēn",
-            "zhuyin": "ㄓㄣ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "目 (mù - ojo)"
-                },
-                {
-                    "type": "text",
-                    "value": "十 (shí - diez)"
-                }
-            ],
-            "notas": "Adverbio enfático ante adjetivos (真 + Adjetivo = '¡realmente...!').",
-            "ejemplos": [
-                "臺灣的小吃真好吃 — Los aperitivos de Taiwán son realmente deliciosos",
-                "你做飯做得真好 — Cocinas realmente bien"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_zui",
-            "espanol": "El más",
-            "tradicional": "最",
-            "pinyin": "zuì",
-            "zhuyin": "ㄗㄨㄟˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "日 (rì - sol)"
-                },
-                {
-                    "type": "text",
-                    "value": "取 (qǔ - tomar)"
-                }
-            ],
-            "notas": "Adverbio superlativo antepuesto a adjetivos o verbos de agrado.",
-            "ejemplos": [
-                "哪一家餐廳的菜最好吃？ — ¿La comida de qué restaurante es la más deliciosa?",
-                "我最喜歡吃小籠包 — Lo que más me gusta comer son los xiaolongbao"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_zheme",
-            "espanol": "Tan",
-            "tradicional": "這麼",
-            "pinyin": "zhème",
-            "zhuyin": "ㄓㄜˋ ˙ㄇㄜ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "這 (zhè - este)"
-                },
-                {
-                    "type": "text",
-                    "value": "麼 (me - partícula)"
-                }
-            ],
-            "notas": "Adverbio demostrativo de grado (這麼 + Adjetivo = 'tan...').",
-            "ejemplos": [
-                "這家店的菜怎麼這麼好吃！ — ¡Por qué la comida de esta tienda es tan deliciosa!",
-                "牛肉麵這麼貴嗎？ — ¿Los fideos con carne de res son así de caros?"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_yiding",
-            "espanol": "Definitivamente",
-            "tradicional": "一定",
-            "pinyin": "yídìng",
-            "zhuyin": "ㄧˊ ㄉㄧㄥˋ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                },
-                {
-                    "type": "text",
-                    "value": "定 (dìng - fijar/seguro)"
-                }
-            ],
-            "notas": "Adverbio modal de certeza o necesidad ('seguramente', 'sin falta').",
-            "ejemplos": [
-                "你一定要吃這家的小籠包 — Sin falta tienes que comer los xiaolongbao de este lugar",
-                "明天他不一定會來 — No necesariamente vendrá mañana"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_youyidian",
-            "espanol": "Un poco",
-            "tradicional": "有一點",
-            "pinyin": "yǒu yì diǎn",
-            "zhuyin": "ㄧㄡˇ ㄧˋ ㄉㄧㄢˇ",
-            "categoria": "adverbio",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "有 (yǒu - haber)"
-                },
-                {
-                    "type": "text",
-                    "value": "一 (yī - un)"
-                },
-                {
-                    "type": "text",
-                    "value": "點 (diǎn - poco/gota)"
-                }
-            ],
-            "notas": "Adverbio antepuesto a adjetivos que denota moderado exceso o disgusto.",
-            "ejemplos": [
-                "這碗湯有一點辣 — Este tazón de sopa está un poco picante",
-                "我今天有一點累 — Hoy estoy un poco cansado"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        }
-    ],
-    "expresiones": [
         {
             "id": "e1",
             "espanol": "Hola",
             "tradicional": "你好",
             "pinyin": "nǐhǎo",
             "zhuyin": "ㄋㄧˇ ㄏㄠˇ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6002,7 +6100,13 @@ const SEED_DATA = {
                 "你好！我是陳月美 — ¡Hola! Soy Chen Yuemei",
                 "你好，很高興認識你 — Hola, encantado de conocerte"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "e2",
@@ -6010,7 +6114,7 @@ const SEED_DATA = {
             "tradicional": "再見",
             "pinyin": "zàijiàn",
             "zhuyin": "ㄗㄞˋ ㄐㄧㄢˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6026,40 +6130,20 @@ const SEED_DATA = {
             "ejemplos": [
                 "老師，再見！ — ¡Profesor, hasta luego!",
                 "大家再見！ — ¡Adiós a todos!"
+            ],
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
             ]
-        },
-        {
-            "espanol": "Y",
-            "tradicional": "和",
-            "pinyin": "hé",
-            "zhuyin": "ㄏㄢˋ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "禾 (hé - cereal)"
-                },
-                {
-                    "type": "text",
-                    "value": "口 (kǒu - boca)"
-                }
-            ],
-            "notas": "Conjunción copulativa que SOLO enlaza sustantivos o pronombres (我和你). Nunca conecta verbos ni oraciones completas.",
-            "id": "id_mspmr8gz_rjl1e",
-            "fechaCreacion": "2026-08-12",
-            "ejemplos": [
-                "我和你 — Tú y yo",
-                "我有貓和狗 — Tengo gato y perro"
-            ],
-            "leccion": 3
         },
         {
             "espanol": "Qué",
             "tradicional": "什麼",
             "pinyin": "shénme",
             "zhuyin": "ㄕㄣˊ ㄇㄜ˙",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6082,14 +6166,19 @@ const SEED_DATA = {
                 "你要喝什麼？ — ¿Qué quieres beber?",
                 "你叫什麼名字？ — ¿Cómo te llamas?"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "espanol": "Quién",
             "tradicional": "誰",
             "pinyin": "shéi",
             "zhuyin": "ㄕㄟˊ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6108,66 +6197,19 @@ const SEED_DATA = {
                 "他是誰？ — ¿Quién es él?",
                 "那是誰的書？ — ¿De quién es ese libro?"
             ],
-            "leccion": 2
-        },
-        {
-            "espanol": "Cuál",
-            "tradicional": "哪",
-            "pinyin": "nǎ",
-            "zhuyin": "ㄋㄚˇ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "口 (kǒu - boca)"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_msk0mdne_r4neq"
-                }
-            ],
-            "notas": "Lleva boca 口 interrogativa junto a 那. Ante clasificador se pronuncia comúnmente něi: 哪本書？, 哪國人？",
-            "id": "id_mtfgbr1v_3z8nx",
-            "fechaCreacion": "2026-08-30",
-            "ejemplos": [
-                "你是哪國人？ — ¿De qué país eres?",
-                "哪張照片是你的？ — ¿Cuál foto es tuya?"
-            ],
-            "leccion": 1
-        },
-        {
-            "espanol": "¿Cuántos? (<10)",
-            "tradicional": "幾",
-            "pinyin": "jǐ",
-            "zhuyin": "ㄐㄧˇ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "幺 (yāo - hilo)"
-                },
-                {
-                    "type": "text",
-                    "value": "戈 (gē - lanza)"
-                }
-            ],
-            "notas": "Pregunta por cantidades reducidas (habitualmente menos de 10). Estructura obligatoria: 幾 + Clasificador + Sustantivo.",
-            "id": "id_mtgn0eti_2z3vp",
-            "fechaCreacion": "2026-08-31",
-            "ejemplos": [
-                "你有幾張照片？ — ¿Cuántas fotos tienes?",
-                "你有幾個兄弟？ — ¿Cuántos hermanos varones tienes?"
-            ],
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "espanol": "Gracias",
             "tradicional": "謝謝",
             "pinyin": "xièxie",
             "zhuyin": "ㄒㄧㄝˋ ˙ㄒㄧㄝ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6186,14 +6228,20 @@ const SEED_DATA = {
                 "謝謝你的茶 — Gracias por tu té",
                 "謝謝大家 — Gracias a todos"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "espanol": "De nada",
             "tradicional": "不客氣",
             "pinyin": "bù kèqì",
             "zhuyin": "ㄅㄨˊ ㄎㄜˋ ㄑㄧˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6215,14 +6263,24 @@ const SEED_DATA = {
             "ejemplos": [
                 "謝謝你！ — 不客氣！ — ¡Muchas gracias! — ¡De nada!"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Vs-sep",
+            "verbSubtype": "Vs-sep",
+            "sepParts": [
+                "客",
+                "氣"
+            ],
+            "semanticTags": [
+                "separable",
+                "state"
+            ]
         },
         {
             "espanol": "¿Puedo preguntar?",
             "tradicional": "請問",
             "pinyin": "qǐngwèn",
             "zhuyin": "ㄑㄧㄥˇ ㄨㄣˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6241,31 +6299,12 @@ const SEED_DATA = {
                 "請問，你是哪國人？ — Disculpe, ¿de qué país es usted?",
                 "請問，這張照片是誰的？ — Disculpe, ¿de quién es esta foto?"
             ],
-            "leccion": 1
-        },
-        {
-            "espanol": "Correcto",
-            "tradicional": "對",
-            "pinyin": "duì",
-            "zhuyin": "ㄉㄨㄟˋ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "丵 (zhuó - hierba)"
-                },
-                {
-                    "type": "text",
-                    "value": "寸 (cùn - pulgada)"
-                }
-            ],
-            "notas": "Medir con la regla 寸 para asegurar exactitud. Interjección de conformidad: '¡correcto!' / '¡así es!'. Negación: 不對.",
-            "id": "id_mtviiuc4_o7je6",
-            "fechaCreacion": "2026-09-10",
-            "ejemplos": [
-                "對，我是學生 — Correcto, soy estudiante",
-                "你說得對 — Dices la verdad / Tienes razón"
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
             ]
         },
         {
@@ -6274,7 +6313,7 @@ const SEED_DATA = {
             "tradicional": "對不起",
             "pinyin": "duìbùqǐ",
             "zhuyin": "ㄉㄨㄟˋ ㄅㄨˋ ㄑㄧˇ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6295,7 +6334,13 @@ const SEED_DATA = {
                 "對不起，我不喝咖啡 — Lo siento, no tomo café"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "id_mty008_shide",
@@ -6303,7 +6348,7 @@ const SEED_DATA = {
             "tradicional": "是的",
             "pinyin": "shìde",
             "zhuyin": "ㄕˋ ㄉㄜ˙",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6321,33 +6366,13 @@ const SEED_DATA = {
                 "是的，他是王先生 — Sí, él es el señor Wang"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
-        },
-        {
-            "id": "id_mty012_naguo",
-            "espanol": "¿De qué país?",
-            "tradicional": "哪國",
-            "pinyin": "nǎguó",
-            "zhuyin": "ㄋㄚˇ ㄍㄨㄛˊ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtfgbr1v_3z8nx"
-                },
-                {
-                    "type": "text",
-                    "value": "國 (guó - país)"
-                }
-            ],
-            "notas": "Construcción interrogativa fija para consultar procedencia y nacionalidad: 你是哪國人？ (¿De qué país eres?).",
-            "ejemplos": [
-                "你是哪國人？ — ¿De qué país eres?",
-                "他是哪國人？ — ¿De qué país es él?"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "id_mty027_qingjin",
@@ -6355,7 +6380,7 @@ const SEED_DATA = {
             "tradicional": "請進",
             "pinyin": "qǐngjìn",
             "zhuyin": "ㄑㄧㄥˇ ㄐㄧㄣˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6372,7 +6397,13 @@ const SEED_DATA = {
                 "請進，請坐 — Por favor pase, tome asiento"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "id_voc_woyaowenwenti",
@@ -6380,7 +6411,7 @@ const SEED_DATA = {
             "tradicional": "我要問問題",
             "pinyin": "wǒ yào wèn wèntí",
             "zhuyin": "ㄨㄛˇ ㄧㄠˋ ㄨㄣˋ ㄨㄣˋ ㄊㄧˊ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6401,7 +6432,12 @@ const SEED_DATA = {
                 "老師，我要問問題 — Profesor, quiero hacer una pregunta",
                 "請問，我要問一個問題 — Disculpe, quisiera hacer una pregunta"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_haolema",
@@ -6409,7 +6445,7 @@ const SEED_DATA = {
             "tradicional": "好了嗎？",
             "pinyin": "hǎo le ma?",
             "zhuyin": "ㄏㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6430,7 +6466,12 @@ const SEED_DATA = {
                 "大家都好了嗎？ — ¿Ya están todos listos?",
                 "好了嗎？我們要出發了 — ¿Estás listo? Ya vamos a salir"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_qingzaishuoyici",
@@ -6438,7 +6479,7 @@ const SEED_DATA = {
             "tradicional": "請再說一次",
             "pinyin": "qǐng zài shuō yí cì",
             "zhuyin": "ㄑㄧㄥˇ ㄗㄞˋ ㄕㄨㄛ ㄧˊ ㄘˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6463,7 +6504,12 @@ const SEED_DATA = {
                 "對不起，請再說一次 — Disculpe, por favor dígalo una vez más",
                 "老師，請再說一次好嗎？ — Profesor, ¿podría por favor repetirlo una vez más?"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_xiagelibaijian",
@@ -6471,7 +6517,7 @@ const SEED_DATA = {
             "tradicional": "下個禮拜見",
             "pinyin": "xià ge lǐbài jiàn",
             "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄌㄧˇ ㄅㄞˋ ㄐㄧㄢˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6488,7 +6534,12 @@ const SEED_DATA = {
                 "老師再見，下個禮拜見！ — ¡Adiós profesor, nos vemos la próxima semana!",
                 "下個禮拜見，週末愉快 — Nos vemos la próxima semana, ¡buen fin de semana!"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_mingtianjian",
@@ -6496,7 +6547,7 @@ const SEED_DATA = {
             "tradicional": "明天見",
             "pinyin": "míngtiān jiàn",
             "zhuyin": "ㄇㄧㄥˊ ㄊㄧㄢ ㄐㄧㄢˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6513,7 +6564,12 @@ const SEED_DATA = {
                 "下課了，明天見！ — ¡Terminó la clase, nos vemos mañana!",
                 "明天見，晚安 — Nos vemos mañana, ¡buenas noches!"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_chibaolema",
@@ -6521,7 +6577,7 @@ const SEED_DATA = {
             "tradicional": "吃飽了嗎？",
             "pinyin": "chī bǎo le ma?",
             "zhuyin": "ㄔ ㄅㄠˇ ˙ㄌㄜ ˙ㄇㄚ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6542,7 +6598,12 @@ const SEED_DATA = {
                 "張先生，吃飽了嗎？ — Señor Zhang, ¿ya comió?",
                 "你吃飽了嗎？我們一起去散步 — ¿Ya terminaste de comer? Vamos a caminar juntos"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_nichilema",
@@ -6550,7 +6611,7 @@ const SEED_DATA = {
             "tradicional": "你吃了嗎？",
             "pinyin": "nǐ chī le ma?",
             "zhuyin": "ㄋㄧˇ ㄔ ˙ㄌㄜ ˙ㄇㄚ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6571,7 +6632,12 @@ const SEED_DATA = {
                 "李小姐，你吃了嗎？ — Señorita Li, ¿ya comió?",
                 "你吃了嗎？還沒的話我們一起吃 — ¿Ya comiste? Si todavía no, comamos juntos"
             ],
-            "fechaCreacion": "2026-09-27"
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_zuoshenme",
@@ -6579,7 +6645,7 @@ const SEED_DATA = {
             "tradicional": "做什麼",
             "pinyin": "zuò shénme",
             "zhuyin": "ㄗㄨㄛˋ ㄕㄣˊ ㄇㄜ˙",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6601,7 +6667,12 @@ const SEED_DATA = {
                 "你在做什麼？ — ¿Qué estás haciendo?"
             ],
             "fechaCreacion": "2026-09-28",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_shenmeshihou",
@@ -6609,7 +6680,7 @@ const SEED_DATA = {
             "tradicional": "什麼時候",
             "pinyin": "shénme shíhòu",
             "zhuyin": "ㄕㄣˊ ㄇㄜ˙ ㄕˊ ㄏㄡˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6634,7 +6705,12 @@ const SEED_DATA = {
                 "你什麼時候下課？ — ¿Cuándo sales de clase?",
                 "你們什麼時候去學校？ — ¿Cuándo van a la escuela?"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_jidian",
@@ -6642,7 +6718,7 @@ const SEED_DATA = {
             "tradicional": "幾點",
             "pinyin": "jǐ diǎn",
             "zhuyin": "ㄐㄧˇ ㄉㄧㄢˇ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6659,7 +6735,12 @@ const SEED_DATA = {
                 "請問，現在幾點？ — Disculpe, ¿qué hora es ahora?",
                 "你幾點去學校？ — ¿A qué hora vas a la escuela?"
             ],
-            "fechaCreacion": "2026-09-28"
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
         },
         {
             "id": "id_voc_wenwenti",
@@ -6667,7 +6748,7 @@ const SEED_DATA = {
             "tradicional": "問問題",
             "pinyin": "wèn wèntí",
             "zhuyin": "ㄨㄣˋ ㄨㄣˋ ㄊㄧˊ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6684,32 +6765,17 @@ const SEED_DATA = {
                 "老師，我要問問題 — Profesor/a, quiero hacer una pregunta",
                 "有問題可以問老師 — Si tienen dudas pueden preguntarle al profesor"
             ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_yici",
-            "espanol": "Una vez",
-            "tradicional": "一次",
-            "pinyin": "yí cì",
-            "zhuyin": "ㄧˊ ㄘˋ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_clf_ci"
-                }
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "問",
+                "問題"
             ],
-            "notas": "Complemento de frecuencia que se pospone al verbo: 請再說一次 (dilo una vez más); 一天一次 (una vez al día).",
-            "ejemplos": [
-                "請再說一次 — Por favor repítalo una vez más",
-                "我一天吃一次蘋果 — Como manzana una vez al día"
-            ],
-            "fechaCreacion": "2026-09-28"
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         },
         {
             "id": "id_l3_zenmeyang",
@@ -6717,7 +6783,7 @@ const SEED_DATA = {
             "tradicional": "怎麼樣",
             "pinyin": "zěnmeyàng",
             "zhuyin": "ㄗㄣˇ ˙ㄇㄜ ㄧㄤˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6739,7 +6805,14 @@ const SEED_DATA = {
                 "你覺得這張照片怎麼樣？ — ¿Qué te parece esta foto?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "question",
+                "hasDegree"
+            ]
         },
         {
             "id": "id_l3_hao_a",
@@ -6747,7 +6820,7 @@ const SEED_DATA = {
             "tradicional": "好啊",
             "pinyin": "hǎo a",
             "zhuyin": "ㄏㄠˇ ˙ㄚ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6761,7 +6834,13 @@ const SEED_DATA = {
                 "晚上要不要一起吃晚飯？好啊！ — ¿Cenamos juntos esta noche? ¡De acuerdo!"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
         },
         {
             "id": "id_l3_haobuhao",
@@ -6769,7 +6848,7 @@ const SEED_DATA = {
             "tradicional": "好不好",
             "pinyin": "hǎo bù hǎo",
             "zhuyin": "ㄏㄠˇ ㄅㄨˋ ㄏㄠˇ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6783,7 +6862,14 @@ const SEED_DATA = {
                 "我們週末晚上去看電影，好不好？ — ¿Vamos al cine el fin de semana por la noche, qué tal?"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "question",
+                "hasDegree"
+            ]
         },
         {
             "id": "id_l4_haode",
@@ -6791,7 +6877,7 @@ const SEED_DATA = {
             "tradicional": "好的",
             "pinyin": "hǎo de",
             "zhuyin": "ㄏㄠˇ ˙ㄉㄜ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6808,32 +6894,13 @@ const SEED_DATA = {
                 "好的，馬上為您準備。 — De acuerdo, enseguida se lo preparo.",
                 "好的，我們明天早上見。 — Muy bien, nos vemos mañana por la mañana."
             ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l4_duoshao",
-            "espanol": "¿Cuánto?",
-            "tradicional": "多少",
-            "pinyin": "duōshǎo",
-            "zhuyin": "ㄉㄨㄛ ㄕㄠˇ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "多 (duō - mucho)"
-                },
-                {
-                    "type": "text",
-                    "value": "少 (shǎo - poco)"
-                }
-            ],
-            "notas": "Palabra interrogativa para cantidades indefinidas o mayores a 10. Especialmente usada con 錢: 多少錢？ (¿Cuánto cuesta?).",
-            "ejemplos": [
-                "老闆，這支手機多少錢？ — Jefe, ¿cuánto cuesta este celular?",
-                "請問一共多少錢？ — Disculpe, ¿cuánto es en total?"
-            ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
         },
         {
             "id": "id_l4_waidai",
@@ -6841,7 +6908,7 @@ const SEED_DATA = {
             "tradicional": "外帶",
             "pinyin": "wàidài",
             "zhuyin": "ㄨㄞˋ ㄉㄞˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6858,7 +6925,13 @@ const SEED_DATA = {
                 "我要外帶兩杯大杯熱咖啡。 — Quiero dos tazas grandes de café caliente para llevar.",
                 "老闆，這三個包子外帶，謝謝！ — ¡Jefe, estos tres baozis para llevar, gracias!"
             ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
         },
         {
             "id": "id_l4_neiyong",
@@ -6866,7 +6939,7 @@ const SEED_DATA = {
             "tradicional": "內用",
             "pinyin": "nèiyòng",
             "zhuyin": "ㄋㄟˋ ㄩㄥˋ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6883,65 +6956,13 @@ const SEED_DATA = {
                 "我們兩個人要內用。 — Nosotros dos vamos a comer aquí en el local.",
                 "請問您要內用還是外帶？ — ¿Desea consumir en el local o para llevar?"
             ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l4_weishenme",
-            "espanol": "¿Por qué?",
-            "tradicional": "為什麼",
-            "pinyin": "wèishénme",
-            "zhuyin": "ㄨㄟˋ ㄕㄣˊ ˙ㄇㄜ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "為 (wèi - por/causa)"
-                },
-                {
-                    "type": "text",
-                    "value": "什 (shén - qué)"
-                },
-                {
-                    "type": "text",
-                    "value": "麼 (me - sufijo interrogativo)"
-                }
-            ],
-            "notas": "Pronombre interrogativo que pregunta la causa o motivo. Se responde generalmente con 因為... (porque...).",
-            "ejemplos": [
-                "你為什麼想買那支新手機？ — ¿Por qué quieres comprar ese teléfono nuevo?",
-                "你為什麼不喜歡喝烏龍茶？ — ¿Por qué no te gusta tomar té Oolong?"
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l4_tai_le",
-            "espanol": "Demasiado...",
-            "tradicional": "太…了",
-            "pinyin": "tài...le",
-            "zhuyin": "ㄊㄞˋ ... ˙ㄌㄜ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "大 (dà - grande)"
-                },
-                {
-                    "type": "text",
-                    "value": "丶 (diǎn - punto)"
-                },
-                {
-                    "type": "text",
-                    "value": "了 (le - partícula de cambio/exceso)"
-                }
-            ],
-            "notas": "Patrón enfático de grado superlativo o exceso: 太 + Adjetivo + 了 (ej. 太貴了 = demasiado caro; 太好了 = ¡fantástico!).",
-            "ejemplos": [
-                "這支手機太貴了，我不想買。 — Este teléfono móvil es demasiado caro, no quiero comprarlo.",
-                "太好了！明天我們一起去游泳。 — ¡Qué bien / genial! Mañana vamos a nadar juntos."
-            ],
-            "leccion": 4
+            "leccion": 4,
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
         },
         {
             "id": "id_l5_shia",
@@ -6949,7 +6970,7 @@ const SEED_DATA = {
             "tradicional": "是啊",
             "pinyin": "shì a",
             "zhuyin": "ㄕˋ ㄚ˙",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6967,7 +6988,13 @@ const SEED_DATA = {
                 "小籠包真好吃！是啊，我很喜歡 — ¡Los xiaolongbao son riquísimos! Así es, me encantan"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "id_l5_taihaole",
@@ -6975,7 +7002,7 @@ const SEED_DATA = {
             "tradicional": "太好了",
             "pinyin": "tài hǎo le",
             "zhuyin": "ㄊㄞˋ ㄏㄠˇ ˙ㄌㄜ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -6997,59 +7024,13 @@ const SEED_DATA = {
                 "你可以教我做飯嗎？太好了 — ¿Puedes enseñarme a cocinar? ¡Excelente!"
             ],
             "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_keshi",
-            "espanol": "Pero",
-            "tradicional": "可是",
-            "pinyin": "kěshì",
-            "zhuyin": "ㄎㄜˇ ㄕˋ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "可 (kě - poder/permitir)"
-                },
-                {
-                    "type": "text",
-                    "value": "是 (shì - ser)"
-                }
-            ],
-            "notas": "Conjunción adversativa que introduce un contraste suave ('pero', 'sin embargo').",
-            "ejemplos": [
-                "這家餐廳很好吃，可是有一點貴 — Este restaurante es muy rico, pero es un poco caro",
-                "我想去，可是今天沒有時間 — Quiero ir, pero hoy no tengo tiempo"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_suoyi",
-            "espanol": "Por lo tanto",
-            "tradicional": "所以",
-            "pinyin": "suǒyǐ",
-            "zhuyin": "ㄙㄨㄛˇ ㄧˇ",
-            "categoria": "expresion",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "所 (suǒ - lugar/lo que)"
-                },
-                {
-                    "type": "text",
-                    "value": "以 (yǐ - mediante)"
-                }
-            ],
-            "notas": "Conjunción consecutiva empleada a menudo con 因為 (porque... por lo tanto...).",
-            "ejemplos": [
-                "因為我很怕辣，所以不吃牛肉麵 — Porque le temo al picante, por eso no como fideos con carne de res",
-                "他喜歡臺灣，所以來學中文 — Le gusta Taiwán, por lo tanto vino a aprender chino"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
+            "leccion": 5,
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action",
+                "conversationalExpression"
+            ]
         },
         {
             "id": "id_l5_buhao",
@@ -7057,7 +7038,7 @@ const SEED_DATA = {
             "tradicional": "不好",
             "pinyin": "bù hǎo",
             "zhuyin": "ㄅㄨˋ ㄏㄠˇ",
-            "categoria": "expresion",
+            "categoria": "V",
             "clasificador": "",
             "radicales": [
                 {
@@ -7075,7 +7056,2388 @@ const SEED_DATA = {
                 "這個味道不太好 — Este sabor no está muy bueno"
             ],
             "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "espanol": "Pequeño",
+            "tradicional": "小",
+            "pinyin": "xiǎo",
+            "zhuyin": "ㄒㄧㄠˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "小 (xiǎo - pequeño)"
+                }
+            ],
+            "notas": "Pictograma de tres diminutas partículas divididas. Antónimo directo de 大 (dà).",
+            "id": "id_mtjn1fxk_bdhc0",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "那隻貓很小 — Ese gato es muy pequeño",
+                "小心！ — ¡Cuidado!",
+                "那間教室很小 — Aquella aula es muy pequeña"
+            ],
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "espanol": "Grande",
+            "tradicional": "大",
+            "pinyin": "dà",
+            "zhuyin": "ㄉㄚˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "大 (dà - grande)"
+                }
+            ],
+            "notas": "Pictograma frontal de un ser humano con brazos y piernas abiertos ocupando espacio. Antónimo de 小 (xiǎo).",
+            "id": "id_mtjn41m4_7ohc2",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "這棟房子很大 — Esta casa es muy grande",
+                "大人 — Adulto",
+                "這間教室很大 — Esta aula es muy grande"
+            ],
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "espanol": "Mediano",
+            "tradicional": "中",
+            "pinyin": "zhōng",
+            "zhuyin": "ㄓㄨㄥ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "中 (zhōng - centro)"
+                }
+            ],
+            "notas": "Pictograma de una flecha clavada en el centro exacto de un blanco. Base de 中國 (China) y 中文 (idioma chino).",
+            "id": "id_mtjn2p70_9qg74",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "中國 — China",
+                "中午 — Mediodía"
+            ],
+            "leccion": 4,
+            "posSymbol": "Vs-attr",
+            "verbSubtype": "Vs-attr",
+            "semanticTags": [
+                "state",
+                "attributiveOnly"
+            ]
+        },
+        {
+            "espanol": "Cuidado",
+            "tradicional": "小心",
+            "pinyin": "xiǎoxīn",
+            "zhuyin": "ㄒㄧㄠˇ ㄒㄧㄣ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn1fxk_bdhc0"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                }
+            ],
+            "notas": "Mnemotecnia: mantener el corazón atento a los pequeños detalles para no tropezar. Expresión habitual: 請小心 (ten cuidado).",
+            "id": "id_mtlt4lvg_tyx86",
+            "fechaCreacion": "2026-09-03",
+            "posSymbol": "Vs-sep",
+            "verbSubtype": "Vs-sep",
+            "sepParts": [
+                "小",
+                "心"
+            ],
+            "semanticTags": [
+                "separable",
+                "state"
+            ]
+        },
+        {
+            "espanol": "Bueno",
+            "tradicional": "好",
+            "pinyin": "hǎo",
+            "zhuyin": "ㄏㄠˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_mujer_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "子 (zǐ - hijo)"
+                }
+            ],
+            "notas": "Una madre 女 con su hijo 子 en brazos simbolizando armonía. Ante verbos denota placer sensorial: 好看 (lindo), 好吃 (rico).",
+            "id": "id_mtvg8jtu_74jmp",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "你好 — Hola",
+                "烏龍茶很好喝 — El té Oolong es muy rico",
+                "好，我們走 — Bien, vámonos"
+            ],
+            "leccion": 1,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_mty009_haohe",
+            "espanol": "Rico (bebida)",
+            "tradicional": "好喝",
+            "pinyin": "hǎohē",
+            "zhuyin": "ㄏㄠˇ ㄏㄜ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msr421dy_83jqz"
+                }
+            ],
+            "notas": "Compuesto por 好 (bueno) y 喝 (beber). Se aplica exclusivamente al sabor agradable de líquidos y bebidas (té, café, zumos).",
+            "ejemplos": [
+                "臺灣烏龍茶很好喝 — El té Oolong de Taiwán es muy rico",
+                "咖啡好喝嗎？ — ¿El café está rico?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_mty021_piaoliang",
+            "espanol": "Hermoso",
+            "tradicional": "漂亮",
+            "pinyin": "piàoliang",
+            "zhuyin": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "票 (piào - billete)"
+                },
+                {
+                    "type": "text",
+                    "value": "亮 (liàng - brillante)"
+                }
+            ],
+            "notas": "Originalmente agua que fluye brillante y clara. Adjetivo habitual para personas, ropa, paisajes o fotos atractivas.",
+            "ejemplos": [
+                "你家很漂亮 — Tu casa es muy linda",
+                "這張照片很漂亮 — Esta foto es muy hermosa"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_mty023_duo",
+            "espanol": "Mucho",
+            "tradicional": "多",
+            "pinyin": "duō",
+            "zhuyin": "ㄉㄨㄛ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "夕 (xī - tarde/luna)"
+                },
+                {
+                    "type": "text",
+                    "value": "夕 (xī - tarde/luna)"
+                }
+            ],
+            "notas": "Dos cuartos crecientes de luna superpuestos simbolizando acumulación y abundancia. Antónimo de 少 (shǎo).",
+            "ejemplos": [
+                "他有很多書 — Él tiene muchos libros",
+                "這裡人很多 — Aquí hay mucha gente"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "posSymbol": "Vs-pred",
+            "verbSubtype": "Vs-pred",
+            "semanticTags": [
+                "state",
+                "predicativeOnly"
+            ]
+        },
+        {
+            "id": "id_mty026_haokan",
+            "espanol": "Bonito",
+            "tradicional": "好看",
+            "pinyin": "hǎokàn",
+            "zhuyin": "ㄏㄠˇ ㄎㄢˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvg8jtu_74jmp"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mty001_kan"
+                }
+            ],
+            "notas": "Compuesto por 好 (bueno) y 看 (mirar). Se aplica a películas entretenidas, ropa atractiva o personas de buen ver.",
+            "ejemplos": [
+                "這張照片很好看 — Esta foto es muy linda",
+                "這本書很好看 — Este libro es muy bueno/interesante"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_keai",
+            "espanol": "Tierno",
+            "tradicional": "可愛",
+            "pinyin": "kě'ài",
+            "zhuyin": "ㄎㄜˇ ㄞˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - poder)"
+                },
+                {
+                    "type": "ref",
+                    "id": "v2"
+                }
+            ],
+            "notas": "Literalmente 'merecedor de ser amado'. Describe ternura y encanto en mascotas, niños o gestos afectuosos.",
+            "ejemplos": [
+                "這隻小貓真可愛 — Este gatito es verdaderamente adorable",
+                "她笑起來很可愛 — Ella es muy tierna al sonreír"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_gui",
+            "espanol": "Caro",
+            "tradicional": "貴",
+            "pinyin": "guì",
+            "zhuyin": "ㄍㄨㄟˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "中 (zhōng - centro)"
+                },
+                {
+                    "type": "text",
+                    "value": "貝 (bèi - concha/moneda)"
+                }
+            ],
+            "notas": "Conchas monetarias guardadas en un cofre. Además de precio alto, denota nobleza en fórmulas de cortesía: 您貴姓？",
+            "ejemplos": [
+                "這本書很貴 — Este libro es muy caro",
+                "這棟房子太貴了 — Esta casa es demasiado costosa"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_pianyi",
+            "espanol": "Barato",
+            "tradicional": "便宜",
+            "pinyin": "piányí",
+            "zhuyin": "ㄆㄧㄢˊ ㄧˊ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "便 (biàn - conveniente)"
+                },
+                {
+                    "type": "text",
+                    "value": "宜 (yí - adecuado)"
+                }
+            ],
+            "notas": "Una transacción conveniente para la persona. Nótese que 便 se pronuncia pián en tono 2 (en fāngbiàn se pronuncia biàn).",
+            "ejemplos": [
+                "這杯茶很便宜 — Esta taza de té es muy barata",
+                "臺灣的水果又好吃又便宜 — Las frutas de Taiwán son ricas y además económicas"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_gao",
+            "espanol": "Alto",
+            "tradicional": "高",
+            "pinyin": "gāo",
+            "zhuyin": "ㄍㄠ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "高 (gāo - alto)"
+                }
+            ],
+            "notas": "Pictograma de una torre o mirador elevado con techo y base. Antónimo para estatura humana: 矮 (ǎi); para objetos: 低 (dī).",
+            "ejemplos": [
+                "他的哥哥很高 — Su hermano mayor es muy alto",
+                "這棟樓真高 — Este edificio es sumamente alto"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_ai",
+            "espanol": "Bajo (estatura)",
+            "tradicional": "矮",
+            "pinyin": "ǎi",
+            "zhuyin": "ㄞˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "矢 (shǐ - flecha)"
+                },
+                {
+                    "type": "text",
+                    "value": "委 (wěi - ceder)"
+                }
+            ],
+            "notas": "La longitud corta de una flecha 矢 junto a una mujer inclinada 委. Antónimo exclusivo de 高 para estatura de personas o muebles.",
+            "ejemplos": [
+                "弟弟比哥哥矮一點 — El hermano menor es un poco más bajo que el mayor",
+                "這張桌子太矮了 — Esta mesa es demasiado baja"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_xin",
+            "espanol": "Nuevo",
+            "tradicional": "新",
+            "pinyin": "xīn",
+            "zhuyin": "ㄒㄧㄣ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "亲 (qīn - árbol)"
+                },
+                {
+                    "type": "text",
+                    "value": "斤 (jīn - hacha)"
+                }
+            ],
+            "notas": "Cortar madera fresca del bosque con un hacha 斤. Antónimo directo para objetos usados o ropa: 舊 (jiù).",
+            "ejemplos": [
+                "這是一本新書 — Este es un libro nuevo",
+                "我們學校的教室都很新 — Las aulas de nuestra escuela son todas muy nuevas"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_jiu",
+            "espanol": "Viejo",
+            "tradicional": "舊",
+            "pinyin": "jiù",
+            "zhuyin": "ㄐㄧㄡˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "臼 (jiù - mortero)"
+                },
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - ave)"
+                }
+            ],
+            "notas": "Mortero desgastado por el tiempo. Exclusivo para objetos inanimados; para personas ancianas se debe usar 老 (lǎo), nunca 舊.",
+            "ejemplos": [
+                "這本書很舊，但是很有意思 — Este libro es viejo/usado, pero muy interesante",
+                "那棟舊房子在學校後面 — Aquella casa vieja está detrás de la escuela"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_voc_bao",
+            "espanol": "Lleno (comida)",
+            "tradicional": "飽",
+            "pinyin": "bǎo",
+            "zhuyin": "ㄅㄠˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "飠(shí - comida)"
+                },
+                {
+                    "type": "text",
+                    "value": "包 (bāo - envolver)"
+                }
+            ],
+            "notas": "El estómago envuelto y repleto de comida. Forma el saludo habitual de cortesía en Taiwán: 吃飽了嗎？",
+            "ejemplos": [
+                "我吃得很飽 — Quedé muy satisfecho / comí muy bien",
+                "你飽了嗎？ — ¿Quedaste satisfecho?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Vp",
+            "verbSubtype": "Vp",
+            "semanticTags": [
+                "process"
+            ]
+        },
+        {
+            "id": "id_voc_shao",
+            "espanol": "Poco",
+            "tradicional": "少",
+            "pinyin": "shǎo",
+            "zhuyin": "ㄕㄠˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn1fxk_bdhc0"
+                },
+                {
+                    "type": "text",
+                    "value": "丿 (piě - trazo)"
+                }
+            ],
+            "notas": "Un trazo oblicuo que resta aún más a lo pequeño 小. Antónimo de 多 (duō).",
+            "ejemplos": [
+                "今天教室裡的學生很少 — Hoy hay pocos estudiantes en el salón",
+                "你喝很少茶 — Bebes muy poco té"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "leccion": 5,
+            "posSymbol": "Vs-pred",
+            "verbSubtype": "Vs-pred",
+            "semanticTags": [
+                "state",
+                "predicativeOnly"
+            ]
+        },
+        {
+            "id": "id_l3_haowan",
+            "espanol": "Divertido",
+            "tradicional": "好玩",
+            "pinyin": "hǎowán",
+            "zhuyin": "ㄏㄠˇ ㄨㄢˊ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (hǎo - bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "玩 (wán - jugar)"
+                }
+            ],
+            "notas": "Compuesto por 好 (bueno) y 玩 (jugar). Se predica con 很 para calificar actividades o experiencias entretenidas: 很好玩.",
+            "ejemplos": [
+                "打棒球和踢足球都很好玩 — Tanto el béisbol como el fútbol son muy divertidos",
+                "我覺得中文很好玩 — Pienso que el idioma chino es muy divertido y entretenido"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_l4_re",
+            "espanol": "Caliente",
+            "tradicional": "熱",
+            "pinyin": "rè",
+            "zhuyin": "ㄖㄜˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "灬 (huǒ - fuego en base)"
+                },
+                {
+                    "type": "text",
+                    "value": "執 (zhí - sostener/ejecutar)"
+                }
+            ],
+            "notas": "Caliente. Se usa tanto para clima (天氣很熱) como para bebidas y comida (熱咖啡, 熱茶, 熱包子). Opuesto a 冷 (lěng) o 冰 (bīng).",
+            "ejemplos": [
+                "我喜歡喝熱茶，不喜歡喝冰咖啡。 — Me gusta tomar té caliente, no me gusta tomar café helado.",
+                "今天的熱包子真好吃！ — ¡Los baozis calientes de hoy están verdaderamente ricos!"
+            ],
+            "leccion": 4,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_l5_haochi",
+            "espanol": "Delicioso",
+            "tradicional": "好吃",
+            "pinyin": "hǎochī",
+            "zhuyin": "ㄏㄠˇ ㄔ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "好 (bueno)"
+                },
+                {
+                    "type": "text",
+                    "value": "吃 (comer)"
+                }
+            ],
+            "notas": "Adjetivo para comida sabrosa o deliciosa.",
+            "ejemplos": [
+                "臭豆腐非常好吃 — El tofu apestoso es sumamente delicioso",
+                "小籠包好吃嗎？ — ¿Están deliciosos los xiaolongbao?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_l5_youming",
+            "espanol": "Famoso",
+            "tradicional": "有名",
+            "pinyin": "yǒumíng",
+            "zhuyin": "ㄧㄡˇ ㄇㄧㄥˊ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - tener)"
+                },
+                {
+                    "type": "text",
+                    "value": "名 (míng - nombre/fama)"
+                }
+            ],
+            "notas": "Adjetivo para lugares, personas o platos célebres.",
+            "ejemplos": [
+                "這家餐廳在臺北很有名 — Este restaurante es muy famoso en Taipéi",
+                "臺灣什麼小吃最有名？ — ¿Qué bocadillo de Taiwán es el más famoso?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Vs-sep",
+            "verbSubtype": "Vs-sep",
+            "sepParts": [
+                "有",
+                "名"
+            ],
+            "semanticTags": [
+                "separable",
+                "state"
+            ]
+        },
+        {
+            "id": "id_l5_la",
+            "espanol": "Picante",
+            "tradicional": "辣",
+            "pinyin": "là",
+            "zhuyin": "ㄌㄚˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辛 (xīn - picante)"
+                },
+                {
+                    "type": "text",
+                    "value": "束 (shù - atar)"
+                }
+            ],
+            "notas": "Adjetivo descriptivo del sabor picante.",
+            "ejemplos": [
+                "這個牛肉麵太辣了！ — ¡Estos fideos con carne de res están demasiado picantes!",
+                "你怕辣嗎？我不怕辣 — ¿Le temes al picante? No le temo al picante"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state"
+            ]
+        },
+        {
+            "id": "id_l5_bucuo",
+            "espanol": "Bueno",
+            "tradicional": "不錯",
+            "pinyin": "búcuò",
+            "zhuyin": "ㄅㄨˊ ㄘㄨㄛˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - no)"
+                },
+                {
+                    "type": "text",
+                    "value": "錯 (cuò - error)"
+                }
+            ],
+            "notas": "Adjetivo de evaluación positiva: bueno o bastante bien.",
+            "ejemplos": [
+                "他的廚藝很不錯 — Sus habilidades culinarias son bastante buenas",
+                "這家店的麵真不錯 — Los fideos de esta tienda están muy buenos"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_vsep_changge",
+            "tradicional": "唱歌",
+            "pinyin": "chànggē",
+            "zhuyin": "ㄔㄤˋ ㄍㄜ",
+            "espanol": "Cantar",
+            "english": "To sing",
+            "categoria": "V",
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "唱",
+                "歌"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "唱 (Cantar)"
+                },
+                {
+                    "type": "text",
+                    "value": "歌 (Canción)"
+                }
+            ],
+            "notas": "Verbo separable (離合詞 V-sep): 唱 (verbo) + 歌 (objeto interno).",
+            "notas_en": "Separable verb (離合詞 V-sep): 唱 (verb) + 歌 (inner object).",
+            "leccion": 3
+        }
+    ],
+    "adverbios": [
+        {
+            "id": "a1",
+            "espanol": "No",
+            "tradicional": "不",
+            "pinyin": "bù",
+            "zhuyin": "ㄅㄨˋ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "不 (bù - negación)"
+                }
+            ],
+            "notas": "Pictograma de una semilla bajo tierra que aún no brota. Cambia a 2º tono (bú) antes de otro 4º tono (不是 bú shì). Para negar 有 se usa 沒.",
+            "ejemplos": [
+                "我不是美國人 — Yo no soy estadounidense",
+                "他不喝咖啡 — Él no toma café"
+            ],
+            "leccion": 1,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "negation"
+            ]
+        },
+        {
+            "id": "a2",
+            "espanol": "Todos",
+            "tradicional": "都",
+            "pinyin": "dōu",
+            "zhuyin": "ㄉㄡ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "者 (zhě - persona)"
+                },
+                {
+                    "type": "text",
+                    "value": "阝 (yì - ciudad)"
+                }
+            ],
+            "notas": "Representa a los habitantes reunidos en la ciudad. Se coloca siempre entre el sujeto plural y el verbo: Sujeto + 都 + Verbo.",
+            "ejemplos": [
+                "我們都愛臺灣 — Todos nosotros amamos Taiwán",
+                "他們都不喝咖啡 — Ninguno de ellos toma café"
+            ],
+            "leccion": 2,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "scope",
+                "all"
+            ]
+        },
+        {
+            "espanol": "También",
+            "tradicional": "也",
+            "pinyin": "yě",
+            "zhuyin": "ㄧㄝˇ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "乙 (yǐ - brote)"
+                }
+            ],
+            "notas": "Representa un brote curvo que añade una rama. Siempre va tras el sujeto y antes del verbo: 我也是 (yo también soy). Si se combina con 都, va primero: 也都.",
+            "ejemplos": [
+                "我也是學生 — Yo también soy estudiante",
+                "他也愛喝茶 — A él también le encanta tomar té"
+            ],
+            "id": "id_msk0pp4g_bdeqd",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 3,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "scope",
+                "additive"
+            ]
+        },
+        {
+            "espanol": "Muy",
+            "tradicional": "很",
+            "pinyin": "hěn",
+            "zhuyin": "ㄏㄣˇ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (chì - paso)"
+                },
+                {
+                    "type": "text",
+                    "value": "艮 (gèn - detener)"
+                }
+            ],
+            "notas": "En Sujeto + 很 + Adjetivo actúa como estabilizador predicativo neutro obligatorio, sin implicar necesariamente grado superlativo.",
+            "id": "id_mtjnbg7d_2ozn7",
+            "fechaCreacion": "2026-09-02",
+            "ejemplos": [
+                "他很好 — Él está muy bien / es bueno",
+                "這張照片很漂亮 — Esta foto es muy linda",
+                "這本書很貴 — Este libro es muy caro"
+            ],
+            "leccion": 1,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree"
+            ]
+        },
+        {
+            "id": "id_mty032_mei",
+            "espanol": "No (haber/pasado)",
+            "tradicional": "沒",
+            "pinyin": "méi",
+            "zhuyin": "ㄇㄟˊ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "殳 (shū - arma)"
+                }
+            ],
+            "notas": "Representa sumergirse y desaparecer en el agua. Negación obligatoria del verbo 有 (沒有 = no tener/haber) y de acciones completadas.",
+            "ejemplos": [
+                "我沒有書 — No tengo libros",
+                "他沒有照片 — Él no tiene fotos"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "negation",
+                "pastNegation"
+            ]
+        },
+        {
+            "id": "id_voc_feichang",
+            "espanol": "Extremadamente",
+            "tradicional": "非常",
+            "pinyin": "fēicháng",
+            "zhuyin": "ㄈㄟ ㄔㄤˊ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "非 (fēi - no)"
+                },
+                {
+                    "type": "text",
+                    "value": "常 (cháng - común)"
+                }
+            ],
+            "notas": "Etimológicamente 'fuera de lo común'. Adverbio de grado intenso superior a 很, colocado antes de adjetivos o verbos psicológicos.",
+            "ejemplos": [
+                "國畫課非常有趣 — La clase de pintura tradicional china es sumamente divertida",
+                "他非常想去臺灣學中文 — Él desea enormemente ir a Taiwán a estudiar chino"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree"
+            ]
+        },
+        {
+            "id": "id_voc_zai_again",
+            "espanol": "Otra vez",
+            "tradicional": "再",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "再 (zài - otra vez)"
+                }
+            ],
+            "notas": "Simboliza una segunda estructura superpuesta. Expresa la repetición de una acción hacia el futuro: 請再說一次 (dilo otra vez).",
+            "ejemplos": [
+                "請再說一次 — Por favor repítalo una vez más",
+                "歡迎再來 — Bienvenidos nuevamente"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "frequency",
+                "repetition"
+            ]
+        },
+        {
+            "id": "id_voc_zenme",
+            "espanol": "¿Cómo?",
+            "tradicional": "怎麼",
+            "pinyin": "zěnme",
+            "zhuyin": "ㄗㄣˇ ㄇㄜ˙",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "怎 (zěn - cómo)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - sufijo)"
+                }
+            ],
+            "notas": "Interroga el método, modo o instrumento para ejecutar una acción: S + 怎麼 + Verbo (ej. 怎麼去 = ¿cómo ir?).",
+            "ejemplos": [
+                "請問，怎麼去圖書館？ — Disculpe, ¿cómo se va a la biblioteca?",
+                "你怎麼來學校？ — ¿Cómo vienes a la escuela?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "questionAdv",
+                "question"
+            ]
+        },
+        {
+            "id": "id_l3_chang",
+            "espanol": "A menudo",
+            "tradicional": "常",
+            "pinyin": "cháng",
+            "zhuyin": "ㄔㄤˊ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - tela)"
+                },
+                {
+                    "type": "text",
+                    "value": "尚 (shàng - noble)"
+                }
+            ],
+            "notas": "Una vestidura usada con regularidad. Adverbio preverbal de hábito o frecuencia (S + 常 + V). Su negación es 不常 (rara vez).",
+            "ejemplos": [
+                "我常打籃球，也常踢足球 — A menudo juego al baloncesto y también suelo jugar al fútbol",
+                "王開文常喝茶 — Kaiwen Wang bebe té a menudo"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "frequency"
+            ]
+        },
+        {
+            "id": "id_l3_yiqi",
+            "espanol": "Juntos",
+            "tradicional": "一起",
+            "pinyin": "yìqǐ",
+            "zhuyin": "ㄧˋ ㄑㄧˇ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "text",
+                    "value": "起 (qǐ - levantarse)"
+                }
+            ],
+            "notas": "Levantarse y ponerse en marcha como una sola unidad. Se coloca antes del verbo para indicar acción compartida: 我們一起看書.",
+            "ejemplos": [
+                "晚上要不要一起吃晚飯？ — ¿Quieres que cenemos juntos esta noche?",
+                "週末我們要不要一起看書？ — ¿Leemos libros juntos el fin de semana?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "manner",
+                "together"
+            ]
+        },
+        {
+            "id": "id_l4_yigong",
+            "espanol": "En total",
+            "tradicional": "一共",
+            "pinyin": "yígòng",
+            "zhuyin": "ㄧˊ ㄍㄨㄥˋ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "text",
+                    "value": "共 (gòng - juntos/común)"
+                }
+            ],
+            "notas": "Indica suma global o total acumulado. Imprescindible para pedir la cuenta o calcular compras (一共多少錢？).",
+            "ejemplos": [
+                "三杯熱茶一共一百五十塊。 — Tres tazas de té caliente son en total ciento cincuenta dólares.",
+                "我們一共五個人去看電影。 — En total fuimos cinco personas a ver la película."
+            ],
+            "leccion": 4,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "scope",
+                "total"
+            ]
+        },
+        {
+            "id": "id_l5_zhen",
+            "espanol": "Realmente",
+            "tradicional": "真",
+            "pinyin": "zhēn",
+            "zhuyin": "ㄓㄣ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "目 (mù - ojo)"
+                },
+                {
+                    "type": "text",
+                    "value": "十 (shí - diez)"
+                }
+            ],
+            "notas": "Adverbio enfático ante adjetivos (真 + Adjetivo = '¡realmente...!').",
+            "ejemplos": [
+                "臺灣的小吃真好吃 — Los aperitivos de Taiwán son realmente deliciosos",
+                "你做飯做得真好 — Cocinas realmente bien"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree"
+            ]
+        },
+        {
+            "id": "id_l5_zui",
+            "espanol": "El más",
+            "tradicional": "最",
+            "pinyin": "zuì",
+            "zhuyin": "ㄗㄨㄟˋ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sol)"
+                },
+                {
+                    "type": "text",
+                    "value": "取 (qǔ - tomar)"
+                }
+            ],
+            "notas": "Adverbio superlativo antepuesto a adjetivos o verbos de agrado.",
+            "ejemplos": [
+                "哪一家餐廳的菜最好吃？ — ¿La comida de qué restaurante es la más deliciosa?",
+                "我最喜歡吃小籠包 — Lo que más me gusta comer son los xiaolongbao"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree",
+                "superlative"
+            ]
+        },
+        {
+            "id": "id_l5_zheme",
+            "espanol": "Tan",
+            "tradicional": "這麼",
+            "pinyin": "zhème",
+            "zhuyin": "ㄓㄜˋ ˙ㄇㄜ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "這 (zhè - este)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - partícula)"
+                }
+            ],
+            "notas": "Adverbio demostrativo de grado (這麼 + Adjetivo = 'tan...').",
+            "ejemplos": [
+                "這家店的菜怎麼這麼好吃！ — ¡Por qué la comida de esta tienda es tan deliciosa!",
+                "牛肉麵這麼貴嗎？ — ¿Los fideos con carne de res son así de caros?"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree"
+            ]
+        },
+        {
+            "id": "id_l5_yiding",
+            "espanol": "Definitivamente",
+            "tradicional": "一定",
+            "pinyin": "yídìng",
+            "zhuyin": "ㄧˊ ㄉㄧㄥˋ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "text",
+                    "value": "定 (dìng - fijar/seguro)"
+                }
+            ],
+            "notas": "Adverbio modal de certeza o necesidad ('seguramente', 'sin falta').",
+            "ejemplos": [
+                "你一定要吃這家的小籠包 — Sin falta tienes que comer los xiaolongbao de este lugar",
+                "明天他不一定會來 — No necesariamente vendrá mañana"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "modalAdv",
+                "certainty"
+            ]
+        },
+        {
+            "id": "id_l5_youyidian",
+            "espanol": "Un poco",
+            "tradicional": "有一點",
+            "pinyin": "yǒu yì diǎn",
+            "zhuyin": "ㄧㄡˇ ㄧˋ ㄉㄧㄢˇ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "有 (yǒu - haber)"
+                },
+                {
+                    "type": "text",
+                    "value": "一 (yī - un)"
+                },
+                {
+                    "type": "text",
+                    "value": "點 (diǎn - poco/gota)"
+                }
+            ],
+            "notas": "Adverbio antepuesto a adjetivos que denota moderado exceso o disgusto.",
+            "ejemplos": [
+                "這碗湯有一點辣 — Este tazón de sopa está un poco picante",
+                "我今天有一點累 — Hoy estoy un poco cansado"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree",
+                "negativeDegree"
+            ]
+        },
+        {
+            "id": "id_l4_weishenme",
+            "espanol": "¿Por qué?",
+            "tradicional": "為什麼",
+            "pinyin": "wèishénme",
+            "zhuyin": "ㄨㄟˋ ㄕㄣˊ ˙ㄇㄜ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "為 (wèi - por/causa)"
+                },
+                {
+                    "type": "text",
+                    "value": "什 (shén - qué)"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - sufijo interrogativo)"
+                }
+            ],
+            "notas": "Pronombre interrogativo que pregunta la causa o motivo. Se responde generalmente con 因為... (porque...).",
+            "ejemplos": [
+                "你為什麼想買那支新手機？ — ¿Por qué quieres comprar ese teléfono nuevo?",
+                "你為什麼不喜歡喝烏龍茶？ — ¿Por qué no te gusta tomar té Oolong?"
+            ],
+            "leccion": 4,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "questionAdv",
+                "question"
+            ]
+        },
+        {
+            "id": "id_l4_tai_le",
+            "espanol": "Demasiado...",
+            "tradicional": "太…了",
+            "pinyin": "tài...le",
+            "zhuyin": "ㄊㄞˋ ... ˙ㄌㄜ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "大 (dà - grande)"
+                },
+                {
+                    "type": "text",
+                    "value": "丶 (diǎn - punto)"
+                },
+                {
+                    "type": "text",
+                    "value": "了 (le - partícula de cambio/exceso)"
+                }
+            ],
+            "notas": "Patrón enfático de grado superlativo o exceso: 太 + Adjetivo + 了 (ej. 太貴了 = demasiado caro; 太好了 = ¡fantástico!).",
+            "ejemplos": [
+                "這支手機太貴了，我不想買。 — Este teléfono móvil es demasiado caro, no quiero comprarlo.",
+                "太好了！明天我們一起去游泳。 — ¡Qué bien / genial! Mañana vamos a nadar juntos."
+            ],
+            "leccion": 4,
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree",
+                "frameTaiLe"
+            ]
+        }
+    ],
+    "conjunciones": [
+        {
+            "espanol": "Y",
+            "tradicional": "和",
+            "pinyin": "hé",
+            "zhuyin": "ㄏㄢˋ",
+            "categoria": "Conj",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禾 (hé - cereal)"
+                },
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - boca)"
+                }
+            ],
+            "notas": "Conjunción copulativa que SOLO enlaza sustantivos o pronombres (我和你). Nunca conecta verbos ni oraciones completas.",
+            "id": "id_mspmr8gz_rjl1e",
+            "fechaCreacion": "2026-08-12",
+            "ejemplos": [
+                "我和你 — Tú y yo",
+                "我有貓和狗 — Tengo gato y perro"
+            ],
+            "leccion": 3,
+            "posSymbol": "Conj",
+            "semanticTags": [
+                "conjunction",
+                "nounLinker"
+            ]
+        },
+        {
+            "id": "id_l5_keshi",
+            "espanol": "Pero",
+            "tradicional": "可是",
+            "pinyin": "kěshì",
+            "zhuyin": "ㄎㄜˇ ㄕˋ",
+            "categoria": "Conj",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "可 (kě - poder/permitir)"
+                },
+                {
+                    "type": "text",
+                    "value": "是 (shì - ser)"
+                }
+            ],
+            "notas": "Conjunción adversativa que introduce un contraste suave ('pero', 'sin embargo').",
+            "ejemplos": [
+                "這家餐廳很好吃，可是有一點貴 — Este restaurante es muy rico, pero es un poco caro",
+                "我想去，可是今天沒有時間 — Quiero ir, pero hoy no tengo tiempo"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Conj",
+            "semanticTags": [
+                "conjunction"
+            ]
+        },
+        {
+            "id": "id_l5_suoyi",
+            "espanol": "Por lo tanto",
+            "tradicional": "所以",
+            "pinyin": "suǒyǐ",
+            "zhuyin": "ㄙㄨㄛˇ ㄧˇ",
+            "categoria": "Conj",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "所 (suǒ - lugar/lo que)"
+                },
+                {
+                    "type": "text",
+                    "value": "以 (yǐ - mediante)"
+                }
+            ],
+            "notas": "Conjunción consecutiva empleada a menudo con 因為 (porque... por lo tanto...).",
+            "ejemplos": [
+                "因為我很怕辣，所以不吃牛肉麵 — Porque le temo al picante, por eso no como fideos con carne de res",
+                "他喜歡臺灣，所以來學中文 — Le gusta Taiwán, por lo tanto vino a aprender chino"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Conj",
+            "semanticTags": [
+                "conjunction"
+            ]
+        },
+        {
+            "id": "id_l3_haishi",
+            "espanol": "¿O? (opción)",
+            "tradicional": "還是",
+            "pinyin": "háishì",
+            "zhuyin": "ㄏㄞˊ ㄕˋ",
+            "categoria": "Conj",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "還 (hái - aún)"
+                },
+                {
+                    "type": "text",
+                    "value": "是 (shì - ser)"
+                }
+            ],
+            "notas": "Conjunción disyuntiva ('¿o?') exclusiva para preguntas con alternativas (¿A 還是 B?). En afirmaciones se utiliza 或者 (huòzhě).",
+            "ejemplos": [
+                "妳想看美國電影還是臺灣電影？ — ¿Quieres ver una película estadounidense o una taiwanesa?",
+                "今天晚上我們吃越南菜還是臺灣菜？ — ¿Esta noche comemos comida vietnamita o comida taiwanesa?"
+            ],
+            "fechaCreacion": "2026-09-30",
+            "leccion": 3,
+            "posSymbol": "Conj",
+            "semanticTags": [
+                "conjunction",
+                "questionChoice",
+                "question"
+            ]
+        }
+    ],
+    "preposiciones": [
+        {
+            "id": "id_voc_zai_loc",
+            "espanol": "Estar en",
+            "tradicional": "在",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "Prep",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𠂇 (yòu - mano)"
+                },
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - tierra)"
+                }
+            ],
+            "notas": "Estar presente y arraigado en la tierra 土. Estructura locativa estándar: Sujeto + 在 + Lugar.",
+            "ejemplos": [
+                "老師在教室裡 — El profesor está en el salón de clases",
+                "你在哪裡？ — ¿Dónde estás?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepPlace",
+                "locativeVerb"
+            ]
+        },
+        {
+            "id": "id_l4_bang",
+            "espanol": "Ayudar",
+            "tradicional": "幫",
+            "pinyin": "bāng",
+            "zhuyin": "ㄅㄤ",
+            "categoria": "Prep",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - tela/paño)"
+                },
+                {
+                    "type": "text",
+                    "value": "邦 (bāng - nación/estado)"
+                }
+            ],
+            "notas": "Significa ayudar a alguien o actuar como preposición de servicio: 幫 + Persona + Verbo (hacer algo por o en lugar de alguien).",
+            "ejemplos": [
+                "請幫我微波這個包子。 — Por favor ayúdame calentando este baozi en el microondas.",
+                "他常幫朋友買好喝的茶。 — Él suele ayudar a sus amigos comprándoles té delicioso."
+            ],
+            "leccion": 4,
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepBeneficiary",
+                "action"
+            ]
+        },
+        {
+            "espanol": "Correcto",
+            "tradicional": "對",
+            "pinyin": "duì",
+            "zhuyin": "ㄉㄨㄟˋ",
+            "categoria": "Prep",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "丵 (zhuó - hierba)"
+                },
+                {
+                    "type": "text",
+                    "value": "寸 (cùn - pulgada)"
+                }
+            ],
+            "notas": "Medir con la regla 寸 para asegurar exactitud. Interjección de conformidad: '¡correcto!' / '¡así es!'. Negación: 不對.",
+            "id": "id_mtviiuc4_o7je6",
+            "fechaCreacion": "2026-09-10",
+            "ejemplos": [
+                "對，我是學生 — Correcto, soy estudiante",
+                "你說得對 — Dices la verdad / Tienes razón"
+            ],
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepTarget",
+                "stateResponse"
+            ]
+        },
+        {
+            "id": "id_prep_gen",
+            "tradicional": "跟",
+            "pinyin": "gēn",
+            "zhuyin": "ㄍㄣ",
+            "espanol": "Con (alguien)",
+            "english": "With (someone)",
+            "categoria": "Prep",
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepCompany",
+                "nounLinker"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "足 (Pie)"
+                },
+                {
+                    "type": "text",
+                    "value": "艮 (Firme)"
+                }
+            ],
+            "notas": "Preposición (介詞) que introduce compañía antes del verbo: 我跟朋友去學校 (Voy a la escuela con amigos).",
+            "notas_en": "Preposition (介詞) introducing company before the verb: 我跟朋友去學校 (I go to school with friends).",
+            "leccion": 3
+        },
+        {
+            "id": "id_prep_gei",
+            "tradicional": "給",
+            "pinyin": "gěi",
+            "zhuyin": "ㄍㄟˇ",
+            "espanol": "A / Para (dar)",
+            "english": "To / For (give)",
+            "categoria": "Prep",
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepRecipient",
+                "action"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "糸 (Seda)"
+                },
+                {
+                    "type": "text",
+                    "value": "合 (Unir)"
+                }
+            ],
+            "notas": "Preposición (介詞) de destinatario o verbo dar.",
+            "notas_en": "Preposition (介詞) indicating recipient or verb to give.",
+            "leccion": 4
+        },
+        {
+            "id": "id_prep_cong",
+            "tradicional": "從",
+            "pinyin": "cóng",
+            "zhuyin": "ㄘㄨㄥˊ",
+            "espanol": "Desde",
+            "english": "From",
+            "categoria": "Prep",
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepSource",
+                "prepTime"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "彳 (Paso)"
+                },
+                {
+                    "type": "text",
+                    "value": "从 (Seguir)"
+                }
+            ],
+            "notas": "Preposición (介詞) que indica origen espacial o temporal (從早上, 從台灣).",
+            "notas_en": "Preposition (介詞) indicating spatial or temporal origin (從早上, 從台灣).",
             "leccion": 5
+        }
+    ],
+    "clasificadores": [
+        {
+            "id": "id_mtfhewfx_gtw3b",
+            "espanol": "Clasificador universal",
+            "tradicional": "個",
+            "pinyin": "ge",
+            "zhuyin": "ㄍㄜ˙",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "固 (gù - sólido)"
+                }
+            ],
+            "notas": "Clasificador universal para personas y objetos generales sin clasificador específico. Se pronuncia en tono neutro leve (ge) o cuarto (gè).",
+            "ejemplos": [
+                "我有三個家人 — Tengo tres familiares en mi casa",
+                "這個人是老師 — Esta persona es profesor",
+                "一個學生 — Un estudiante"
+            ],
+            "fechaCreacion": "2026-08-30",
+            "leccion": 2,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_mty004_zhang",
+            "espanol": "Clasificador de objetos planos",
+            "tradicional": "張",
+            "pinyin": "zhāng",
+            "zhuyin": "ㄓㄤ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "弓 (gōng - arco)"
+                },
+                {
+                    "type": "text",
+                    "value": "長 (cháng - largo)"
+                }
+            ],
+            "notas": "Mnemotecnia: tensar un arco largo. Clasificador para objetos delgados y con superficie plana (fotos, hojas, mesas, billetes).",
+            "ejemplos": [
+                "一張照片 — Una foto",
+                "你有幾張照片？ — ¿Cuántas fotos tienes?",
+                "請給我一張紙 — Por favor dame una hoja de papel"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 2,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_mtfigeht_eqxfj",
+            "espanol": "Clasificador para animales y objetos en pares",
+            "tradicional": "隻",
+            "pinyin": "zhī",
+            "zhuyin": "ㄓ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "隹 (zhuī - ave)"
+                },
+                {
+                    "type": "text",
+                    "value": "又 (yòu - mano)"
+                }
+            ],
+            "notas": "Pictograma de una mano sosteniendo un ave. Clasificador para animales y para un elemento de un par natural (una mano, un zapato).",
+            "ejemplos": [
+                "我家有一隻貓和一隻狗 — En mi casa hay un gato y un perro",
+                "那一隻貓很可愛 — Ese gato es muy tierno",
+                "這隻狗是誰的？ — ¿De quién es este perro?"
+            ],
+            "fechaCreacion": "2026-08-30",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_ben",
+            "espanol": "Clasificador para libros, cuadernos y tomos encuadernados",
+            "tradicional": "本",
+            "pinyin": "běn",
+            "zhuyin": "ㄅㄣˇ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - árbol)"
+                },
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                }
+            ],
+            "notas": "El trazo inferior marca la raíz o base del árbol. Clasificador para volúmenes encuadernados: libros, cuadernos y diccionarios.",
+            "ejemplos": [
+                "一本書 — Un libro",
+                "這本書是我的 — Este libro es mío",
+                "你有幾本書？ — ¿Cuántos libros tienes?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_bei",
+            "espanol": "Clasificador de vasos/tazas",
+            "tradicional": "杯",
+            "pinyin": "bēi",
+            "zhuyin": "ㄅㄟ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - madera)"
+                },
+                {
+                    "type": "ref",
+                    "id": "a1"
+                }
+            ],
+            "notas": "Antiguamente las copas eran de madera 木 con 不 como elemento fonético. Clasificador para bebidas servidas en tazas o vasos.",
+            "ejemplos": [
+                "請給我一杯茶 — Por favor dame una taza de té",
+                "我喝了一杯烏龍茶 — Tomé una taza de té Oolong",
+                "你要喝幾杯咖啡？ — ¿Cuántas tazas de café quieres tomar?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 4,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_wei",
+            "espanol": "Clasificador formal de personas",
+            "tradicional": "位",
+            "pinyin": "wèi",
+            "zhuyin": "ㄨㄟˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n7"
+                },
+                {
+                    "type": "text",
+                    "value": "立 (lì - erguido)"
+                }
+            ],
+            "notas": "Una persona de pie en su puesto oficial. Clasificador de cortesía para personas respetables (profesores, clientes). Nunca se usa para uno mismo.",
+            "ejemplos": [
+                "幾位？ — ¿Cuántas personas son?",
+                "這幾位是我的朋友 — Estas personas son mis amigos",
+                "他是一位好老師 — Él es un buen profesor"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_ping",
+            "espanol": "Clasificador para botellas de líquido",
+            "tradicional": "瓶",
+            "pinyin": "píng",
+            "zhuyin": "ㄆㄧㄥˊ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "并 (bìng - juntar)"
+                },
+                {
+                    "type": "text",
+                    "value": "瓦 (wǎ - vasija)"
+                }
+            ],
+            "notas": "Alude a vasijas cerámicas unidas. Clasificador de recipiente para botellas de agua, vino, cerveza o refrescos.",
+            "ejemplos": [
+                "請給我一瓶水 — Por favor dame una botella de agua",
+                "他買了三瓶烏龍茶 — Él compró tres botellas de té Oolong",
+                "你想喝一瓶啤酒嗎？ — ¿Quieres tomar una botella de cerveza?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_dong",
+            "espanol": "Clasificador para edificios, construcciones y casas",
+            "tradicional": "棟",
+            "pinyin": "dòng",
+            "zhuyin": "ㄉㄨㄥˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - madera)"
+                },
+                {
+                    "type": "text",
+                    "value": "東 (dōng - oriente)"
+                }
+            ],
+            "notas": "Representa la viga cumbrera de madera que sostiene el techo. Clasificador arquitectónico para casas o edificios enteros.",
+            "ejemplos": [
+                "我們家有一棟老房子 — Mi familia tiene una casa antigua",
+                "那棟大樓很漂亮 — Ese edificio es muy bonito",
+                "這棟房子是誰的？ — ¿De quién es esta casa?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_mtgn2mv8_7ji91",
+            "espanol": "Años de edad",
+            "tradicional": "歲",
+            "pinyin": "suì",
+            "zhuyin": "ㄙㄨㄟˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "止 (zhǐ - pie)"
+                },
+                {
+                    "type": "text",
+                    "value": "戌 (xū - hacha)"
+                },
+                {
+                    "type": "text",
+                    "value": "步 (bù - paso)"
+                }
+            ],
+            "notas": "Alude al paso del tiempo marcado por el ciclo de Júpiter. En chino la edad se expresa directamente con el número y 歲, sin verbo 'tener'.",
+            "ejemplos": [
+                "你幾歲？ — ¿Cuántos años tienes?",
+                "我二十歲 — Tengo 20 años",
+                "她十八歲 — Ella tiene 18 años"
+            ],
+            "fechaCreacion": "2026-08-31",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_ke",
+            "espanol": "Clasificador de objetos redondos",
+            "tradicional": "顆",
+            "pinyin": "kē",
+            "zhuyin": "ㄎㄜ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "果 (guǒ - fruta)"
+                },
+                {
+                    "type": "text",
+                    "value": "頁 (yè - cabeza)"
+                }
+            ],
+            "notas": "Compuesto por fruta redonda y cabeza. Clasificador para objetos esféricos o pequeños: semillas, perlas, dientes y el corazón (一顆心).",
+            "ejemplos": [
+                "一顆心 — Un corazón",
+                "一顆糖 — Un caramelo",
+                "天上有一顆很亮的星星 — En el cielo hay una estrella muy brillante"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_jian",
+            "espanol": "Clasificador para habitaciones, aulas y tiendas",
+            "tradicional": "間",
+            "pinyin": "jiān",
+            "zhuyin": "ㄐㄧㄢ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "門 (mén - puerta)"
+                },
+                {
+                    "type": "text",
+                    "value": "日 (rì - sol)"
+                }
+            ],
+            "notas": "Pictograma del sol brillando a través de la rendija de una puerta. Clasificador para habitaciones, aulas y tiendas.",
+            "ejemplos": [
+                "我們學校有三十間教室 — Nuestra escuela tiene 30 aulas",
+                "那間商店很大 — Esa tienda es muy grande"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_duo",
+            "espanol": "Clasificador para flores y nubes",
+            "tradicional": "朵",
+            "pinyin": "duǒ",
+            "zhuyin": "ㄉㄨㄛˇ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "几 (jī - soporte)"
+                },
+                {
+                    "type": "text",
+                    "value": "木 (mù - madera)"
+                }
+            ],
+            "notas": "Representa flores colgando de una rama. Clasificador botánico para flores individuales y para nubes flotantes (一朵雲).",
+            "ejemplos": [
+                "這朵花真漂亮 — Esta flor es verdaderamente hermosa",
+                "他買了一朵花送媽媽 — Él compró una flor para mamá"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_men",
+            "espanol": "Clasificador para asignaturas, materias académicas y cursos",
+            "tradicional": "門",
+            "pinyin": "mén",
+            "zhuyin": "ㄇㄣˊ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "門 (mén - puerta)"
+                }
+            ],
+            "notas": "Pictograma de las dos hojas de una puerta de entrada al saber. Clasificador para asignaturas académicas y cursos escolares.",
+            "ejemplos": [
+                "這個學期我選了四門課 — Este semestre elegí cuatro materias",
+                "這是一門很有意思的選修課 — Esta es una materia electiva muy interesante"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_ci",
+            "espanol": "Veces (clasificador)",
+            "tradicional": "次",
+            "pinyin": "cì",
+            "zhuyin": "ㄘˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "冫 (bīng - hielo)"
+                },
+                {
+                    "type": "text",
+                    "value": "欠 (qiàn - aliento)"
+                }
+            ],
+            "notas": "Indica orden sucesivo o repetición. Clasificador verbal pospuesto al verbo para señalar número de veces: 去過三次, 一天兩次.",
+            "ejemplos": [
+                "請再說一次 — Por favor repítalo una vez más",
+                "我一天喝三次茶 — Tomo té tres veces al día"
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "verbalMeasure"
+            ]
+        },
+        {
+            "id": "id_clf_dian",
+            "espanol": "Hora en punto",
+            "tradicional": "點",
+            "pinyin": "diǎn",
+            "zhuyin": "ㄉㄧㄢˇ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "黑 (hēi - negro)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhān - adivinar)"
+                }
+            ],
+            "notas": "Pictograma de gotas negras de hollín. Clasificador para las horas puntuales del reloj (三點 = las tres) y verbo para pedir comida (點菜).",
+            "ejemplos": [
+                "現在幾點？現在十點 — ¿Qué hora es ahora? Son las diez",
+                "我們早上八點半上課 — Empezamos la clase a las 8:30 de la mañana"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_fen",
+            "espanol": "Minuto (hora)",
+            "tradicional": "分",
+            "pinyin": "fēn",
+            "zhuyin": "ㄈㄣ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - dividir)"
+                },
+                {
+                    "type": "text",
+                    "value": "刀 (dāo - cuchillo)"
+                }
+            ],
+            "notas": "Un cuchillo que divide algo en dos partes. Clasificador numeral para minutos de reloj y puntos de calificación.",
+            "ejemplos": [
+                "現在是三點十五分 — Ahora son las tres con quince minutos",
+                "差五分八點 — Cinco para las ocho (7:55)"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_ke_time",
+            "espanol": "Cuarto de hora (15 min)",
+            "tradicional": "刻",
+            "pinyin": "kè",
+            "zhuyin": "ㄎㄜˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "亥 (hài - jabalí)"
+                },
+                {
+                    "type": "text",
+                    "value": "刂 (dāo - cuchillo)"
+                }
+            ],
+            "notas": "Una marca grabada con cuchillo en el cuadrante de un reloj de sol. Clasificador tradicional para cuartos de hora (15 minutos).",
+            "ejemplos": [
+                "現在是十點一刻 — Ahora son las diez y cuarto (10:15)",
+                "差一刻十二點 — Falta un cuarto para las doce (11:45)"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_ri",
+            "espanol": "Día (calendario)",
+            "tradicional": "日",
+            "pinyin": "rì",
+            "zhuyin": "ㄖˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "日 (rì - sol)"
+                }
+            ],
+            "notas": "Pictograma directo del disco solar. Clasificador formal y escrito para el día del mes (en lenguaje oral cotidiano se usa 號).",
+            "ejemplos": [
+                "今天是九月二十七日 — Hoy es 27 de septiembre",
+                "十月十日是國慶日 — El 10 de octubre es el Día Nacional"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_hao",
+            "espanol": "Día del mes",
+            "tradicional": "號",
+            "pinyin": "hào",
+            "zhuyin": "ㄏㄠˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - boca)"
+                },
+                {
+                    "type": "text",
+                    "value": "虎 (hǔ - tigre)"
+                }
+            ],
+            "notas": "Gritar o proclamar una marca distintiva. Clasificador oral habitual en Taiwán para el día de la fecha y números identificativos.",
+            "ejemplos": [
+                "明天是幾號？明天是五號 — ¿Qué día es mañana? Mañana es cinco",
+                "你的手機號碼是幾號？ — ¿Cuál es tu número de teléfono?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure",
+                "timeMeasure",
+                "time"
+            ]
+        },
+        {
+            "id": "id_clf_xie",
+            "espanol": "Unos pocos (plural)",
+            "tradicional": "些",
+            "pinyin": "xiē",
+            "zhuyin": "ㄒㄧㄝ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "此 (cǐ - este)"
+                },
+                {
+                    "type": "text",
+                    "value": "二 (èr - dos)"
+                }
+            ],
+            "notas": "Compuesto por 'este' y 'dos' simbolizando multiplicidad. Clasificador plural indefinido para cantidades pequeñas: 一些, 這些, 那些.",
+            "ejemplos": [
+                "我想買一些花 — Quiero comprar algunas flores",
+                "這些書都很新 — Estos libros son muy nuevos"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_zhi_phone",
+            "espanol": "Clasificador para teléfonos celulares, bolígrafos y objetos delgados",
+            "tradicional": "支",
+            "pinyin": "zhī",
+            "zhuyin": "ㄓ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "十 (shí - diez)"
+                },
+                {
+                    "type": "text",
+                    "value": "又 (yòu - mano/otra vez)"
+                }
+            ],
+            "notas": "Clasificador fundamental en Taiwán para teléfonos móviles (手機), bolígrafos (筆) y botellas cilíndricas.",
+            "ejemplos": [
+                "我想買一支新手機。 — Quiero comprar un teléfono celular nuevo.",
+                "這支手機要多少錢？ — ¿Cuánto cuesta este teléfono móvil?"
+            ],
+            "leccion": 4,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_kuai",
+            "espanol": "Clasificador de dinero (NT$)",
+            "tradicional": "塊",
+            "pinyin": "kuài",
+            "zhuyin": "ㄎㄨㄞˋ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - tierra)"
+                },
+                {
+                    "type": "text",
+                    "value": "鬼 (guǐ - fantasma/espíritu)"
+                }
+            ],
+            "notas": "Clasificador por excelencia de la moneda hablada en Taiwán (equivalente a NT$ / dólares / pesos), y para trozos o pedazos (una porción de pastel: 一塊蛋糕).",
+            "ejemplos": [
+                "一杯熱茶三十五塊。 — Una taza de té caliente cuesta treinta y cinco dólares.",
+                "這本書兩百塊錢。 — Este libro cuesta doscientos dólares."
+            ],
+            "leccion": 4,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_zhong",
+            "espanol": "Clasificador para tipos, clases, especies o variedades",
+            "tradicional": "種",
+            "pinyin": "zhǒng",
+            "zhuyin": "ㄓㄨㄥˇ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "禾 (hé - cereal/grano)"
+                },
+                {
+                    "type": "text",
+                    "value": "重 (zhòng - pesado)"
+                }
+            ],
+            "notas": "Clasificador para indicar tipos o clases de cosas o personas: 這種類 (este tipo), 很多種 (muchos tipos).",
+            "ejemplos": [
+                "這家咖啡店有五種茶。 — Esta cafetería tiene cinco tipos de té.",
+                "那種手機賣得非常好。 — Ese tipo de teléfono se vende muy bien."
+            ],
+            "leccion": 4,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_jia_shop",
+            "espanol": "Tiendas o restaurantes",
+            "tradicional": "家",
+            "pinyin": "jiā",
+            "zhuyin": "ㄐㄧㄚ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "宀 (mián - techo)"
+                },
+                {
+                    "type": "text",
+                    "value": "豕 (shǐ - cerdo)"
+                }
+            ],
+            "notas": "Clasificador para establecimientos comerciales, empresas, tiendas y restaurantes.",
+            "ejemplos": [
+                "這家餐廳的小吃很有名 — Los aperitivos de este restaurante son muy famosos",
+                "我想去那家店買茶 — Quiero ir a esa tienda a comprar té"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
+        },
+        {
+            "id": "id_clf_wan",
+            "espanol": "Tazón",
+            "tradicional": "碗",
+            "pinyin": "wǎn",
+            "zhuyin": "ㄨㄢˇ",
+            "categoria": "M",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "石 (shí - piedra)"
+                },
+                {
+                    "type": "text",
+                    "value": "宛 (wǎn - cuenco)"
+                }
+            ],
+            "notas": "Clasificador contenedor para porciones de comida o sopa servidas en cuencos o tazones.",
+            "ejemplos": [
+                "我要一碗牛肉麵 — Quiero un tazón de fideos con carne de res",
+                "請給他一碗熱湯 — Por favor dale un tazón de sopa caliente"
+            ],
+            "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "M",
+            "semanticTags": [
+                "measure"
+            ]
         }
     ],
     "particulas": [
@@ -7085,7 +9447,7 @@ const SEED_DATA = {
             "tradicional": "們",
             "pinyin": "men",
             "zhuyin": "ㄇㄣ˙",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7101,6 +9463,10 @@ const SEED_DATA = {
             "ejemplos": [
                 "我們都是學生 — Todos nosotros somos estudiantes",
                 "你們要喝什麼？ — ¿Qué quieren beber ustedes?"
+            ],
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "pluralSuffix"
             ]
         },
         {
@@ -7108,7 +9474,7 @@ const SEED_DATA = {
             "tradicional": "的",
             "pinyin": "de",
             "zhuyin": "ㄉㄜ˙",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7127,14 +9493,19 @@ const SEED_DATA = {
             ],
             "id": "id_msk1glsh_kfv6m",
             "fechaCreacion": "2026-08-08",
-            "leccion": 2
+            "leccion": 2,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "structural",
+                "attributiveDe"
+            ]
         },
         {
             "espanol": "(pregunta sí/no)",
             "tradicional": "嗎",
             "pinyin": "ma",
             "zhuyin": "ㄇㄚ˙",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7153,7 +9524,12 @@ const SEED_DATA = {
                 "你好嗎？ — ¿Cómo estás?",
                 "你要喝咖啡嗎？ — ¿Quieres tomar café?"
             ],
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "finalModal",
+                "question"
+            ]
         },
         {
             "id": "id_mty010_ne",
@@ -7161,7 +9537,7 @@ const SEED_DATA = {
             "tradicional": "呢",
             "pinyin": "ne",
             "zhuyin": "ㄋㄜ˙",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7179,7 +9555,12 @@ const SEED_DATA = {
                 "他呢？ — ¿Y él?"
             ],
             "fechaCreacion": "2026-09-26",
-            "leccion": 1
+            "leccion": 1,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "finalModal",
+                "question"
+            ]
         },
         {
             "id": "id_l3_a",
@@ -7187,7 +9568,7 @@ const SEED_DATA = {
             "tradicional": "啊",
             "pinyin": "a",
             "zhuyin": "˙ㄚ",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7205,33 +9586,12 @@ const SEED_DATA = {
                 "這是什麼茶？烏龍茶啊！ — ¿Qué té es este? ¡Pues té Oolong!"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
-        },
-        {
-            "id": "id_l3_haishi",
-            "espanol": "¿O? (opción)",
-            "tradicional": "還是",
-            "pinyin": "háishì",
-            "zhuyin": "ㄏㄞˊ ㄕˋ",
-            "categoria": "particula",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "還 (hái - aún)"
-                },
-                {
-                    "type": "text",
-                    "value": "是 (shì - ser)"
-                }
-            ],
-            "notas": "Conjunción disyuntiva ('¿o?') exclusiva para preguntas con alternativas (¿A 還是 B?). En afirmaciones se utiliza 或者 (huòzhě).",
-            "ejemplos": [
-                "妳想看美國電影還是臺灣電影？ — ¿Quieres ver una película estadounidense o una taiwanesa?",
-                "今天晚上我們吃越南菜還是臺灣菜？ — ¿Esta noche comemos comida vietnamita o comida taiwanesa?"
-            ],
-            "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "finalModal",
+                "emphasis"
+            ]
         },
         {
             "id": "id_l3_ba",
@@ -7239,7 +9599,7 @@ const SEED_DATA = {
             "tradicional": "吧",
             "pinyin": "ba",
             "zhuyin": "˙ㄅㄚ",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7257,7 +9617,12 @@ const SEED_DATA = {
                 "今天晚上我們吃越南菜吧！ — ¡Cenemos comida vietnamita esta noche!"
             ],
             "fechaCreacion": "2026-09-30",
-            "leccion": 3
+            "leccion": 3,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "finalModal",
+                "suggestion"
+            ]
         },
         {
             "id": "id_l5_de",
@@ -7265,7 +9630,7 @@ const SEED_DATA = {
             "tradicional": "得",
             "pinyin": "de",
             "zhuyin": "ㄉㄜ˙",
-            "categoria": "particula",
+            "categoria": "Ptc",
             "clasificador": "",
             "radicales": [
                 {
@@ -7287,7 +9652,741 @@ const SEED_DATA = {
                 "這道菜做得很不錯 — Este plato está preparado bastante bien"
             ],
             "fechaCreacion": "2026-10-19",
+            "leccion": 5,
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "structural",
+                "complementDe"
+            ]
+        },
+        {
+            "id": "id_ptc_le",
+            "tradicional": "了",
+            "pinyin": "le",
+            "zhuyin": "ㄌㄜ˙",
+            "espanol": "(Aspecto completado / Cambio)",
+            "english": "(Completed aspect / Change of state)",
+            "categoria": "Ptc",
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "aspect",
+                "finalModal"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "亅 (Gancho)"
+                }
+            ],
+            "notas": "Partícula aspectual (助詞) tras el verbo para acción completada o al final de la oración para cambio de situación.",
+            "notas_en": "Aspect particle (助詞) after a verb for completed action or sentence-final for new situation.",
+            "leccion": 2
+        },
+        {
+            "id": "id_ptc_guo",
+            "tradicional": "過",
+            "pinyin": "guò",
+            "zhuyin": "ㄍㄨㄛˋ",
+            "espanol": "(Experiencia pasada)",
+            "english": "(Past experience)",
+            "categoria": "Ptc",
+            "posSymbol": "Ptc",
+            "semanticTags": [
+                "aspect",
+                "experiential"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (Caminar)"
+                },
+                {
+                    "type": "text",
+                    "value": "咼"
+                }
+            ],
+            "notas": "Partícula aspectual (助詞) que se une después del verbo para indicar experiencia vivida (去過台灣).",
+            "notas_en": "Experiential aspect particle (助詞) placed after a verb (去過台灣).",
             "leccion": 5
+        }
+    ],
+    "determinantes": [
+        {
+            "espanol": "Uno",
+            "tradicional": "一",
+            "pinyin": "yī",
+            "zhuyin": "ㄧ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                }
+            ],
+            "notas": "Cambia a 4º tono (yì) ante tonos 1, 2 y 3; y cambia a 2º tono (yí) ante otro 4º tono (一個 yí ge).",
+            "id": "id_mtfhl7d1_9g4op",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一個人 — Una persona",
+                "一張照片 — Una foto"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Dos",
+            "tradicional": "二",
+            "pinyin": "èr",
+            "zhuyin": "ㄦˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "二 (èr - dos)"
+                }
+            ],
+            "notas": "Para contar o números abstractos (二月, 第二). Para cantidades con clasificador se usa 兩 (liǎng).",
+            "id": "id_mtfhmm38_dxhfq",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "第二課 — Lección dos",
+                "二月 — Febrero"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Dos",
+            "tradicional": "兩",
+            "pinyin": "liǎng",
+            "zhuyin": "ㄌㄧㄤˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                },
+                {
+                    "type": "text",
+                    "value": "兩 (liǎng - dos)"
+                }
+            ],
+            "notas": "Balanza de dos pesas en equilibrio. Se usa obligatoriamente antes de clasificadores: 兩個人, 兩張照片.",
+            "id": "id_mtfhneyq_qzbbd",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "我有兩個兄弟 — Tengo dos hermanos varones",
+                "請給我兩杯茶 — Por favor deme dos tazas de té"
+            ],
+            "leccion": 2,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Tres",
+            "tradicional": "三",
+            "pinyin": "sān",
+            "zhuyin": "ㄙㄢ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "三 (sān - tres)"
+                }
+            ],
+            "notas": "Representa la tríada tradicional china: Cielo (arriba), Hombre (centro) y Tierra (abajo).",
+            "id": "id_mtfho0pr_vvcsx",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "三個家人 — Tres familiares",
+                "三本書 — Tres libros"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Cuatro",
+            "tradicional": "四",
+            "pinyin": "sì",
+            "zhuyin": "ㄙˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "四 (sì - cuatro)"
+                }
+            ],
+            "notas": "Aliento 八 que escapa dentro de un recinto cerrado 囗.",
+            "id": "id_mtfhola6_hpc0l",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "我家有四個人 — En mi casa hay cuatro personas"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Cinco",
+            "tradicional": "五",
+            "pinyin": "wǔ",
+            "zhuyin": "ㄨˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhmm38_dxhfq"
+                },
+                {
+                    "type": "text",
+                    "value": "乂 (yì - cruce)"
+                }
+            ],
+            "notas": "Las dos líneas 二 representan cielo y tierra, y 乂 el cruce armónico de los 5 elementos.",
+            "id": "id_mtfhp4rg_j765n",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "五本書 — Cinco libros",
+                "我有五個家人 — En mi familia somos cinco personas"
+            ],
+            "leccion": 2,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Seis",
+            "tradicional": "六",
+            "pinyin": "liù",
+            "zhuyin": "ㄌㄧㄡˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "六 (liù - seis)"
+                }
+            ],
+            "notas": "Número de gran fortuna en la cultura china porque suena parecido a 流 (liú = fluir suavemente).",
+            "id": "id_mtfhppx6_xkjcv",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "六本書 — Seis libros",
+                "六個人 — Seis personas"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Siete",
+            "tradicional": "七",
+            "pinyin": "qī",
+            "zhuyin": "ㄑㄧ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "七 (qī - siete)"
+                }
+            ],
+            "notas": "Pictograma arcaico de un corte transversal con una espada.",
+            "id": "id_mtfhql3k_jx2ub",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "七天 — Siete días",
+                "七杯茶 — Siete tazas de té"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Ocho",
+            "tradicional": "八",
+            "pinyin": "bā",
+            "zhuyin": "ㄅㄚ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - ocho)"
+                }
+            ],
+            "notas": "Dos trazos que se abren. Número de máxima prosperidad porque 八 (bā) suena similar a 發 (fā = prosperar).",
+            "id": "id_mtfhr3n5_6xcbj",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "八張照片 — Ocho fotos",
+                "八個人 — Ocho personas"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Nueve",
+            "tradicional": "九",
+            "pinyin": "jiǔ",
+            "zhuyin": "ㄐㄧㄡˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "九 (jiǔ - nueve)"
+                }
+            ],
+            "notas": "Brazo doblado con fuerza. Asociado a la longevidad y al emperador porque suena igual que 久 (jiǔ = duradero).",
+            "id": "id_mtfhrrgs_bcgj8",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "九本書 — Nueve libros",
+                "九個月 — Nueve meses"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Diez",
+            "tradicional": "十",
+            "pinyin": "shí",
+            "zhuyin": "ㄕˊ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "十 (shí - diez)"
+                }
+            ],
+            "notas": "Cruce perfecto de la línea horizontal y vertical simbolizando la plenitud y totalidad.",
+            "id": "id_mtfikvkd_74gu4",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "十個人 — Diez personas",
+                "十本書 — Diez libros"
+            ],
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Cien",
+            "tradicional": "百",
+            "pinyin": "bǎi",
+            "zhuyin": "ㄅㄞˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfhl7d1_9g4op"
+                },
+                {
+                    "type": "text",
+                    "value": "白 (bái - blanco)"
+                }
+            ],
+            "notas": "Compuesto por 一 (uno) y 白 (bái = hablar claro / blanco).",
+            "id": "id_mtfimiho_d6pa7",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一百 — Cien",
+                "一百塊 — Cien dólares / monedas"
+            ],
+            "leccion": 4,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Mil",
+            "tradicional": "千",
+            "pinyin": "qiān",
+            "zhuyin": "ㄑㄧㄢ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfikvkd_74gu4"
+                },
+                {
+                    "type": "text",
+                    "value": "丿 (piě - trazo)"
+                }
+            ],
+            "notas": "Compuesto por 十 (diez) con un trazo oblicuo superior 丿 que multiplica la cifra.",
+            "id": "id_mtfiof0b_eq6u5",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "一千 — Mil",
+                "兩千 — Dos mil"
+            ],
+            "leccion": 4,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "id": "id_voc_zhexie",
+            "espanol": "Estos",
+            "tradicional": "這些",
+            "pinyin": "zhèxiē",
+            "zhuyin": "ㄓㄜˋ ㄒㄧㄝ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4oeq7_zhe"
+                },
+                {
+                    "type": "text",
+                    "value": "些 (xiē - unos pocos)"
+                }
+            ],
+            "notas": "Demostrativo plural cercano: 這些書 (estos libros).",
+            "ejemplos": [
+                "這些書都不貴 — Ninguno de estos libros es caro",
+                "這些是我的照片 — Estas son mis fotos"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative",
+                "hasMeasure"
+            ]
+        },
+        {
+            "id": "id_voc_naxie",
+            "espanol": "Esos",
+            "tradicional": "那些",
+            "pinyin": "nàxiē",
+            "zhuyin": "ㄋㄚˋ ㄒㄧㄝ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msr4qdf2_na"
+                },
+                {
+                    "type": "text",
+                    "value": "些 (xiē - unos pocos)"
+                }
+            ],
+            "notas": "Demostrativo plural lejano: 那些人 (aquellas personas).",
+            "ejemplos": [
+                "那些花非常漂亮 — Aquellas flores son extremadamente hermosas",
+                "那些不是我的書 — Esos no son mis libros"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative",
+                "hasMeasure"
+            ]
+        },
+        {
+            "id": "id_l4_wan",
+            "espanol": "Diez mil",
+            "tradicional": "萬",
+            "pinyin": "wàn",
+            "zhuyin": "ㄨㄢˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "艹 (cǎo - hierba)"
+                },
+                {
+                    "type": "text",
+                    "value": "禸 (róu - huella)"
+                }
+            ],
+            "notas": "Unidad numérica china fundamental: diez mil (10.000). En chino los números grandes se agrupan en múltiplos de cuatro ceros (一萬 = 10.000).",
+            "ejemplos": [
+                "這支新手機要一萬塊。 — Este celular nuevo cuesta diez mil dólares.",
+                "那間房子要兩千萬。 — Esa casa cuesta veinte millones."
+            ],
+            "leccion": 4,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
+        },
+        {
+            "espanol": "Cuál",
+            "tradicional": "哪",
+            "pinyin": "nǎ",
+            "zhuyin": "ㄋㄚˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - boca)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk0mdne_r4neq"
+                }
+            ],
+            "notas": "Lleva boca 口 interrogativa junto a 那. Ante clasificador se pronuncia comúnmente něi: 哪本書？, 哪國人？",
+            "id": "id_mtfgbr1v_3z8nx",
+            "fechaCreacion": "2026-08-30",
+            "ejemplos": [
+                "你是哪國人？ — ¿De qué país eres?",
+                "哪張照片是你的？ — ¿Cuál foto es tuya?"
+            ],
+            "leccion": 1,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative",
+                "question"
+            ]
+        },
+        {
+            "espanol": "¿Cuántos? (<10)",
+            "tradicional": "幾",
+            "pinyin": "jǐ",
+            "zhuyin": "ㄐㄧˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "幺 (yāo - hilo)"
+                },
+                {
+                    "type": "text",
+                    "value": "戈 (gē - lanza)"
+                }
+            ],
+            "notas": "Pregunta por cantidades reducidas (habitualmente menos de 10). Estructura obligatoria: 幾 + Clasificador + Sustantivo.",
+            "id": "id_mtgn0eti_2z3vp",
+            "fechaCreacion": "2026-08-31",
+            "ejemplos": [
+                "你有幾張照片？ — ¿Cuántas fotos tienes?",
+                "你有幾個兄弟？ — ¿Cuántos hermanos varones tienes?"
+            ],
+            "leccion": 2,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral",
+                "question"
+            ]
+        },
+        {
+            "id": "id_mty012_naguo",
+            "espanol": "¿De qué país?",
+            "tradicional": "哪國",
+            "pinyin": "nǎguó",
+            "zhuyin": "ㄋㄚˇ ㄍㄨㄛˊ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtfgbr1v_3z8nx"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - país)"
+                }
+            ],
+            "notas": "Construcción interrogativa fija para consultar procedencia y nacionalidad: 你是哪國人？ (¿De qué país eres?).",
+            "ejemplos": [
+                "你是哪國人？ — ¿De qué país eres?",
+                "他是哪國人？ — ¿De qué país es él?"
+            ],
+            "fechaCreacion": "2026-09-26",
+            "leccion": 1,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative",
+                "question"
+            ]
+        },
+        {
+            "id": "id_voc_yici",
+            "espanol": "Una vez",
+            "tradicional": "一次",
+            "pinyin": "yí cì",
+            "zhuyin": "ㄧˊ ㄘˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "一 (yī - uno)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_clf_ci"
+                }
+            ],
+            "notas": "Complemento de frecuencia que se pospone al verbo: 請再說一次 (dilo una vez más); 一天一次 (una vez al día).",
+            "ejemplos": [
+                "請再說一次 — Por favor repítalo una vez más",
+                "我一天吃一次蘋果 — Como manzana una vez al día"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral",
+                "frequencyPhrase"
+            ]
+        },
+        {
+            "id": "id_l4_duoshao",
+            "espanol": "¿Cuánto?",
+            "tradicional": "多少",
+            "pinyin": "duōshǎo",
+            "zhuyin": "ㄉㄨㄛ ㄕㄠˇ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "多 (duō - mucho)"
+                },
+                {
+                    "type": "text",
+                    "value": "少 (shǎo - poco)"
+                }
+            ],
+            "notas": "Palabra interrogativa para cantidades indefinidas o mayores a 10. Especialmente usada con 錢: 多少錢？ (¿Cuánto cuesta?).",
+            "ejemplos": [
+                "老闆，這支手機多少錢？ — Jefe, ¿cuánto cuesta este celular?",
+                "請問一共多少錢？ — Disculpe, ¿cuánto es en total?"
+            ],
+            "leccion": 4,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral",
+                "question"
+            ]
+        },
+        {
+            "espanol": "Este",
+            "tradicional": "這",
+            "pinyin": "zhè",
+            "zhuyin": "ㄓㄜˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - caminar)"
+                },
+                {
+                    "type": "text",
+                    "value": "言 (yán - palabra)"
+                }
+            ],
+            "notas": "Demostrativo de proximidad. Ante clasificadores se pronuncia frecuentemente zhèi en habla coloquial: 這個人, 這張照片.",
+            "ejemplos": [
+                "這是我的家 — Esta es mi casa",
+                "這張照片很漂亮 — Esta foto es muy hermosa"
+            ],
+            "id": "id_msk0jitk_kr6cx",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 1,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative"
+            ]
+        },
+        {
+            "espanol": "Ese",
+            "tradicional": "那",
+            "pinyin": "nà",
+            "zhuyin": "ㄋㄚˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "冉 (rǎn - barba)"
+                },
+                {
+                    "type": "text",
+                    "value": "阝 (yì - ciudad)"
+                }
+            ],
+            "notas": "Demostrativo de lejanía. Ante clasificadores se pronuncia comúnmente nèi en el habla cotidiana: 那個人, 那本書.",
+            "ejemplos": [
+                "那是他的房子 — Aquella es su casa",
+                "那是誰的照片？ — ¿De quién es esa foto?"
+            ],
+            "id": "id_msk0mdne_r4neq",
+            "fechaCreacion": "2026-08-08",
+            "leccion": 4,
+            "posSymbol": "Det",
+            "semanticTags": [
+                "demonstrative"
+            ]
+        },
+        {
+            "id": "id_voc_ban",
+            "espanol": "Y media (hora)",
+            "tradicional": "半",
+            "pinyin": "bàn",
+            "zhuyin": "ㄅㄢˋ",
+            "categoria": "Det",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "八 (bā - dividir)"
+                },
+                {
+                    "type": "text",
+                    "value": "干 (gān - escudo)"
+                }
+            ],
+            "notas": "Dividir una res a la mitad. Tras 點 marca la media hora (九點半 = 9:30); como adjetivo indica mitad (半天 = medio día).",
+            "ejemplos": [
+                "我們早上八點半上課 — Tomamos clase a las 8:30 de la mañana",
+                "我要半個西瓜 — Quiero media sandía"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Det",
+            "semanticTags": [
+                "numeral"
+            ]
         }
     ],
     "estructuras": [
@@ -7813,1355 +10912,19 @@ const SEED_DATA = {
             "ejemplo_espanol": "Este fin de semana ven a mi casa a cocinar",
             "notas": "到 (dào) introduce el destino espacial ('hacia / a'). Se combina con los verbos de movimiento deícticos 來 (lái = venir hacia el hablante) o 去 (qù = ir alejándose del hablante). Además, puede encadenarse con un segundo verbo para indicar el propósito de la visita."
         }
-    ],
-    "meta": {
-        "version": "2.4.0",
-        "ultimaEdicion": "2026-09-27"
-    },
-    "adjetivos": [
-        {
-            "espanol": "Este",
-            "tradicional": "這",
-            "pinyin": "zhè",
-            "zhuyin": "ㄓㄜˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "辶 (chuò - caminar)"
-                },
-                {
-                    "type": "text",
-                    "value": "言 (yán - palabra)"
-                }
-            ],
-            "notas": "Demostrativo de proximidad. Ante clasificadores se pronuncia frecuentemente zhèi en habla coloquial: 這個人, 這張照片.",
-            "ejemplos": [
-                "這是我的家 — Esta es mi casa",
-                "這張照片很漂亮 — Esta foto es muy hermosa"
-            ],
-            "id": "id_msk0jitk_kr6cx",
-            "fechaCreacion": "2026-08-08",
-            "leccion": 1
-        },
-        {
-            "espanol": "Ese",
-            "tradicional": "那",
-            "pinyin": "nà",
-            "zhuyin": "ㄋㄚˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "冉 (rǎn - barba)"
-                },
-                {
-                    "type": "text",
-                    "value": "阝 (yì - ciudad)"
-                }
-            ],
-            "notas": "Demostrativo de lejanía. Ante clasificadores se pronuncia comúnmente nèi en el habla cotidiana: 那個人, 那本書.",
-            "ejemplos": [
-                "那是他的房子 — Aquella es su casa",
-                "那是誰的照片？ — ¿De quién es esa foto?"
-            ],
-            "id": "id_msk0mdne_r4neq",
-            "fechaCreacion": "2026-08-08",
-            "leccion": 4
-        },
-        {
-            "espanol": "Pequeño",
-            "tradicional": "小",
-            "pinyin": "xiǎo",
-            "zhuyin": "ㄒㄧㄠˇ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "小 (xiǎo - pequeño)"
-                }
-            ],
-            "notas": "Pictograma de tres diminutas partículas divididas. Antónimo directo de 大 (dà).",
-            "id": "id_mtjn1fxk_bdhc0",
-            "fechaCreacion": "2026-09-02",
-            "ejemplos": [
-                "那隻貓很小 — Ese gato es muy pequeño",
-                "小心！ — ¡Cuidado!",
-                "那間教室很小 — Aquella aula es muy pequeña"
-            ],
-            "leccion": 4
-        },
-        {
-            "espanol": "Grande",
-            "tradicional": "大",
-            "pinyin": "dà",
-            "zhuyin": "ㄉㄚˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "大 (dà - grande)"
-                }
-            ],
-            "notas": "Pictograma frontal de un ser humano con brazos y piernas abiertos ocupando espacio. Antónimo de 小 (xiǎo).",
-            "id": "id_mtjn41m4_7ohc2",
-            "fechaCreacion": "2026-09-02",
-            "ejemplos": [
-                "這棟房子很大 — Esta casa es muy grande",
-                "大人 — Adulto",
-                "這間教室很大 — Esta aula es muy grande"
-            ],
-            "leccion": 4
-        },
-        {
-            "espanol": "Mediano",
-            "tradicional": "中",
-            "pinyin": "zhōng",
-            "zhuyin": "ㄓㄨㄥ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "中 (zhōng - centro)"
-                }
-            ],
-            "notas": "Pictograma de una flecha clavada en el centro exacto de un blanco. Base de 中國 (China) y 中文 (idioma chino).",
-            "id": "id_mtjn2p70_9qg74",
-            "fechaCreacion": "2026-09-02",
-            "ejemplos": [
-                "中國 — China",
-                "中午 — Mediodía"
-            ],
-            "leccion": 4
-        },
-        {
-            "espanol": "Cuidado",
-            "tradicional": "小心",
-            "pinyin": "xiǎoxīn",
-            "zhuyin": "ㄒㄧㄠˇ ㄒㄧㄣ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtjn1fxk_bdhc0"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_mtlt07kj_ddod0"
-                }
-            ],
-            "notas": "Mnemotecnia: mantener el corazón atento a los pequeños detalles para no tropezar. Expresión habitual: 請小心 (ten cuidado).",
-            "id": "id_mtlt4lvg_tyx86",
-            "fechaCreacion": "2026-09-03"
-        },
-        {
-            "espanol": "Bueno",
-            "tradicional": "好",
-            "pinyin": "hǎo",
-            "zhuyin": "ㄏㄠˇ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "rad_mujer_1786603351443"
-                },
-                {
-                    "type": "text",
-                    "value": "子 (zǐ - hijo)"
-                }
-            ],
-            "notas": "Una madre 女 con su hijo 子 en brazos simbolizando armonía. Ante verbos denota placer sensorial: 好看 (lindo), 好吃 (rico).",
-            "id": "id_mtvg8jtu_74jmp",
-            "fechaCreacion": "2026-09-10",
-            "ejemplos": [
-                "你好 — Hola",
-                "烏龍茶很好喝 — El té Oolong es muy rico",
-                "好，我們走 — Bien, vámonos"
-            ],
-            "leccion": 1
-        },
-        {
-            "id": "id_mty009_haohe",
-            "espanol": "Rico (bebida)",
-            "tradicional": "好喝",
-            "pinyin": "hǎohē",
-            "zhuyin": "ㄏㄠˇ ㄏㄜ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtvg8jtu_74jmp"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_msr421dy_83jqz"
-                }
-            ],
-            "notas": "Compuesto por 好 (bueno) y 喝 (beber). Se aplica exclusivamente al sabor agradable de líquidos y bebidas (té, café, zumos).",
-            "ejemplos": [
-                "臺灣烏龍茶很好喝 — El té Oolong de Taiwán es muy rico",
-                "咖啡好喝嗎？ — ¿El café está rico?"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 1
-        },
-        {
-            "id": "id_mty021_piaoliang",
-            "espanol": "Hermoso",
-            "tradicional": "漂亮",
-            "pinyin": "piàoliang",
-            "zhuyin": "ㄆㄧㄠˋ ㄌㄧㄤ˙",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "rad_agua_1786603351443"
-                },
-                {
-                    "type": "text",
-                    "value": "票 (piào - billete)"
-                },
-                {
-                    "type": "text",
-                    "value": "亮 (liàng - brillante)"
-                }
-            ],
-            "notas": "Originalmente agua que fluye brillante y clara. Adjetivo habitual para personas, ropa, paisajes o fotos atractivas.",
-            "ejemplos": [
-                "你家很漂亮 — Tu casa es muy linda",
-                "這張照片很漂亮 — Esta foto es muy hermosa"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 2
-        },
-        {
-            "id": "id_mty023_duo",
-            "espanol": "Mucho",
-            "tradicional": "多",
-            "pinyin": "duō",
-            "zhuyin": "ㄉㄨㄛ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "夕 (xī - tarde/luna)"
-                },
-                {
-                    "type": "text",
-                    "value": "夕 (xī - tarde/luna)"
-                }
-            ],
-            "notas": "Dos cuartos crecientes de luna superpuestos simbolizando acumulación y abundancia. Antónimo de 少 (shǎo).",
-            "ejemplos": [
-                "他有很多書 — Él tiene muchos libros",
-                "這裡人很多 — Aquí hay mucha gente"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 2
-        },
-        {
-            "id": "id_mty026_haokan",
-            "espanol": "Bonito",
-            "tradicional": "好看",
-            "pinyin": "hǎokàn",
-            "zhuyin": "ㄏㄠˇ ㄎㄢˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtvg8jtu_74jmp"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_mty001_kan"
-                }
-            ],
-            "notas": "Compuesto por 好 (bueno) y 看 (mirar). Se aplica a películas entretenidas, ropa atractiva o personas de buen ver.",
-            "ejemplos": [
-                "這張照片很好看 — Esta foto es muy linda",
-                "這本書很好看 — Este libro es muy bueno/interesante"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 2
-        },
-        {
-            "id": "id_voc_keai",
-            "espanol": "Tierno",
-            "tradicional": "可愛",
-            "pinyin": "kě'ài",
-            "zhuyin": "ㄎㄜˇ ㄞˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "可 (kě - poder)"
-                },
-                {
-                    "type": "ref",
-                    "id": "v2"
-                }
-            ],
-            "notas": "Literalmente 'merecedor de ser amado'. Describe ternura y encanto en mascotas, niños o gestos afectuosos.",
-            "ejemplos": [
-                "這隻小貓真可愛 — Este gatito es verdaderamente adorable",
-                "她笑起來很可愛 — Ella es muy tierna al sonreír"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_voc_gui",
-            "espanol": "Caro",
-            "tradicional": "貴",
-            "pinyin": "guì",
-            "zhuyin": "ㄍㄨㄟˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "中 (zhōng - centro)"
-                },
-                {
-                    "type": "text",
-                    "value": "貝 (bèi - concha/moneda)"
-                }
-            ],
-            "notas": "Conchas monetarias guardadas en un cofre. Además de precio alto, denota nobleza en fórmulas de cortesía: 您貴姓？",
-            "ejemplos": [
-                "這本書很貴 — Este libro es muy caro",
-                "這棟房子太貴了 — Esta casa es demasiado costosa"
-            ],
-            "fechaCreacion": "2026-09-27",
-            "leccion": 4
-        },
-        {
-            "id": "id_voc_pianyi",
-            "espanol": "Barato",
-            "tradicional": "便宜",
-            "pinyin": "piányí",
-            "zhuyin": "ㄆㄧㄢˊ ㄧˊ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "n7"
-                },
-                {
-                    "type": "text",
-                    "value": "便 (biàn - conveniente)"
-                },
-                {
-                    "type": "text",
-                    "value": "宜 (yí - adecuado)"
-                }
-            ],
-            "notas": "Una transacción conveniente para la persona. Nótese que 便 se pronuncia pián en tono 2 (en fāngbiàn se pronuncia biàn).",
-            "ejemplos": [
-                "這杯茶很便宜 — Esta taza de té es muy barata",
-                "臺灣的水果又好吃又便宜 — Las frutas de Taiwán son ricas y además económicas"
-            ],
-            "fechaCreacion": "2026-09-27",
-            "leccion": 4
-        },
-        {
-            "id": "id_voc_gao",
-            "espanol": "Alto",
-            "tradicional": "高",
-            "pinyin": "gāo",
-            "zhuyin": "ㄍㄠ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "高 (gāo - alto)"
-                }
-            ],
-            "notas": "Pictograma de una torre o mirador elevado con techo y base. Antónimo para estatura humana: 矮 (ǎi); para objetos: 低 (dī).",
-            "ejemplos": [
-                "他的哥哥很高 — Su hermano mayor es muy alto",
-                "這棟樓真高 — Este edificio es sumamente alto"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_voc_ai",
-            "espanol": "Bajo (estatura)",
-            "tradicional": "矮",
-            "pinyin": "ǎi",
-            "zhuyin": "ㄞˇ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "矢 (shǐ - flecha)"
-                },
-                {
-                    "type": "text",
-                    "value": "委 (wěi - ceder)"
-                }
-            ],
-            "notas": "La longitud corta de una flecha 矢 junto a una mujer inclinada 委. Antónimo exclusivo de 高 para estatura de personas o muebles.",
-            "ejemplos": [
-                "弟弟比哥哥矮一點 — El hermano menor es un poco más bajo que el mayor",
-                "這張桌子太矮了 — Esta mesa es demasiado baja"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_voc_xin",
-            "espanol": "Nuevo",
-            "tradicional": "新",
-            "pinyin": "xīn",
-            "zhuyin": "ㄒㄧㄣ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "亲 (qīn - árbol)"
-                },
-                {
-                    "type": "text",
-                    "value": "斤 (jīn - hacha)"
-                }
-            ],
-            "notas": "Cortar madera fresca del bosque con un hacha 斤. Antónimo directo para objetos usados o ropa: 舊 (jiù).",
-            "ejemplos": [
-                "這是一本新書 — Este es un libro nuevo",
-                "我們學校的教室都很新 — Las aulas de nuestra escuela son todas muy nuevas"
-            ],
-            "fechaCreacion": "2026-09-27",
-            "leccion": 4
-        },
-        {
-            "id": "id_voc_jiu",
-            "espanol": "Viejo",
-            "tradicional": "舊",
-            "pinyin": "jiù",
-            "zhuyin": "ㄐㄧㄡˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "臼 (jiù - mortero)"
-                },
-                {
-                    "type": "text",
-                    "value": "隹 (zhuī - ave)"
-                }
-            ],
-            "notas": "Mortero desgastado por el tiempo. Exclusivo para objetos inanimados; para personas ancianas se debe usar 老 (lǎo), nunca 舊.",
-            "ejemplos": [
-                "這本書很舊，但是很有意思 — Este libro es viejo/usado, pero muy interesante",
-                "那棟舊房子在學校後面 — Aquella casa vieja está detrás de la escuela"
-            ],
-            "fechaCreacion": "2026-09-27",
-            "leccion": 4
-        },
-        {
-            "id": "id_voc_ban",
-            "espanol": "Y media (hora)",
-            "tradicional": "半",
-            "pinyin": "bàn",
-            "zhuyin": "ㄅㄢˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "八 (bā - dividir)"
-                },
-                {
-                    "type": "text",
-                    "value": "干 (gān - escudo)"
-                }
-            ],
-            "notas": "Dividir una res a la mitad. Tras 點 marca la media hora (九點半 = 9:30); como adjetivo indica mitad (半天 = medio día).",
-            "ejemplos": [
-                "我們早上八點半上課 — Tomamos clase a las 8:30 de la mañana",
-                "我要半個西瓜 — Quiero media sandía"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_bao",
-            "espanol": "Lleno (comida)",
-            "tradicional": "飽",
-            "pinyin": "bǎo",
-            "zhuyin": "ㄅㄠˇ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "飠(shí - comida)"
-                },
-                {
-                    "type": "text",
-                    "value": "包 (bāo - envolver)"
-                }
-            ],
-            "notas": "El estómago envuelto y repleto de comida. Forma el saludo habitual de cortesía en Taiwán: 吃飽了嗎？",
-            "ejemplos": [
-                "我吃得很飽 — Quedé muy satisfecho / comí muy bien",
-                "你飽了嗎？ — ¿Quedaste satisfecho?"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_voc_shao",
-            "espanol": "Poco",
-            "tradicional": "少",
-            "pinyin": "shǎo",
-            "zhuyin": "ㄕㄠˇ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtjn1fxk_bdhc0"
-                },
-                {
-                    "type": "text",
-                    "value": "丿 (piě - trazo)"
-                }
-            ],
-            "notas": "Un trazo oblicuo que resta aún más a lo pequeño 小. Antónimo de 多 (duō).",
-            "ejemplos": [
-                "今天教室裡的學生很少 — Hoy hay pocos estudiantes en el salón",
-                "你喝很少茶 — Bebes muy poco té"
-            ],
-            "fechaCreacion": "2026-09-28",
-            "leccion": 5
-        },
-        {
-            "id": "id_l3_haowan",
-            "espanol": "Divertido",
-            "tradicional": "好玩",
-            "pinyin": "hǎowán",
-            "zhuyin": "ㄏㄠˇ ㄨㄢˊ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "好 (hǎo - bueno)"
-                },
-                {
-                    "type": "text",
-                    "value": "玩 (wán - jugar)"
-                }
-            ],
-            "notas": "Compuesto por 好 (bueno) y 玩 (jugar). Se predica con 很 para calificar actividades o experiencias entretenidas: 很好玩.",
-            "ejemplos": [
-                "打棒球和踢足球都很好玩 — Tanto el béisbol como el fútbol son muy divertidos",
-                "我覺得中文很好玩 — Pienso que el idioma chino es muy divertido y entretenido"
-            ],
-            "fechaCreacion": "2026-09-30",
-            "leccion": 3
-        },
-        {
-            "id": "id_l4_re",
-            "espanol": "Caliente",
-            "tradicional": "熱",
-            "pinyin": "rè",
-            "zhuyin": "ㄖㄜˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "灬 (huǒ - fuego en base)"
-                },
-                {
-                    "type": "text",
-                    "value": "執 (zhí - sostener/ejecutar)"
-                }
-            ],
-            "notas": "Caliente. Se usa tanto para clima (天氣很熱) como para bebidas y comida (熱咖啡, 熱茶, 熱包子). Opuesto a 冷 (lěng) o 冰 (bīng).",
-            "ejemplos": [
-                "我喜歡喝熱茶，不喜歡喝冰咖啡。 — Me gusta tomar té caliente, no me gusta tomar café helado.",
-                "今天的熱包子真好吃！ — ¡Los baozis calientes de hoy están verdaderamente ricos!"
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_l5_haochi",
-            "espanol": "Delicioso",
-            "tradicional": "好吃",
-            "pinyin": "hǎochī",
-            "zhuyin": "ㄏㄠˇ ㄔ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "好 (bueno)"
-                },
-                {
-                    "type": "text",
-                    "value": "吃 (comer)"
-                }
-            ],
-            "notas": "Adjetivo para comida sabrosa o deliciosa.",
-            "ejemplos": [
-                "臭豆腐非常好吃 — El tofu apestoso es sumamente delicioso",
-                "小籠包好吃嗎？ — ¿Están deliciosos los xiaolongbao?"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_youming",
-            "espanol": "Famoso",
-            "tradicional": "有名",
-            "pinyin": "yǒumíng",
-            "zhuyin": "ㄧㄡˇ ㄇㄧㄥˊ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "有 (yǒu - tener)"
-                },
-                {
-                    "type": "text",
-                    "value": "名 (míng - nombre/fama)"
-                }
-            ],
-            "notas": "Adjetivo para lugares, personas o platos célebres.",
-            "ejemplos": [
-                "這家餐廳在臺北很有名 — Este restaurante es muy famoso en Taipéi",
-                "臺灣什麼小吃最有名？ — ¿Qué bocadillo de Taiwán es el más famoso?"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_la",
-            "espanol": "Picante",
-            "tradicional": "辣",
-            "pinyin": "là",
-            "zhuyin": "ㄌㄚˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "辛 (xīn - picante)"
-                },
-                {
-                    "type": "text",
-                    "value": "束 (shù - atar)"
-                }
-            ],
-            "notas": "Adjetivo descriptivo del sabor picante.",
-            "ejemplos": [
-                "這個牛肉麵太辣了！ — ¡Estos fideos con carne de res están demasiado picantes!",
-                "你怕辣嗎？我不怕辣 — ¿Le temes al picante? No le temo al picante"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_l5_bucuo",
-            "espanol": "Bueno",
-            "tradicional": "不錯",
-            "pinyin": "búcuò",
-            "zhuyin": "ㄅㄨˊ ㄘㄨㄛˋ",
-            "categoria": "adjetivo",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "不 (bù - no)"
-                },
-                {
-                    "type": "text",
-                    "value": "錯 (cuò - error)"
-                }
-            ],
-            "notas": "Adjetivo de evaluación positiva: bueno o bastante bien.",
-            "ejemplos": [
-                "他的廚藝很不錯 — Sus habilidades culinarias son bastante buenas",
-                "這家店的麵真不錯 — Los fideos de esta tienda están muy buenos"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        }
-    ],
-    "clasificadores": [
-        {
-            "id": "id_mtfhewfx_gtw3b",
-            "espanol": "Clasificador universal",
-            "tradicional": "個",
-            "pinyin": "ge",
-            "zhuyin": "ㄍㄜ˙",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "n7"
-                },
-                {
-                    "type": "text",
-                    "value": "固 (gù - sólido)"
-                }
-            ],
-            "notas": "Clasificador universal para personas y objetos generales sin clasificador específico. Se pronuncia en tono neutro leve (ge) o cuarto (gè).",
-            "ejemplos": [
-                "我有三個家人 — Tengo tres familiares en mi casa",
-                "這個人是老師 — Esta persona es profesor",
-                "一個學生 — Un estudiante"
-            ],
-            "fechaCreacion": "2026-08-30",
-            "leccion": 2
-        },
-        {
-            "id": "id_mty004_zhang",
-            "espanol": "Clasificador de objetos planos",
-            "tradicional": "張",
-            "pinyin": "zhāng",
-            "zhuyin": "ㄓㄤ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "弓 (gōng - arco)"
-                },
-                {
-                    "type": "text",
-                    "value": "長 (cháng - largo)"
-                }
-            ],
-            "notas": "Mnemotecnia: tensar un arco largo. Clasificador para objetos delgados y con superficie plana (fotos, hojas, mesas, billetes).",
-            "ejemplos": [
-                "一張照片 — Una foto",
-                "你有幾張照片？ — ¿Cuántas fotos tienes?",
-                "請給我一張紙 — Por favor dame una hoja de papel"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 2
-        },
-        {
-            "id": "id_mtfigeht_eqxfj",
-            "espanol": "Clasificador para animales y objetos en pares",
-            "tradicional": "隻",
-            "pinyin": "zhī",
-            "zhuyin": "ㄓ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "隹 (zhuī - ave)"
-                },
-                {
-                    "type": "text",
-                    "value": "又 (yòu - mano)"
-                }
-            ],
-            "notas": "Pictograma de una mano sosteniendo un ave. Clasificador para animales y para un elemento de un par natural (una mano, un zapato).",
-            "ejemplos": [
-                "我家有一隻貓和一隻狗 — En mi casa hay un gato y un perro",
-                "那一隻貓很可愛 — Ese gato es muy tierno",
-                "這隻狗是誰的？ — ¿De quién es este perro?"
-            ],
-            "fechaCreacion": "2026-08-30"
-        },
-        {
-            "id": "id_clf_ben",
-            "espanol": "Clasificador para libros, cuadernos y tomos encuadernados",
-            "tradicional": "本",
-            "pinyin": "běn",
-            "zhuyin": "ㄅㄣˇ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "木 (mù - árbol)"
-                },
-                {
-                    "type": "text",
-                    "value": "一 (yī - uno)"
-                }
-            ],
-            "notas": "El trazo inferior marca la raíz o base del árbol. Clasificador para volúmenes encuadernados: libros, cuadernos y diccionarios.",
-            "ejemplos": [
-                "一本書 — Un libro",
-                "這本書是我的 — Este libro es mío",
-                "你有幾本書？ — ¿Cuántos libros tienes?"
-            ],
-            "fechaCreacion": "2026-09-26"
-        },
-        {
-            "id": "id_clf_bei",
-            "espanol": "Clasificador de vasos/tazas",
-            "tradicional": "杯",
-            "pinyin": "bēi",
-            "zhuyin": "ㄅㄟ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "木 (mù - madera)"
-                },
-                {
-                    "type": "ref",
-                    "id": "a1"
-                }
-            ],
-            "notas": "Antiguamente las copas eran de madera 木 con 不 como elemento fonético. Clasificador para bebidas servidas en tazas o vasos.",
-            "ejemplos": [
-                "請給我一杯茶 — Por favor dame una taza de té",
-                "我喝了一杯烏龍茶 — Tomé una taza de té Oolong",
-                "你要喝幾杯咖啡？ — ¿Cuántas tazas de café quieres tomar?"
-            ],
-            "fechaCreacion": "2026-09-26",
-            "leccion": 4
-        },
-        {
-            "id": "id_clf_wei",
-            "espanol": "Clasificador formal de personas",
-            "tradicional": "位",
-            "pinyin": "wèi",
-            "zhuyin": "ㄨㄟˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "n7"
-                },
-                {
-                    "type": "text",
-                    "value": "立 (lì - erguido)"
-                }
-            ],
-            "notas": "Una persona de pie en su puesto oficial. Clasificador de cortesía para personas respetables (profesores, clientes). Nunca se usa para uno mismo.",
-            "ejemplos": [
-                "幾位？ — ¿Cuántas personas son?",
-                "這幾位是我的朋友 — Estas personas son mis amigos",
-                "他是一位好老師 — Él es un buen profesor"
-            ],
-            "fechaCreacion": "2026-09-26"
-        },
-        {
-            "id": "id_clf_ping",
-            "espanol": "Clasificador para botellas de líquido",
-            "tradicional": "瓶",
-            "pinyin": "píng",
-            "zhuyin": "ㄆㄧㄥˊ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "并 (bìng - juntar)"
-                },
-                {
-                    "type": "text",
-                    "value": "瓦 (wǎ - vasija)"
-                }
-            ],
-            "notas": "Alude a vasijas cerámicas unidas. Clasificador de recipiente para botellas de agua, vino, cerveza o refrescos.",
-            "ejemplos": [
-                "請給我一瓶水 — Por favor dame una botella de agua",
-                "他買了三瓶烏龍茶 — Él compró tres botellas de té Oolong",
-                "你想喝一瓶啤酒嗎？ — ¿Quieres tomar una botella de cerveza?"
-            ],
-            "fechaCreacion": "2026-09-26"
-        },
-        {
-            "id": "id_clf_dong",
-            "espanol": "Clasificador para edificios, construcciones y casas",
-            "tradicional": "棟",
-            "pinyin": "dòng",
-            "zhuyin": "ㄉㄨㄥˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "木 (mù - madera)"
-                },
-                {
-                    "type": "text",
-                    "value": "東 (dōng - oriente)"
-                }
-            ],
-            "notas": "Representa la viga cumbrera de madera que sostiene el techo. Clasificador arquitectónico para casas o edificios enteros.",
-            "ejemplos": [
-                "我們家有一棟老房子 — Mi familia tiene una casa antigua",
-                "那棟大樓很漂亮 — Ese edificio es muy bonito",
-                "這棟房子是誰的？ — ¿De quién es esta casa?"
-            ],
-            "fechaCreacion": "2026-09-26"
-        },
-        {
-            "id": "id_mtgn2mv8_7ji91",
-            "espanol": "Años de edad",
-            "tradicional": "歲",
-            "pinyin": "suì",
-            "zhuyin": "ㄙㄨㄟˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "止 (zhǐ - pie)"
-                },
-                {
-                    "type": "text",
-                    "value": "戌 (xū - hacha)"
-                },
-                {
-                    "type": "text",
-                    "value": "步 (bù - paso)"
-                }
-            ],
-            "notas": "Alude al paso del tiempo marcado por el ciclo de Júpiter. En chino la edad se expresa directamente con el número y 歲, sin verbo 'tener'.",
-            "ejemplos": [
-                "你幾歲？ — ¿Cuántos años tienes?",
-                "我二十歲 — Tengo 20 años",
-                "她十八歲 — Ella tiene 18 años"
-            ],
-            "fechaCreacion": "2026-08-31"
-        },
-        {
-            "id": "id_clf_ke",
-            "espanol": "Clasificador de objetos redondos",
-            "tradicional": "顆",
-            "pinyin": "kē",
-            "zhuyin": "ㄎㄜ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "果 (guǒ - fruta)"
-                },
-                {
-                    "type": "text",
-                    "value": "頁 (yè - cabeza)"
-                }
-            ],
-            "notas": "Compuesto por fruta redonda y cabeza. Clasificador para objetos esféricos o pequeños: semillas, perlas, dientes y el corazón (一顆心).",
-            "ejemplos": [
-                "一顆心 — Un corazón",
-                "一顆糖 — Un caramelo",
-                "天上有一顆很亮的星星 — En el cielo hay una estrella muy brillante"
-            ],
-            "fechaCreacion": "2026-09-26"
-        },
-        {
-            "id": "id_clf_jian",
-            "espanol": "Clasificador para habitaciones, aulas y tiendas",
-            "tradicional": "間",
-            "pinyin": "jiān",
-            "zhuyin": "ㄐㄧㄢ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "門 (mén - puerta)"
-                },
-                {
-                    "type": "text",
-                    "value": "日 (rì - sol)"
-                }
-            ],
-            "notas": "Pictograma del sol brillando a través de la rendija de una puerta. Clasificador para habitaciones, aulas y tiendas.",
-            "ejemplos": [
-                "我們學校有三十間教室 — Nuestra escuela tiene 30 aulas",
-                "那間商店很大 — Esa tienda es muy grande"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_clf_duo",
-            "espanol": "Clasificador para flores y nubes",
-            "tradicional": "朵",
-            "pinyin": "duǒ",
-            "zhuyin": "ㄉㄨㄛˇ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "几 (jī - soporte)"
-                },
-                {
-                    "type": "text",
-                    "value": "木 (mù - madera)"
-                }
-            ],
-            "notas": "Representa flores colgando de una rama. Clasificador botánico para flores individuales y para nubes flotantes (一朵雲).",
-            "ejemplos": [
-                "這朵花真漂亮 — Esta flor es verdaderamente hermosa",
-                "他買了一朵花送媽媽 — Él compró una flor para mamá"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_clf_men",
-            "espanol": "Clasificador para asignaturas, materias académicas y cursos",
-            "tradicional": "門",
-            "pinyin": "mén",
-            "zhuyin": "ㄇㄣˊ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "門 (mén - puerta)"
-                }
-            ],
-            "notas": "Pictograma de las dos hojas de una puerta de entrada al saber. Clasificador para asignaturas académicas y cursos escolares.",
-            "ejemplos": [
-                "這個學期我選了四門課 — Este semestre elegí cuatro materias",
-                "這是一門很有意思的選修課 — Esta es una materia electiva muy interesante"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_clf_ci",
-            "espanol": "Veces (clasificador)",
-            "tradicional": "次",
-            "pinyin": "cì",
-            "zhuyin": "ㄘˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "冫 (bīng - hielo)"
-                },
-                {
-                    "type": "text",
-                    "value": "欠 (qiàn - aliento)"
-                }
-            ],
-            "notas": "Indica orden sucesivo o repetición. Clasificador verbal pospuesto al verbo para señalar número de veces: 去過三次, 一天兩次.",
-            "ejemplos": [
-                "請再說一次 — Por favor repítalo una vez más",
-                "我一天喝三次茶 — Tomo té tres veces al día"
-            ],
-            "fechaCreacion": "2026-09-27"
-        },
-        {
-            "id": "id_clf_dian",
-            "espanol": "Hora en punto",
-            "tradicional": "點",
-            "pinyin": "diǎn",
-            "zhuyin": "ㄉㄧㄢˇ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "黑 (hēi - negro)"
-                },
-                {
-                    "type": "text",
-                    "value": "占 (zhān - adivinar)"
-                }
-            ],
-            "notas": "Pictograma de gotas negras de hollín. Clasificador para las horas puntuales del reloj (三點 = las tres) y verbo para pedir comida (點菜).",
-            "ejemplos": [
-                "現在幾點？現在十點 — ¿Qué hora es ahora? Son las diez",
-                "我們早上八點半上課 — Empezamos la clase a las 8:30 de la mañana"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_fen",
-            "espanol": "Minuto (hora)",
-            "tradicional": "分",
-            "pinyin": "fēn",
-            "zhuyin": "ㄈㄣ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "八 (bā - dividir)"
-                },
-                {
-                    "type": "text",
-                    "value": "刀 (dāo - cuchillo)"
-                }
-            ],
-            "notas": "Un cuchillo que divide algo en dos partes. Clasificador numeral para minutos de reloj y puntos de calificación.",
-            "ejemplos": [
-                "現在是三點十五分 — Ahora son las tres con quince minutos",
-                "差五分八點 — Cinco para las ocho (7:55)"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_ke_time",
-            "espanol": "Cuarto de hora (15 min)",
-            "tradicional": "刻",
-            "pinyin": "kè",
-            "zhuyin": "ㄎㄜˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "亥 (hài - jabalí)"
-                },
-                {
-                    "type": "text",
-                    "value": "刂 (dāo - cuchillo)"
-                }
-            ],
-            "notas": "Una marca grabada con cuchillo en el cuadrante de un reloj de sol. Clasificador tradicional para cuartos de hora (15 minutos).",
-            "ejemplos": [
-                "現在是十點一刻 — Ahora son las diez y cuarto (10:15)",
-                "差一刻十二點 — Falta un cuarto para las doce (11:45)"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_ri",
-            "espanol": "Día (calendario)",
-            "tradicional": "日",
-            "pinyin": "rì",
-            "zhuyin": "ㄖˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "日 (rì - sol)"
-                }
-            ],
-            "notas": "Pictograma directo del disco solar. Clasificador formal y escrito para el día del mes (en lenguaje oral cotidiano se usa 號).",
-            "ejemplos": [
-                "今天是九月二十七日 — Hoy es 27 de septiembre",
-                "十月十日是國慶日 — El 10 de octubre es el Día Nacional"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_hao",
-            "espanol": "Día del mes",
-            "tradicional": "號",
-            "pinyin": "hào",
-            "zhuyin": "ㄏㄠˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "口 (kǒu - boca)"
-                },
-                {
-                    "type": "text",
-                    "value": "虎 (hǔ - tigre)"
-                }
-            ],
-            "notas": "Gritar o proclamar una marca distintiva. Clasificador oral habitual en Taiwán para el día de la fecha y números identificativos.",
-            "ejemplos": [
-                "明天是幾號？明天是五號 — ¿Qué día es mañana? Mañana es cinco",
-                "你的手機號碼是幾號？ — ¿Cuál es tu número de teléfono?"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_xie",
-            "espanol": "Unos pocos (plural)",
-            "tradicional": "些",
-            "pinyin": "xiē",
-            "zhuyin": "ㄒㄧㄝ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "此 (cǐ - este)"
-                },
-                {
-                    "type": "text",
-                    "value": "二 (èr - dos)"
-                }
-            ],
-            "notas": "Compuesto por 'este' y 'dos' simbolizando multiplicidad. Clasificador plural indefinido para cantidades pequeñas: 一些, 這些, 那些.",
-            "ejemplos": [
-                "我想買一些花 — Quiero comprar algunas flores",
-                "這些書都很新 — Estos libros son muy nuevos"
-            ],
-            "fechaCreacion": "2026-09-28"
-        },
-        {
-            "id": "id_clf_zhi_phone",
-            "espanol": "Clasificador para teléfonos celulares, bolígrafos y objetos delgados",
-            "tradicional": "支",
-            "pinyin": "zhī",
-            "zhuyin": "ㄓ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "十 (shí - diez)"
-                },
-                {
-                    "type": "text",
-                    "value": "又 (yòu - mano/otra vez)"
-                }
-            ],
-            "notas": "Clasificador fundamental en Taiwán para teléfonos móviles (手機), bolígrafos (筆) y botellas cilíndricas.",
-            "ejemplos": [
-                "我想買一支新手機。 — Quiero comprar un teléfono celular nuevo.",
-                "這支手機要多少錢？ — ¿Cuánto cuesta este teléfono móvil?"
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_clf_kuai",
-            "espanol": "Clasificador de dinero (NT$)",
-            "tradicional": "塊",
-            "pinyin": "kuài",
-            "zhuyin": "ㄎㄨㄞˋ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "土 (tǔ - tierra)"
-                },
-                {
-                    "type": "text",
-                    "value": "鬼 (guǐ - fantasma/espíritu)"
-                }
-            ],
-            "notas": "Clasificador por excelencia de la moneda hablada en Taiwán (equivalente a NT$ / dólares / pesos), y para trozos o pedazos (una porción de pastel: 一塊蛋糕).",
-            "ejemplos": [
-                "一杯熱茶三十五塊。 — Una taza de té caliente cuesta treinta y cinco dólares.",
-                "這本書兩百塊錢。 — Este libro cuesta doscientos dólares."
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_clf_zhong",
-            "espanol": "Clasificador para tipos, clases, especies o variedades",
-            "tradicional": "種",
-            "pinyin": "zhǒng",
-            "zhuyin": "ㄓㄨㄥˇ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "禾 (hé - cereal/grano)"
-                },
-                {
-                    "type": "text",
-                    "value": "重 (zhòng - pesado)"
-                }
-            ],
-            "notas": "Clasificador para indicar tipos o clases de cosas o personas: 這種類 (este tipo), 很多種 (muchos tipos).",
-            "ejemplos": [
-                "這家咖啡店有五種茶。 — Esta cafetería tiene cinco tipos de té.",
-                "那種手機賣得非常好。 — Ese tipo de teléfono se vende muy bien."
-            ],
-            "leccion": 4
-        },
-        {
-            "id": "id_clf_jia_shop",
-            "espanol": "Tiendas o restaurantes",
-            "tradicional": "家",
-            "pinyin": "jiā",
-            "zhuyin": "ㄐㄧㄚ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "宀 (mián - techo)"
-                },
-                {
-                    "type": "text",
-                    "value": "豕 (shǐ - cerdo)"
-                }
-            ],
-            "notas": "Clasificador para establecimientos comerciales, empresas, tiendas y restaurantes.",
-            "ejemplos": [
-                "這家餐廳的小吃很有名 — Los aperitivos de este restaurante son muy famosos",
-                "我想去那家店買茶 — Quiero ir a esa tienda a comprar té"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        },
-        {
-            "id": "id_clf_wan",
-            "espanol": "Tazón",
-            "tradicional": "碗",
-            "pinyin": "wǎn",
-            "zhuyin": "ㄨㄢˇ",
-            "categoria": "clasificador",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "石 (shí - piedra)"
-                },
-                {
-                    "type": "text",
-                    "value": "宛 (wǎn - cuenco)"
-                }
-            ],
-            "notas": "Clasificador contenedor para porciones de comida o sopa servidas en cuencos o tazones.",
-            "ejemplos": [
-                "我要一碗牛肉麵 — Quiero un tazón de fideos con carne de res",
-                "請給他一碗熱湯 — Por favor dale un tazón de sopa caliente"
-            ],
-            "fechaCreacion": "2026-10-19",
-            "leccion": 5
-        }
     ]
 };
 
-
-/**
- * Default classifiers for migration and validation.
- */
 const DEFAULT_CLASSIFIERS = SEED_DATA.clasificadores;
 
-/**
- * Structure words for auto-migration.
- */
 const NEW_STRUCTURE_WORDS = [
     ...(SEED_DATA.palabras || []),
     ...(SEED_DATA.verbos || []),
-    ...(SEED_DATA.adjetivos || []),
     ...(SEED_DATA.adverbios || []),
-    ...(SEED_DATA.expresiones || []),
+    ...(SEED_DATA.conjunciones || []),
+    ...(SEED_DATA.preposiciones || []),
     ...(SEED_DATA.particulas || []),
+    ...(SEED_DATA.determinantes || []),
     ...(SEED_DATA.clasificadores || []),
 ];
 

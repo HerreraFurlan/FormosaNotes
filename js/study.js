@@ -88,6 +88,11 @@ const loadStudyPreferences = () => {
             } catch {
                 currentStudyCategories = [savedCats];
             }
+            if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.normalizeCategoryId === 'function') {
+                currentStudyCategories = Array.from(new Set(
+                    currentStudyCategories.map(c => c === 'todos' ? 'todos' : APP_CONFIG.normalizeCategoryId(c))
+                ));
+            }
         }
     } catch (e) {
         console.warn("No se pudieron cargar las preferencias de estudio:", e);
@@ -241,14 +246,17 @@ const buildCardFacesHtml = (word) => {
     const lenClass = charLen <= 1 ? 'len-1' : charLen === 2 ? 'len-2' : charLen === 3 ? 'len-3' : charLen === 4 ? 'len-4' : charLen === 5 ? 'len-5' : charLen === 6 ? 'len-6' : 'len-long';
     const pinyinLenClass = (word.pinyin || '').length > 16 ? 'pinyin-long' : '';
 
-    const catLabel = window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria);
+    const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
+    const posBadge = (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getWordPOSBadgeInfo === 'function')
+        ? APP_CONFIG.getWordPOSBadgeInfo(word, lang)
+        : { label: window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria), tooltip: '' };
     const lessonShort = word.leccion
         ? ((window.I18N && window.I18N.getLessonLabel) ? window.I18N.getLessonLabel(word.leccion, true) : `L${word.leccion}`)
         : '';
 
     const categoryBadge = studyShowCategory ? `
-        <span class="card-category-badge badge badge-${word.categoria}">
-            ${catLabel}${lessonShort ? ` · ${lessonShort}` : ''}
+        <span class="card-category-badge badge badge-${word.categoria}" title="${posBadge.tooltip || ''}">
+            ${posBadge.label}${lessonShort ? ` · ${lessonShort}` : ''}
         </span>
     ` : '';
 

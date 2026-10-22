@@ -241,11 +241,20 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                 });
             }
         }
-        for (const cat of allCollections) {
+        // 7. Sync updated POS categories (八大詞類), verbSubtypes (動詞分類), semanticTags, definitions, mnemonics, radicals, leccion from activeSeed
+        const legacyAndCurrentCols = Array.from(new Set([...allCollections, 'adjetivos', 'expresiones']));
+        for (const cat of legacyAndCurrentCols) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => {
                     const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
                     if (seedWord) {
+                        w.categoria = seedWord.categoria;
+                        w.posSymbol = seedWord.posSymbol || seedWord.categoria;
+                        if (seedWord.verbSubtype) w.verbSubtype = seedWord.verbSubtype;
+                        else delete w.verbSubtype;
+                        if (seedWord.sepParts) w.sepParts = JSON.parse(JSON.stringify(seedWord.sepParts));
+                        else delete w.sepParts;
+                        if (seedWord.semanticTags) w.semanticTags = JSON.parse(JSON.stringify(seedWord.semanticTags));
                         w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
                         w.notas = seedWord.notas;
                         if (seedWord.notas_en) w.notas_en = seedWord.notas_en;
@@ -256,12 +265,34 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
                         }
+                    } else if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.normalizeCategoryId === 'function') {
+                        w.categoria = APP_CONFIG.normalizeCategoryId(w.categoria);
+                        w.posSymbol = w.posSymbol || w.categoria;
                     }
                 });
             }
         }
 
-        // 8. Ensure all cards from activeSeed exist in data (including split cards)
+        // 7b. Re-bucket any cards whose collection changed (e.g. from legacy adjetivos/expresiones to verbos/determinantes/conjunciones/preposiciones)
+        const bucketed = {};
+        allCollections.forEach(c => { bucketed[c] = []; });
+        const seenIds = new Set();
+        for (const col of legacyAndCurrentCols) {
+            if (Array.isArray(data[col])) {
+                for (const w of data[col]) {
+                    if (!w || !w.id || seenIds.has(w.id)) continue;
+                    seenIds.add(w.id);
+                    const targetCol = getCategoryKey(w.categoria);
+                    if (!bucketed[targetCol]) bucketed[targetCol] = [];
+                    bucketed[targetCol].push(w);
+                }
+            }
+        }
+        allCollections.forEach(c => { data[c] = bucketed[c] || []; });
+        delete data.adjetivos;
+        delete data.expresiones;
+
+        // 8. Ensure all cards from activeSeed exist in data (including new Prep/Ptc/V-sep cards)
         for (const cat of allCollections) {
             if (Array.isArray(activeSeed[cat])) {
                 if (!Array.isArray(data[cat])) data[cat] = [];

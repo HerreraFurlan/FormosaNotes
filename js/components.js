@@ -176,7 +176,10 @@ const createFlashcard = (word, options = {}) => {
     const lenClass = charLen <= 1 ? 'len-1' : charLen === 2 ? 'len-2' : charLen === 3 ? 'len-3' : charLen === 4 ? 'len-4' : charLen === 5 ? 'len-5' : charLen === 6 ? 'len-6' : 'len-long';
     const pinyinLenClass = (word.pinyin || '').length > 16 ? 'pinyin-long' : '';
 
-    const catLabel = window.getCategoryLabel ? window.getCategoryLabel(word.categoria) : (CATEGORY_LABELS[word.categoria] || word.categoria);
+    const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
+    const posBadge = (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getWordPOSBadgeInfo === 'function')
+        ? APP_CONFIG.getWordPOSBadgeInfo(word, lang)
+        : { code: word.posSymbol || word.categoria, label: word.categoria, tooltip: '', color };
     const lessonShort = word.leccion
         ? ((window.I18N && window.I18N.getLessonLabel) ? window.I18N.getLessonLabel(word.leccion, true) : `L${word.leccion}`)
         : '';
@@ -187,7 +190,7 @@ const createFlashcard = (word, options = {}) => {
         ${word.zhuyin ? `<span class="zhuyin-corner">${word.zhuyin}</span>` : ''}
         <div class="chinese-char ${lenClass}">${word.tradicional}</div>
         <div class="pinyin-label ${pinyinLenClass}">${word.pinyin}</div>
-        <span class="card-category-badge badge badge-${word.categoria}">${catLabel}${lessonShort ? ` · ${lessonShort}` : ''}</span>
+        <span class="card-category-badge badge badge-${word.categoria}" title="${posBadge.tooltip}">${posBadge.label}${lessonShort ? ` · ${lessonShort}` : ''}</span>
     `;
 
     // --- BACK FACE ---
@@ -253,48 +256,83 @@ const createFlashcard = (word, options = {}) => {
 };
 
 // --------------------------------------------------
-// Mini card (word bank)
+// Mini card (word bank — Atomic Token style)
 // --------------------------------------------------
 
 /**
- * Creates a small draggable word card for the word bank.
+ * Creates a small draggable atomic word card for the word bank.
+ * Neutral rice-paper background with a subtle POS dot and symbol (N, Vs, Vaux, V-sep, Prep, M, Det, Adv, Ptc).
  * @param {object} word
  * @returns {HTMLElement}
  */
 const createMiniCard = (word) => {
-    const color = CATEGORY_COLORS[word.categoria] || 'var(--color-noun)';
+    const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
+    const posBadge = (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getWordPOSBadgeInfo === 'function')
+        ? APP_CONFIG.getWordPOSBadgeInfo(word, lang)
+        : { code: word.posSymbol || word.categoria, shortLabel: word.posSymbol || word.categoria, tooltip: '', color: CATEGORY_COLORS[word.categoria] || 'var(--color-pos-n)' };
+    const color = posBadge.color || CATEGORY_COLORS[word.categoria] || 'var(--color-pos-n)';
+    const meaning = (window.I18N && window.I18N.getWordMeaning) ? window.I18N.getWordMeaning(word) : (word.espanol || '');
+
     const div = document.createElement('div');
-    div.className = 'mini-card';
+    div.className = 'mini-card atomic-token';
     div.dataset.id = word.id;
     div.dataset.tradicional = word.tradicional;
     div.dataset.pinyin = word.pinyin;
     div.dataset.categoria = word.categoria;
+    div.dataset.posSymbol = posBadge.shortLabel || posBadge.code;
+    div.title = `${word.tradicional} (${word.pinyin}) — ${meaning}\n${posBadge.tooltip}`;
     div.style.setProperty('--card-color', color);
     div.innerHTML = `
         <span class="mini-char">${word.tradicional}</span>
         <span class="mini-pinyin">${word.pinyin}</span>
+        <span class="atomic-pos-tag">
+            <span class="atomic-pos-dot" style="background:${color}"></span>
+            <span>${posBadge.shortLabel || posBadge.code}</span>
+        </span>
     `;
     return div;
 };
 
 /**
- * Creates a mini card for the builder dropzone (includes remove button).
- * @param {object} word
+ * Creates an interactive atomic token for the Magnetic Syntagma builder dropzone.
+ * Includes remove button (✕) and separable verb split button (⇄) for V-sep / Vs-sep / Vp-sep.
+ * @param {object} token
+ * @param {object} [handlers]
  * @returns {HTMLElement}
  */
-const createBuilderMiniCard = (word) => {
-    const card = createMiniCard(word);
+const createBuilderMiniCard = (token, handlers = {}) => {
+    const card = createMiniCard(token);
+    card.dataset.tokenIndex = token.index !== undefined ? String(token.index) : '';
+
+    // Separable verb split button (⇄) for V-sep / Vs-sep / Vp-sep
+    const isSeparable = ['V-sep', 'Vs-sep', 'Vp-sep'].includes(token.verbSubtype || token.posSymbol) && !token.isSplitVerbHead && (token.tradicional || '').length >= 2;
+    if (isSeparable && typeof handlers.onSplitSeparable === 'function') {
+        const splitBtn = document.createElement('button');
+        splitBtn.type = 'button';
+        splitBtn.className = 'mini-split-btn';
+        splitBtn.innerHTML = '⇄';
+        splitBtn.title = (window.I18N && window.I18N.getLanguage && window.I18N.getLanguage() === 'en')
+            ? `Split separable verb (${token.posSymbol} · 離合詞) to insert particles/classifiers inside`
+            : `Separar verbo (${token.posSymbol} · 離合詞) para insertar partículas o clasificadores en medio`;
+        splitBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            handlers.onSplitSeparable(token.index);
+        });
+        card.appendChild(splitBtn);
+    }
+
     const removeBtn = document.createElement('button');
+    removeBtn.type = 'button';
     removeBtn.className = 'mini-remove';
     removeBtn.innerHTML = '✕';
     removeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        card.style.transform = 'scale(0)';
-        card.style.opacity = '0';
-        setTimeout(() => {
+        if (typeof handlers.onRemove === 'function') {
+            handlers.onRemove(token.index);
+        } else {
             card.remove();
-            updateBuilderPreview(); // defined in builder.js
-        }, 200);
+            if (typeof updateBuilderPreview === 'function') updateBuilderPreview();
+        }
     });
     card.appendChild(removeBtn);
     return card;

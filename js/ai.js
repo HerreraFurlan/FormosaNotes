@@ -346,33 +346,31 @@ const checkSentenceWithGemini = async (sentence) => {
     const langName = getAILangName();
 
     const prompt = isEn
-        ? `Evaluate the following sentence constructed by a student of Taiwanese Traditional Mandarin:
+        ? `Evaluate the following sentence constructed by a student of Taiwanese Traditional Mandarin (Level 3 Semantic & Contextual Fallback):
 Sentence: "${sentence}"
 
-Evaluation Checklist:
-1. Word Order: Check Mandarin syntax (Subject + Time + Place + Adverb + Verb + Object / Complement).
-2. Adjectives & Linking Verbs: Ensure predicative adjectives use a degree adverb like 很 instead of 是 (unless emphatic), and nouns use 是.
-3. Measure Words (Classifiers): Verify that numerals/demonstratives (這, 那, 幾 + number) use the appropriate Taiwanese classifier (e.g. 個, 位, 本, 杯, 支, 家, 碗, 張).
-4. Particles & Negation: Check proper usage of 的, 了, 嗎, 呢, 吧, and negation (不 vs 沒/沒有 with 有).
+Evaluation Checklist (Taiwan MTC 當代中文課程 / 詞類表 standard):
+1. Canonical SVO Slots: [Topic/Subject] -> [Time] -> [Company (跟)] -> [Location (在)] -> [Modal/Neg (Vaux/Adv)] -> [Verb/State (V/Vs)] -> [Object].
+2. State Verbs (Vs / Vst) & Separable Verbs (V-sep 離合詞): Ensure Vs use degree adverbs (很) instead of 是, and V-sep (e.g. 唱歌, 上網, 游泳, 照相) handle inner objects properly.
+3. Measure Words (M 量詞) & Aspect/Modal Particles (Ptc 助詞: 了, 過, 的, 得, 嗎, 呢, 吧): Check semantic coherence, Taiwanese usage, and aspect placement.
 
 Rules for response fields:
-- "correcta": true if grammatically sound and natural in Taiwan; false if it has syntax, classifier, or lexical errors.
-- "explicacion": 1 concise pedagogical sentence in English (max 25 words) explaining why it is right or the exact grammar rule to fix. Do NOT use double quotes inside the string.
+- "correcta": true if grammatically and semantically natural in Taiwan; false if it needs adjustment.
+- "explicacion": Maximum 2 concise pedagogical sentences in English explaining semantic naturalness or the exact rule (Vs, V-sep, M, Ptc, or slot order). Do NOT use double quotes inside the string.
 - "correccion": The best natural version in Traditional Chinese (identical to input if already perfect).
 - "pinyin": Hanyu Pinyin with tone marks for "correccion".
 - "traduccion": Natural English translation of the sentence.`
-        : `Evalúa la siguiente oración construida por un estudiante de Mandarín Tradicional de Taiwán:
+        : `Evalúa la siguiente oración construida por un estudiante de Mandarín Tradicional de Taiwán (Nivel 3: Validación Semántica y Contextual):
 Oración: "${sentence}"
 
-Criterios de evaluación:
-1. Orden sintáctico: Verifica el orden en mandarín (Sujeto + Tiempo + Lugar + Adverbio + Verbo + Objeto / Complemento).
-2. Adjetivos y verbo copulativo: Verifica que los adjetivos predicativos usen adverbio de grado (ej. 很) en lugar de 是, y que 是 se use para vincular sustantivos.
-3. Clasificadores: Verifica que numerales y demostrativos (這, 那, 幾) lleven el clasificador taiwanés adecuado (個, 位, 本, 杯, 支, 家, 碗, 張).
-4. Partículas y negación: Verifica el uso correcto de 的, 了, 嗎, 呢, 吧 y la diferencia entre 不 y 沒 (ej. 沒有).
+Criterios de evaluación (Estándar oficial 當代中文課程 / 詞類表):
+1. Slots Canónicos SVO: [Tópico/Sujeto] -> [Tiempo] -> [Compañía (跟)] -> [Lugar (在)] -> [Modal/Neg (Vaux/Adv)] -> [Verbo/Estado (V/Vs)] -> [Objeto].
+2. Verbos de Estado (Vs / Vst) y Verbos Separables (V-sep 離合詞): Verifica que los Vs usen adverbio de grado (很) en vez de 是, y que los V-sep (唱歌, 上網, 游泳, 照相) manejen bien su objeto interno.
+3. Clasificadores (M 量詞) y Partículas (Ptc 助詞: 了, 過, 的, 得, 嗎, 呢, 吧): Verifica coherencia semántica, colocación aspectual y naturalidad en Taiwán.
 
 Reglas de los campos de respuesta:
-- "correcta": true si es gramaticalmente correcta y natural en Taiwán; false si presenta errores de orden, clasificador o vocabulario.
-- "explicacion": 1 oración pedagógica concisa en ${langName} (máximo 25 palabras) explicando el acierto o la regla exacta a corregir. PROHIBIDO usar comillas dobles dentro del texto.
+- "correcta": true si es gramatical y semánticamente natural en Taiwán; false si requiere ajuste.
+- "explicacion": Máximo 2 oraciones pedagógicas concisas en ${langName} explicando la naturalidad semántica o la regla exacta (Vs, V-sep, M, Ptc u orden de slots). PROHIBIDO usar comillas dobles dentro del texto.
 - "correccion": La versión más natural en chino tradicional (igual a la original si ya es perfecta).
 - "pinyin": Pinyin con marcas tonales de la versión corregida.
 - "traduccion": Traducción natural al ${langName}.`;
