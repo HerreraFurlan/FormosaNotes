@@ -249,6 +249,8 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                     const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
                     if (seedWord) {
                         w.categoria = seedWord.categoria;
+                        if (seedWord.pinyin) w.pinyin = seedWord.pinyin;
+                        if (seedWord.zhuyin) w.zhuyin = seedWord.zhuyin;
                         w.posSymbol = seedWord.posSymbol || seedWord.categoria;
                         if (seedWord.verbSubtype) w.verbSubtype = seedWord.verbSubtype;
                         else delete w.verbSubtype;
