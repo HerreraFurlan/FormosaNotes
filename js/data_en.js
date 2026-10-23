@@ -1238,19 +1238,20 @@ const SEED_DATA_EN = {
             "id": "id_mtjm882n_ocqu8",
             "fechaCreacion": "2026-09-02",
             "ejemplos": [
-                "我們都是學生 — We are all students",
-                "他是中文學生 — He is a Chinese student"
+                "那個學校的學生常來這家店喝咖啡、看書 — Students from that school often come to this shop to drink coffee and read books",
+                "餐廳在學生宿舍的一樓 — The restaurant is on the first floor of the student dorm"
             ],
             "english": "Student",
             "notas_en": "Literally 'learner born to knowledge'. 學 (study) + 生 (born).",
             "ejemplos_en": [
-                "我們都是學生 — We are all students",
-                "他是中文學生 — He is a Chinese student"
+                "那個學校的學生常來這家店喝咖啡、看書 — Students from that school often come to this shop to drink coffee and read books",
+                "餐廳在學生宿舍的一樓 — The restaurant is on the first floor of the student dorm"
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "person"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "espanol": "Heart",
@@ -2354,20 +2355,21 @@ const SEED_DATA_EN = {
             ],
             "notas": "Space 至 under roof 宀 where teaching takes place 教. Classifier: 間 (jiān).",
             "ejemplos": [
-                "教室在哪裡？ — Where is the classroom?",
-                "學生們都在教室裡 — The students are all inside the classroom"
+                "我們現在要去教室上課 — We are going to the classroom to go to class now",
+                "旁邊的那棟大樓是教室 — The building next to it is the classrooms"
             ],
             "fechaCreacion": "2026-09-27",
             "english": "Classroom",
             "notas_en": "Space 至 under roof 宀 where teaching takes place 教. Classifier: 間 (jiān).",
             "ejemplos_en": [
-                "教室在哪裡？ — Where is the classroom?",
-                "學生們都在教室裡 — The students are all inside the classroom"
+                "我們現在要去教室上課 — We are going to the classroom to go to class now",
+                "旁邊的那棟大樓是教室 — The building next to it is the classrooms"
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "place"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "id": "id_voc_wenti",
@@ -4145,24 +4147,25 @@ const SEED_DATA_EN = {
             ],
             "notas": "Teaching and study center: 學 (learn) + 校 (institution).",
             "ejemplos": [
-                "我們學校很大 — Our school is big",
-                "你怎麼去學校？ — How do you go to school?"
+                "你們學校很有名 — Your school is very famous",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
             ],
             "fechaCreacion": "2026-09-28",
             "english": "School",
             "notas_en": "Teaching and study center: 學 (learn) + 校 (institution).",
             "ejemplos_en": [
-                "我們學校很大 — Our school is big",
-                "你怎麼去學校？ — How do you go to school?"
+                "你們學校很有名 — Your school is very famous",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "place"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "id": "id_voc_nali",
-            "espanol": "Where?",
+            "espanol": "Where",
             "tradicional": "哪裡",
             "pinyin": "nǎlǐ",
             "zhuyin": "ㄋㄚˇ ㄌㄧˇ",
@@ -4180,21 +4183,22 @@ const SEED_DATA_EN = {
             ],
             "notas": "Interrogative pronoun of predominant place in Taiwan: 教室在哪裡？ Also modest polite reply.",
             "ejemplos": [
-                "教室在哪裡？ — Where is the classroom?",
-                "你要去哪裡？ — Where are you going?"
+                "週末你想去哪裡？ — Where would you like to go on the weekend?",
+                "他們學校在哪裡？ — Where is their school?"
             ],
             "fechaCreacion": "2026-09-28",
-            "english": "Where?",
+            "english": "Where",
             "notas_en": "Interrogative pronoun of predominant place in Taiwan: 教室在哪裡？ Also modest polite reply.",
             "ejemplos_en": [
-                "教室在哪裡？ — Where is the classroom?",
-                "你要去哪裡？ — Where are you going?"
+                "週末你想去哪裡？ — Where would you like to go on the weekend?",
+                "他們學校在哪裡？ — Where is their school?"
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "place",
                 "question"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "id": "id_l3_zhoumo",
@@ -5276,19 +5280,891 @@ const SEED_DATA_EN = {
             ],
             "notas": "Jade that shines and becomes visible in the present. Temporal frame for 'at this moment', placed before the verb.",
             "ejemplos": [
-                "現在幾點？ — What time is it now?",
-                "我現在要去教室 — Now I'm going to the classroom"
+                "你爸爸媽媽現在在家嗎？ — Are your parents at home now?",
+                "我現在要去學校附近的咖啡店買咖啡 — I am going to a café near the school now to buy some coffee"
             ],
             "fechaCreacion": "2026-09-28",
             "english": "Now",
             "notas_en": "Jade that shines and becomes visible in the present. Temporal frame for 'at this moment', placed before the verb.",
             "ejemplos_en": [
-                "現在幾點？ — What time is it now?",
-                "我現在要去教室 — Now I'm going to the classroom"
+                "你爸爸媽媽現在在家嗎？ — Are your parents at home now?",
+                "我現在要去學校附近的咖啡店買咖啡 — I am going to a café near the school now to buy some coffee"
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "time"
+            ],
+            "leccion": 6
+        },
+        {
+            "id": "id_l6_tamen",
+            "espanol": "They",
+            "tradicional": "他們",
+            "pinyin": "tāmen",
+            "zhuyin": "ㄊㄚ ˙ㄇㄣ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "p3"
+                },
+                {
+                    "type": "ref",
+                    "id": "pt1"
+                }
+            ],
+            "notas": "3rd person plural pronoun (used for people only): 他 (he) + 們 (plural suffix).",
+            "ejemplos": [
+                "他們都會做甜點 — They all know how to make desserts",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "They",
+            "notas_en": "3rd person plural pronoun (used for people only): 他 (he) + 們 (plural suffix).",
+            "ejemplos_en": [
+                "他們都會做甜點 — They all know how to make desserts",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "pronoun",
+                "person"
+            ]
+        },
+        {
+            "id": "id_l6_shanshang",
+            "espanol": "In the mountains",
+            "tradicional": "山上",
+            "pinyin": "shānshàng",
+            "zhuyin": "ㄕㄢ ㄕㄤˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l6_shan"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_shang"
+                }
+            ],
+            "notas": "Locative noun composed of 山 (mountain) and 上 (on / up): on a mountain, in the mountains.",
+            "ejemplos": [
+                "他常常到山上去運動 — He often goes up to the mountains to exercise",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "In the mountains",
+            "notas_en": "Locative noun composed of 山 (mountain) and 上 (on / up): on a mountain, in the mountains.",
+            "ejemplos_en": [
+                "他常常到山上去運動 — He often goes up to the mountains to exercise",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_nali_there",
+            "espanol": "There",
+            "tradicional": "那裡",
+            "pinyin": "nàlǐ",
+            "zhuyin": "ㄋㄚˋ ㄌㄧˇ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0mdne_r4neq"
+                },
+                {
+                    "type": "text",
+                    "value": "裡 (lǐ - place/inside)"
+                }
+            ],
+            "notas": "Distal demonstrative place noun (\"there\", \"that place\").",
+            "ejemplos": [
+                "那裡有一家有名的咖啡店 — There is a famous café there",
+                "那裡的風景一定很美 — The scenery there must be very beautiful"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "There",
+            "notas_en": "Distal demonstrative place noun (\"there\", \"that place\").",
+            "ejemplos_en": [
+                "那裡有一家有名的咖啡店 — There is a famous café there",
+                "那裡的風景一定很美 — The scenery there must be very beautiful"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_fengjing",
+            "espanol": "Scenery",
+            "tradicional": "風景",
+            "pinyin": "fēngjǐng",
+            "zhuyin": "ㄈㄥ ㄐㄧㄥˇ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "風 (fēng - wind)"
+                },
+                {
+                    "type": "text",
+                    "value": "景 (jǐng - view/scene)"
+                }
+            ],
+            "notas": "Literally \"wind and bright view\": scenery or landscape.",
+            "ejemplos": [
+                "那裡的風景不錯，我們去那裡吧 — The scenery there is nice, let's go there",
+                "山上的風景一定很美 — The scenery in the mountains must be very beautiful"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Scenery",
+            "notas_en": "Literally \"wind and bright view\": scenery or landscape.",
+            "ejemplos_en": [
+                "那裡的風景不錯，我們去那裡吧 — The scenery there is nice, let's go there",
+                "山上的風景一定很美 — The scenery in the mountains must be very beautiful"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l6_qianmian",
+            "espanol": "Front / In front",
+            "tradicional": "前面",
+            "pinyin": "qiánmiàn",
+            "zhuyin": "ㄑㄧㄢˊ ㄇㄧㄢˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "前 (qián - front)"
+                },
+                {
+                    "type": "text",
+                    "value": "面 (miàn - face/side)"
+                }
+            ],
+            "notas": "Position noun indicating the front part or in front of something. Antonym: 後面.",
+            "ejemplos": [
+                "那家店的前面常常有很多人 — There are often many people in front of that shop",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Front / In front",
+            "notas_en": "Position noun indicating the front part or in front of something. Antonym: 後面.",
+            "ejemplos_en": [
+                "那家店的前面常常有很多人 — There are often many people in front of that shop",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_hai",
+            "espanol": "Ocean / Sea",
+            "tradicional": "海",
+            "pinyin": "hǎi",
+            "zhuyin": "ㄏㄞˇ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "rad_agua_1786603351443"
+                },
+                {
+                    "type": "text",
+                    "value": "每 (měi - every)"
+                }
+            ],
+            "notas": "Composed of the water radical 氵 and 每: ocean or sea.",
+            "ejemplos": [
+                "李小姐很喜歡看海 — Miss Li likes watching the ocean very much",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Ocean / Sea",
+            "notas_en": "Composed of the water radical 氵 and 每: ocean or sea.",
+            "ejemplos_en": [
+                "李小姐很喜歡看海 — Miss Li likes watching the ocean very much",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l6_houmian",
+            "espanol": "Back / Behind",
+            "tradicional": "後面",
+            "pinyin": "hòumiàn",
+            "zhuyin": "ㄏㄡˋ ㄇㄧㄢˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "後 (hòu - behind)"
+                },
+                {
+                    "type": "text",
+                    "value": "面 (miàn - face/side)"
+                }
+            ],
+            "notas": "Position noun for the back or behind a reference point. Antonym: 前面.",
+            "ejemplos": [
+                "你家在這家咖啡店的後面嗎？ — Is your home behind this coffee shop?",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Back / Behind",
+            "notas_en": "Position noun for the back or behind a reference point. Antonym: 前面.",
+            "ejemplos_en": [
+                "你家在這家咖啡店的後面嗎？ — Is your home behind this coffee shop?",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_shan",
+            "espanol": "Mountain",
+            "tradicional": "山",
+            "pinyin": "shān",
+            "zhuyin": "ㄕㄢ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "山 (shān - mountain)"
+                }
+            ],
+            "notas": "Direct pictograph of three mountain peaks.",
+            "ejemplos": [
+                "你覺得那裡的山美不美？ — Do you think the mountains there are beautiful?",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Mountain",
+            "notas_en": "Direct pictograph of three mountain peaks.",
+            "ejemplos_en": [
+                "你覺得那裡的山美不美？ — Do you think the mountains there are beautiful?",
+                "他們學校前面有海，後面有山 — In front of their school is the ocean and behind it there are mountains"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l6_difang",
+            "espanol": "Place",
+            "tradicional": "地方",
+            "pinyin": "dìfāng",
+            "zhuyin": "ㄉㄧˋ ㄈㄤ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "地 (dì - earth/ground)"
+                },
+                {
+                    "type": "text",
+                    "value": "方 (fāng - direction/region)"
+                }
+            ],
+            "notas": "General noun for place, site, or location. Measure word: 個 (gè).",
+            "ejemplos": [
+                "你覺得這個地方怎麼樣？ — How do you find this place?",
+                "那裡真的是一個很漂亮的地方 — It is really a very beautiful place"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Place",
+            "notas_en": "General noun for place, site, or location. Measure word: 個 (gè).",
+            "ejemplos_en": [
+                "你覺得這個地方怎麼樣？ — How do you find this place?",
+                "那裡真的是一個很漂亮的地方 — It is really a very beautiful place"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_fujin",
+            "espanol": "Vicinity / Near",
+            "tradicional": "附近",
+            "pinyin": "fùjìn",
+            "zhuyin": "ㄈㄨˋ ㄐㄧㄣˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "附 (fù - attached)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l6_jin"
+                }
+            ],
+            "notas": "Locative noun indicating the vicinity or area near a place (e.g. 學校附近 = near the school).",
+            "ejemplos": [
+                "他家附近的山真的很漂亮 — The mountains near his house are really pretty",
+                "我現在要去學校附近的咖啡店買咖啡 — I am going to a café near the school now to buy some coffee"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Vicinity / Near",
+            "notas_en": "Locative noun indicating the vicinity or area near a place (e.g. 學校附近 = near the school).",
+            "ejemplos_en": [
+                "他家附近的山真的很漂亮 — The mountains near his house are really pretty",
+                "我現在要去學校附近的咖啡店買咖啡 — I am going to a café near the school now to buy some coffee"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_louxia",
+            "espanol": "Downstairs",
+            "tradicional": "樓下",
+            "pinyin": "lóuxià",
+            "zhuyin": "ㄌㄡˊ ㄒㄧㄚˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l6_lou"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xia"
+                }
+            ],
+            "notas": "Locative noun composed of 樓 (floor/building) and 下 (below): downstairs.",
+            "ejemplos": [
+                "他去樓下做什麼？ — What did he go downstairs to do?",
+                "我去樓下找朋友，我們要一起去上課 — I am going downstairs to meet a friend; we are going to class together"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Downstairs",
+            "notas_en": "Locative noun composed of 樓 (floor/building) and 下 (below): downstairs.",
+            "ejemplos_en": [
+                "他去樓下做什麼？ — What did he go downstairs to do?",
+                "我去樓下找朋友，我們要一起去上課 — I am going downstairs to meet a friend; we are going to class together"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_pengyou",
+            "espanol": "Friend",
+            "tradicional": "朋友",
+            "pinyin": "péngyǒu",
+            "zhuyin": "ㄆㄥˊ ㄧㄡˇ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "朋 (péng - companion)"
+                },
+                {
+                    "type": "text",
+                    "value": "友 (yǒu - friend)"
+                }
+            ],
+            "notas": "朋 depicts two matching strings of shells and 友 two hands joined in friendship.",
+            "ejemplos": [
+                "他沒有很多朋友 — He does not have many friends",
+                "我去樓下找朋友 — I am going downstairs to meet a friend"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Friend",
+            "notas_en": "朋 depicts two matching strings of shells and 友 two hands joined in friendship.",
+            "ejemplos_en": [
+                "他沒有很多朋友 — He does not have many friends",
+                "我去樓下找朋友 — I am going downstairs to meet a friend"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "person"
+            ]
+        },
+        {
+            "id": "id_l6_hualian",
+            "espanol": "Hualien",
+            "tradicional": "花蓮",
+            "pinyin": "Huālián",
+            "zhuyin": "ㄏㄨㄚ ㄌㄧㄢˊ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_voc_hua"
+                },
+                {
+                    "type": "text",
+                    "value": "蓮 (lián - lotus)"
+                }
+            ],
+            "notas": "Proper noun of a scenic city and county on the eastern coast of Taiwan.",
+            "ejemplos": [
+                "我朋友的家在花蓮 — My friend's home is in Hualien",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Hualien",
+            "notas_en": "Proper noun of a scenic city and county on the eastern coast of Taiwan.",
+            "ejemplos_en": [
+                "我朋友的家在花蓮 — My friend's home is in Hualien",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_zheli",
+            "espanol": "Here",
+            "tradicional": "這裡",
+            "pinyin": "zhèlǐ",
+            "zhuyin": "ㄓㄜˋ ㄌㄧˇ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0jitk_kr6cx"
+                },
+                {
+                    "type": "text",
+                    "value": "裡 (lǐ - place/inside)"
+                }
+            ],
+            "notas": "Proximal demonstrative place noun (\"here\", \"this place\"). Antonym: 那裡.",
+            "ejemplos": [
+                "這裡的風景很美，我們在這裡照相吧 — The scenery here is very beautiful, let's take pictures here",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Here",
+            "notas_en": "Proximal demonstrative place noun (\"here\", \"this place\"). Antonym: 那裡.",
+            "ejemplos_en": [
+                "這裡的風景很美，我們在這裡照相吧 — The scenery here is very beautiful, let's take pictures here",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_dongxi",
+            "espanol": "Things / Stuff",
+            "tradicional": "東西",
+            "pinyin": "dōngxi",
+            "zhuyin": "ㄉㄨㄥ ˙ㄒㄧ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "東 (dōng - east)"
+                },
+                {
+                    "type": "text",
+                    "value": "西 (xī - west)"
+                }
+            ],
+            "notas": "Literally \"east and west\" (with neutral tone on the second syllable): things, objects, or stuff.",
+            "ejemplos": [
+                "我爸爸常做好吃的東西 — My dad often makes delicious things to eat",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Things / Stuff",
+            "notas_en": "Literally \"east and west\" (with neutral tone on the second syllable): things, objects, or stuff.",
+            "ejemplos_en": [
+                "我爸爸常做好吃的東西 — My dad often makes delicious things to eat",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l6_waimian",
+            "espanol": "Outside",
+            "tradicional": "外面",
+            "pinyin": "wàimiàn",
+            "zhuyin": "ㄨㄞˋ ㄇㄧㄢˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "外 (wài - outside)"
+                },
+                {
+                    "type": "text",
+                    "value": "面 (miàn - face/side)"
+                }
+            ],
+            "notas": "Position noun indicating the outside or exterior. Antonym: 裡面.",
+            "ejemplos": [
+                "你哥哥在圖書館外面做什麼？ — What is your older brother doing outside the library?",
+                "這裡的學生在學校外面買東西 — The students here buy things outside of the school"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Outside",
+            "notas_en": "Position noun indicating the outside or exterior. Antonym: 裡面.",
+            "ejemplos_en": [
+                "你哥哥在圖書館外面做什麼？ — What is your older brother doing outside the library?",
+                "這裡的學生在學校外面買東西 — The students here buy things outside of the school"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_limian",
+            "espanol": "Inside",
+            "tradicional": "裡面",
+            "pinyin": "lǐmiàn",
+            "zhuyin": "ㄌㄧˇ ㄇㄧㄢˋ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "裡 (lǐ - inside)"
+                },
+                {
+                    "type": "text",
+                    "value": "面 (miàn - face/side)"
+                }
+            ],
+            "notas": "Position noun indicating the inside or interior. Antonym: 外面.",
+            "ejemplos": [
+                "這家牛肉麵店外面不好看，可是裡面很漂亮 — This beef noodle shop doesn't look nice on the outside, but the inside is very pretty",
+                "學校裡面沒有商店 — There are no shops inside the school"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Inside",
+            "notas_en": "Position noun indicating the inside or interior. Antonym: 外面.",
+            "ejemplos_en": [
+                "這家牛肉麵店外面不好看，可是裡面很漂亮 — This beef noodle shop doesn't look nice on the outside, but the inside is very pretty",
+                "學校裡面沒有商店 — There are no shops inside the school"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_shangdian",
+            "espanol": "Store / Shop",
+            "tradicional": "商店",
+            "pinyin": "shāngdiàn",
+            "zhuyin": "ㄕㄤ ㄉㄧㄢˋ",
+            "categoria": "N",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "商 (shāng - commerce)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l5_dian"
+                }
+            ],
+            "notas": "Commercial store or shop selling goods. Measure word: 家 (jiā).",
+            "ejemplos": [
+                "那家商店的東西很多也不貴，我朋友常去那裡買東西 — That store has many things and isn't expensive; my friend often goes there to buy things",
+                "學校裡面沒有商店 — There are no shops on campus"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Store / Shop",
+            "notas_en": "Commercial store or shop selling goods. Measure word: 家 (jiā).",
+            "ejemplos_en": [
+                "那家商店的東西很多也不貴，我朋友常去那裡買東西 — That store has many things and isn't expensive; my friend often goes there to buy things",
+                "學校裡面沒有商店 — There are no shops on campus"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_sushe",
+            "espanol": "Dormitory",
+            "tradicional": "宿舍",
+            "pinyin": "sùshè",
+            "zhuyin": "ㄙㄨˋ ㄕㄜˋ",
+            "categoria": "N",
+            "clasificador": "id_clf_dong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "宿 (sù - lodge)"
+                },
+                {
+                    "type": "text",
+                    "value": "舍 (shè - residence)"
+                }
+            ],
+            "notas": "Student residence hall or dormitory.",
+            "ejemplos": [
+                "我覺得你們的宿舍很新也很漂亮 — I think your dormitory is very new and also very pretty",
+                "餐廳在學生宿舍的一樓 — The restaurant is located on the first floor of the student dorm"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Dormitory",
+            "notas_en": "Student residence hall or dormitory.",
+            "ejemplos_en": [
+                "我覺得你們的宿舍很新也很漂亮 — I think your dormitory is very new and also very pretty",
+                "餐廳在學生宿舍的一樓 — The restaurant is located on the first floor of the student dorm"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_lou",
+            "espanol": "Floor / Storey",
+            "tradicional": "樓",
+            "pinyin": "lóu",
+            "zhuyin": "ㄌㄡˊ",
+            "categoria": "N",
+            "clasificador": "id_clf_dong",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "木 (mù - wood)"
+                },
+                {
+                    "type": "text",
+                    "value": "婁 (lóu - stack)"
+                }
+            ],
+            "notas": "A floor or storey of a building (e.g. 一樓 = first floor, 二樓 = second floor).",
+            "ejemplos": [
+                "那家商店在二樓，不是在一樓 — That shop is on the second floor, not on the first floor",
+                "餐廳在學生宿舍的一樓 — The restaurant is on the first floor of the student dorm"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Floor / Storey",
+            "notas_en": "A floor or storey of a building (e.g. 一樓 = first floor, 二樓 = second floor).",
+            "ejemplos_en": [
+                "那家商店在二樓，不是在一樓 — That shop is on the second floor, not on the first floor",
+                "餐廳在學生宿舍的一樓 — The restaurant is on the first floor of the student dorm"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_dalou",
+            "espanol": "Multi-storey building",
+            "tradicional": "大樓",
+            "pinyin": "dàlóu",
+            "zhuyin": "ㄉㄚˋ ㄌㄡˊ",
+            "categoria": "N",
+            "clasificador": "id_clf_dong",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l6_lou"
+                }
+            ],
+            "notas": "A multi-storey building. Its specific measure word is 棟 (dòng).",
+            "ejemplos": [
+                "他家在這棟大樓的四樓 — His home is on the fourth floor of this building",
+                "前面這棟大樓很漂亮 — This building in front of us is very pretty"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Multi-storey building",
+            "notas_en": "A multi-storey building. Its specific measure word is 棟 (dòng).",
+            "ejemplos_en": [
+                "他家在這棟大樓的四樓 — His home is on the fourth floor of this building",
+                "前面這棟大樓很漂亮 — This building in front of us is very pretty"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_tushuguan",
+            "espanol": "Library",
+            "tradicional": "圖書館",
+            "pinyin": "túshūguǎn",
+            "zhuyin": "ㄊㄨˊ ㄕㄨ ㄍㄨㄢˇ",
+            "categoria": "N",
+            "clasificador": "id_clf_jia_shop",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "圖 (tú - chart/picture)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mty002_shu"
+                },
+                {
+                    "type": "text",
+                    "value": "館 (guǎn - hall/building)"
+                }
+            ],
+            "notas": "Literally \"hall 館 of charts 圖 and books 書\": library.",
+            "ejemplos": [
+                "聽說那個圖書館很美，我想去看看 — I heard that library is very beautiful; I want to go take a look",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Library",
+            "notas_en": "Literally \"hall 館 of charts 圖 and books 書\": library.",
+            "ejemplos_en": [
+                "聽說那個圖書館很美，我想去看看 — I heard that library is very beautiful; I want to go take a look",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_pangbian",
+            "espanol": "Next to / Side",
+            "tradicional": "旁邊",
+            "pinyin": "pángbiān",
+            "zhuyin": "ㄆㄤˊ ㄅㄧㄢ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "旁 (páng - side)"
+                },
+                {
+                    "type": "text",
+                    "value": "邊 (biān - edge/side)"
+                }
+            ],
+            "notas": "Position noun meaning by the side of or next to.",
+            "ejemplos": [
+                "你們宿舍旁邊那家店的小籠包怎麼樣？ — How are the xiaolongbao at the shop next to your dorm?",
+                "旁邊的那棟大樓是教室 — The building next to it is the classrooms"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Next to / Side",
+            "notas_en": "Position noun meaning by the side of or next to.",
+            "ejemplos_en": [
+                "你們宿舍旁邊那家店的小籠包怎麼樣？ — How are the xiaolongbao at the shop next to your dorm?",
+                "旁邊的那棟大樓是教室 — The building next to it is the classrooms"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l6_youyongchi",
+            "espanol": "Swimming pool",
+            "tradicional": "游泳池",
+            "pinyin": "yóuyǒngchí",
+            "zhuyin": "ㄧㄡˊ ㄩㄥˇ ㄔˊ",
+            "categoria": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "游 (yóu - swim)"
+                },
+                {
+                    "type": "text",
+                    "value": "泳 (yǒng - swim)"
+                },
+                {
+                    "type": "text",
+                    "value": "池 (chí - pool/pond)"
+                }
+            ],
+            "notas": "Composed of 游泳 (swimming) and 池 (pool/pond with the water radical 氵): swimming pool.",
+            "ejemplos": [
+                "那個游泳池常有很多人，所以我們不常去那裡游泳 — That swimming pool often has many people, so we don't often go there to swim",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Swimming pool",
+            "notas_en": "Composed of 游泳 (swimming) and 池 (pool/pond with the water radical 氵): swimming pool.",
+            "ejemplos_en": [
+                "那個游泳池常有很多人，所以我們不常去那裡游泳 — That swimming pool often has many people, so we don't often go there to swim",
+                "圖書館後面有游泳池 — Behind the library, there is a swimming pool"
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
             ]
         }
     ],
@@ -6309,7 +7185,7 @@ const SEED_DATA_EN = {
         },
         {
             "id": "id_voc_shangke",
-            "espanol": "Have class",
+            "espanol": "To go to class",
             "tradicional": "上課",
             "pinyin": "shàngkè",
             "zhuyin": "ㄕㄤˋ ㄎㄜˋ",
@@ -6327,15 +7203,15 @@ const SEED_DATA_EN = {
             ],
             "notas": "Go to the school platform to receive the teaching. Exact antonym of 下課 (finish class).",
             "ejemplos": [
-                "我們早上八點半上課 — We start class at 8:30 in the morning",
-                "我要去上書法課 — I'm going to take calligraphy class"
+                "你明天早上要去學校上課嗎？ — Are you going to school to go to class tomorrow morning?",
+                "我們要一起去上課 — We are going to go to class together"
             ],
             "fechaCreacion": "2026-09-28",
-            "english": "Have class",
+            "english": "To go to class",
             "notas_en": "Go to the school platform to receive the teaching. Exact antonym of 下課 (finish class).",
             "ejemplos_en": [
-                "我們早上八點半上課 — We start class at 8:30 in the morning",
-                "我要去上書法課 — I'm going to take calligraphy class"
+                "你明天早上要去學校上課嗎？ — Are you going to school to go to class tomorrow morning?",
+                "我們要一起去上課 — We are going to go to class together"
             ],
             "posSymbol": "V-sep",
             "verbSubtype": "V-sep",
@@ -6346,7 +7222,8 @@ const SEED_DATA_EN = {
             "semanticTags": [
                 "separable",
                 "action"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "id": "id_voc_shang",
@@ -9328,6 +10205,313 @@ const SEED_DATA_EN = {
             "notas": "Separable verb (離合詞 V-sep): 唱 (verb) + 歌 (inner object).",
             "notas_en": "Separable verb (離合詞 V-sep): 唱 (verb) + 歌 (inner object).",
             "leccion": 3
+        },
+        {
+            "id": "id_l6_zai_vst",
+            "espanol": "To be located at",
+            "tradicional": "在",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𠂇 (yòu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - earth)"
+                }
+            ],
+            "notas": "Transitive state verb (Vst) indicating location (\"to be located at\"): Subject + 在 + Place.",
+            "ejemplos": [
+                "請問我的手機在不在你家？ — Excuse me, is my cell phone at your house or not?",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "To be located at",
+            "notas_en": "Transitive state verb (Vst) indicating location (\"to be located at\"): Subject + 在 + Place.",
+            "ejemplos_en": [
+                "請問我的手機在不在你家？ — Excuse me, is my cell phone at your house or not?",
+                "他們學校在花蓮的山上 — Their school is up in the mountains in Hualien"
+            ],
+            "posSymbol": "Vst",
+            "verbSubtype": "Vst",
+            "semanticTags": [
+                "state",
+                "transitiveState",
+                "locativeVerb"
+            ]
+        },
+        {
+            "id": "id_l6_yuan",
+            "espanol": "Far",
+            "tradicional": "遠",
+            "pinyin": "yuǎn",
+            "zhuyin": "ㄩㄢˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "袁 (yuán - long robe)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning far or distant. Antonym: 近 (jìn).",
+            "ejemplos": [
+                "那家餐廳有一點遠，我不想去 — That restaurant is a bit far; I don't want to go",
+                "他們學校在哪裡？遠不遠？ — Where is their school? Is it far?"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Far",
+            "notas_en": "State verb (Vs) meaning far or distant. Antonym: 近 (jìn).",
+            "ejemplos_en": [
+                "那家餐廳有一點遠，我不想去 — That restaurant is a bit far; I don't want to go",
+                "他們學校在哪裡？遠不遠？ — Where is their school? Is it far?"
+            ],
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l6_mei",
+            "espanol": "Beautiful",
+            "tradicional": "美",
+            "pinyin": "měi",
+            "zhuyin": "ㄇㄟˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "羊 (yáng - sheep)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                }
+            ],
+            "notas": "A large 大 sheep 羊 was an ancient symbol of abundance and beauty.",
+            "ejemplos": [
+                "很多人都說我姐姐很美 — Many people say my older sister is very beautiful",
+                "山上的風景一定很美 — The scenery in the mountains must be very beautiful"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Beautiful",
+            "notas_en": "A large 大 sheep 羊 was an ancient symbol of abundance and beauty.",
+            "ejemplos_en": [
+                "很多人都說我姐姐很美 — Many people say my older sister is very beautiful",
+                "山上的風景一定很美 — The scenery in the mountains must be very beautiful"
+            ],
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l6_zhao",
+            "espanol": "To meet / To look for",
+            "tradicional": "找",
+            "pinyin": "zhǎo",
+            "zhuyin": "ㄓㄠˇ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "扌 (shǒu - hand)"
+                },
+                {
+                    "type": "text",
+                    "value": "戈 (gē - halberd)"
+                }
+            ],
+            "notas": "Transitive action verb meaning to look for, or to go meet/see someone.",
+            "ejemplos": [
+                "我們要去學校找王老師 — We are going to school to see Teacher Wang",
+                "我去樓下找朋友，我們要一起去上課 — I am going downstairs to meet a friend; we are going to class together"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "To meet / To look for",
+            "notas_en": "Transitive action verb meaning to look for, or to go meet/see someone.",
+            "ejemplos_en": [
+                "我們要去學校找王老師 — We are going to school to see Teacher Wang",
+                "我去樓下找朋友，我們要一起去上課 — I am going downstairs to meet a friend; we are going to class together"
+            ],
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l6_tingshuo",
+            "espanol": "Hear that",
+            "tradicional": "聽說",
+            "pinyin": "tīngshuō",
+            "zhuyin": "ㄊㄧㄥ ㄕㄨㄛ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l3_ting"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_shuo"
+                }
+            ],
+            "notas": "Verbal phrase (\"I heard that...\") placed at the start of a clause to report hearsay.",
+            "ejemplos": [
+                "聽說你做飯做得很好，可以教我嗎？ — I heard that you cook very well; can you teach me?",
+                "聽說怡君的學校很漂亮 — I heard Yijun's school is very beautiful"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Hear that",
+            "notas_en": "Verbal phrase (\"I heard that...\") placed at the start of a clause to report hearsay.",
+            "ejemplos_en": [
+                "聽說你做飯做得很好，可以教我嗎？ — I heard that you cook very well; can you teach me?",
+                "聽說怡君的學校很漂亮 — I heard Yijun's school is very beautiful"
+            ],
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l6_jin",
+            "espanol": "Near / Close",
+            "tradicional": "近",
+            "pinyin": "jìn",
+            "zhuyin": "ㄐㄧㄣˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "斤 (jīn - axe)"
+                }
+            ],
+            "notas": "State verb (Vs) indicating a short distance (\"near / close\"). Antonym: 遠 (yuǎn).",
+            "ejemplos": [
+                "我家很近，來我家喝咖啡吧！ — My house is very close; come to my place for coffee!",
+                "你們學校不是很近，有一點不方便 — Your school is not very close; it's a little inconvenient"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Near / Close",
+            "notas_en": "State verb (Vs) indicating a short distance (\"near / close\"). Antonym: 遠 (yuǎn).",
+            "ejemplos_en": [
+                "我家很近，來我家喝咖啡吧！ — My house is very close; come to my place for coffee!",
+                "你們學校不是很近，有一點不方便 — Your school is not very close; it's a little inconvenient"
+            ],
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l6_fangbian",
+            "espanol": "Convenient",
+            "tradicional": "方便",
+            "pinyin": "fāngbiàn",
+            "zhuyin": "ㄈㄤ ㄅㄧㄢˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "方 (fāng - method/direction)"
+                },
+                {
+                    "type": "text",
+                    "value": "便 (biàn - handy/convenient)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning convenient or handy. Its negative form is 不方便 (inconvenient).",
+            "ejemplos": [
+                "老師的家在山上，很漂亮，可是不方便 — The teacher's house is in the mountains; it's pretty, but inconvenient",
+                "我家附近很多餐廳，吃飯很方便 — There are many restaurants near my home, so eating is very convenient"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Convenient",
+            "notas_en": "State verb (Vs) meaning convenient or handy. Its negative form is 不方便 (inconvenient).",
+            "ejemplos_en": [
+                "老師的家在山上，很漂亮，可是不方便 — The teacher's house is in the mountains; it's pretty, but inconvenient",
+                "我家附近很多餐廳，吃飯很方便 — There are many restaurants near my home, so eating is very convenient"
+            ],
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l6_chifan",
+            "espanol": "To have a meal",
+            "tradicional": "吃飯",
+            "pinyin": "chīfàn",
+            "zhuyin": "ㄔ ㄈㄢˋ",
+            "categoria": "V",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mspmonrk_kj3kn"
+                },
+                {
+                    "type": "text",
+                    "value": "飯 (fàn - cooked rice/meal)"
+                }
+            ],
+            "notas": "Separable verb (V-sep): 吃 (eat) + 飯 (rice/meal). Means to eat or have a meal.",
+            "ejemplos": [
+                "我家附近很多餐廳，吃飯很方便，所以我不常自己做飯 — There are many restaurants near my home, so having meals is very convenient and I don't often cook myself",
+                "我和朋友想在那家餐廳吃飯 — My friend and I want to have a meal at that restaurant"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "To have a meal",
+            "notas_en": "Separable verb (V-sep): 吃 (eat) + 飯 (rice/meal). Means to eat or have a meal.",
+            "ejemplos_en": [
+                "我家附近很多餐廳，吃飯很方便，所以我不常自己做飯 — There are many restaurants near my home, so having meals is very convenient and I don't often cook myself",
+                "我和朋友想在那家餐廳吃飯 — My friend and I want to have a meal at that restaurant"
+            ],
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "吃",
+                "飯"
+            ],
+            "semanticTags": [
+                "separable",
+                "action"
+            ]
         }
     ],
     "adverbios": [
@@ -9984,6 +11168,43 @@ const SEED_DATA_EN = {
                 "degree",
                 "frameTaiLe"
             ]
+        },
+        {
+            "id": "id_l6_zhende",
+            "espanol": "Really / Truly",
+            "tradicional": "真的",
+            "pinyin": "zhēnde",
+            "zhuyin": "ㄓㄣ ˙ㄉㄜ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l5_zhen"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_msk1glsh_kfv6m"
+                }
+            ],
+            "notas": "Emphatic adverb affirming truth or degree (\"really\", \"truly\").",
+            "ejemplos": [
+                "那家店的牛肉麵真的很好吃 — The beef noodles at that shop are really delicious",
+                "那裡真的是一個很漂亮的地方 — It is really a very beautiful place"
+            ],
+            "fechaCreacion": "2026-10-24",
+            "leccion": 6,
+            "english": "Really / Truly",
+            "notas_en": "Emphatic adverb affirming truth or degree (\"really\", \"truly\").",
+            "ejemplos_en": [
+                "那家店的牛肉麵真的很好吃 — The beef noodles at that shop are really delicious",
+                "那裡真的是一個很漂亮的地方 — It is really a very beautiful place"
+            ],
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree",
+                "modalAdv"
+            ]
         }
     ],
     "conjunciones": [
@@ -10138,7 +11359,7 @@ const SEED_DATA_EN = {
     "preposiciones": [
         {
             "id": "id_voc_zai_loc",
-            "espanol": "Be in",
+            "espanol": "At / In",
             "tradicional": "在",
             "pinyin": "zài",
             "zhuyin": "ㄗㄞˋ",
@@ -10154,23 +11375,23 @@ const SEED_DATA_EN = {
                     "value": "土 (tǔ - land)"
                 }
             ],
-            "notas": "Be present and rooted in the earth 土. Standard locative structure: Subject + 在 + Place.",
+            "notas": "Locative preposition introducing the place where an action takes place: Subject + 在 + Place + Verb.",
             "ejemplos": [
-                "老師在教室裡 — The teacher is in the classroom",
-                "你在哪裡？ — Where are you?"
+                "我和朋友想在那家餐廳吃飯 — My friend and I want to eat at that restaurant",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
             ],
             "fechaCreacion": "2026-09-28",
-            "english": "Be in",
-            "notas_en": "Be present and rooted in the earth 土. Standard locative structure: Subject + 在 + Place.",
+            "english": "At / In",
+            "notas_en": "Locative preposition introducing the place where an action takes place: Subject + 在 + Place + Verb.",
             "ejemplos_en": [
-                "老師在教室裡 — The teacher is in the classroom",
-                "你在哪裡？ — Where are you?"
+                "我和朋友想在那家餐廳吃飯 — My friend and I want to eat at that restaurant",
+                "這裡的學生在哪裡買東西？ — Where do the students here buy things?"
             ],
             "posSymbol": "Prep",
             "semanticTags": [
-                "prepPlace",
-                "locativeVerb"
-            ]
+                "prepPlace"
+            ],
+            "leccion": 6
         },
         {
             "id": "id_l4_bang",
@@ -10594,7 +11815,7 @@ const SEED_DATA_EN = {
         },
         {
             "id": "id_clf_dong",
-            "espanol": "Buildings classifier",
+            "espanol": "Measure word for buildings",
             "tradicional": "棟",
             "pinyin": "dòng",
             "zhuyin": "ㄉㄨㄥˋ",
@@ -10612,22 +11833,21 @@ const SEED_DATA_EN = {
             ],
             "notas": "It represents the wooden ridge beam that supports the roof. Architectural classifier for houses or entire buildings.",
             "ejemplos": [
-                "我們家有一棟老房子 — My family has an old house",
-                "那棟大樓很漂亮 — That building is very beautiful",
-                "這棟房子是誰的？ — Whose house is this?"
+                "張小姐想在那棟大樓的前面照相 — Miss Zhang wants to take pictures in front of that building",
+                "前面這棟大樓很漂亮 — This building in front of us is very pretty"
             ],
             "fechaCreacion": "2026-09-26",
-            "english": "Buildings classifier",
+            "english": "Measure word for buildings",
             "notas_en": "It represents the wooden ridge beam that supports the roof. Architectural classifier for houses or entire buildings.",
             "ejemplos_en": [
-                "我們家有一棟老房子 — My family has an old house",
-                "那棟大樓很漂亮 — That building is very beautiful",
-                "這棟房子是誰的？ — Whose house is this?"
+                "張小姐想在那棟大樓的前面照相 — Miss Zhang wants to take pictures in front of that building",
+                "前面這棟大樓很漂亮 — This building in front of us is very pretty"
             ],
             "posSymbol": "M",
             "semanticTags": [
                 "measure"
-            ]
+            ],
+            "leccion": 6
         },
         {
             "id": "id_mtgn2mv8_7ji91",
