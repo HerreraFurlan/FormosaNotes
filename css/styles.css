@@ -5845,3 +5845,51 @@ input:checked+.slider:before {
     gap: 0.75rem;
     flex-wrap: wrap;
 }
+
+/* Capa puramente visual para Cápsulas Magnéticas (permite romperlas o insertar tarjetas en medio) */
+.capsule-visual-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: visible;
+}
+
+.syntagma-capsule.syntagma-capsule-visual {
+    position: absolute;
+    pointer-events: none;
+    box-sizing: border-box;
+    z-index: 1;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    transition: left 0.15s ease, top 0.15s ease, width 0.15s ease, height 0.15s ease;
+}
+
+.builder-dropzone > .mini-card.atomic-token {
+    z-index: 2;
+    margin-top: 18px;
+    margin-bottom: 4px;
+}
+
+.builder-dropzone > .mini-card.is-capsule-start {
+    margin-left: 8px;
+}
+
+.builder-dropzone > .mini-card.is-capsule-end {
+    margin-right: 8px;
+}
+
+.builder-dropzone > .mini-card.has-capsule-bond-right::after {
+    content: '•';
+    position: absolute;
+    right: -0.52rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--capsule-color, #2E78B7);
+    font-weight: 900;
+    font-size: 0.9rem;
+    opacity: 0.7;
+    pointer-events: none;
+}
