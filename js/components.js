@@ -281,6 +281,7 @@ const createMiniCard = (word) => {
     div.dataset.categoria = word.categoria;
     div.dataset.posSymbol = posBadge.shortLabel || posBadge.code;
     div.title = `${word.tradicional} (${word.pinyin}) — ${meaning}\n${posBadge.tooltip}`;
+    div.dataset.origColor = color;
     div.style.setProperty('--card-color', color);
     div.innerHTML = `
         <span class="mini-char">${word.tradicional}</span>
@@ -303,6 +304,10 @@ const createMiniCard = (word) => {
 const createBuilderMiniCard = (token, handlers = {}) => {
     const card = createMiniCard(token);
     card.dataset.tokenIndex = token.index !== undefined ? String(token.index) : '';
+    if (token.roleColor) {
+        card.style.setProperty('--card-color', token.roleColor);
+        card.dataset.roleSlot = token.roleSlot || '';
+    }
 
     // Separable verb split button (⇄) for V-sep / Vs-sep / Vp-sep
     const isSeparable = ['V-sep', 'Vs-sep', 'Vp-sep'].includes(token.verbSubtype || token.posSymbol) && !token.isSplitVerbHead && (token.tradicional || '').length >= 2;

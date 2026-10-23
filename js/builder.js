@@ -750,22 +750,36 @@ const renderWordBank = (filter = 'todos') => {
 
     let renderedCount = 0;
 
+    const resolveGhostPreviewColor = (ghosts) => {
+        if (!Array.isArray(ghosts) || ghosts.length === 0) return null;
+        const objGhost = ghosts.find(g => g.slotId === 'OBJECT');
+        if (objGhost && ghosts.length > 1) return objGhost.color;
+        return ghosts[ghosts.length - 1].color || ghosts[0].color;
+    };
+
     const attachBankCardEvents = (cardEl, word) => {
         // Clic directo: agrega la palabra al lienzo magnético
         cardEl.addEventListener('click', () => {
             insertTokenIntoBuilder(word);
         });
-        // Hover: ilumina su Slot Canónico en la barra SVO
+        // Hover: ilumina su Slot Canónico en la barra SVO y previsualiza ese color en el borde inferior
         cardEl.addEventListener('mouseenter', () => {
             if (typeof SyntaxEngine !== 'undefined') {
                 const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
                 const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
                 const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
                 const ghosts = SyntaxEngine.computeGhostSlots(word, builderTokens, lang);
+                const previewColor = resolveGhostPreviewColor(ghosts);
+                if (previewColor) {
+                    cardEl.style.setProperty('--card-color', previewColor);
+                }
                 renderSVOSlotBar(val.activeSlots, ghosts);
             }
         });
         cardEl.addEventListener('mouseleave', () => {
+            if (cardEl.dataset.origColor && !activeGhostCandidate) {
+                cardEl.style.setProperty('--card-color', cardEl.dataset.origColor);
+            }
             if (typeof SyntaxEngine !== 'undefined' && !activeGhostCandidate) {
                 const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
                 const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
@@ -832,11 +846,22 @@ const renderWordBank = (filter = 'todos') => {
                 const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
                 const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
                 const ghosts = SyntaxEngine.computeGhostSlots(word, builderTokens, lang);
+                const previewColor = resolveGhostPreviewColor(ghosts);
+                if (previewColor) {
+                    if (evt.item) evt.item.style.setProperty('--card-color', previewColor);
+                    if (evt.clone) evt.clone.style.setProperty('--card-color', previewColor);
+                }
                 renderSVOSlotBar(val.activeSlots, ghosts);
             }
         },
-        onEnd: function () {
+        onEnd: function (evt) {
             activeGhostCandidate = null;
+            if (evt && evt.item && evt.item.dataset.origColor) {
+                evt.item.style.setProperty('--card-color', evt.item.dataset.origColor);
+            }
+            if (evt && evt.clone && evt.clone.dataset.origColor) {
+                evt.clone.style.setProperty('--card-color', evt.clone.dataset.origColor);
+            }
             const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
             const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
             const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);

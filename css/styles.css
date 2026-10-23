@@ -5517,6 +5517,7 @@ input:checked+.slider:before {
 .svo-slot-pill {
     display: inline-flex;
     align-items: center;
+    box-sizing: border-box;
     gap: 0.32rem;
     padding: 0.24rem 0.58rem;
     border-radius: 999px;
@@ -5524,7 +5525,7 @@ input:checked+.slider:before {
     border: 1px dashed var(--border-color);
     color: var(--text-muted);
     font-weight: 600;
-    transition: all 0.22s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .svo-slot-pill .svo-slot-num {
@@ -5542,9 +5543,8 @@ input:checked+.slider:before {
 
 .svo-slot-pill.is-active {
     background: var(--slot-bg, #EEF5FB);
-    border: 1.5px solid var(--slot-color, #2E78B7);
+    border: 1px solid var(--slot-color, #2E78B7);
     color: var(--slot-color, #2E78B7);
-    transform: translateY(-1px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
@@ -5554,10 +5554,9 @@ input:checked+.slider:before {
 }
 
 .svo-slot-pill.is-ghost-target {
-    border: 1.5px dashed var(--slot-color, #2E78B7);
+    border: 1px dashed var(--slot-color, #2E78B7);
     background: var(--slot-bg, #EEF5FB);
     color: var(--slot-color, #2E78B7);
-    animation: capsulePopIn 0.35s ease;
 }
 
 .svo-slot-arrow {
@@ -5571,7 +5570,7 @@ input:checked+.slider:before {
 .mini-card.atomic-token {
     background: #FCFBF7;
     border: 1px solid #DFD7C8;
-    border-bottom: 3px solid var(--card-color, #2E78B7);
+    border-bottom: 3.5px solid var(--card-color, #2E78B7);
     border-top: 1px solid #DFD7C8;
     border-radius: 10px;
     padding: 0.55rem 0.78rem 0.42rem;

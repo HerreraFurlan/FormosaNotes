@@ -145,9 +145,9 @@ const SyntaxEngine = (() => {
             type: 'LOCATION',
             canonicalSlot: 'PLACE',
             slotOrder: 4,
-            color: '#2E78B7',
-            bgSoft: 'rgba(46, 120, 183, 0.10)',
-            borderColor: 'rgba(46, 120, 183, 0.45)',
+            color: '#3B6998',
+            bgSoft: 'rgba(59, 105, 152, 0.10)',
+            borderColor: 'rgba(59, 105, 152, 0.45)',
             labels: { es: 'DÓNDE · LUGAR (Prep+N)', en: 'WHERE · LOCATION (Prep+N)' },
             formulaTag: '[Prep(在) + Lugar]'
         },
@@ -532,22 +532,51 @@ const SyntaxEngine = (() => {
             (s.tokens.length === 1 && s.tokens[0].tradicional === '在' && !syntagmas.some((other, oIdx) => oIdx > 0 && other.canonicalSlot === 'VERB_STATE'))
         );
 
+        const SLOT_COLOR_MAP = {
+            TOPIC_SUBJ: '#2E78B7',
+            TIME: '#6366F1',
+            COMPANY: '#0E7490',
+            PLACE: '#3B6998',
+            ADV_MODAL: '#0D9488',
+            VERB_STATE: '#D4760A',
+            OBJECT: '#8D5B4C',
+            FINAL_PTC: '#7D54B5'
+        };
+
         syntagmas.forEach((syn, idx) => {
             if (syn.canonicalSlot === 'NOUN_PHRASE') {
                 if (firstVerbIdx === -1 || idx < firstVerbIdx) {
                     syn.canonicalSlot = 'TOPIC_SUBJ';
                     syn.slotOrder = 1;
+                    syn.color = SLOT_COLOR_MAP.TOPIC_SUBJ;
                     if (syn.isCapsule) {
+                        syn.bgSoft = 'rgba(46, 120, 183, 0.09)';
+                        syn.borderColor = 'rgba(46, 120, 183, 0.42)';
                         syn.label = lang === 'en' ? 'SUBJECT / TOPIC · NP' : 'SUJETO / TÓPICO · SN';
                     }
                 } else {
                     syn.canonicalSlot = 'OBJECT';
                     syn.slotOrder = 7;
+                    syn.color = SLOT_COLOR_MAP.OBJECT;
                     if (syn.isCapsule) {
+                        syn.bgSoft = 'rgba(141, 91, 76, 0.09)';
+                        syn.borderColor = 'rgba(141, 91, 76, 0.42)';
                         syn.label = lang === 'en' ? 'WHAT / OBJECT · NP' : 'QUÉ / OBJETO · SN';
                     }
                 }
             }
+
+            const defaultSlotColor = SLOT_COLOR_MAP[syn.canonicalSlot] || syn.color || '#2E78B7';
+            syn.color = defaultSlotColor;
+            (syn.tokens || []).forEach(tok => {
+                if (syn.canonicalSlot === 'VERB_STATE' && (isPOS(tok, 'Adv') || isAuxVerb(tok))) {
+                    tok.roleSlot = 'ADV_MODAL';
+                    tok.roleColor = SLOT_COLOR_MAP.ADV_MODAL;
+                } else {
+                    tok.roleSlot = syn.canonicalSlot;
+                    tok.roleColor = defaultSlotColor;
+                }
+            });
         });
 
         return syntagmas;
@@ -598,7 +627,12 @@ const SyntaxEngine = (() => {
     const validateSlotOrder = (syntagmas, rawTokens, lang = 'es') => {
         const tokens = (rawTokens || []).map((t, idx) => normalizeToken(t, idx)).filter(Boolean);
         const issues = [];
-        const activeSlots = Array.from(new Set(syntagmas.map(s => s.canonicalSlot)));
+        const activeSlotSet = new Set();
+        syntagmas.forEach(s => {
+            if (s.canonicalSlot) activeSlotSet.add(s.canonicalSlot);
+            (s.tokens || []).forEach(t => { if (t.roleSlot) activeSlotSet.add(t.roleSlot); });
+        });
+        const activeSlots = Array.from(activeSlotSet);
         const isEn = lang === 'en';
 
         if (tokens.length === 0) {
@@ -868,7 +902,7 @@ const SyntaxEngine = (() => {
                 label: tok.tradicional === '在'
                     ? (isEn ? '+ WHERE (在 + Place)' : '+ DÓNDE (在 + Lugar)')
                     : (isEn ? `+ SCOPE (${tok.tradicional} + N)` : `+ ÁMBITO (${tok.tradicional} + N)`),
-                color: tok.tradicional === '在' ? '#2E78B7' : '#0E7490'
+                color: tok.tradicional === '在' ? '#3B6998' : '#0E7490'
             });
             return ghosts;
         }
@@ -881,14 +915,14 @@ const SyntaxEngine = (() => {
                     targetTokenIndex: zaiIdx + 1,
                     slotId: 'PLACE',
                     label: isEn ? '+ FUSE LOCATION (在 + Place)' : '+ FUSIONAR LUGAR (在 + Lugar)',
-                    color: '#2E78B7'
+                    color: '#3B6998'
                 });
             }
             ghosts.push({
                 targetTokenIndex: tokens.length,
-                slotId: 'OBJECT',
+                slotId: firstVerbSyn ? 'OBJECT' : 'PLACE',
                 label: isEn ? '+ DESTINATION / PLACE' : '+ DESTINO / LUGAR',
-                color: '#2E78B7'
+                color: firstVerbSyn ? '#8D5B4C' : '#3B6998'
             });
             return ghosts;
         }
@@ -897,18 +931,19 @@ const SyntaxEngine = (() => {
         if (isPOS(tok, 'M')) {
             const detIdx = tokens.findIndex(t => isPOS(t, 'Det'));
             if (detIdx !== -1) {
+                const isObjDet = firstVerbSyn && detIdx > firstVerbTokenIdx;
                 ghosts.push({
                     targetTokenIndex: detIdx + 1,
-                    slotId: 'NOUN_PHRASE',
+                    slotId: isObjDet ? 'OBJECT' : 'TOPIC_SUBJ',
                     label: isEn ? '+ FUSE MEASURE (Det + M)' : '+ FUSIONAR CLASIFICADOR (Det + M)',
-                    color: '#8D5B4C'
+                    color: isObjDet ? '#8D5B4C' : '#2E78B7'
                 });
             } else {
                 ghosts.push({
                     targetTokenIndex: tokens.length,
-                    slotId: 'NOUN_PHRASE',
+                    slotId: firstVerbSyn ? 'OBJECT' : 'TOPIC_SUBJ',
                     label: isEn ? '+ MEASURE (M)' : '+ CLASIFICADOR (M)',
-                    color: '#8D5B4C'
+                    color: firstVerbSyn ? '#8D5B4C' : '#2E78B7'
                 });
             }
             return ghosts;
