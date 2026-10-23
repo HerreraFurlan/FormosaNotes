@@ -16,6 +16,7 @@
 let bankObserver = null;
 let bankSortableInstance = null;
 let dropzoneSortableInstance = null;
+let capsuleSortableInstances = [];
 
 // Estado reactivo del lienzo magnético (arreglo plano de tokens normalizados)
 let builderTokens = [];
@@ -77,10 +78,6 @@ const insertTokenIntoBuilder = (word, insertIndex = builderTokens.length) => {
 const removeTokenFromBuilder = (index) => {
     if (index < 0 || index >= builderTokens.length) return;
     builderTokens.splice(index, 1);
-    window.addEventListener('resize', () => {
-        updateCapsuleVisualLayer(dropzone, false);
-    });
-
     renderMagneticCanvas({ animateCollision: false });
 };
 
@@ -269,64 +266,70 @@ const renderMagneticCanvas = (options = {}) => {
         dropzone.appendChild(createGhostElement(g));
     });
 
-    // Capa puramente visual para las cápsulas magnéticas (pointer-events: none)
-    const visualLayer = document.createElement('div');
-    visualLayer.className = 'capsule-visual-layer';
-    visualLayer.setAttribute('aria-hidden', 'true');
-    dropzone.appendChild(visualLayer);
-
     syntagmas.forEach((syn) => {
         const hasSynCollision = syn.tokens.some(t => offendingSet.has(t.index));
-        const isCap = Boolean(syn.isCapsule && syn.tokens.length >= 2);
 
-        syn.tokens.forEach((tok, tokPosInCap) => {
+        if (syn.isCapsule && syn.tokens.length >= 2) {
+            const capsuleEl = document.createElement('div');
+            capsuleEl.className = `syntagma-capsule capsule-${syn.type.toLowerCase()} ${hasSynCollision ? 'has-collision' : ''} ${(hasSynCollision && animateCollision) ? 'has-collision-shake' : ''}`;
+            capsuleEl.style.setProperty('--capsule-color', syn.color);
+            capsuleEl.style.setProperty('--capsule-bg', syn.bgSoft);
+            capsuleEl.style.setProperty('--capsule-border', syn.borderColor);
+
+            const headerEl = document.createElement('div');
+            headerEl.className = 'syntagma-capsule-header';
+            headerEl.innerHTML = `
+                <span class="capsule-magnet-icon">🧲</span>
+                <span class="capsule-slot-label">[ ${syn.label} ]</span>
+            `;
+            capsuleEl.appendChild(headerEl);
+
+            const bodyEl = document.createElement('div');
+            bodyEl.className = 'syntagma-capsule-tokens';
+
+            syn.tokens.forEach((tok, tokPosInCap) => {
+                const tokenCard = createBuilderMiniCard(tok, {
+                    onRemove: removeTokenFromBuilder,
+                    onSplitSeparable: splitSeparableTokenInBuilder
+                });
+                tokenCard.style.setProperty('--capsule-color', syn.color);
+                if (tokPosInCap < syn.tokens.length - 1) {
+                    tokenCard.classList.add('has-capsule-bond-right');
+                }
+                if (offendingSet.has(tok.index)) {
+                    tokenCard.classList.add('has-token-collision');
+                }
+                bodyEl.appendChild(tokenCard);
+
+                // Ghost slots que apuntan justo dentro de esta cápsula
+                ghostSlots
+                    .filter(g => g.targetTokenIndex === tok.index + 1 && g.targetTokenIndex <= syn.endIndex)
+                    .forEach(g => bodyEl.appendChild(createGhostElement(g)));
+            });
+
+            capsuleEl.appendChild(bodyEl);
+            dropzone.appendChild(capsuleEl);
+        } else {
+            const tok = syn.tokens[0];
             const tokenCard = createBuilderMiniCard(tok, {
                 onRemove: removeTokenFromBuilder,
                 onSplitSeparable: splitSeparableTokenInBuilder
             });
-
-            if (isCap) {
-                tokenCard.classList.add('in-magnetic-capsule');
-                tokenCard.dataset.capsuleId = syn.id;
-                tokenCard.dataset.capsuleLabel = syn.label;
-                tokenCard.dataset.capsuleColor = syn.color;
-                tokenCard.dataset.capsuleBg = syn.bgSoft;
-                tokenCard.dataset.capsuleBorder = syn.borderColor;
-                tokenCard.dataset.capsuleType = syn.type.toLowerCase();
-                tokenCard.dataset.capsuleCollision = hasSynCollision ? '1' : '0';
-                tokenCard.dataset.capsuleShake = (hasSynCollision && animateCollision) ? '1' : '0';
-                tokenCard.style.setProperty('--capsule-color', syn.color);
-
-                if (tokPosInCap === 0) tokenCard.classList.add('is-capsule-start');
-                else if (tokPosInCap === syn.tokens.length - 1) tokenCard.classList.add('is-capsule-end');
-                else tokenCard.classList.add('is-capsule-mid');
-
-                if (tokPosInCap < syn.tokens.length - 1) {
-                    tokenCard.classList.add('has-capsule-bond-right');
-                }
-            } else {
-                tokenCard.classList.add('standalone-atom');
-            }
-
-            if (offendingSet.has(tok.index)) {
+            tokenCard.classList.add('standalone-atom');
+            if (hasSynCollision) {
                 tokenCard.classList.add('has-token-collision');
-                if (!isCap && animateCollision) tokenCard.classList.add('has-collision-shake');
+                if (animateCollision) tokenCard.classList.add('has-collision-shake');
             }
-
             dropzone.appendChild(tokenCard);
+        }
 
-            // Ghost slots inmediatamente después de este token
-            ghostSlots
-                .filter(g => g.targetTokenIndex === tok.index + 1 && g.targetTokenIndex > 0)
-                .forEach(g => dropzone.appendChild(createGhostElement(g)));
-        });
+        // Ghost slots inmediatamente después de este sintagma/átomo
+        ghostSlots
+            .filter(g => g.targetTokenIndex === syn.endIndex + 1 && g.targetTokenIndex > 0)
+            .forEach(g => dropzone.appendChild(createGhostElement(g)));
     });
 
-    // Dibujar las cápsulas visuales detrás de las tarjetas agrupadas
-    updateCapsuleVisualLayer(dropzone, animateCollision);
-    requestAnimationFrame(() => updateCapsuleVisualLayer(dropzone, false));
-
-    // 4. Re-inicializar Sortable en el lienzo permitiendo arrastrar cualquier `.mini-card` libremente
+    // 4. Re-inicializar Sortable en el lienzo y dentro de cada cápsula
     initDropzoneSortable(dropzone);
 
     // 5. Actualizar vista previa y fórmula automática
@@ -334,107 +337,22 @@ const renderMagneticCanvas = (options = {}) => {
 };
 
 /**
- * Posiciona las cápsulas magnéticas como una capa puramente visual (`pointer-events: none`)
- * detrás de los tokens contiguos con el mismo `data-capsule-id`.
- * Permite meter tarjetas en medio de una cápsula o arrastrar una tarjeta fuera para romperla.
- */
-const updateCapsuleVisualLayer = (dropzone, animate = false) => {
-    if (!dropzone) return;
-    let visualLayer = dropzone.querySelector('.capsule-visual-layer');
-    if (!visualLayer) return;
-    visualLayer.innerHTML = '';
-
-    const items = Array.from(dropzone.children).filter(el => el.classList.contains('mini-card') && !el.classList.contains('ghost-slot'));
-    const runs = [];
-    let currentRun = null;
-
-    items.forEach((card) => {
-        const capId = card.dataset.capsuleId || '';
-        card.classList.remove('is-capsule-start', 'is-capsule-mid', 'is-capsule-end', 'has-capsule-bond-right');
-        if (capId) {
-            if (currentRun && currentRun.capId === capId) {
-                currentRun.cards.push(card);
-            } else {
-                currentRun = { capId, cards: [card] };
-                runs.push(currentRun);
-            }
-        } else {
-            currentRun = null;
-        }
-    });
-
-    runs.forEach((run) => {
-        if (run.cards.length < 2) return;
-        run.cards.forEach((c, idx) => {
-            if (idx === 0) c.classList.add('is-capsule-start');
-            else if (idx === run.cards.length - 1) c.classList.add('is-capsule-end');
-            else c.classList.add('is-capsule-mid');
-            if (idx < run.cards.length - 1) c.classList.add('has-capsule-bond-right');
-        });
-
-        const first = run.cards[0];
-        let minLeft = Infinity;
-        let minTop = Infinity;
-        let maxRight = -Infinity;
-        let maxBottom = -Infinity;
-
-        run.cards.forEach((c) => {
-            const l = c.offsetLeft;
-            const t = c.offsetTop;
-            const r = l + c.offsetWidth;
-            const b = t + c.offsetHeight;
-            if (l < minLeft) minLeft = l;
-            if (t < minTop) minTop = t;
-            if (r > maxRight) maxRight = r;
-            if (b > maxBottom) maxBottom = b;
-        });
-
-        if (!isFinite(minLeft) || !isFinite(minTop)) return;
-
-        const padX = 8;
-        const padTop = 22;
-        const padBottom = 6;
-
-        const capBox = document.createElement('div');
-        const hasCollision = first.dataset.capsuleCollision === '1';
-        const hasShake = animate && first.dataset.capsuleShake === '1';
-        capBox.className = `syntagma-capsule syntagma-capsule-visual capsule-${first.dataset.capsuleType || 'group'} ${hasCollision ? 'has-collision' : ''} ${hasShake ? 'has-collision-shake' : ''}`;
-        capBox.style.setProperty('--capsule-color', first.dataset.capsuleColor || '#2E78B7');
-        capBox.style.setProperty('--capsule-bg', first.dataset.capsuleBg || 'rgba(46, 120, 183, 0.08)');
-        capBox.style.setProperty('--capsule-border', first.dataset.capsuleBorder || 'rgba(46, 120, 183, 0.42)');
-        capBox.style.left = `${minLeft - padX}px`;
-        capBox.style.top = `${minTop - padTop}px`;
-        capBox.style.width = `${(maxRight - minLeft) + padX * 2}px`;
-        capBox.style.height = `${(maxBottom - minTop) + padTop + padBottom}px`;
-
-        capBox.innerHTML = `
-            <div class="syntagma-capsule-header">
-                <span class="capsule-magnet-icon">🧲</span>
-                <span class="capsule-slot-label">[ ${first.dataset.capsuleLabel || ''} ]</span>
-            </div>
-        `;
-        visualLayer.appendChild(capBox);
-    });
-};
-
-/**
- * Configura SortableJS en el dropzone permitiendo arrastrar cualquier `.mini-card` individual
- * e insertar tarjetas libremente en medio de las cápsulas magnéticas.
+ * Configura SortableJS tanto en el dropzone como dentro de cada `.syntagma-capsule-tokens`,
+ * permitiendo meter tarjetas en medio de una cápsula o arrastrar una tarjeta individual fuera para romperla.
  */
 const initDropzoneSortable = (dropzone) => {
     if (dropzoneSortableInstance) {
         dropzoneSortableInstance.destroy();
+        dropzoneSortableInstance = null;
     }
-    dropzoneSortableInstance = new Sortable(dropzone, {
-        group: 'builder',
-        draggable: '.mini-card',
-        animation: 180,
-        ghostClass: 'magnetic-sortable-ghost',
-        onChange: function () {
-            requestAnimationFrame(() => updateCapsuleVisualLayer(dropzone, false));
-        },
-        onAdd: function (evt) {
-            const el = evt.item;
+    capsuleSortableInstances.forEach(inst => {
+        try { inst.destroy(); } catch (_) {}
+    });
+    capsuleSortableInstances = [];
+
+    const handleSortableAddOrMove = (evt) => {
+        const el = evt.item;
+        if (el && (el.dataset.tokenIndex === undefined || el.dataset.tokenIndex === '')) {
             const wordId = el.dataset.id;
             const word = (typeof getWordById === 'function' && wordId)
                 ? getWordById(wordId)
@@ -443,17 +361,47 @@ const initDropzoneSortable = (dropzone) => {
                 el.remove();
                 return;
             }
-            // Reemplazar temporalmente por un mini-card con sus datos para que syncTokensFromDOM lo lea en la posición exacta
             const tempCard = createMiniCard(word);
             el.replaceWith(tempCard);
-            activeGhostCandidate = null;
-            syncTokensFromDOM();
-            renderMagneticCanvas({ animateCollision: true });
-        },
-        onUpdate: function () {
-            syncTokensFromDOM();
-            renderMagneticCanvas({ animateCollision: true });
         }
+        activeGhostCandidate = null;
+        syncTokensFromDOM();
+        renderMagneticCanvas({ animateCollision: true });
+    };
+
+    const handleSortableUpdate = () => {
+        activeGhostCandidate = null;
+        syncTokensFromDOM();
+        renderMagneticCanvas({ animateCollision: true });
+    };
+
+    // Sortable en cada contenedor interno de cápsula para poder soltar tarjetas en medio o sacar una tarjeta
+    const capsuleBodies = dropzone.querySelectorAll('.syntagma-capsule-tokens');
+    capsuleBodies.forEach((bodyEl) => {
+        const capSortable = new Sortable(bodyEl, {
+            group: 'builder',
+            draggable: '.mini-card',
+            animation: 180,
+            fallbackOnBody: true,
+            swapThreshold: 0.65,
+            ghostClass: 'magnetic-sortable-ghost',
+            onAdd: handleSortableAddOrMove,
+            onUpdate: handleSortableUpdate,
+            onRemove: handleSortableUpdate
+        });
+        capsuleSortableInstances.push(capSortable);
+    });
+
+    // Sortable principal del dropzone
+    dropzoneSortableInstance = new Sortable(dropzone, {
+        group: 'builder',
+        draggable: '.mini-card, .syntagma-capsule',
+        animation: 180,
+        fallbackOnBody: true,
+        swapThreshold: 0.65,
+        ghostClass: 'magnetic-sortable-ghost',
+        onAdd: handleSortableAddOrMove,
+        onUpdate: handleSortableUpdate
     });
 };
 
