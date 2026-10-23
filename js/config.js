@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.0.5',
-        dataVersion: '4.0.5',
+        version: '4.0.6',
+        dataVersion: '4.0.6',
     },
 
     // =====================================================
@@ -31,7 +31,7 @@ const APP_CONFIG = {
                 code: 'es',
                 name: 'Español',
                 flag: '🇪🇸',
-                dataScript: 'js/data.js?v=4.0.5',
+                dataScript: 'js/data.js?v=4.0.6',
                 globalVar: 'SEED_DATA',
                 dbKey: 'appchino_db',
                 aiLangName: 'español'
@@ -40,7 +40,7 @@ const APP_CONFIG = {
                 code: 'en',
                 name: 'English',
                 flag: '🇺🇸',
-                dataScript: 'js/data_en.js?v=4.0.5',
+                dataScript: 'js/data_en.js?v=4.0.6',
                 globalVar: 'SEED_DATA_EN',
                 dbKey: 'appchino_db_en',
                 aiLangName: 'English'

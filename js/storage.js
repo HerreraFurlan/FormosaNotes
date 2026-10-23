@@ -252,16 +252,16 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                         w.posSymbol = seedWord.posSymbol || seedWord.categoria;
                         if (seedWord.verbSubtype) w.verbSubtype = seedWord.verbSubtype;
                         else delete w.verbSubtype;
-                        if (seedWord.sepParts) w.sepParts = JSON.parse(JSON.stringify(seedWord.sepParts));
+                        if (seedWord.sepParts) w.sepParts = seedWord.sepParts.slice();
                         else delete w.sepParts;
-                        if (seedWord.semanticTags) w.semanticTags = JSON.parse(JSON.stringify(seedWord.semanticTags));
-                        w.radicales = JSON.parse(JSON.stringify(seedWord.radicales));
+                        if (seedWord.semanticTags) w.semanticTags = seedWord.semanticTags.slice();
+                        w.radicales = Array.isArray(seedWord.radicales) ? seedWord.radicales.map(r => ({ ...r })) : [];
                         w.notas = seedWord.notas;
-                        if (seedWord.notas_en) w.notas_en = seedWord.notas_en;
+                        delete w.notas_en;
                         if (seedWord.espanol) w.espanol = seedWord.espanol;
-                        if (seedWord.english) w.english = seedWord.english;
-                        if (seedWord.ejemplos) w.ejemplos = JSON.parse(JSON.stringify(seedWord.ejemplos));
-                        if (seedWord.ejemplos_en) w.ejemplos_en = JSON.parse(JSON.stringify(seedWord.ejemplos_en));
+                        delete w.english;
+                        if (seedWord.ejemplos) w.ejemplos = seedWord.ejemplos.slice();
+                        delete w.ejemplos_en;
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
                         }
@@ -351,11 +351,8 @@ const loadDB = () => {
         return { meta: { version: '1.0' }, palabras: [], clasificadores: [], verbos: [], adjetivos: [], adverbios: [], expresiones: [], particulas: [], estructuras: [] };
     }
 
-    // First visit with seed ready — seed with initial data
-    const seeded = JSON.parse(JSON.stringify(seed));
-    sanitizeAndMigrateData(seeded, seed);
-    seeded.meta = seeded.meta || {};
-    seeded.meta.migratedWordsVersion = targetDataVersion;
+    // First visit with pre-normalized seed ready — skip heavy migration loop
+    const seeded = { ...seed, meta: { version: targetDataVersion, migratedWordsVersion: targetDataVersion } };
     saveDB(seeded);
     return seeded;
 };
