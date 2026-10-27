@@ -44,7 +44,7 @@ const SyntaxEngine = (() => {
         '哪': { categoria: 'Det', posSymbol: 'Det', semanticTags: ['demonstrative', 'question'], pinyin: 'nǎ', espanol: 'Cuál', english: 'Which' },
         '幾': { categoria: 'Det', posSymbol: 'Det', semanticTags: ['numeral', 'question'], pinyin: 'jǐ', espanol: 'Cuántos', english: 'How many' },
         '個': { categoria: 'M', posSymbol: 'M', semanticTags: ['measure'], pinyin: 'ge', espanol: 'Clasificador general', english: 'General measure word' },
-        '是': { categoria: 'V', posSymbol: 'V', verbSubtype: 'V', semanticTags: ['action', 'copula'], pinyin: 'shì', espanol: 'Ser', english: 'To be' },
+        '是': { categoria: 'V', posSymbol: 'Vst', verbSubtype: 'Vst', semanticTags: ['state', 'transitiveState', 'copula'], pinyin: 'shì', espanol: 'Ser', english: 'To be' },
         '有': { categoria: 'V', posSymbol: 'V', verbSubtype: 'V', semanticTags: ['action', 'possession', 'existential'], pinyin: 'yǒu', espanol: 'Tener / Haber', english: 'To have / There is' }
     };
 

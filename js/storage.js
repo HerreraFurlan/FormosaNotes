@@ -216,11 +216,13 @@ const sanitizeAndMigrateData = (data, seedSource) => {
     // 6. Ensure all structures from activeSeed are present
     if (activeSeed && Array.isArray(activeSeed.estructuras)) {
         if (!Array.isArray(data.estructuras)) data.estructuras = [];
-        const existingStructIds = new Set(data.estructuras.map(s => s.id));
+        const existingStructMap = new Map(data.estructuras.map((s, idx) => [s.id, idx]));
         activeSeed.estructuras.forEach(st => {
-            if (!existingStructIds.has(st.id)) {
-                data.estructuras.push(JSON.parse(JSON.stringify(st)));
-                existingStructIds.add(st.id);
+            if (existingStructMap.has(st.id)) {
+                data.estructuras[existingStructMap.get(st.id)] = { ...st };
+            } else {
+                data.estructuras.push({ ...st });
+                existingStructMap.set(st.id, data.estructuras.length - 1);
             }
         });
     }
