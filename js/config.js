@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.1.7',
-        dataVersion: '4.1.7',
+        version: '4.1.8',
+        dataVersion: '4.1.8',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
         removedSeedIds: ['id_n_yundong_sport', 'id_n_weibo_micro'],
     },
@@ -694,8 +694,12 @@ APP_CONFIG.getWordPOSBadgeInfo = (word, lang = 'es') => {
     const catId = APP_CONFIG.normalizeCategoryId(word.categoria);
     const cat = APP_CONFIG.getCategory(catId) || APP_CONFIG.categories[0];
 
-    if (catId === 'V' && word.verbSubtype && APP_CONFIG.verbSubtypes[word.verbSubtype]) {
-        const sub = APP_CONFIG.verbSubtypes[word.verbSubtype];
+    const subtypeKey = (word.posSymbol && APP_CONFIG.verbSubtypes[word.posSymbol])
+        ? word.posSymbol
+        : (word.verbSubtype && APP_CONFIG.verbSubtypes[word.verbSubtype] ? word.verbSubtype : null);
+
+    if (catId === 'V' && subtypeKey && APP_CONFIG.verbSubtypes[subtypeKey]) {
+        const sub = APP_CONFIG.verbSubtypes[subtypeKey];
         const shortName = (sub.shortLabels && sub.shortLabels[lang]) || (sub.labels && sub.labels[lang]) || sub.symbol;
         const tooltip = (sub.labels && sub.labels[lang]) || shortName;
         return {

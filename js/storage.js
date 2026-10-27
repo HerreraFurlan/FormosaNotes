@@ -247,8 +247,13 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                         if (seedWord.pinyin) w.pinyin = seedWord.pinyin;
                         if (seedWord.zhuyin) w.zhuyin = seedWord.zhuyin;
                         w.posSymbol = seedWord.posSymbol || seedWord.categoria;
-                        if (seedWord.verbSubtype) w.verbSubtype = seedWord.verbSubtype;
-                        else delete w.verbSubtype;
+                        if (seedWord.verbSubtype) {
+                            w.verbSubtype = seedWord.verbSubtype;
+                        } else if (seedWord.posSymbol && typeof APP_CONFIG !== 'undefined' && APP_CONFIG.verbSubtypes && APP_CONFIG.verbSubtypes[seedWord.posSymbol]) {
+                            w.verbSubtype = seedWord.posSymbol;
+                        } else {
+                            delete w.verbSubtype;
+                        }
                         if (seedWord.sepParts) w.sepParts = seedWord.sepParts.slice();
                         else delete w.sepParts;
                         if (seedWord.semanticTags) w.semanticTags = seedWord.semanticTags.slice();
