@@ -57,6 +57,7 @@ try {
 
 let currentCategoriesFilter = ['todos'];
 let currentLessonFilter = ['todas'];
+let currentStructLessonFilter = ['todas'];
 let currentSearch = '';
 let currentPrintSearch = '';
 
@@ -107,6 +108,23 @@ const renderConfigurableFiltersAndInputs = () => {
             html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
         }
         libLessonEl.innerHTML = html;
+    }
+
+    // 1b. Structures Lesson Filter Chips (#structures-lesson-chips)
+    const structLessonEl = document.getElementById('structures-lesson-chips');
+    if (structLessonEl) {
+        const allKey = lessonsCfg.allFilterId || 'todas';
+        let html = `<button class="chip ${currentStructLessonFilter.includes(allKey) ? 'active' : ''}" data-lesson-filter="${allKey}" data-i18n="allLessons">${tFn('allLessons')}</button>`;
+        lessonItems.forEach(item => {
+            const isActive = currentStructLessonFilter.includes(String(item.id));
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${item.id}" data-lesson-label="${item.id}" data-lesson-short="true">${item.shortLabel || `L${item.number}`}</button>`;
+        });
+        if (lessonsCfg.allowUnassigned) {
+            const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
+            const isActive = currentStructLessonFilter.includes(unKey);
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+        }
+        structLessonEl.innerHTML = html;
     }
 
     // 2. Study Mode Lesson Filter Chips (#study-lesson-filters)
@@ -407,15 +425,9 @@ const renderGrid = () => {
         words = words.filter(w => currentCategoriesFilter.includes(w.categoria));
     }
 
-    // 2. Filter by lesson (stackable)
-    const unassignedKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.unassignedFilterId) || 'ninguna';
-    if (!currentLessonFilter.includes('todas') && currentLessonFilter.length > 0) {
-        words = words.filter(w => {
-            if (!w.leccion) {
-                return currentLessonFilter.includes(unassignedKey);
-            }
-            return currentLessonFilter.includes(String(w.leccion));
-        });
+    // 2. Filter by lesson via APP_CONFIG (stackable)
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
+        words = words.filter(w => APP_CONFIG.matchesLessonFilter(w, currentLessonFilter));
     }
 
     if (currentSearch) {
@@ -484,7 +496,10 @@ const renderStructures = () => {
     if (!listEl) return;
     listEl.innerHTML = '';
     const db = loadDB();
-    const structures = db.estructuras || [];
+    let structures = db.estructuras || [];
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
+        structures = structures.filter(s => APP_CONFIG.matchesLessonFilter(s, currentStructLessonFilter));
+    }
 
     if (structures.length === 0) {
         const emptyTitle = typeof I18N !== 'undefined' ? I18N.t('structuresEmpty') : 'No hay estructuras registradas';
@@ -1183,6 +1198,39 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
 
             renderGrid();
+        });
+    }
+
+    // 9b. Structures lesson filter chips (stackable multi-selection from APP_CONFIG)
+    const structLessonChips = document.getElementById('structures-lesson-chips');
+    if (structLessonChips) {
+        structLessonChips.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            const allKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.allFilterId) || 'todas';
+            const lessonVal = chip.dataset.lessonFilter || allKey;
+
+            if (lessonVal === allKey) {
+                currentStructLessonFilter = [allKey];
+            } else {
+                let lessons = currentStructLessonFilter.filter(l => l !== allKey);
+                if (lessons.includes(lessonVal)) {
+                    lessons = lessons.filter(l => l !== lessonVal);
+                } else {
+                    lessons.push(lessonVal);
+                }
+                if (lessons.length === 0) {
+                    lessons = [allKey];
+                }
+                currentStructLessonFilter = lessons;
+            }
+
+            document.querySelectorAll('#structures-lesson-chips .chip').forEach(c => {
+                const val = c.dataset.lessonFilter;
+                c.classList.toggle('active', currentStructLessonFilter.includes(val));
+            });
+
+            renderStructures();
         });
     }
 

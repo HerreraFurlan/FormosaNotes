@@ -213,18 +213,9 @@ const sanitizeAndMigrateData = (data, seedSource) => {
         });
     }
 
-    // 6. Ensure all structures from activeSeed are present
+    // 6. Sync structures from activeSeed (preserving Lesson assignments from APP_CONFIG)
     if (activeSeed && Array.isArray(activeSeed.estructuras)) {
-        if (!Array.isArray(data.estructuras)) data.estructuras = [];
-        const existingStructMap = new Map(data.estructuras.map((s, idx) => [s.id, idx]));
-        activeSeed.estructuras.forEach(st => {
-            if (existingStructMap.has(st.id)) {
-                data.estructuras[existingStructMap.get(st.id)] = { ...st };
-            } else {
-                data.estructuras.push({ ...st });
-                existingStructMap.set(st.id, data.estructuras.length - 1);
-            }
-        });
+        data.estructuras = activeSeed.estructuras.map(st => ({ ...st }));
     }
 
     // 7. Sync updated definitions, mnemonics, radicals, leccion, and examples from activeSeed

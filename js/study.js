@@ -139,15 +139,9 @@ const initStudyMode = (categories = currentStudyCategories, lessons = currentStu
         words = words.filter(w => currentStudyCategories.includes(w.categoria));
     }
 
-    // 2. Filter by lessons (stackable)
-    const unassignedKey = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons?.unassignedFilterId) || 'ninguna';
-    if (!currentStudyLessons.includes('todas') && currentStudyLessons.length > 0) {
-        words = words.filter(w => {
-            if (!w.leccion) {
-                return currentStudyLessons.includes(unassignedKey);
-            }
-            return currentStudyLessons.includes(String(w.leccion));
-        });
+    // 2. Filter by lessons via APP_CONFIG (stackable)
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
+        words = words.filter(w => APP_CONFIG.matchesLessonFilter(w, currentStudyLessons));
     }
 
     // Fisher-Yates shuffle

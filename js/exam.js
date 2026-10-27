@@ -114,15 +114,19 @@ const saveExamLessonPrefs = () => {
  */
 const getWordsForExam = () => {
     const allWords = getAllWords();
-    return allWords.filter(w => {
-        if (w.leccion && Number(w.leccion) <= examMaxLesson) {
-            return true;
-        }
-        if (examIncludeUnassigned && !w.leccion) {
-            return true;
-        }
-        return false;
-    });
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesCumulativeLesson === 'function') {
+        return allWords.filter(w => APP_CONFIG.matchesCumulativeLesson(w, examMaxLesson, examIncludeUnassigned));
+    }
+    return allWords.filter(w => (w.leccion && Number(w.leccion) <= examMaxLesson) || (examIncludeUnassigned && !w.leccion));
+};
+
+const getStructuresForExam = () => {
+    const allStructures = getStructuresForExam();
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesCumulativeLesson === 'function') {
+        const filtered = allStructures.filter(s => APP_CONFIG.matchesCumulativeLesson(s, examMaxLesson, examIncludeUnassigned));
+        return filtered.length > 0 ? filtered : allStructures;
+    }
+    return allStructures;
 };
 
 /**

@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.0.8',
-        dataVersion: '4.0.8',
+        version: '4.0.9',
+        dataVersion: '4.0.9',
     },
 
     // =====================================================
@@ -31,7 +31,7 @@ const APP_CONFIG = {
                 code: 'es',
                 name: 'Español',
                 flag: '🇪🇸',
-                dataScript: 'js/data.js?v=4.0.8',
+                dataScript: 'js/data.js?v=4.0.9',
                 globalVar: 'SEED_DATA',
                 dbKey: 'appchino_db',
                 aiLangName: 'español'
@@ -40,7 +40,7 @@ const APP_CONFIG = {
                 code: 'en',
                 name: 'English',
                 flag: '🇺🇸',
-                dataScript: 'js/data_en.js?v=4.0.8',
+                dataScript: 'js/data_en.js?v=4.0.9',
                 globalVar: 'SEED_DATA_EN',
                 dbKey: 'appchino_db_en',
                 aiLangName: 'English'
@@ -702,6 +702,66 @@ APP_CONFIG.getWordPOSBadgeInfo = (word, lang = 'es') => {
  * Incluye tanto las colecciones nuevas como las históricas para migración limpia.
  * @returns {Array<string>}
  */
+/**
+ * Obtiene la definición de una lección desde APP_CONFIG.lessons.items.
+ * @param {string|number} lessonIdOrNum
+ * @returns {object|null}
+ */
+APP_CONFIG.getLessonItem = (lessonIdOrNum) => {
+    if (lessonIdOrNum === undefined || lessonIdOrNum === null || lessonIdOrNum === '') return null;
+    const str = String(lessonIdOrNum).trim();
+    const num = Number(str);
+    return (APP_CONFIG.lessons?.items || []).find(
+        item => String(item.id) === str || (!Number.isNaN(num) && Number(item.number) === num)
+    ) || null;
+};
+
+/**
+ * Devuelve la etiqueta corta de la lección (ej. "L1") o el símbolo de sin asignar ("/").
+ * @param {string|number} lessonIdOrNum
+ * @returns {string}
+ */
+APP_CONFIG.getLessonShortLabel = (lessonIdOrNum) => {
+    const found = APP_CONFIG.getLessonItem(lessonIdOrNum);
+    if (found) return found.shortLabel || `L${found.number}`;
+    return APP_CONFIG.lessons?.unassignedSymbol || '/';
+};
+
+/**
+ * Evalúa si un elemento (palabra o estructura gramatical) coincide con los filtros de lección activos.
+ * Consume directamente APP_CONFIG.lessons (allFilterId, unassignedFilterId, items).
+ * @param {object} item - Objeto con propiedad opcional `leccion`
+ * @param {Array<string>} activeFilterIds - Lista de IDs de filtro activos
+ * @returns {boolean}
+ */
+APP_CONFIG.matchesLessonFilter = (item, activeFilterIds) => {
+    const allKey = APP_CONFIG.lessons?.allFilterId || 'todas';
+    const unassignedKey = APP_CONFIG.lessons?.unassignedFilterId || 'ninguna';
+    if (!Array.isArray(activeFilterIds) || activeFilterIds.length === 0 || activeFilterIds.includes(allKey)) {
+        return true;
+    }
+    const foundLesson = APP_CONFIG.getLessonItem(item?.leccion);
+    if (!foundLesson) {
+        return activeFilterIds.includes(unassignedKey);
+    }
+    return activeFilterIds.includes(String(foundLesson.id)) || activeFilterIds.includes(String(foundLesson.number));
+};
+
+/**
+ * Evalúa si un elemento (palabra o estructura gramatical) entra en el rango acumulativo de examen.
+ * @param {object} item - Objeto con propiedad opcional `leccion`
+ * @param {number} maxLesson - Lección máxima seleccionada
+ * @param {boolean} includeUnassigned - Incluir elementos sin lección asignada
+ * @returns {boolean}
+ */
+APP_CONFIG.matchesCumulativeLesson = (item, maxLesson, includeUnassigned = false) => {
+    const foundLesson = APP_CONFIG.getLessonItem(item?.leccion);
+    if (foundLesson) {
+        return Number(foundLesson.number) <= Number(maxLesson);
+    }
+    return !!includeUnassigned;
+};
+
 APP_CONFIG.getDBCollections = () => {
     const cols = new Set();
     APP_CONFIG.categories.forEach(c => {

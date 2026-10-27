@@ -369,7 +369,10 @@ const createStructureCard = (struct) => {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
             </button>
         </div>
-        <h4>${struct.nombre}</h4>
+        <div style="display:flex;align-items:center;gap:0.5rem;margin-bottom:0.25rem;padding-right:2rem;">
+            <span class="lesson-badge ${struct.leccion ? '' : 'lesson-badge-empty'}" title="${struct.leccion ? (typeof I18N !== 'undefined' ? I18N.getLessonLabel(struct.leccion, false) : 'Lección ' + struct.leccion) : (typeof I18N !== 'undefined' ? I18N.t('unassignedLessonTitle') : 'Sin lección asignada')}">${typeof APP_CONFIG !== 'undefined' && APP_CONFIG.getLessonShortLabel ? APP_CONFIG.getLessonShortLabel(struct.leccion) : (struct.leccion ? 'L' + struct.leccion : '/')}</span>
+            <h4 style="margin:0;">${struct.nombre}</h4>
+        </div>
         <div class="formula">${struct.formula}</div>
         <div class="example-row">
             <div>
