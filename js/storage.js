@@ -239,9 +239,11 @@ const sanitizeAndMigrateData = (data, seedSource) => {
         for (const cat of legacyAndCurrentCols) {
             if (Array.isArray(data[cat])) {
                 data[cat].forEach(w => {
-                    const seedWord = seedMap.get(w.id) || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
+                    const seedById = seedMap.get(w.id);
+                    const seedWord = seedById || seedMap.get(w.tradicional + '_' + (w.categoria || cat)) || seedMap.get(w.tradicional);
                     if (seedWord) {
                         w.categoria = seedWord.categoria;
+                        if (seedById && seedWord.tradicional) w.tradicional = seedWord.tradicional;
                         if (seedWord.pinyin) w.pinyin = seedWord.pinyin;
                         if (seedWord.zhuyin) w.zhuyin = seedWord.zhuyin;
                         w.posSymbol = seedWord.posSymbol || seedWord.categoria;
@@ -259,12 +261,23 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                         delete w.ejemplos_en;
                         if (seedWord.leccion !== undefined) {
                             w.leccion = seedWord.leccion;
+                        } else if (seedById) {
+                            // La semilla es la fuente de verdad: si se le quitó la lección, también se quita aquí
+                            delete w.leccion;
                         }
                     } else if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.normalizeCategoryId === 'function') {
                         w.categoria = APP_CONFIG.normalizeCategoryId(w.categoria);
                         w.posSymbol = w.posSymbol || w.categoria;
                     }
                 });
+            }
+        }
+
+        // 7a. Purge seed cards that were removed from the dataset (tombstones in APP_CONFIG)
+        const removedIds = new Set((typeof APP_CONFIG !== 'undefined' && APP_CONFIG.app?.removedSeedIds) || []);
+        if (removedIds.size > 0) {
+            for (const cat of legacyAndCurrentCols) {
+                if (Array.isArray(data[cat])) data[cat] = data[cat].filter(w => !w || !removedIds.has(w.id));
             }
         }
 

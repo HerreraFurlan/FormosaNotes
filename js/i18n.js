@@ -791,7 +791,10 @@ const ensureLanguageDataLoaded = (langCode = getLanguage()) => {
         }
 
         const script = document.createElement('script');
-        script.src = langMeta.dataScript;
+        // Cache-busting derivado de APP_CONFIG.app.dataVersion (fuente única de verdad)
+        const dataVer = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.app?.dataVersion) || '';
+        const baseSrc = String(langMeta.dataScript).split('?')[0];
+        script.src = dataVer ? `${baseSrc}?v=${dataVer}` : baseSrc;
         script.async = true;
         script.dataset.langPack = langMeta.code;
 

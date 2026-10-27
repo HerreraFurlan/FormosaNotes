@@ -16,8 +16,10 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.1.6',
-        dataVersion: '4.1.6',
+        version: '4.1.7',
+        dataVersion: '4.1.7',
+        // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
+        removedSeedIds: ['id_n_yundong_sport', 'id_n_weibo_micro'],
     },
 
     // =====================================================
@@ -31,7 +33,7 @@ const APP_CONFIG = {
                 code: 'es',
                 name: 'Español',
                 flag: '🇪🇸',
-                dataScript: 'js/data.js?v=4.1.0',
+                dataScript: 'js/data.js',
                 globalVar: 'SEED_DATA',
                 dbKey: 'appchino_db',
                 aiLangName: 'español'
@@ -40,7 +42,7 @@ const APP_CONFIG = {
                 code: 'en',
                 name: 'English',
                 flag: '🇺🇸',
-                dataScript: 'js/data_en.js?v=4.1.0',
+                dataScript: 'js/data_en.js',
                 globalVar: 'SEED_DATA_EN',
                 dbKey: 'appchino_db_en',
                 aiLangName: 'English'
