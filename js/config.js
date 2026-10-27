@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.1.0',
-        dataVersion: '4.1.0',
+        version: '4.1.1',
+        dataVersion: '4.1.1',
     },
 
     // =====================================================
