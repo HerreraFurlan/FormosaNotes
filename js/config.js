@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.0.9',
-        dataVersion: '4.0.9',
+        version: '4.1.0',
+        dataVersion: '4.1.0',
     },
 
     // =====================================================
@@ -31,7 +31,7 @@ const APP_CONFIG = {
                 code: 'es',
                 name: 'Español',
                 flag: '🇪🇸',
-                dataScript: 'js/data.js?v=4.0.9',
+                dataScript: 'js/data.js?v=4.1.0',
                 globalVar: 'SEED_DATA',
                 dbKey: 'appchino_db',
                 aiLangName: 'español'
@@ -40,7 +40,7 @@ const APP_CONFIG = {
                 code: 'en',
                 name: 'English',
                 flag: '🇺🇸',
-                dataScript: 'js/data_en.js?v=4.0.9',
+                dataScript: 'js/data_en.js?v=4.1.0',
                 globalVar: 'SEED_DATA_EN',
                 dbKey: 'appchino_db_en',
                 aiLangName: 'English'
@@ -225,6 +225,25 @@ const APP_CONFIG = {
             labels: {
                 es: { singular: 'Det · Determinante', plural: 'Det · Determinantes', short: 'Det · Determinante' },
                 en: { singular: 'Det · Determiner', plural: 'Det · Determiners', short: 'Det · Determiner' }
+            }
+        },
+        {
+            id: 'Phr',
+            symbol: 'Phr',
+            dbCollection: 'frases',
+            order: 9,
+            icon: '🔴',
+            cssVar: '--color-pos-phr',
+            cssLightVar: '--color-pos-phr-light',
+            color: '#C83E3B',
+            bgLight: '#FDECEC',
+            badgeTextColor: '#A82825',
+            pdfColor: '#C83E3B',
+            isClassifier: false,
+            allowsClassifier: false,
+            labels: {
+                es: { singular: 'Frase', plural: 'Frases', short: 'Frase' },
+                en: { singular: 'Phrase', plural: 'Phrases', short: 'Phrase' }
             }
         }
     ],
@@ -475,7 +494,8 @@ const APP_CONFIG = {
         clasificador: 'M',
         particula: 'Ptc',
         determinante: 'Det',
-        expresion: 'V'
+        expresion: 'Phr',
+        frase: 'Phr'
     },
 
     // Meta-categorías adicionales (ej. estructuras gramaticales)
