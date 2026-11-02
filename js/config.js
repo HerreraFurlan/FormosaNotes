@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.1.8',
-        dataVersion: '4.1.8',
+        version: '4.1.9',
+        dataVersion: '4.1.9',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
         removedSeedIds: ['id_n_yundong_sport', 'id_n_weibo_micro'],
     },
@@ -371,6 +371,19 @@ const APP_CONFIG = {
             labels: {
                 es: 'Verbo auxiliar / modal',
                 en: 'Auxiliary / modal verb'
+            }
+        },
+        'Va': {
+            symbol: 'Va',
+            type: 'auxiliary',
+            transitive: false,
+            separable: false,
+            takesDegreeAdv: false,
+            color: '#0D9488',
+            shortLabels: { es: 'Verbo aspectual', en: 'Aspectual Verb' },
+            labels: {
+                es: 'Verbo de aspecto progresivo',
+                en: 'Progressive aspect verb'
             }
         },
         'Vp': {

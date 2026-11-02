@@ -121,7 +121,7 @@ const SyntaxEngine = (() => {
     const hasTag = (tok, tag) => tok && Array.isArray(tok.semanticTags) && tok.semanticTags.includes(tag);
     const isStateVerb = (tok) => tok && tok.categoria === 'V' && ['Vs', 'Vst', 'Vs-pred', 'Vs-attr', 'Vs-sep'].includes(tok.verbSubtype);
     const isActionOrProcessVerb = (tok) => tok && tok.categoria === 'V' && ['V', 'Vi', 'V-sep', 'Vp', 'Vpt', 'Vp-sep'].includes(tok.verbSubtype || 'V');
-    const isAuxVerb = (tok) => tok && tok.categoria === 'V' && tok.verbSubtype === 'Vaux';
+    const isAuxVerb = (tok) => tok && tok.categoria === 'V' && (tok.verbSubtype === 'Vaux' || tok.verbSubtype === 'Va');
     const isSeparableVerb = (tok) => tok && tok.categoria === 'V' && ['V-sep', 'Vs-sep', 'Vp-sep'].includes(tok.verbSubtype);
     const isTimeToken = (tok) => tok && (hasTag(tok, 'time') || hasTag(tok, 'timeMeasure') || ['點', '分', '刻', '號', '日'].includes(tok.tradicional));
     const isPlaceToken = (tok) => tok && hasTag(tok, 'place');
