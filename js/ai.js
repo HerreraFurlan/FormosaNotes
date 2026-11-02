@@ -59,19 +59,19 @@ const getCandidateModels = () => {
 };
 
 /**
- * Builds the pedagogical system instruction for Taiwan Traditional Mandarin (TOCFL / MTC Dangdai).
+ * Builds the pedagogical system instruction for Taiwan Traditional Mandarin (TOCFL standard).
  * @param {'es'|'en'} [langCode]
  * @returns {object} Gemini systemInstruction object
  */
 const buildTaiwanSystemInstruction = (langCode = isAILangEnglish() ? 'en' : 'es') => {
     const text = langCode === 'en'
-        ? `You are a senior professor of Taiwanese Traditional Mandarin (繁體中文 - Taiwan Ministry of Education standard) specialized in the TOCFL proficiency framework and the NTNU Mandarin Training Center curriculum "A Course in Contemporary Chinese" (當代中文課程).
+        ? `You are a senior professor of Taiwanese Traditional Mandarin (繁體中文 - Taiwan Ministry of Education standard) specialized in the TOCFL proficiency framework.
 Pedagogical & Linguistic Rules:
 1. ALWAYS write Chinese strictly in Traditional Characters used in Taiwan (e.g., 臺灣/台灣, 裡, 麵, 點, 買, 學, 語, 請問). Never use Simplified Chinese characters.
 2. ALWAYS use authentic Taiwanese Mandarin vocabulary, grammar, and phrasing (e.g., 捷運, 計程車, 腳踏車, 便當, 手機, 塊 for currency, 禮拜/星期, 服務生, 早安) rather than Mainland China terms.
 3. Provide accurate Hanyu Pinyin with standard tone diacritics (e.g., nǐ hǎo, wǒmen, yí ge / yī gè).
 4. Keep all meta-explanations, translations, and feedback in clear, concise English without nested double quotes inside JSON string values.`
-        : `Eres un profesor titular de Chino Mandarín Tradicional de Taiwán (繁體中文 - estándar del Ministerio de Educación de Taiwán), especialista en el examen oficial TOCFL y el currículo "A Course in Contemporary Chinese" (當代中文課程) del Mandarin Training Center (NTNU).
+        : `Eres un profesor titular de Chino Mandarín Tradicional de Taiwán (繁體中文 - estándar del Ministerio de Educación de Taiwán), especialista en el marco oficial TOCFL.
 Reglas Pedagógicas y Lingüísticas:
 1. Escribe el chino SIEMPRE en caracteres tradicionales estándar de Taiwán (ej. 臺灣/台灣, 裡, 麵, 點, 買, 學, 語, 請問). Prohibido usar caracteres simplificados.
 2. Utiliza SIEMPRE léxico, gramática y modismos propios de Taiwán (ej. 捷運, 計程車, 腳踏車, 便當, 手機, 塊 para moneda, 禮拜/星期, 服務生, 早安) en lugar de términos de China continental.
@@ -349,7 +349,7 @@ const checkSentenceWithGemini = async (sentence) => {
         ? `Evaluate the following sentence constructed by a student of Taiwanese Traditional Mandarin (Level 3 Semantic & Contextual Fallback):
 Sentence: "${sentence}"
 
-Evaluation Checklist (Taiwan MTC 當代中文課程 / 詞類表 standard):
+Evaluation Checklist (Taiwan TOCFL / 詞類表 standard):
 1. Canonical SVO Slots: [Topic/Subject] -> [Time] -> [Company (跟)] -> [Location (在)] -> [Modal/Neg (Vaux/Adv)] -> [Verb/State (V/Vs)] -> [Object].
 2. State Verbs (Vs / Vst) & Separable Verbs (V-sep 離合詞): Ensure Vs use degree adverbs (很) instead of 是, and V-sep (e.g. 唱歌, 上網, 游泳, 照相) handle inner objects properly.
 3. Measure Words (M 量詞) & Aspect/Modal Particles (Ptc 助詞: 了, 過, 的, 得, 嗎, 呢, 吧): Check semantic coherence, Taiwanese usage, and aspect placement.
@@ -363,7 +363,7 @@ Rules for response fields:
         : `Evalúa la siguiente oración construida por un estudiante de Mandarín Tradicional de Taiwán (Nivel 3: Validación Semántica y Contextual):
 Oración: "${sentence}"
 
-Criterios de evaluación (Estándar oficial 當代中文課程 / 詞類表):
+Criterios de evaluación (Estándar oficial TOCFL / 詞類表):
 1. Slots Canónicos SVO: [Tópico/Sujeto] -> [Tiempo] -> [Compañía (跟)] -> [Lugar (在)] -> [Modal/Neg (Vaux/Adv)] -> [Verbo/Estado (V/Vs)] -> [Objeto].
 2. Verbos de Estado (Vs / Vst) y Verbos Separables (V-sep 離合詞): Verifica que los Vs usen adverbio de grado (很) en vez de 是, y que los V-sep (唱歌, 上網, 游泳, 照相) manejen bien su objeto interno.
 3. Clasificadores (M 量詞) y Partículas (Ptc 助詞: 了, 過, 的, 得, 嗎, 呢, 吧): Verifica coherencia semántica, colocación aspectual y naturalidad en Taiwán.

@@ -3,7 +3,7 @@
  * AppChino (Formosa Notes) — syntax-engine.js
  * Motor Determinista de Sintaxis China y "Sintagmas Magnéticos" (Latencia 0 ms)
  * 
- * Basado en la gramática pedagógica oficial de Taiwán (當代中文課程 / 詞類表):
+ * Basado en la gramática pedagógica estándar de Taiwán (TOCFL / 詞類表):
  * - Categorías Gramaticales: N, V, Adv, Conj, Prep, M, Ptc, Det, Num, Phr
  * - Subclasificación Verbal (動詞分類): V, Vi, V-sep, Vs, Vst, Vs-attr, Vs-pred, Vs-sep, Vaux, Vp, Vpt, Vp-sep
  * - Modelo Canónico de Slots (SVO Chino):
@@ -68,7 +68,7 @@ const SyntaxEngine = (() => {
         '有': { categoria: 'V', posSymbol: 'V', verbSubtype: 'V', semanticTags: ['action', 'possession', 'existential'], pinyin: 'yǒu', espanol: 'Tener / Haber', english: 'To have / There is' }
     };
 
-    // Listas cerradas y patrones seguros para evitar contaminación por subcadena (ej. 甜點, 陳月美)
+    // Listas cerradas y patrones seguros para evitar contaminación por subcadena (ej. 甜點)
     const EXACT_TIME_WORDS = new Set([
         '今天', '明天', '昨天', '前天', '後天', '現在', '早上', '上午', '中午', '下午', '晚上', '半夜',
         '週末', '今年', '明年', '去年', '什麼時候', '幾點', '以前', '以後', '從前', '最近', '有時候',

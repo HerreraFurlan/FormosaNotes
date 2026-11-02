@@ -3,7 +3,7 @@
  * AppChino (Formosa Notes) — config.js
  * ÚNICA FUENTE DE VERDAD (Single Source of Truth)
  * 
- * Basado en el estándar oficial de Taiwán (當代中文課程 / 詞類表):
+ * Basado en el estándar pedagógico de Taiwán (TOCFL / 詞類表):
  * 1. Categorías Gramaticales: N, V, Adv, Conj, Prep, M, Ptc, Det, Num, Phr
  * 2. Subclasificación Verbal de 12 tipos (動詞分類): V, Vi, V-sep, Vs, Vst, Vs-attr, Vs-pred, Vs-sep, Vaux, Vp, Vpt, Vp-sep
  * 3. Configuración del Motor de Sintagmas Magnéticos y Slots Canónicos SVO Chino
@@ -16,10 +16,20 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.2.0',
-        dataVersion: '4.2.0',
+        version: '4.2.1',
+        dataVersion: '4.2.1',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
-        removedSeedIds: ['id_n_yundong_sport', 'id_n_weibo_micro'],
+        removedSeedIds: [
+            'id_n_yundong_sport',
+            'id_n_weibo_micro',
+            'id_mty015_chenyuemei',
+            'id_mty016_liminghua',
+            'id_mty017_wangkaiwen',
+            'id_mty018_zhangyijun',
+            'id_mty019_maantong',
+            'id_mty028_tianzhong',
+            'id_l3_bairuyu'
+        ],
     },
 
     // =====================================================
