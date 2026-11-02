@@ -40,7 +40,7 @@ const getStorageCollections = () => {
     if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getDBCollections === 'function') {
         return APP_CONFIG.getDBCollections();
     }
-    return ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas', 'clasificadores'];
+    return ['palabras', 'verbos', 'adverbios', 'conjunciones', 'preposiciones', 'clasificadores', 'particulas', 'determinantes', 'numerales', 'frases'];
 };
 
 /**
@@ -51,7 +51,7 @@ const getNonClassifierCollections = () => {
     if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getNonClassifierCollections === 'function') {
         return APP_CONFIG.getNonClassifierCollections();
     }
-    return ['palabras', 'verbos', 'adjetivos', 'adverbios', 'expresiones', 'particulas'];
+    return ['palabras', 'verbos', 'adverbios', 'conjunciones', 'preposiciones', 'particulas', 'determinantes', 'numerales', 'frases'];
 };
 
 /**
@@ -105,13 +105,29 @@ const getCategoryKey = (categoria) => {
         if (map[categoria]) return map[categoria];
     }
     const fallbackMap = {
+        N:            'palabras',
+        V:            'verbos',
+        Adv:          'adverbios',
+        Conj:         'conjunciones',
+        Prep:         'preposiciones',
+        M:            'clasificadores',
+        Ptc:          'particulas',
+        Det:          'determinantes',
+        Num:          'numerales',
+        Phr:          'frases',
         sustantivo:   'palabras',
         pronombre:    'palabras',
         clasificador: 'clasificadores',
         verbo:        'verbos',
-        adjetivo:     'adjetivos',
+        adjetivo:     'verbos',
         adverbio:     'adverbios',
-        expresion:    'expresiones',
+        conjuncion:   'conjunciones',
+        preposicion:  'preposiciones',
+        determinante: 'determinantes',
+        numeral:      'numerales',
+        numero:       'numerales',
+        expresion:    'frases',
+        frase:        'frases',
         particula:    'particulas',
     };
     return fallbackMap[categoria] || 'palabras';
@@ -234,7 +250,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                 });
             }
         }
-        // 7. Sync updated POS categories (八大詞類), verbSubtypes (動詞分類), semanticTags, definitions, mnemonics, radicals, leccion from activeSeed
+        // 7. Sync updated POS categories, verbSubtypes, semanticTags, definitions, mnemonics, radicals, leccion from activeSeed
         const legacyAndCurrentCols = Array.from(new Set([...allCollections, 'adjetivos', 'expresiones']));
         for (const cat of legacyAndCurrentCols) {
             if (Array.isArray(data[cat])) {
@@ -247,6 +263,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
                         if (seedWord.pinyin) w.pinyin = seedWord.pinyin;
                         if (seedWord.zhuyin) w.zhuyin = seedWord.zhuyin;
                         w.posSymbol = seedWord.posSymbol || seedWord.categoria;
+                        if (seedWord.clasificador) w.clasificador = seedWord.clasificador;
                         if (seedWord.verbSubtype) {
                             w.verbSubtype = seedWord.verbSubtype;
                         } else if (seedWord.posSymbol && typeof APP_CONFIG !== 'undefined' && APP_CONFIG.verbSubtypes && APP_CONFIG.verbSubtypes[seedWord.posSymbol]) {
@@ -286,7 +303,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
             }
         }
 
-        // 7b. Re-bucket any cards whose collection changed (e.g. from legacy adjetivos/expresiones to verbos/determinantes/conjunciones/preposiciones)
+        // 7b. Re-bucket any cards whose collection changed (e.g. from legacy adjetivos/expresiones or Det->Num)
         const bucketed = {};
         allCollections.forEach(c => { bucketed[c] = []; });
         const seenIds = new Set();
@@ -305,7 +322,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
         delete data.adjetivos;
         delete data.expresiones;
 
-        // 8. Ensure all cards from activeSeed exist in data (including new Prep/Ptc/V-sep cards)
+        // 8. Ensure all cards from activeSeed exist in data (including new Prep/Ptc/V-sep/Num cards)
         for (const cat of allCollections) {
             if (Array.isArray(activeSeed[cat])) {
                 if (!Array.isArray(data[cat])) data[cat] = [];
@@ -332,7 +349,7 @@ const loadDB = () => {
     const key = getActiveDBKey();
     const targetDataVersion = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.app?.dataVersion)
         ? APP_CONFIG.app.dataVersion
-        : '3.25';
+        : '4.2.0';
 
     if (memoryDBCache[key]) {
         return memoryDBCache[key];
@@ -361,7 +378,7 @@ const loadDB = () => {
 
     // If seed data is not yet loaded (during initial lazy load), return a temporary empty structure without overwriting localStorage
     if (!seed || Object.keys(seed).length === 0) {
-        return { meta: { version: '1.0' }, palabras: [], clasificadores: [], verbos: [], adjetivos: [], adverbios: [], expresiones: [], particulas: [], estructuras: [] };
+        return { meta: { version: '1.0' }, palabras: [], clasificadores: [], verbos: [], adverbios: [], conjunciones: [], preposiciones: [], particulas: [], determinantes: [], numerales: [], frases: [], estructuras: [] };
     }
 
     // First visit with pre-normalized seed ready — skip heavy migration loop
@@ -412,14 +429,16 @@ const getAllWords = () => {
     const order = (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.getCategoryOrderMap === 'function')
         ? APP_CONFIG.getCategoryOrderMap()
         : {
-            pronombre: 1,
-            sustantivo: 2,
-            clasificador: 3,
-            verbo: 4,
-            adverbio: 5,
-            adjetivo: 6,
-            expresion: 7,
-            particula: 8
+            N: 1,
+            V: 2,
+            Adv: 3,
+            Conj: 4,
+            Prep: 5,
+            M: 6,
+            Ptc: 7,
+            Det: 8,
+            Num: 9,
+            Phr: 10
         };
 
     words.sort((a, b) => {

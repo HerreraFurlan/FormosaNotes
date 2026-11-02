@@ -4,7 +4,7 @@
  * ÚNICA FUENTE DE VERDAD (Single Source of Truth)
  * 
  * Basado en el estándar oficial de Taiwán (當代中文課程 / 詞類表):
- * 1. Ocho Categorías Gramaticales (八大詞類): N, V, Adv, Conj, Prep, M, Ptc, Det
+ * 1. Categorías Gramaticales: N, V, Adv, Conj, Prep, M, Ptc, Det, Num, Phr
  * 2. Subclasificación Verbal de 12 tipos (動詞分類): V, Vi, V-sep, Vs, Vst, Vs-attr, Vs-pred, Vs-sep, Vaux, Vp, Vpt, Vp-sep
  * 3. Configuración del Motor de Sintagmas Magnéticos y Slots Canónicos SVO Chino
  * 4. Lecciones, Idiomas (Lazy Load), Fuentes, Parámetros UI e IA Generativa
@@ -16,8 +16,8 @@ const LESSON_COUNT = 8;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.1.9',
-        dataVersion: '4.1.9',
+        version: '4.2.0',
+        dataVersion: '4.2.0',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
         removedSeedIds: ['id_n_yundong_sport', 'id_n_weibo_micro'],
     },
@@ -74,7 +74,7 @@ const APP_CONFIG = {
     },
 
     // =====================================================
-    // 3. OCHO CATEGORÍAS GRAMATICALES OFICIALES (N, V, Adv, Conj, Prep, M, Ptc, Det)
+    // 3. CATEGORÍAS GRAMATICALES OFICIALES (N, V, Adv, Conj, Prep, M, Ptc, Det, Num, Phr)
     // =====================================================
     categories: [
         {
@@ -230,10 +230,29 @@ const APP_CONFIG = {
             }
         },
         {
+            id: 'Num',
+            symbol: 'Num',
+            dbCollection: 'numerales',
+            order: 9,
+            icon: '🔢',
+            cssVar: '--color-pos-num',
+            cssLightVar: '--color-pos-num-light',
+            color: '#D97706',
+            bgLight: '#FEF3C7',
+            badgeTextColor: '#92400E',
+            pdfColor: '#D97706',
+            isClassifier: false,
+            allowsClassifier: false,
+            labels: {
+                es: { singular: 'Num · Numeral', plural: 'Num · Numerales', short: 'Num · Numeral' },
+                en: { singular: 'Num · Numeral', plural: 'Num · Numerals', short: 'Num · Numeral' }
+            }
+        },
+        {
             id: 'Phr',
             symbol: 'Phr',
             dbCollection: 'frases',
-            order: 9,
+            order: 10,
             icon: '🔴',
             cssVar: '--color-pos-phr',
             cssLightVar: '--color-pos-phr-light',
@@ -373,19 +392,6 @@ const APP_CONFIG = {
                 en: 'Auxiliary / modal verb'
             }
         },
-        'Va': {
-            symbol: 'Va',
-            type: 'auxiliary',
-            transitive: false,
-            separable: false,
-            takesDegreeAdv: false,
-            color: '#0D9488',
-            shortLabels: { es: 'Verbo aspectual', en: 'Aspectual Verb' },
-            labels: {
-                es: 'Verbo de aspecto progresivo',
-                en: 'Progressive aspect verb'
-            }
-        },
         'Vp': {
             symbol: 'Vp',
             type: 'process',
@@ -509,6 +515,8 @@ const APP_CONFIG = {
         clasificador: 'M',
         particula: 'Ptc',
         determinante: 'Det',
+        numeral: 'Num',
+        numero: 'Num',
         expresion: 'Phr',
         frase: 'Phr'
     },
@@ -736,11 +744,6 @@ APP_CONFIG.getWordPOSBadgeInfo = (word, lang = 'es') => {
     };
 };
 
-/**
- * Obtiene todas las colecciones únicas en la base de datos.
- * Incluye tanto las colecciones nuevas como las históricas para migración limpia.
- * @returns {Array<string>}
- */
 /**
  * Obtiene la definición de una lección desde APP_CONFIG.lessons.items.
  * @param {string|number} lessonIdOrNum

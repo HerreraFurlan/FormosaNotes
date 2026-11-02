@@ -2,10 +2,10 @@
  * =====================================================
  * AppChino (Formosa Notes) — builder.js
  * Constructor de Oraciones con "Sintagmas Magnéticos":
- * - Átomos neutros con código POS (八大詞類 + 動詞分類: Vs, Vst, V-sep, Vaux...)
+ * - Átomos neutros con código POS (N, V, Adv, Conj, Prep, M, Ptc, Det, Num + Subtipos verbales)
  * - Fusión automática en Cápsulas Sintácticas (Moléculas) con 0 ms de latencia
  * - Barra de Slots Canónicos SVO Chino en tiempo real
- * - Proyección de Slots Fantasma (Ghost Slots) al arrastrar o previsualizar fichas
+ * - Proyección de Slots Fantasma (Ghost Slots) en el DOM sin interrumpir SortableJS
  * - Evaluación Híbrida en 3 Niveles:
  *   Nivel 1: Resistencia visual y sacudida física en colisiones de orden SVO
  *   Nivel 2: Banner heurístico determinista con botón de auto-imantación en 1 clic
@@ -21,6 +21,8 @@ let capsuleSortableInstances = [];
 // Estado reactivo del lienzo magnético (arreglo plano de tokens normalizados)
 let builderTokens = [];
 let activeGhostCandidate = null;
+let isDraggingBankCard = false;
+let ghostClearTimer = null;
 let lastOffendingIndices = new Set();
 let formulaManuallyEdited = false;
 
@@ -64,6 +66,10 @@ const syncTokensFromDOM = () => {
  */
 const insertTokenIntoBuilder = (word, insertIndex = builderTokens.length) => {
     if (!word) return;
+    if (ghostClearTimer) {
+        clearTimeout(ghostClearTimer);
+        ghostClearTimer = null;
+    }
     const normalized = SyntaxEngine.normalizeToken(word, insertIndex);
     const boundedIdx = Math.max(0, Math.min(builderTokens.length, insertIndex));
     builderTokens.splice(boundedIdx, 0, normalized);
@@ -163,16 +169,9 @@ const renderHeuristicBanner = (validationResult, syntagmas) => {
     const { heuristicBanner } = ensureMagneticContainers();
     if (!heuristicBanner) return;
 
-    const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
     const issues = (validationResult && validationResult.issues) || [];
 
-    if (builderTokens.length === 0) {
-        heuristicBanner.style.display = 'none';
-        heuristicBanner.innerHTML = '';
-        return;
-    }
-
-    if (issues.length === 0) {
+    if (builderTokens.length === 0 || issues.length === 0) {
         heuristicBanner.style.display = 'none';
         heuristicBanner.innerHTML = '';
         return;
@@ -206,7 +205,121 @@ const renderHeuristicBanner = (validationResult, syntagmas) => {
 };
 
 /**
+ * Crea un elemento DOM `.ghost-slot` para previsualizar o insertar una ficha en el slot sugerido.
+ * @param {object} ghost
+ * @param {object} candidateWord
+ * @param {boolean} interactive
+ * @returns {HTMLElement}
+ */
+const createGhostSlotElement = (ghost, candidateWord, interactive = true) => {
+    const ghostEl = document.createElement('button');
+    ghostEl.type = 'button';
+    ghostEl.className = 'ghost-slot';
+    ghostEl.style.setProperty('--ghost-color', ghost.color || '#2E78B7');
+    if (!interactive) {
+        ghostEl.style.pointerEvents = 'none';
+    }
+    ghostEl.dataset.targetIndex = String(ghost.targetTokenIndex);
+    ghostEl.innerHTML = `
+        <span class="ghost-slot-char">${candidateWord ? candidateWord.tradicional : '+'}</span>
+        <span class="ghost-slot-label">${ghost.label}</span>
+    `;
+    if (interactive) {
+        ghostEl.addEventListener('mouseenter', () => {
+            if (ghostClearTimer) {
+                clearTimeout(ghostClearTimer);
+                ghostClearTimer = null;
+            }
+        });
+        ghostEl.addEventListener('mouseleave', () => {
+            if (!isDraggingBankCard) {
+                scheduleClearGhostSlots(120);
+            }
+        });
+        ghostEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (candidateWord) {
+                insertTokenIntoBuilder(candidateWord, ghost.targetTokenIndex);
+            }
+        });
+    }
+    return ghostEl;
+};
+
+/**
+ * Inyecta o limpia los `.ghost-slot` directamente en el DOM del dropzone SIN destruir las instancias de SortableJS.
+ * Esto resuelve el bug donde los Ghost Slots nunca se veían o interrumpían el arrastre.
+ * @param {object|null} candidateWord
+ * @param {object} [opts]
+ */
+const renderGhostSlotsInDOM = (candidateWord, opts = {}) => {
+    const { interactive = true } = opts;
+    const dropzone = document.getElementById('builder-dropzone');
+    if (!dropzone || typeof SyntaxEngine === 'undefined') return;
+
+    dropzone.querySelectorAll('.ghost-slot').forEach(el => el.remove());
+
+    if (!candidateWord) {
+        dropzone.classList.toggle('is-empty', builderTokens.length === 0);
+        return;
+    }
+
+    const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
+    const ghosts = SyntaxEngine.computeGhostSlots(candidateWord, builderTokens, lang);
+    if (!ghosts || ghosts.length === 0) {
+        dropzone.classList.toggle('is-empty', builderTokens.length === 0);
+        return;
+    }
+
+    dropzone.classList.remove('is-empty');
+
+    ghosts.forEach(ghost => {
+        const ghostEl = createGhostSlotElement(ghost, candidateWord, interactive);
+        const targetIdx = ghost.targetTokenIndex;
+
+        if (targetIdx <= 0 || builderTokens.length === 0) {
+            dropzone.insertBefore(ghostEl, dropzone.firstChild);
+            return;
+        }
+
+        const prevTokenCard = dropzone.querySelector(`.mini-card[data-token-index="${targetIdx - 1}"]`);
+        if (prevTokenCard) {
+            const parentCapsuleBody = prevTokenCard.closest('.syntagma-capsule-tokens');
+            const parentCapsule = prevTokenCard.closest('.syntagma-capsule');
+            const nextTokenInSameCapsule = prevTokenCard.nextElementSibling;
+            if (parentCapsuleBody && nextTokenInSameCapsule && nextTokenInSameCapsule.classList.contains('mini-card')) {
+                parentCapsuleBody.insertBefore(ghostEl, nextTokenInSameCapsule);
+            } else if (parentCapsule) {
+                parentCapsule.insertAdjacentElement('afterend', ghostEl);
+            } else {
+                prevTokenCard.insertAdjacentElement('afterend', ghostEl);
+            }
+        } else {
+            dropzone.appendChild(ghostEl);
+        }
+    });
+};
+
+const scheduleClearGhostSlots = (delayMs = 160) => {
+    if (ghostClearTimer) clearTimeout(ghostClearTimer);
+    ghostClearTimer = setTimeout(() => {
+        ghostClearTimer = null;
+        if (!isDraggingBankCard) {
+            activeGhostCandidate = null;
+            renderGhostSlotsInDOM(null);
+            if (typeof SyntaxEngine !== 'undefined') {
+                const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
+                const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
+                const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
+                renderSVOSlotBar(val.activeSlots, []);
+            }
+        }
+    }, delayMs);
+};
+
+/**
  * Renderiza el lienzo de Sintagmas Magnéticos:
+ * - Desambigua homógrafos contextuales (家, 得, 點, 在, 要, 到)
  * - Agrupa tokens en Cápsulas Sintácticas (`.syntagma-capsule`)
  * - Dibuja Slots Fantasma (`.ghost-slot`) si hay una ficha candidata activa
  * - Aplica resistencia física (`.has-collision-shake`) en colisiones sintácticas
@@ -219,8 +332,11 @@ const renderMagneticCanvas = (options = {}) => {
 
     const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
 
-    // Re-normalizar índices
-    builderTokens = builderTokens.map((t, idx) => SyntaxEngine.normalizeToken(t, idx)).filter(Boolean);
+    // Re-normalizar índices y resolver homógrafos en contexto
+    const rawNorm = builderTokens.map((t, idx) => SyntaxEngine.normalizeToken(t, idx)).filter(Boolean);
+    builderTokens = (typeof SyntaxEngine.resolveContextualHomographs === 'function')
+        ? SyntaxEngine.resolveContextualHomographs(rawNorm)
+        : rawNorm;
 
     // 1. Detectar Sintagmas Magnéticos (Moléculas) y Validar Slots SVO (0 ms)
     const syntagmas = SyntaxEngine.detectSyntagmas(builderTokens, lang);
@@ -239,32 +355,8 @@ const renderMagneticCanvas = (options = {}) => {
     renderSVOSlotBar(validation.activeSlots, ghostSlots);
     renderHeuristicBanner(validation, syntagmas);
 
-    // 3. Construir el DOM del lienzo con Cápsulas, Átomos y Ghost Slots
+    // 3. Construir el DOM del lienzo con Cápsulas y Átomos
     dropzone.innerHTML = '';
-
-    const createGhostElement = (ghost) => {
-        const ghostEl = document.createElement('button');
-        ghostEl.type = 'button';
-        ghostEl.className = 'ghost-slot';
-        ghostEl.style.setProperty('--ghost-color', ghost.color || '#2E78B7');
-        ghostEl.dataset.targetIndex = String(ghost.targetTokenIndex);
-        ghostEl.innerHTML = `
-            <span class="ghost-slot-char">${activeGhostCandidate ? activeGhostCandidate.tradicional : '+'}</span>
-            <span class="ghost-slot-label">${ghost.label}</span>
-        `;
-        ghostEl.addEventListener('click', (e) => {
-            e.stopPropagation();
-            if (activeGhostCandidate) {
-                insertTokenIntoBuilder(activeGhostCandidate, ghost.targetTokenIndex);
-            }
-        });
-        return ghostEl;
-    };
-
-    // Ghost slots al inicio (índice 0)
-    ghostSlots.filter(g => g.targetTokenIndex === 0).forEach(g => {
-        dropzone.appendChild(createGhostElement(g));
-    });
 
     syntagmas.forEach((syn) => {
         const hasSynCollision = syn.tokens.some(t => offendingSet.has(t.index));
@@ -300,11 +392,6 @@ const renderMagneticCanvas = (options = {}) => {
                     tokenCard.classList.add('has-token-collision');
                 }
                 bodyEl.appendChild(tokenCard);
-
-                // Ghost slots que apuntan justo dentro de esta cápsula
-                ghostSlots
-                    .filter(g => g.targetTokenIndex === tok.index + 1 && g.targetTokenIndex <= syn.endIndex)
-                    .forEach(g => bodyEl.appendChild(createGhostElement(g)));
             });
 
             capsuleEl.appendChild(bodyEl);
@@ -322,12 +409,12 @@ const renderMagneticCanvas = (options = {}) => {
             }
             dropzone.appendChild(tokenCard);
         }
-
-        // Ghost slots inmediatamente después de este sintagma/átomo
-        ghostSlots
-            .filter(g => g.targetTokenIndex === syn.endIndex + 1 && g.targetTokenIndex > 0)
-            .forEach(g => dropzone.appendChild(createGhostElement(g)));
     });
+
+    // Si hay un candidato fantasma activo, proyectar sus Ghost Slots en el DOM
+    if (activeGhostCandidate) {
+        renderGhostSlotsInDOM(activeGhostCandidate, { interactive: !isDraggingBankCard });
+    }
 
     // 4. Re-inicializar Sortable en el lienzo y dentro de cada cápsula
     initDropzoneSortable(dropzone);
@@ -364,12 +451,14 @@ const initDropzoneSortable = (dropzone) => {
             const tempCard = createMiniCard(word);
             el.replaceWith(tempCard);
         }
+        isDraggingBankCard = false;
         activeGhostCandidate = null;
         syncTokensFromDOM();
         renderMagneticCanvas({ animateCollision: true });
     };
 
     const handleSortableUpdate = () => {
+        isDraggingBankCard = false;
         activeGhostCandidate = null;
         syncTokensFromDOM();
         renderMagneticCanvas({ animateCollision: true });
@@ -440,7 +529,10 @@ const updateBuilderPreview = (precomputedSyntagmas = null) => {
     if (chEl) chEl.textContent = chinese;
     if (pyEl) pyEl.textContent = pinyin;
 
-
+    if (formulaInput && !formulaManuallyEdited && typeof SyntaxEngine !== 'undefined' && SyntaxEngine.generateStructureFormula) {
+        const syns = precomputedSyntagmas || SyntaxEngine.detectSyntagmas(builderTokens);
+        formulaInput.value = SyntaxEngine.generateStructureFormula(syns);
+    }
 };
 
 /**
@@ -663,14 +755,16 @@ const initBuilder = () => {
             const allWords = getAllWords();
             while (cursor < remaining.length) {
                 const sub = remaining.slice(cursor);
-                if (!sub[0].trim()) {
+                if (!sub[0].trim() || ['，', ',', '。', '？', '！', '；', '、'].includes(sub[0])) {
                     cursor++;
                     continue;
                 }
                 let matchedWord = null;
                 for (let len = Math.min(4, sub.length); len >= 1; len--) {
                     const chunk = sub.slice(0, len);
-                    matchedWord = allWords.find(w => w.tradicional === chunk);
+                    // Evitar consumir una frase conversacional completa si se están tokenizando palabras para el constructor
+                    matchedWord = allWords.find(w => w.tradicional === chunk && w.categoria !== 'Phr') ||
+                        allWords.find(w => w.tradicional === chunk);
                     if (matchedWord) {
                         builderTokens.push(SyntaxEngine.normalizeToken(matchedWord, builderTokens.length));
                         cursor += len;
@@ -728,8 +822,8 @@ const initBuilder = () => {
 
 /**
  * Renderiza el Banco de Palabras con Lazy Rendering (IntersectionObserver),
- * soporte de clic rápido para insertar o proyectar Ghost Slots al arrastrar.
- * @param {string} filter - Filtro de categoría ('todos' o una de las 8 categorías: N, V, Adv, Conj, Prep, M, Ptc, Det)
+ * soporte de clic rápido para insertar y proyección en vivo de Ghost Slots en el DOM.
+ * @param {string} filter - Filtro de categoría ('todos' o una de las categorías: N, V, Adv, Conj, Prep, M, Ptc, Det, Num, Phr)
  */
 const renderWordBank = (filter = 'todos') => {
     const bankEl = document.getElementById('word-bank-grid');
@@ -776,9 +870,15 @@ const renderWordBank = (filter = 'todos') => {
         cardEl.addEventListener('click', () => {
             insertTokenIntoBuilder(word);
         });
-        // Hover: ilumina su Slot Canónico en la barra SVO y previsualiza ese color en el borde inferior
+        // Hover: ilumina su Slot Canónico en la barra SVO y proyecta Ghost Slots interactivos en el DOM
         cardEl.addEventListener('mouseenter', () => {
+            if (isDraggingBankCard) return;
+            if (ghostClearTimer) {
+                clearTimeout(ghostClearTimer);
+                ghostClearTimer = null;
+            }
             if (typeof SyntaxEngine !== 'undefined') {
+                activeGhostCandidate = word;
                 const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
                 const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
                 const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
@@ -788,17 +888,15 @@ const renderWordBank = (filter = 'todos') => {
                     cardEl.style.setProperty('--card-color', previewColor);
                 }
                 renderSVOSlotBar(val.activeSlots, ghosts);
+                renderGhostSlotsInDOM(word, { interactive: true });
             }
         });
         cardEl.addEventListener('mouseleave', () => {
-            if (cardEl.dataset.origColor && !activeGhostCandidate) {
+            if (cardEl.dataset.origColor && !isDraggingBankCard) {
                 cardEl.style.setProperty('--card-color', cardEl.dataset.origColor);
             }
-            if (typeof SyntaxEngine !== 'undefined' && !activeGhostCandidate) {
-                const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
-                const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
-                const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
-                renderSVOSlotBar(val.activeSlots, []);
+            if (!isDraggingBankCard) {
+                scheduleClearGhostSlots(160);
             }
         });
     };
@@ -852,6 +950,11 @@ const renderWordBank = (filter = 'todos') => {
         sort: false,
         animation: 150,
         onStart: function (evt) {
+            if (ghostClearTimer) {
+                clearTimeout(ghostClearTimer);
+                ghostClearTimer = null;
+            }
+            isDraggingBankCard = true;
             const wordId = evt.item.dataset.id;
             const word = (typeof getWordById === 'function' && wordId) ? getWordById(wordId) : null;
             if (word) {
@@ -866,9 +969,11 @@ const renderWordBank = (filter = 'todos') => {
                     if (evt.clone) evt.clone.style.setProperty('--card-color', previewColor);
                 }
                 renderSVOSlotBar(val.activeSlots, ghosts);
+                renderGhostSlotsInDOM(word, { interactive: false });
             }
         },
         onEnd: function (evt) {
+            isDraggingBankCard = false;
             activeGhostCandidate = null;
             if (evt && evt.item && evt.item.dataset.origColor) {
                 evt.item.style.setProperty('--card-color', evt.item.dataset.origColor);
@@ -876,6 +981,7 @@ const renderWordBank = (filter = 'todos') => {
             if (evt && evt.clone && evt.clone.dataset.origColor) {
                 evt.clone.style.setProperty('--card-color', evt.clone.dataset.origColor);
             }
+            renderGhostSlotsInDOM(null);
             const lang = (window.I18N && window.I18N.getLanguage) ? window.I18N.getLanguage() : 'es';
             const syns = SyntaxEngine.detectSyntagmas(builderTokens, lang);
             const val = SyntaxEngine.validateSlotOrder(syns, builderTokens, lang);
