@@ -1,23 +1,43 @@
 /**
  * =====================================================
  * AppChino — exam.js
- * Comprehensive Exam Simulation Mode (7 Phases)
- * 
- * 1. Character Recognition (Pinyin & Zhuyin -> 10 options, 10 rounds)
- * 2. Pinyin Typing (10 words -> Live Tone Engine 1-5 input)
- * 3. Fill in the Blank (5 direct sentences)
- * 4. Complex Sentence Multiple Choice (10 sentences -> 3 options A, B, C)
- * 5. Contextual Scenarios (5 scenarios -> Simple sentence answers evaluated by AI)
- * 6. Fixed Character Bank (Bank of 5 fixed characters -> 5 questions forced usage)
- * 7. Reading Comprehension (Short story -> 5 T/F + 5 Multiple Choice)
+ * Modo Examen Personalizable en 3 Niveles + Enfoque por Lección
+ *
+ * - Selección libre de Lecciones Foco (ej. solo Lección 8, o varias)
+ *   usando las lecciones anteriores como soporte gramatical base.
+ * - Nivel 1 (Áreas a evaluar):
+ *     1. Vocabulario (Fase 1: Pinyin->Hanzi, Fase 2: Hanzi->Pinyin)
+ *     2. Gramática (Fase 3: Completado de frases, Fase 4: Selección múltiple)
+ *     3. Redacción (Fase 5: Respuestas libres, Fase 6: Redacción con directrices)
+ *     4. Lectura (Fase 7: Verdadero/Falso + Opción múltiple)
+ * - Nivel 2 (Cantidad de preguntas por tema): Corto (3), Medio (5), Largo (10)
+ * - Nivel 3 (Dificultad / Longitud de frases): Básico, Estándar, Avanzado
  * =====================================================
  */
 
-const EXAM_STORAGE_KEY = 'appchino_exam_state_v2';
+const EXAM_STORAGE_KEY = 'appchino_exam_state_v3';
+const EXAM_PREFS_STORAGE_KEY = 'appchino_exam_prefs_v3';
+
+const DEFAULT_EXAM_PREFS = {
+    selectedLessons: [8],
+    includeUnassigned: false,
+    areas: {
+        vocabulario: true,
+        gramatica: true,
+        redaccion: true,
+        lectura: true
+    },
+    questionCount: 5, // 3 (Corto) | 5 (Medio) | 10 (Largo)
+    difficulty: 'estandar' // 'basico' | 'estandar' | 'avanzado'
+};
+
+let examPrefs = JSON.parse(JSON.stringify(DEFAULT_EXAM_PREFS));
 
 let examSession = {
     status: 'idle', // 'idle' | 'loading' | 'active' | 'evaluating' | 'completed'
-    currentPhase: 1, // 1 to 7
+    currentPhase: 1,
+    activePhases: [1, 2, 3, 4, 5, 6, 7],
+    config: JSON.parse(JSON.stringify(DEFAULT_EXAM_PREFS)),
     data: {
         phase1: [],
         phase2: [],
@@ -25,7 +45,7 @@ let examSession = {
         phase4: [],
         phase5: [],
         phase6: { banco_caracteres: [], preguntas: [] },
-        phase7: { historia: '', pinyin_historia: '', traduccion_historia: '', verdadero_falso: [], opcion_multiple: [] }
+        phase7: { historia: '', verdadero_falso: [], opcion_multiple: [] }
     },
     userAnswers: {
         phase1: {},
@@ -42,15 +62,69 @@ let examSession = {
 };
 
 /**
- * Loads cached exam session from sessionStorage.
+ * Carga preferencias de personalización del examen desde localStorage.
+ */
+const loadExamPrefs = () => {
+    try {
+        const raw = localStorage.getItem(EXAM_PREFS_STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object') {
+                if (Array.isArray(parsed.selectedLessons) && parsed.selectedLessons.length > 0) {
+                    examPrefs.selectedLessons = parsed.selectedLessons.map(Number).filter(n => n >= 1 && n <= 8);
+                }
+                if (typeof parsed.includeUnassigned === 'boolean') {
+                    examPrefs.includeUnassigned = parsed.includeUnassigned;
+                }
+                if (parsed.areas && typeof parsed.areas === 'object') {
+                    examPrefs.areas = {
+                        vocabulario: parsed.areas.vocabulario !== false,
+                        gramatica: parsed.areas.gramatica !== false,
+                        redaccion: parsed.areas.redaccion !== false,
+                        lectura: parsed.areas.lectura !== false
+                    };
+                    if (!Object.values(examPrefs.areas).some(Boolean)) {
+                        examPrefs.areas.vocabulario = true;
+                    }
+                }
+                if ([3, 5, 10].includes(Number(parsed.questionCount))) {
+                    examPrefs.questionCount = Number(parsed.questionCount);
+                }
+                if (['basico', 'estandar', 'avanzado'].includes(parsed.difficulty)) {
+                    examPrefs.difficulty = parsed.difficulty;
+                }
+            }
+        }
+    } catch (e) {
+        console.warn("No se pudieron cargar las preferencias del examen:", e);
+    }
+};
+
+/**
+ * Guarda preferencias de personalización del examen en localStorage.
+ */
+const saveExamPrefs = () => {
+    try {
+        localStorage.setItem(EXAM_PREFS_STORAGE_KEY, JSON.stringify(examPrefs));
+    } catch (e) {
+        console.warn("No se pudieron guardar las preferencias del examen:", e);
+    }
+};
+
+/**
+ * Carga la sesión activa desde sessionStorage.
  */
 const loadExamState = () => {
+    loadExamPrefs();
     try {
         const raw = sessionStorage.getItem(EXAM_STORAGE_KEY);
         if (raw) {
             const parsed = JSON.parse(raw);
             if (parsed && parsed.status) {
                 examSession = parsed;
+                if (!Array.isArray(examSession.activePhases) || examSession.activePhases.length === 0) {
+                    examSession.activePhases = computeActivePhases(examSession.config?.areas || examPrefs.areas);
+                }
             }
         }
     } catch (e) {
@@ -59,7 +133,7 @@ const loadExamState = () => {
 };
 
 /**
- * Saves current exam session to sessionStorage.
+ * Guarda la sesión activa en sessionStorage.
  */
 const saveExamState = () => {
     try {
@@ -69,68 +143,67 @@ const saveExamState = () => {
     }
 };
 
-// ==========================================================
-// EXAM LESSON CONFIGURATION (Cumulative / Retroactive)
-// ==========================================================
-const EXAM_MAX_LESSON_KEY = 'appchino_exam_max_lesson_v1';
-const EXAM_INC_UNASSIGNED_KEY = 'appchino_exam_inc_unassigned_v1';
-
-let examMaxLesson = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.defaultMaxLesson : 8;
-let examIncludeUnassigned = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.includeUnassignedByDefault : false;
-
-const loadExamLessonPrefs = () => {
-    try {
-        const saved = localStorage.getItem(EXAM_MAX_LESSON_KEY);
-        if (saved !== null) {
-            examMaxLesson = parseInt(saved, 10);
-        }
-        const savedInc = localStorage.getItem(EXAM_INC_UNASSIGNED_KEY);
-        if (savedInc !== null) {
-            examIncludeUnassigned = savedInc === 'true';
-        } else {
-            const allWords = getAllWords();
-            const hasAnyTagged = allWords.some(w => !!w.leccion);
-            if (!hasAnyTagged) {
-                examIncludeUnassigned = true;
-            }
-        }
-    } catch (e) {
-        console.warn("No se pudieron cargar las preferencias de lecciones para el examen:", e);
-    }
-};
-
-const saveExamLessonPrefs = () => {
-    try {
-        localStorage.setItem(EXAM_MAX_LESSON_KEY, String(examMaxLesson));
-        localStorage.setItem(EXAM_INC_UNASSIGNED_KEY, String(examIncludeUnassigned));
-    } catch (e) {
-        console.warn("No se pudieron guardar las preferencias de lecciones para el examen:", e);
-    }
-};
-
 /**
- * Returns the pool of words matching current cumulative lesson selection.
- * @returns {Array<object>}
+ * Determina qué fases numéricas (1..7) están activas según las áreas marcadas.
  */
-const getWordsForExam = () => {
-    const allWords = getAllWords();
-    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesCumulativeLesson === 'function') {
-        return allWords.filter(w => APP_CONFIG.matchesCumulativeLesson(w, examMaxLesson, examIncludeUnassigned));
-    }
-    return allWords.filter(w => (w.leccion && Number(w.leccion) <= examMaxLesson) || (examIncludeUnassigned && !w.leccion));
-};
-
-const getStructuresForExam = () => {
-    const allStructures = getStructuresForExam();
-    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesCumulativeLesson === 'function') {
-        const filtered = allStructures.filter(s => APP_CONFIG.matchesCumulativeLesson(s, examMaxLesson, examIncludeUnassigned));
-        return filtered.length > 0 ? filtered : allStructures;
-    }
-    return allStructures;
+const computeActivePhases = (areas = examPrefs.areas) => {
+    const phases = [];
+    if (areas.vocabulario) phases.push(1, 2);
+    if (areas.gramatica) phases.push(3, 4);
+    if (areas.redaccion) phases.push(5, 6);
+    if (areas.lectura) phases.push(7);
+    return phases.length > 0 ? phases : [1, 2];
 };
 
 /**
- * Normalizes pinyin string for fair comparison (lowercase, trimmed, space collapsed).
+ * Obtiene los conjuntos de Vocabulario y Estructuras divididos en:
+ * - FOCO (`focusWords`, `focusStructures`): pertenecen directamente a `selectedLessons`
+ * - SOPORTE (`supportWords`, `supportStructures`): lecciones anteriores (`<= maxLesson`) para dar contexto
+ */
+const getExamPools = (prefs = examPrefs) => {
+    const selectedSet = new Set((prefs.selectedLessons || [8]).map(Number));
+    const maxSelectedLesson = selectedSet.size > 0 ? Math.max(...selectedSet) : 8;
+    const allWords = getAllWords();
+    const allStructs = getAllStructures();
+
+    const focusWords = allWords.filter(w => {
+        const lNum = Number(w.leccion);
+        if (lNum && selectedSet.has(lNum)) return true;
+        if (!w.leccion && prefs.includeUnassigned) return true;
+        return false;
+    });
+
+    const supportWords = allWords.filter(w => {
+        const lNum = Number(w.leccion);
+        if (lNum && lNum <= maxSelectedLesson && !selectedSet.has(lNum)) return true;
+        return false;
+    });
+
+    const focusStructures = allStructs.filter(s => {
+        const lNum = Number(s.leccion);
+        if (lNum && selectedSet.has(lNum)) return true;
+        if (!s.leccion && prefs.includeUnassigned) return true;
+        return false;
+    });
+
+    const supportStructures = allStructs.filter(s => {
+        const lNum = Number(s.leccion);
+        if (lNum && lNum <= maxSelectedLesson && !selectedSet.has(lNum)) return true;
+        return false;
+    });
+
+    return {
+        focusWords,
+        supportWords,
+        allAllowedWords: [...focusWords, ...supportWords],
+        focusStructures: focusStructures.length > 0 ? focusStructures : supportStructures,
+        supportStructures,
+        maxSelectedLesson
+    };
+};
+
+/**
+ * Normaliza pinyin para comparación justa.
  */
 const normalizePinyinComparison = (str) => {
     if (!str) return '';
@@ -142,7 +215,7 @@ const normalizePinyinComparison = (str) => {
 };
 
 /**
- * Fisher-Yates shuffle array helper.
+ * Mezcla aleatoria (Fisher-Yates).
  */
 const shuffleArray = (array) => {
     const arr = [...array];
@@ -154,50 +227,59 @@ const shuffleArray = (array) => {
 };
 
 /**
- * Generates Phase 1: 10 items (Pinyin + Zhuyin -> pick 1 of 10 Hanzi options).
+ * Fase 1 Local: Reconocer caracteres dado el Pinyin y Zhuyin (`count` preguntas).
+ * Prioriza 100% las palabras de las lecciones FOCO.
  */
-const generatePhase1Local = (allWords) => {
-    const validWords = allWords.filter(w => w.tradicional && (w.pinyin || w.zhuyin));
-    if (validWords.length < 10) return [];
+const generatePhase1Local = (focusWords, supportWords, count = 5) => {
+    const validFocus = focusWords.filter(w => w.tradicional && (w.pinyin || w.zhuyin));
+    const validSupport = supportWords.filter(w => w.tradicional && (w.pinyin || w.zhuyin));
+    const combinedPool = [...validFocus, ...validSupport];
 
-    const shuffled = shuffleArray(validWords);
-    const targetWords = shuffled.slice(0, 10);
-    const questions = [];
+    if (combinedPool.length === 0) return [];
 
-    targetWords.forEach((target, idx) => {
-        // Collect 9 distractors that don't share the same Hanzi
-        const distractors = validWords
+    let targetWords = shuffleArray(validFocus).slice(0, count);
+    if (targetWords.length < count) {
+        const extra = shuffleArray(validSupport).slice(0, count - targetWords.length);
+        targetWords = [...targetWords, ...extra];
+    }
+
+    return targetWords.map((target, idx) => {
+        // Priorizar distractores de las mismas lecciones foco
+        const focusDistractors = validFocus
             .filter(w => w.tradicional !== target.tradicional)
             .map(w => w.tradicional);
-        
-        const uniqueDistractors = Array.from(new Set(distractors));
-        const selectedDistractors = shuffleArray(uniqueDistractors).slice(0, 9);
-        
+        const supportDistractors = validSupport
+            .filter(w => w.tradicional !== target.tradicional)
+            .map(w => w.tradicional);
+
+        const uniqueDistractors = Array.from(new Set([...shuffleArray(focusDistractors), ...shuffleArray(supportDistractors)]));
+        const selectedDistractors = uniqueDistractors.slice(0, 9);
         const options = shuffleArray([target.tradicional, ...selectedDistractors]);
 
-        questions.push({
+        return {
             id: idx + 1,
             pinyin: target.pinyin || '',
             zhuyin: target.zhuyin || '',
             espanol: target.espanol || '',
             correctHanzi: target.tradicional,
-            options: options
-        });
+            options
+        };
     });
-
-    return questions;
 };
 
 /**
- * Generates Phase 2: 10 items (Hanzi -> type Pinyin with tones).
- * Fully mechanized locally without AI.
+ * Fase 2 Local: Reconocer y escribir el Pinyin con tonos dado el carácter (`count` preguntas).
+ * Prioriza 100% las palabras de las lecciones FOCO.
  */
-const generatePhase2Local = (allWords) => {
-    const validWords = allWords.filter(w => w.tradicional && w.pinyin);
-    if (validWords.length < 10) return [];
+const generatePhase2Local = (focusWords, supportWords, count = 5) => {
+    const validFocus = focusWords.filter(w => w.tradicional && w.pinyin);
+    const validSupport = supportWords.filter(w => w.tradicional && w.pinyin);
 
-    const shuffled = shuffleArray(validWords);
-    const selected = shuffled.slice(0, 10);
+    let selected = shuffleArray(validFocus).slice(0, count);
+    if (selected.length < count) {
+        const extra = shuffleArray(validSupport).slice(0, count - selected.length);
+        selected = [...selected, ...extra];
+    }
 
     return selected.map((w, idx) => ({
         id: idx + 1,
@@ -209,16 +291,45 @@ const generatePhase2Local = (allWords) => {
 };
 
 /**
- * Mechanically verifies Phase 1 answer (exact Hanzi match).
+ * Construye en local las `count` directrices para la Fase 6 (Redacción con directrices),
+ * combinando palabras clave y estructuras gramaticales de las lecciones FOCO.
  */
+const buildLocalDirectivesBank = (focusWords, focusStructures, count = 5) => {
+    const directives = [];
+
+    // 1. Tomar hasta la mitad de directrices de estructuras gramaticales foco (ej. "比 (A + 比 + B + Vs)")
+    const structCount = Math.min(focusStructures.length, Math.ceil(count / 2));
+    const pickedStructs = shuffleArray(focusStructures).slice(0, structCount);
+    pickedStructs.forEach(s => {
+        const shortFormula = (s.formula || '').split('|')[0].replace(/^Afirm\.:\s*/i, '').trim();
+        directives.push({
+            tipo: 'estructura',
+            valor: shortFormula || s.nombre
+        });
+    });
+
+    // 2. Completar el resto con palabras versátiles del vocabulario foco (V, Vs, Adv, Prep, Conj, Phr, N)
+    const priorityWords = focusWords.filter(w =>
+        ['V', 'Adv', 'Prep', 'Conj', 'Phr', 'N'].includes(w.categoria) && w.tradicional
+    );
+    const wordPool = priorityWords.length >= (count - directives.length) ? priorityWords : focusWords;
+    const pickedWords = shuffleArray(wordPool).slice(0, count - directives.length);
+
+    pickedWords.forEach(w => {
+        directives.push({
+            tipo: 'palabra',
+            valor: w.tradicional
+        });
+    });
+
+    return shuffleArray(directives).slice(0, count);
+};
+
 const verifyPhase1Answer = (targetHanzi, userAnswer) => {
     if (!targetHanzi || !userAnswer) return false;
     return userAnswer.trim() === targetHanzi.trim();
 };
 
-/**
- * Mechanically verifies Phase 2 answer (normalized tone-marked pinyin).
- */
 const verifyPhase2Answer = (expectedPinyin, userAnswer) => {
     const normUser = normalizePinyinComparison((userAnswer || '').trim());
     if (!normUser) return false;
@@ -227,26 +338,22 @@ const verifyPhase2Answer = (expectedPinyin, userAnswer) => {
 };
 
 /**
- * Initializes and starts generating a new Exam.
+ * Inicia y genera un nuevo examen personalizado.
  */
 const startNewExam = async () => {
-    loadExamLessonPrefs();
-    const examWords = getWordsForExam();
-    const allStructures = getAllStructures();
+    loadExamPrefs();
+    const pools = getExamPools(examPrefs);
+    const activePhases = computeActivePhases(examPrefs.areas);
+    const qCount = examPrefs.questionCount || 5;
 
-    const minRequired = typeof APP_CONFIG !== 'undefined' ? APP_CONFIG.exam.minWordsRequired : 10;
-    if (!examWords || examWords.length < minRequired) {
-        const count = examWords ? examWords.length : 0;
-        const msg = typeof I18N !== "undefined"
-            ? I18N.t("examMinWordsWarning", { count })
-            : `Se necesitan al menos ${minRequired} palabras dentro de las lecciones seleccionadas para realizar el examen (actualmente seleccionadas: ${count}).`;
-        showToast(msg, "warning");
+    if (pools.focusWords.length < 3) {
+        showToast("Selecciona al menos una lección con vocabulario disponible.", "warning");
         return;
     }
 
-    examSession.status = 'loading';
-    examSession.loadingMessage = 'Diseñando tu examen con Gemini basado en tus flashcards y estructuras...';
-    examSession.currentPhase = 1;
+    examSession.config = JSON.parse(JSON.stringify(examPrefs));
+    examSession.activePhases = activePhases;
+    examSession.currentPhase = activePhases[0];
     examSession.userAnswers = {
         phase1: {},
         phase2: {},
@@ -258,32 +365,67 @@ const startNewExam = async () => {
         phase7_mcq: {}
     };
     examSession.results = null;
-    saveExamState();
-    renderExam();
+
+    const needsAI = examPrefs.areas.gramatica || examPrefs.areas.redaccion || examPrefs.areas.lectura;
+
+    if (needsAI) {
+        examSession.status = 'loading';
+        examSession.loadingMessage = `Diseñando examen enfocado en L${examPrefs.selectedLessons.join(', L')} (${qCount} preguntas por subfase)...`;
+        saveExamState();
+        renderExam();
+    }
 
     try {
-        // 1. Generate local phases 1 & 2
-        const p1 = generatePhase1Local(examWords);
-        const p2 = generatePhase2Local(examWords);
+        // 1. Fases locales de Vocabulario (si el área Vocabulario está activa)
+        const p1 = examPrefs.areas.vocabulario
+            ? generatePhase1Local(pools.focusWords, pools.supportWords, qCount)
+            : [];
+        const p2 = examPrefs.areas.vocabulario
+            ? generatePhase2Local(pools.focusWords, pools.supportWords, qCount)
+            : [];
 
-        // 2. Generate AI phases (3, 4, 5, 6, 7)
-        const aiData = await generateExamAIData(examWords, allStructures);
+        // 2. Fases con IA (solo si Gramática, Redacción o Lectura están activas)
+        let aiData = { fase3: [], fase4: [], fase5: [], fase6: { banco_caracteres: [], preguntas: [] }, fase7: { historia: '', verdadero_falso: [], opcion_multiple: [] } };
+        if (needsAI) {
+            const directivesBank = examPrefs.areas.redaccion
+                ? buildLocalDirectivesBank(pools.focusWords, pools.focusStructures, qCount)
+                : [];
+
+            aiData = await generateExamAIData({
+                focusWords: pools.focusWords,
+                supportWords: pools.supportWords,
+                focusStructures: pools.focusStructures,
+                supportStructures: pools.supportStructures,
+                selectedLessons: examPrefs.selectedLessons,
+                areas: examPrefs.areas,
+                questionCount: qCount,
+                difficulty: examPrefs.difficulty,
+                directivesBank
+            });
+        }
 
         examSession.data = {
             phase1: p1,
             phase2: p2,
-            phase3: aiData.fase3 || [],
-            phase4: aiData.fase4 || [],
-            phase5: aiData.fase5 || [],
-            phase6: aiData.fase6 || { banco_caracteres: [], preguntas: [] },
-            phase7: aiData.fase7 || { historia: '', verdadero_falso: [], opcion_multiple: [] }
+            phase3: (aiData.fase3 || []).slice(0, qCount),
+            phase4: (aiData.fase4 || []).slice(0, qCount),
+            phase5: (aiData.fase5 || []).slice(0, qCount),
+            phase6: {
+                banco_caracteres: aiData.fase6?.banco_caracteres || [],
+                preguntas: (aiData.fase6?.preguntas || []).slice(0, qCount)
+            },
+            phase7: {
+                historia: aiData.fase7?.historia || '',
+                verdadero_falso: (aiData.fase7?.verdadero_falso || []).slice(0, qCount),
+                opcion_multiple: (aiData.fase7?.opcion_multiple || []).slice(0, qCount)
+            }
         };
 
         examSession.status = 'active';
-        examSession.currentPhase = 1;
+        examSession.currentPhase = activePhases[0];
         saveExamState();
         renderExam();
-        showToast("¡Examen generado exitosamente! Mucho éxito.", "success");
+        showToast("¡Examen listo! Mucho éxito.", "success");
     } catch (err) {
         console.error("Error al iniciar el examen:", err);
         examSession.status = 'idle';
@@ -294,28 +436,31 @@ const startNewExam = async () => {
 };
 
 /**
- * Finishes and evaluates the entire exam.
+ * Califica todas las áreas activas del examen.
  */
 const finishAndEvaluateExam = async () => {
     const missingPhases = checkIncompletePhases();
     if (missingPhases.length > 0) {
-        const confirmMsg = typeof I18N !== "undefined"
-            ? I18N.t("examConfirmIncomplete", { phases: missingPhases.join(', ') })
-            : `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
+        const confirmMsg = `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
         if (!confirm(confirmMsg)) {
             return;
         }
     }
 
-    examSession.status = 'evaluating';
-    examSession.loadingMessage = 'El profesor IA está evaluando tus respuestas y calculando tu puntuación...';
-    saveExamState();
-    renderExam();
+    const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
+    const hasWriting = activePhases.includes(5) || activePhases.includes(6);
+
+    if (hasWriting) {
+        examSession.status = 'evaluating';
+        examSession.loadingMessage = 'El profesor IA está evaluando tu redacción y calculando tu puntuación...';
+        saveExamState();
+        renderExam();
+    }
 
     try {
-        // 1. Calculate local score for Phase 1 (10 pts)
+        // 1. Fase 1
         let scoreP1 = 0;
-        const p1Details = examSession.data.phase1.map(q => {
+        const p1Details = (examSession.data.phase1 || []).map(q => {
             const userAns = examSession.userAnswers.phase1[q.id];
             const isCorrect = verifyPhase1Answer(q.correctHanzi, userAns);
             if (isCorrect) scoreP1 += 1;
@@ -329,14 +474,13 @@ const finishAndEvaluateExam = async () => {
             };
         });
 
-        // 2. Calculate local score for Phase 2 (10 pts)
+        // 2. Fase 2
         let scoreP2 = 0;
-        const p2Details = examSession.data.phase2.map(q => {
+        const p2Details = (examSession.data.phase2 || []).map(q => {
             const userAns = (examSession.userAnswers.phase2[q.id] || '').trim();
             const expected = q.pinyin;
             const isCorrect = verifyPhase2Answer(expected, userAns);
             if (isCorrect) scoreP2 += 1;
-
             return {
                 id: q.id,
                 hanzi: q.hanzi,
@@ -346,9 +490,9 @@ const finishAndEvaluateExam = async () => {
             };
         });
 
-        // 3. Calculate local score for Phase 3 (5 pts)
+        // 3. Fase 3
         let scoreP3 = 0;
-        const p3Details = examSession.data.phase3.map(q => {
+        const p3Details = (examSession.data.phase3 || []).map(q => {
             const userAns = (examSession.userAnswers.phase3[q.id] || '').trim();
             const expected = (q.palabra_faltante || '').trim();
             const isCorrect = userAns.toLowerCase() === expected.toLowerCase();
@@ -362,9 +506,9 @@ const finishAndEvaluateExam = async () => {
             };
         });
 
-        // 4. Calculate local score for Phase 4 (10 pts)
+        // 4. Fase 4
         let scoreP4 = 0;
-        const p4Details = examSession.data.phase4.map(q => {
+        const p4Details = (examSession.data.phase4 || []).map(q => {
             const userAns = examSession.userAnswers.phase4[q.id];
             const expected = q.opcion_correcta;
             const isCorrect = userAns === expected;
@@ -378,9 +522,9 @@ const finishAndEvaluateExam = async () => {
             };
         });
 
-        // 5. Calculate local score for Phase 7 (10 pts: 5 V/F + 5 MCQ)
+        // 5. Fase 7 (Lectura)
         let scoreP7_vf = 0;
-        const p7_vfDetails = (examSession.data.phase7.verdadero_falso || []).map(q => {
+        const p7_vfDetails = (examSession.data.phase7?.verdadero_falso || []).map(q => {
             const userAns = examSession.userAnswers.phase7_vf[q.id];
             const expected = q.es_verdadera;
             const isCorrect = userAns === expected;
@@ -395,7 +539,7 @@ const finishAndEvaluateExam = async () => {
         });
 
         let scoreP7_mcq = 0;
-        const p7_mcqDetails = (examSession.data.phase7.opcion_multiple || []).map(q => {
+        const p7_mcqDetails = (examSession.data.phase7?.opcion_multiple || []).map(q => {
             const userAns = examSession.userAnswers.phase7_mcq[q.id];
             const expected = q.respuesta_correcta;
             const isCorrect = userAns === expected;
@@ -409,94 +553,121 @@ const finishAndEvaluateExam = async () => {
             };
         });
 
-        const scoreP7 = scoreP7_vf + scoreP7_mcq; // out of 10
+        const scoreP7 = scoreP7_vf + scoreP7_mcq;
 
-        // 6. AI Evaluation for Phase 5 and Phase 6
-        const p5Submissions = examSession.data.phase5.map(q => ({
-            id: q.id,
-            escenario: q.escenario,
-            pregunta: q.pregunta,
-            ejemplo_respuesta: q.ejemplo_respuesta || '',
-            respuesta_usuario: examSession.userAnswers.phase5[q.id] || ''
-        }));
-
-        const p6Submissions = (examSession.data.phase6.preguntas || []).map(q => ({
-            id: q.id,
-            caracter_asignado: q.caracter_asignado,
-            pregunta: q.pregunta,
-            ejemplo_respuesta: q.ejemplo_respuesta || '',
-            respuesta_usuario: examSession.userAnswers.phase6[q.id] || ''
-        }));
-
-        let aiEvaluation = null;
-        try {
-            aiEvaluation = await evaluateExamAIAnswers(p5Submissions, p6Submissions);
-        } catch (evalErr) {
-            console.warn("Fallo al contactar AI para evaluar Fases 5 y 6, usando fallback automático:", evalErr);
-            // Graceful fallback
-            aiEvaluation = {
-                fase5_evaluacion: p5Submissions.map(s => ({
-                    id: s.id,
-                    es_correcta: s.respuesta_usuario.trim().length > 1,
-                    puntaje: s.respuesta_usuario.trim().length > 1 ? 1.0 : 0.0,
-                    comentario: s.respuesta_usuario.trim().length > 1 ? "Respuesta registrada." : "No se ingresó respuesta.",
-                    correccion_sugerida: "",
-                    pinyin_correccion: ""
-                })),
-                fase6_evaluacion: p6Submissions.map(s => {
-                    const hasChar = s.respuesta_usuario.includes(s.caracter_asignado);
-                    return {
-                        id: s.id,
-                        es_correcta: hasChar,
-                        uso_caracter_banco: hasChar,
-                        puntaje: hasChar ? 1.0 : 0.0,
-                        comentario: hasChar ? `Excelente uso del carácter ${s.caracter_asignado}.` : `Faltó incorporar el carácter asignado: ${s.caracter_asignado}.`,
-                        correccion_sugerida: "",
-                        pinyin_correccion: ""
-                    };
-                }),
-                resumen_general: "Examen completado."
-            };
-        }
-
-        // Calculate scores for Phase 5 and 6 from AI feedback
+        // 6. Evaluación con IA para Redacción (Fases 5 y 6) solo si están activas
         let scoreP5 = 0;
-        const p5EvalMap = new Map((aiEvaluation.fase5_evaluacion || []).map(item => [item.id, item]));
-        const p5Details = examSession.data.phase5.map(q => {
-            const ev = p5EvalMap.get(q.id) || { puntaje: 0, es_correcta: false, comentario: '' };
-            scoreP5 += (ev.puntaje || 0);
-            return {
+        let scoreP6 = 0;
+        let p5Details = [];
+        let p6Details = [];
+        let aiSummary = '¡Excelente práctica enfocada en las lecciones seleccionadas!';
+
+        if (hasWriting) {
+            const p5Submissions = (examSession.data.phase5 || []).map(q => ({
                 id: q.id,
                 escenario: q.escenario,
                 pregunta: q.pregunta,
-                pinyin_pregunta: q.pinyin_pregunta,
-                traduccion_pregunta: q.traduccion_pregunta,
-                userAnswer: examSession.userAnswers.phase5[q.id] || '(Sin respuesta)',
-                eval: ev
-            };
-        });
+                ejemplo_respuesta: q.ejemplo_respuesta || '',
+                respuesta_usuario: examSession.userAnswers.phase5[q.id] || ''
+            }));
 
-        let scoreP6 = 0;
-        const p6EvalMap = new Map((aiEvaluation.fase6_evaluacion || []).map(item => [item.id, item]));
-        const p6Details = (examSession.data.phase6.preguntas || []).map(q => {
-            const ev = p6EvalMap.get(q.id) || { puntaje: 0, es_correcta: false, comentario: '' };
-            scoreP6 += (ev.puntaje || 0);
-            return {
+            const p6Submissions = (examSession.data.phase6?.preguntas || []).map(q => ({
                 id: q.id,
                 caracter_asignado: q.caracter_asignado,
                 pregunta: q.pregunta,
-                pinyin_pregunta: q.pinyin_pregunta,
-                traduccion_pregunta: q.traduccion_pregunta,
-                userAnswer: examSession.userAnswers.phase6[q.id] || '(Sin respuesta)',
-                eval: ev
-            };
-        });
+                ejemplo_respuesta: q.ejemplo_respuesta || '',
+                respuesta_usuario: examSession.userAnswers.phase6[q.id] || ''
+            }));
 
-        // Total score calculation
-        // Total maximum: P1(10) + P2(10) + P3(5) + P4(10) + P5(5) + P6(5) + P7(10) = 55 points
-        const totalPoints = Math.round((scoreP1 + scoreP2 + scoreP3 + scoreP4 + scoreP5 + scoreP6 + scoreP7) * 10) / 10;
-        const maxPoints = 55;
-        const percentage = Math.round((totalPoints / maxPoints) * 100);
+            let aiEvaluation = null;
+            try {
+                aiEvaluation = await evaluateExamAIAnswers(p5Submissions, p6Submissions);
+            } catch (evalErr) {
+                console.warn("Fallo al contactar IA para evaluar Fases 5 y 6, usando fallback:", evalErr);
+                aiEvaluation = {
+                    fase5_evaluacion: p5Submissions.map(s => ({
+                        id: s.id,
+                        es_correcta: s.respuesta_usuario.trim().length > 1,
+                        puntaje: s.respuesta_usuario.trim().length > 1 ? 1.0 : 0.0,
+                        comentario: s.respuesta_usuario.trim().length > 1 ? "Respuesta registrada." : "No se ingresó respuesta.",
+                        correccion_sugerida: s.ejemplo_respuesta || "",
+                        pinyin_correccion: ""
+                    })),
+                    fase6_evaluacion: p6Submissions.map(s => {
+                        const hasReply = s.respuesta_usuario.trim().length > 1;
+                        return {
+                            id: s.id,
+                            es_correcta: hasReply,
+                            uso_caracter_banco: hasReply,
+                            puntaje: hasReply ? 1.0 : 0.0,
+                            comentario: hasReply ? "Respuesta registrada." : "No se ingresó respuesta.",
+                            correccion_sugerida: s.ejemplo_respuesta || "",
+                            pinyin_correccion: ""
+                        };
+                    }),
+                    resumen_general: "Examen completado."
+                };
+            }
+
+            const p5EvalMap = new Map((aiEvaluation.fase5_evaluacion || []).map(item => [item.id, item]));
+            p5Details = (examSession.data.phase5 || []).map(q => {
+                const ev = p5EvalMap.get(q.id) || { puntaje: 0, es_correcta: false, comentario: '' };
+                scoreP5 += (ev.puntaje || 0);
+                return {
+                    id: q.id,
+                    escenario: q.escenario,
+                    pregunta: q.pregunta,
+                    userAnswer: examSession.userAnswers.phase5[q.id] || '(Sin respuesta)',
+                    eval: ev
+                };
+            });
+
+            const p6EvalMap = new Map((aiEvaluation.fase6_evaluacion || []).map(item => [item.id, item]));
+            p6Details = (examSession.data.phase6?.preguntas || []).map(q => {
+                const ev = p6EvalMap.get(q.id) || { puntaje: 0, es_correcta: false, comentario: '' };
+                scoreP6 += (ev.puntaje || 0);
+                return {
+                    id: q.id,
+                    caracter_asignado: q.caracter_asignado,
+                    pregunta: q.pregunta,
+                    userAnswer: examSession.userAnswers.phase6[q.id] || '(Sin respuesta)',
+                    eval: ev
+                };
+            });
+
+            if (aiEvaluation.resumen_general) {
+                aiSummary = aiEvaluation.resumen_general;
+            }
+        }
+
+        const maxByPhase = {
+            1: (examSession.data.phase1 || []).length,
+            2: (examSession.data.phase2 || []).length,
+            3: (examSession.data.phase3 || []).length,
+            4: (examSession.data.phase4 || []).length,
+            5: (examSession.data.phase5 || []).length,
+            6: (examSession.data.phase6?.preguntas || []).length,
+            7: (examSession.data.phase7?.verdadero_falso || []).length + (examSession.data.phase7?.opcion_multiple || []).length
+        };
+
+        const scoreByPhase = {
+            1: scoreP1,
+            2: scoreP2,
+            3: scoreP3,
+            4: scoreP4,
+            5: scoreP5,
+            6: scoreP6,
+            7: scoreP7
+        };
+
+        let totalPoints = 0;
+        let maxPoints = 0;
+        activePhases.forEach(p => {
+            totalPoints += (scoreByPhase[p] || 0);
+            maxPoints += (maxByPhase[p] || 0);
+        });
+        totalPoints = Math.round(totalPoints * 10) / 10;
+        const percentage = maxPoints > 0 ? Math.round((totalPoints / maxPoints) * 100) : 0;
 
         examSession.results = {
             scores: {
@@ -507,6 +678,7 @@ const finishAndEvaluateExam = async () => {
                 phase5: scoreP5,
                 phase6: scoreP6,
                 phase7: scoreP7,
+                maxByPhase,
                 totalPoints,
                 maxPoints,
                 percentage
@@ -521,7 +693,7 @@ const finishAndEvaluateExam = async () => {
                 phase7_vf: p7_vfDetails,
                 phase7_mcq: p7_mcqDetails
             },
-            aiSummary: aiEvaluation.resumen_general || 'Buen desempeño general en la simulación.'
+            aiSummary
         };
 
         examSession.status = 'completed';
@@ -538,40 +710,28 @@ const finishAndEvaluateExam = async () => {
 };
 
 /**
- * Checks for incomplete questions in any of the 7 phases.
+ * Verifica preguntas incompletas únicamente en las fases activas.
  */
 const checkIncompletePhases = () => {
     const incomplete = [];
-    const p1Count = Object.keys(examSession.userAnswers.phase1).length;
-    if (p1Count < 10) incomplete.push(`Fase 1 (${p1Count}/10)`);
+    const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
 
-    const p2Count = Object.values(examSession.userAnswers.phase2).filter(v => v && v.trim()).length;
-    if (p2Count < 10) incomplete.push(`Fase 2 (${p2Count}/10)`);
-
-    const p3Count = Object.values(examSession.userAnswers.phase3).filter(v => v && v.trim()).length;
-    if (p3Count < 5) incomplete.push(`Fase 3 (${p3Count}/5)`);
-
-    const p4Count = Object.keys(examSession.userAnswers.phase4).length;
-    if (p4Count < 10) incomplete.push(`Fase 4 (${p4Count}/10)`);
-
-    const p5Count = Object.values(examSession.userAnswers.phase5).filter(v => v && v.trim()).length;
-    if (p5Count < 5) incomplete.push(`Fase 5 (${p5Count}/5)`);
-
-    const p6Count = Object.values(examSession.userAnswers.phase6).filter(v => v && v.trim()).length;
-    if (p6Count < 5) incomplete.push(`Fase 6 (${p6Count}/5)`);
-
-    const p7VfCount = Object.keys(examSession.userAnswers.phase7_vf).length;
-    const p7McqCount = Object.keys(examSession.userAnswers.phase7_mcq).length;
-    if (p7VfCount + p7McqCount < 10) incomplete.push(`Fase 7 (${p7VfCount + p7McqCount}/10)`);
+    activePhases.forEach(p => {
+        const status = getPhaseAnsweredStatus(p);
+        if (!status.completed) {
+            incomplete.push(`Fase ${p} (${status.label})`);
+        }
+    });
 
     return incomplete;
 };
 
 /**
- * Changes active phase in the exam.
+ * Cambia a una fase activa del examen.
  */
 const setExamPhase = (phaseNumber) => {
-    if (phaseNumber < 1 || phaseNumber > 7) return;
+    const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
+    if (!activePhases.includes(phaseNumber)) return;
     examSession.currentPhase = phaseNumber;
     saveExamState();
     renderExam();
@@ -579,25 +739,19 @@ const setExamPhase = (phaseNumber) => {
 };
 
 /**
- * Clears exam state and returns to idle welcome screen.
+ * Abandona el examen actual y vuelve a la pantalla de configuración.
  */
 const resetExam = () => {
     if (confirm("¿Estás seguro de que deseas salir del examen actual? Se perderán las respuestas no guardadas.")) {
-        examSession = {
-            status: 'idle',
-            currentPhase: 1,
-            data: { phase1: [], phase2: [], phase3: [], phase4: [], phase5: [], phase6: { banco_caracteres: [], preguntas: [] }, phase7: { historia: '', verdadero_falso: [], opcion_multiple: [] } },
-            userAnswers: { phase1: {}, phase2: {}, phase3: {}, phase4: {}, phase5: {}, phase6: {}, phase7_vf: {}, phase7_mcq: {} },
-            results: null,
-            loadingMessage: ''
-        };
+        examSession.status = 'idle';
+        examSession.results = null;
         saveExamState();
         renderExam();
     }
 };
 
 /**
- * Main render function for the Exam view.
+ * Renderizador principal del modo examen.
  */
 const renderExam = () => {
     const container = document.getElementById('exam-container');
@@ -615,109 +769,165 @@ const renderExam = () => {
 };
 
 /**
- * Renders Welcome / Hero screen.
+ * Calcula el total de preguntas estimado según las preferencias seleccionadas.
+ */
+const getEstimatedTotalQuestions = (prefs = examPrefs) => {
+    const n = prefs.questionCount || 5;
+    let total = 0;
+    if (prefs.areas.vocabulario) total += n * 2; // Fases 1 y 2
+    if (prefs.areas.gramatica) total += n * 2;   // Fases 3 y 4
+    if (prefs.areas.redaccion) total += n * 2;   // Fases 5 y 6
+    if (prefs.areas.lectura) total += n * 2;     // Fase 7 (N V/F + N MCQ)
+    return total;
+};
+
+/**
+ * Pantalla de bienvenida y configuración en 3 niveles + selector libre de lecciones.
  */
 const renderExamWelcome = (container) => {
-    loadExamLessonPrefs();
-    const allWords = getAllWords();
-    const wordCount = allWords.length;
-    const allStructs = getAllStructures();
-    const structCount = allStructs.length;
-    const examWords = getWordsForExam();
+    loadExamPrefs();
+    const pools = getExamPools(examPrefs);
+    const totalQuestions = getEstimatedTotalQuestions(examPrefs);
+    const activePhases = computeActivePhases(examPrefs.areas);
+    const qCount = examPrefs.questionCount;
+
+    const lessonNumbers = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons && APP_CONFIG.lessons.items)
+        ? APP_CONFIG.lessons.items.map(l => l.number)
+        : [1, 2, 3, 4, 5, 6, 7, 8];
+    const maxLessonNum = Math.max(...lessonNumbers);
 
     container.innerHTML = `
         <div class="exam-welcome-card">
             <div class="exam-welcome-header">
-                <div class="exam-badge">${typeof I18N !== "undefined" ? I18N.t("examBadgeText") : "Evaluación Oficial Adaptativa"}</div>
-                <h1 class="exam-title">${typeof I18N !== "undefined" ? I18N.t("examMainTitle") : "Simulación de Examen"}</h1>
-<p class="exam-subtitle">${typeof I18N !== "undefined" ? I18N.t("examMainSubtitle") : "Pon a prueba tus conocimientos..."}</p>
-                <div class="exam-stats-pills">
-                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillWords", { count: wordCount }) : `📚 ${wordCount} palabras registradas`}</span>
-                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillStructs", { count: structCount }) : `🧩 ${structCount} estructuras gramaticales`}</span>
-                    <span class="exam-pill">${typeof I18N !== "undefined" ? I18N.t("examPillQuestions") : "🎯 55 preguntas en 7 fases"}</span>
+                <div class="exam-badge">Simulador Oficial TOCFL · Personalizable</div>
+                <h1 class="exam-title">Simulación de Examen</h1>
+                <p class="exam-subtitle">Configura las lecciones foco que vas a presentar y personaliza las áreas, la extensión y la complejidad de las frases.</p>
+                <div class="exam-stats-pills" id="exam-header-pills">
+                    <span class="exam-pill">🎯 Foco: L${examPrefs.selectedLessons.slice().sort((a,b)=>a-b).join(', L')} (${pools.focusWords.length} palabras · ${pools.focusStructures.length} estructuras)</span>
+                    <span class="exam-pill">🧱 Soporte base: ${pools.supportWords.length} palabras previas</span>
+                    <span class="exam-pill">📝 ${totalQuestions} preguntas (${activePhases.length} subfases)</span>
                 </div>
             </div>
 
-            <!-- Selector de Lecciones (Retroactivo / Acumulativo) -->
+            <!-- PASO 0: Selector libre de Lecciones Foco -->
             <div class="exam-lesson-selector-card">
-                <div class="exam-lesson-selector-title">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                    </svg>
-                    <span>${typeof I18N !== "undefined" ? I18N.t("examSelectorTitle") : "Lecciones a evaluar en el examen"}</span>
+                <div class="exam-section-header-row">
+                    <div class="exam-lesson-selector-title">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                        <span>Lecciones a evaluar (Enfoque directo)</span>
+                    </div>
+                    <div class="exam-quick-lesson-btns">
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-exam-only-latest" title="Enfocar únicamente en la última lección">
+                            🎯 Solo L${maxLessonNum}
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-exam-all-lessons" title="Seleccionar todas las lecciones">
+                            📚 Todas (L1–L${maxLessonNum})
+                        </button>
+                    </div>
                 </div>
-<p class="exam-lesson-hint">${typeof I18N !== "undefined" ? I18N.t("examSelectorHint") : "Evaluación retroactiva..."}</p>
+                <p class="exam-lesson-hint">
+                    Selecciona <strong>cualquier combinación de lecciones</strong> para que el examen evalúe sus palabras y estructuras. Las lecciones anteriores se usarán únicamente como base gramatical de soporte.
+                </p>
                 <div class="exam-lesson-checkboxes" id="exam-lesson-checkboxes">
-                    ${((typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons && APP_CONFIG.lessons.items)
-                        ? APP_CONFIG.lessons.items.map(l => l.number)
-                        : [1, 2, 3, 4, 5, 6, 7, 8]
-                    ).map(num => `
-                        <label class="exam-lesson-cb-card ${num <= examMaxLesson ? 'active' : ''}">
-                            <input type="checkbox" data-lesson="${num}" ${num <= examMaxLesson ? 'checked' : ''}>
-                            <span class="cb-label">${typeof I18N !== "undefined" ? I18N.t("examLessonLabel", { num: num }) : `Lección ${num}`}</span>
-                        </label>
-                    `).join('')}
+                    ${lessonNumbers.map(num => {
+                        const isChecked = examPrefs.selectedLessons.includes(num);
+                        return `
+                            <label class="exam-lesson-cb-card ${isChecked ? 'active' : ''}">
+                                <input type="checkbox" data-lesson="${num}" ${isChecked ? 'checked' : ''}>
+                                <span class="cb-label">Lección ${num}</span>
+                            </label>
+                        `;
+                    }).join('')}
                 </div>
                 <div class="exam-lesson-extra">
                     <label class="exam-unassigned-checkbox-label">
-                        <input type="checkbox" id="exam-toggle-unassigned" ${examIncludeUnassigned ? 'checked' : ''}>
-                        <span>${typeof I18N !== "undefined" ? I18N.t("examIncludeUnassigned") : "Incluir tarjetas sin lección asignada (/)"}</span>
+                        <input type="checkbox" id="exam-toggle-unassigned" ${examPrefs.includeUnassigned ? 'checked' : ''}>
+                        <span>Incluir tarjetas sin lección asignada (/)</span>
                     </label>
-                    <span class="exam-word-count-badge ${examWords.length < 10 ? 'warning' : ''}" id="exam-word-count-badge">
-                        ${typeof I18N !== 'undefined' ? I18N.t('examSelectedWordsBadge', { count: examWords.length }) : `${examWords.length} palabras seleccionadas para el examen`}
+                    <span class="exam-word-count-badge" id="exam-word-count-badge">
+                        🎯 ${pools.focusWords.length} palabras foco · ${pools.focusStructures.length} estructuras foco
                     </span>
                 </div>
             </div>
 
-            <div class="exam-phases-preview">
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">1</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP1Title') : 'Reconocimiento de Caracteres'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP1Desc') : '10 preguntas: Identifica el Hanzi correcto a partir de su Pinyin y Zhuyin entre 10 opciones.'}</p>
+            <!-- NIVEL 1: Áreas a Evaluar -->
+            <div class="exam-custom-section">
+                <div class="exam-custom-title">1. Áreas a evaluar</div>
+                <div class="exam-areas-grid" id="exam-areas-grid">
+                    <label class="exam-area-card ${examPrefs.areas.vocabulario ? 'active' : ''}">
+                        <input type="checkbox" data-area="vocabulario" ${examPrefs.areas.vocabulario ? 'checked' : ''}>
+                        <div class="exam-area-body">
+                            <div class="exam-area-title">📖 Vocabulario <span class="exam-area-tag">Fases 1–2</span></div>
+                            <p class="exam-area-desc">Reconocer caracteres dado el Pinyin y escribir el Pinyin con tonos dado el carácter (${qCount * 2} reactivos).</p>
+                        </div>
+                    </label>
+
+                    <label class="exam-area-card ${examPrefs.areas.gramatica ? 'active' : ''}">
+                        <input type="checkbox" data-area="gramatica" ${examPrefs.areas.gramatica ? 'checked' : ''}>
+                        <div class="exam-area-body">
+                            <div class="exam-area-title">🧩 Gramática <span class="exam-area-tag">Fases 3–4</span></div>
+                            <p class="exam-area-desc">Completado de frases (<code>[ ___ ]</code>) y selección múltiple (A, B, C) sobre las estructuras foco (${qCount * 2} reactivos).</p>
+                        </div>
+                    </label>
+
+                    <label class="exam-area-card ${examPrefs.areas.redaccion ? 'active' : ''}">
+                        <input type="checkbox" data-area="redaccion" ${examPrefs.areas.redaccion ? 'checked' : ''}>
+                        <div class="exam-area-body">
+                            <div class="exam-area-title">✍️ Redacción <span class="exam-area-tag">Fases 5–6</span></div>
+                            <p class="exam-area-desc">Respuestas a preguntas libres y redacción con directrices (usar palabra o estructura específica) (${qCount * 2} reactivos).</p>
+                        </div>
+                    </label>
+
+                    <label class="exam-area-card ${examPrefs.areas.lectura ? 'active' : ''}">
+                        <input type="checkbox" data-area="lectura" ${examPrefs.areas.lectura ? 'checked' : ''}>
+                        <div class="exam-area-body">
+                            <div class="exam-area-title">📜 Lectura <span class="exam-area-tag">Fase 7</span></div>
+                            <p class="exam-area-desc">Relato en chino tradicional con preguntas de Verdadero/Falso y Opción Múltiple (${qCount * 2} reactivos).</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- NIVEL 2 Y NIVEL 3 EN FILA -->
+            <div class="exam-custom-row-2col">
+                <!-- NIVEL 2: Cantidad de preguntas por tema -->
+                <div class="exam-custom-section">
+                    <div class="exam-custom-title">2. Cantidad de preguntas por tema</div>
+                    <div class="exam-segmented-group" id="exam-count-group">
+                        <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 3 ? 'active' : ''}" data-count="3">
+                            <strong>⚡ Corto (3)</strong>
+                            <small>3 por subfase</small>
+                        </button>
+                        <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 5 ? 'active' : ''}" data-count="5">
+                            <strong>⚖️ Medio (5)</strong>
+                            <small>5 por subfase</small>
+                        </button>
+                        <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 10 ? 'active' : ''}" data-count="10">
+                            <strong>🏆 Largo (10)</strong>
+                            <small>10 por subfase</small>
+                        </button>
                     </div>
                 </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">2</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP2Title') : 'Escritura de Pinyin con Tonos'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP2Desc') : '10 preguntas: Escribe el Pinyin exacto con diacríticos tonales mediante el teclado numérico (1-5).'}</p>
-                    </div>
-                </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">3</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP3Title') : 'Rellenar Espacios en Blanco'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP3Desc') : '5 oraciones: Deduce y escribe el carácter o término faltante en oraciones directas.'}</p>
-                    </div>
-                </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">4</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP4Title') : 'Gramática y Estructuras Complejas'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP4Desc') : '10 oraciones: Completa patrones avanzados con selección múltiple de 3 opciones (A, B, C).'}</p>
-                    </div>
-                </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">5</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP5Title') : 'Respuestas en Situaciones Reales'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP5Desc') : '5 escenarios: Responde a preguntas cotidianas en Taiwán con oraciones libres evaluadas por IA.'}</p>
-                    </div>
-                </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">6</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP6Title') : 'Desafío de Banco de Caracteres'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP6Desc') : '5 preguntas: Formula oraciones incorporando obligatoriamente los 5 caracteres asignados.'}</p>
-                    </div>
-                </div>
-                <div class="preview-phase-item">
-                    <div class="preview-phase-num">7</div>
-                    <div class="preview-phase-info">
-                        <h4>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP7Title') : 'Comprensión Lectora Integral'}</h4>
-                        <p>${typeof I18N !== 'undefined' ? I18N.t('examPreviewP7Desc') : 'Historia corta inédita: 5 afirmaciones de Verdadero/Falso + 5 preguntas de opción múltiple.'}</p>
+
+                <!-- NIVEL 3: Dificultad (Longitud de frases) -->
+                <div class="exam-custom-section">
+                    <div class="exam-custom-title">3. Dificultad (Longitud de frases)</div>
+                    <div class="exam-segmented-group" id="exam-difficulty-group">
+                        <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'basico' ? 'active' : ''}" data-diff="basico">
+                            <strong>🟢 Básico</strong>
+                            <small>Frases cortas (6–10 caract.)</small>
+                        </button>
+                        <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'estandar' ? 'active' : ''}" data-diff="estandar">
+                            <strong>🟡 Estándar</strong>
+                            <small>Nivel examen (10–16 caract.)</small>
+                        </button>
+                        <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'avanzado' ? 'active' : ''}" data-diff="avanzado">
+                            <strong>🔴 Avanzado</strong>
+                            <small>Compuestas (16–25 caract.)</small>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -727,80 +937,100 @@ const renderExamWelcome = (container) => {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    ${typeof I18N !== 'undefined' ? I18N.t('examBtnStartExam') : 'Comenzar Simulación de Examen'}
+                    Comenzar Examen (${totalQuestions} preguntas)
                 </button>
             </div>
         </div>
     `;
 
-    const updateExamLessonUI = () => {
-        container.querySelectorAll('#exam-lesson-checkboxes input[type="checkbox"]').forEach(input => {
-            const num = parseInt(input.dataset.lesson, 10);
-            const isChecked = num <= examMaxLesson;
-            input.checked = isChecked;
-            const card = input.closest('.exam-lesson-cb-card');
-            if (card) {
-                card.classList.toggle('active', isChecked);
-            }
-        });
-
-        const unassignedInput = container.querySelector('#exam-toggle-unassigned');
-        if (unassignedInput) {
-            unassignedInput.checked = examIncludeUnassigned;
-        }
-
-        const currentExamWords = getWordsForExam();
-        const countBadge = container.querySelector('#exam-word-count-badge');
-        if (countBadge) {
-            countBadge.textContent = typeof I18N !== 'undefined' ? I18N.t('examSelectedWordsBadge', { count: currentExamWords.length }) : `${currentExamWords.length} palabras seleccionadas para el examen`;
-            countBadge.classList.toggle('warning', currentExamWords.length < 10);
-        }
-    };
-
+    // Eventos de Lecciones individuales
     const cbContainer = container.querySelector('#exam-lesson-checkboxes');
     if (cbContainer) {
         cbContainer.addEventListener('change', (e) => {
             const target = e.target;
             if (!target.matches('input[type="checkbox"]')) return;
-            const clickedNum = parseInt(target.dataset.lesson, 10);
+            const num = parseInt(target.dataset.lesson, 10);
             if (target.checked) {
-                examMaxLesson = clickedNum;
+                if (!examPrefs.selectedLessons.includes(num)) {
+                    examPrefs.selectedLessons.push(num);
+                }
             } else {
-                examMaxLesson = clickedNum > 1 ? clickedNum - 1 : 0;
+                if (examPrefs.selectedLessons.length <= 1) {
+                    target.checked = true;
+                    showToast("Debe haber al menos 1 lección seleccionada.", "warning");
+                    return;
+                }
+                examPrefs.selectedLessons = examPrefs.selectedLessons.filter(n => n !== num);
             }
-            saveExamLessonPrefs();
-            updateExamLessonUI();
+            saveExamPrefs();
+            renderExamWelcome(container);
         });
     }
 
-    const unassignedToggle = container.querySelector('#exam-toggle-unassigned');
-    if (unassignedToggle) {
-        unassignedToggle.addEventListener('change', (e) => {
-            examIncludeUnassigned = e.target.checked;
-            saveExamLessonPrefs();
-            updateExamLessonUI();
+    container.querySelector('#btn-exam-only-latest')?.addEventListener('click', () => {
+        examPrefs.selectedLessons = [maxLessonNum];
+        saveExamPrefs();
+        renderExamWelcome(container);
+    });
+
+    container.querySelector('#btn-exam-all-lessons')?.addEventListener('click', () => {
+        examPrefs.selectedLessons = [...lessonNumbers];
+        saveExamPrefs();
+        renderExamWelcome(container);
+    });
+
+    container.querySelector('#exam-toggle-unassigned')?.addEventListener('change', (e) => {
+        examPrefs.includeUnassigned = e.target.checked;
+        saveExamPrefs();
+        renderExamWelcome(container);
+    });
+
+    // Eventos Nivel 1: Áreas
+    container.querySelector('#exam-areas-grid')?.addEventListener('change', (e) => {
+        const input = e.target;
+        if (!input.matches('input[data-area]')) return;
+        const areaKey = input.dataset.area;
+        examPrefs.areas[areaKey] = input.checked;
+        if (!Object.values(examPrefs.areas).some(Boolean)) {
+            examPrefs.areas[areaKey] = true;
+            input.checked = true;
+            showToast("Selecciona al menos un área a evaluar.", "warning");
+            return;
+        }
+        saveExamPrefs();
+        renderExamWelcome(container);
+    });
+
+    // Eventos Nivel 2: Cantidad de preguntas
+    container.querySelectorAll('#exam-count-group .exam-seg-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            examPrefs.questionCount = parseInt(btn.dataset.count, 10);
+            saveExamPrefs();
+            renderExamWelcome(container);
         });
-    }
+    });
+
+    // Eventos Nivel 3: Dificultad
+    container.querySelectorAll('#exam-difficulty-group .exam-seg-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            examPrefs.difficulty = btn.dataset.diff;
+            saveExamPrefs();
+            renderExamWelcome(container);
+        });
+    });
 
     document.getElementById('btn-start-exam')?.addEventListener('click', startNewExam);
 };
 
 /**
- * Renders Loading / Generating screen.
+ * Pantalla de carga / evaluación.
  */
 const renderExamLoading = (container) => {
     const isEvaluating = examSession.status === 'evaluating';
-    const title = typeof I18N !== "undefined"
-        ? (isEvaluating ? I18N.t("examEvaluatingTitle") : I18N.t("examLoadingTitle"))
-        : (isEvaluating ? "Evaluando Examen" : "Preparando Examen");
-
-    const message = typeof I18N !== "undefined"
-        ? (isEvaluating ? I18N.t("examLoadingEvaluating") : I18N.t("examLoadingDesigning"))
-        : (isEvaluating ? "El profesor IA está evaluando tus respuestas y calculando tu puntuación..." : "Diseñando tu examen con Gemini basado en tus flashcards y estructuras...");
-
-    const tip = typeof I18N !== "undefined"
-        ? I18N.t("examLoadingTip")
-        : "Tip: En la Fase 2, recuerda presionar 1, 2, 3 o 4 después de cada sílaba para colocar las tildes tonales automáticamente (ej: hao3 → hǎo).";
+    const title = isEvaluating ? "Evaluando Examen" : "Preparando Examen Personalizado";
+    const message = examSession.loadingMessage || (isEvaluating
+        ? "El profesor IA está evaluando tus respuestas..."
+        : "Generando reactivos enfocados en las lecciones seleccionadas...");
 
     container.innerHTML = `
         <div class="exam-loading-card">
@@ -808,54 +1038,53 @@ const renderExamLoading = (container) => {
             <h2 class="exam-loading-title">${title}</h2>
             <p class="exam-loading-text">${message}</p>
             <div class="exam-loading-tips">
-                <p>💡 <em>${tip}</em></p>
+                <p>💡 <em>Tip: En la Fase 2 (Pinyin), presiona 1, 2, 3 o 4 después de cada sílaba para poner los tonos automáticamente (ej: hao3 → hǎo).</em></p>
             </div>
         </div>
     `;
 };
 
+const PHASE_NAMES = {
+    1: "1. Reconocer Caracteres",
+    2: "2. Escribir Pinyin",
+    3: "3. Completar Frases",
+    4: "4. Opción Múltiple Gramatical",
+    5: "5. Respuestas Libres",
+    6: "6. Redacción con Directriz",
+    7: "7. Comprensión Lectora"
+};
+
 /**
- * Renders Active Exam screen with Top Stepper and Current Phase Content.
+ * Pantalla de Examen Activo (con Stepper dinámico solo para las fases seleccionadas).
  */
 const renderExamActive = (container) => {
-    const currentPhase = examSession.currentPhase;
-    const phaseNames = (typeof I18N !== "undefined") ? [
-        I18N.t("examPhaseName1"),
-        I18N.t("examPhaseName2"),
-        I18N.t("examPhaseName3"),
-        I18N.t("examPhaseName4"),
-        I18N.t("examPhaseName5"),
-        I18N.t("examPhaseName6"),
-        I18N.t("examPhaseName7")
-    ] : [
-        "1. Hanzi (10 opciones)",
-        "2. Pinyin con Tonos",
-        "3. Rellenar Espacios",
-        "4. Gramática Compleja",
-        "5. Escenarios Abiertos",
-        "6. Banco de Caracteres",
-        "7. Comprensión Lectora"
-    ];
+    const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
+    const currentPhase = activePhases.includes(examSession.currentPhase) ? examSession.currentPhase : activePhases[0];
+    examSession.currentPhase = currentPhase;
+
+    const currentIdx = activePhases.indexOf(currentPhase);
+    const prevPhase = currentIdx > 0 ? activePhases[currentIdx - 1] : null;
+    const nextPhase = currentIdx < activePhases.length - 1 ? activePhases[currentIdx + 1] : null;
+    const focusedLessons = (examSession.config?.selectedLessons || [8]).join(', L');
 
     container.innerHTML = `
         <div class="exam-active-layout">
-            <!-- Header bar with stepper -->
             <div class="exam-active-header">
                 <div class="exam-header-top">
                     <div class="exam-active-title">
-                        <h2>${typeof I18N !== "undefined" ? I18N.t("examActiveTitle") : "Simulación de Examen Oficial"}</h2>
-                        <span class="exam-phase-indicator">Fase ${currentPhase} de 7: ${phaseNames[currentPhase - 1]}</span>
+                        <h2>Examen · Lección L${focusedLessons}</h2>
+                        <span class="exam-phase-indicator">Paso ${currentIdx + 1} de ${activePhases.length}: ${PHASE_NAMES[currentPhase]}</span>
                     </div>
                     <div class="exam-header-actions">
                         <button class="btn btn-secondary btn-sm" id="btn-cancel-exam" title="Salir del examen">
-                            ${typeof I18N !== "undefined" ? I18N.t("examBtnAbandon") : "Abandonar"}
+                            Abandonar
                         </button>
                     </div>
                 </div>
 
-                <!-- Stepper buttons -->
+                <!-- Stepper dinámico -->
                 <div class="exam-stepper">
-                    ${[1, 2, 3, 4, 5, 6, 7].map(num => {
+                    ${activePhases.map(num => {
                         const isCurrent = num === currentPhase;
                         const answeredStatus = getPhaseAnsweredStatus(num);
                         return `
@@ -869,33 +1098,30 @@ const renderExamActive = (container) => {
                 </div>
             </div>
 
-            <!-- Phase Content Area -->
             <div class="exam-phase-content" id="exam-phase-content">
                 ${renderPhaseBody(currentPhase)}
             </div>
 
-            <!-- Footer Navigation Bar -->
             <div class="exam-active-footer">
-                <button class="btn btn-secondary" id="btn-prev-phase" ${currentPhase === 1 ? 'disabled' : ''}>
-                    ${typeof I18N !== "undefined" ? I18N.t("examBtnPrevPhase") : "&larr; Fase Anterior"}
+                <button class="btn btn-secondary" id="btn-prev-phase" ${prevPhase === null ? 'disabled' : ''}>
+                    &larr; Anterior
                 </button>
                 <div class="exam-footer-info">
                     <span>${getPhaseProgressSummary(currentPhase)}</span>
                 </div>
-                ${currentPhase < 7 ? `
+                ${nextPhase !== null ? `
                     <button class="btn btn-primary" id="btn-next-phase">
-                        ${typeof I18N !== "undefined" ? I18N.t("examBtnNextPhase") : "Siguiente Fase &rarr;"}
+                        Siguiente &rarr;
                     </button>
                 ` : `
                     <button class="btn btn-primary btn-submit-exam" id="btn-finish-exam">
-                        ${typeof I18N !== "undefined" ? I18N.t("examBtnSubmitExam") : "Finalizar y Evaluar Examen"}
+                        Finalizar y Calificar Examen
                     </button>
                 `}
             </div>
         </div>
     `;
 
-    // Hook Stepper events
     container.querySelectorAll('.exam-step-btn').forEach(btn => {
         btn.addEventListener('click', () => {
             const phase = parseInt(btn.dataset.phase, 10);
@@ -904,96 +1130,92 @@ const renderExamActive = (container) => {
     });
 
     document.getElementById('btn-cancel-exam')?.addEventListener('click', resetExam);
-    document.getElementById('btn-prev-phase')?.addEventListener('click', () => setExamPhase(currentPhase - 1));
-    document.getElementById('btn-next-phase')?.addEventListener('click', () => setExamPhase(currentPhase + 1));
+    if (prevPhase !== null) {
+        document.getElementById('btn-prev-phase')?.addEventListener('click', () => setExamPhase(prevPhase));
+    }
+    if (nextPhase !== null) {
+        document.getElementById('btn-next-phase')?.addEventListener('click', () => setExamPhase(nextPhase));
+    }
     document.getElementById('btn-finish-exam')?.addEventListener('click', finishAndEvaluateExam);
 
-    // Initialize phase-specific listeners
     initPhaseSpecificListeners(currentPhase, container);
 };
 
 /**
- * Returns label and completed boolean for stepper pill.
+ * Calcula cuántas preguntas se han respondido en una fase respecto al total real de esa fase.
  */
 const getPhaseAnsweredStatus = (phaseNum) => {
     switch (phaseNum) {
         case 1: {
+            const total = (examSession.data.phase1 || []).length;
             const count = Object.keys(examSession.userAnswers.phase1).length;
-            return { completed: count === 10, label: `${count}/10` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 2: {
+            const total = (examSession.data.phase2 || []).length;
             const count = Object.values(examSession.userAnswers.phase2).filter(v => v && v.trim()).length;
-            return { completed: count === 10, label: `${count}/10` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 3: {
+            const total = (examSession.data.phase3 || []).length;
             const count = Object.values(examSession.userAnswers.phase3).filter(v => v && v.trim()).length;
-            return { completed: count === 5, label: `${count}/5` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 4: {
+            const total = (examSession.data.phase4 || []).length;
             const count = Object.keys(examSession.userAnswers.phase4).length;
-            return { completed: count === 10, label: `${count}/10` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 5: {
+            const total = (examSession.data.phase5 || []).length;
             const count = Object.values(examSession.userAnswers.phase5).filter(v => v && v.trim()).length;
-            return { completed: count === 5, label: `${count}/5` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 6: {
+            const total = (examSession.data.phase6?.preguntas || []).length;
             const count = Object.values(examSession.userAnswers.phase6).filter(v => v && v.trim()).length;
-            return { completed: count === 5, label: `${count}/5` };
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         case 7: {
+            const total = (examSession.data.phase7?.verdadero_falso || []).length + (examSession.data.phase7?.opcion_multiple || []).length;
             const vf = Object.keys(examSession.userAnswers.phase7_vf).length;
             const mcq = Object.keys(examSession.userAnswers.phase7_mcq).length;
-            const total = vf + mcq;
-            return { completed: total === 10, label: `${total}/10` };
+            const count = vf + mcq;
+            return { completed: total > 0 && count >= total, label: `${count}/${total}` };
         }
         default:
-            return { completed: false, label: '' };
+            return { completed: false, label: '0/0' };
     }
 };
 
-/**
- * Returns human readable progress text for current phase footer.
- */
 const getPhaseProgressSummary = (phaseNum) => {
     const status = getPhaseAnsweredStatus(phaseNum);
-    return typeof I18N !== "undefined" ? I18N.t("examProgressSummary", { label: status.label }) : `Respondidas: ${status.label} preguntas`;
+    return `Respondidas: ${status.label} preguntas`;
 };
 
-/**
- * Renders the body corresponding to the active phase.
- */
 const renderPhaseBody = (phaseNum) => {
     switch (phaseNum) {
-        case 1:
-            return renderPhase1();
-        case 2:
-            return renderPhase2();
-        case 3:
-            return renderPhase3();
-        case 4:
-            return renderPhase4();
-        case 5:
-            return renderPhase5();
-        case 6:
-            return renderPhase6();
-        case 7:
-            return renderPhase7();
-        default:
-            return '';
+        case 1: return renderPhase1();
+        case 2: return renderPhase2();
+        case 3: return renderPhase3();
+        case 4: return renderPhase4();
+        case 5: return renderPhase5();
+        case 6: return renderPhase6();
+        case 7: return renderPhase7();
+        default: return '';
     }
 };
 
 // --------------------------------------------------------------------------
-// PHASE 1: Hanzi Recognition (Pinyin + Zhuyin -> 10 options)
+// FASE 1: Reconocer Caracteres dado el Pinyin/Zhuyin
 // --------------------------------------------------------------------------
 const renderPhase1 = () => {
     const questions = examSession.data.phase1 || [];
     return `
         <div class="phase-container phase-1-container">
             <div class="phase-header-banner">
-                <h3>${typeof I18N !== "undefined" ? I18N.t("examPhase1Title") : "Fase 1: Reconocimiento de Caracteres"}</h3>
-                <p>${typeof I18N !== "undefined" ? I18N.t("examPhase1Desc") : "Observa la pronunciación..."}</p>
+                <h3>Fase 1: Reconocimiento de Caracteres (Vocabulario)</h3>
+                <p>Selecciona la palabra en caracteres tradicionales que corresponde al Pinyin y Zhuyin mostrados.</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1001,7 +1223,7 @@ const renderPhase1 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">${typeof I18N !== "undefined" ? I18N.t("examReviewQuestionNum", { num: idx + 1 }) : `Pregunta ${idx + 1} de 10`}</span>
+                                <span class="q-number">Pregunta ${idx + 1} de ${questions.length}</span>
                             </div>
                             <div class="q-prompt-center">
                                 <div class="q-pinyin-display">${q.pinyin}</div>
@@ -1026,15 +1248,15 @@ const renderPhase1 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 2: Pinyin Typing with Tone Engine
+// FASE 2: Reconocer Pinyin dado el Carácter
 // --------------------------------------------------------------------------
 const renderPhase2 = () => {
     const questions = examSession.data.phase2 || [];
     return `
         <div class="phase-container phase-2-container">
             <div class="phase-header-banner">
-                <h3>${typeof I18N !== "undefined" ? I18N.t("examPhase2Title") : "Fase 2: Escritura de Pinyin con Tonos"}</h3>
-                <p>${typeof I18N !== "undefined" ? I18N.t("examPhase2Desc") : "Escribe el Pinyin exacto..."}</p>
+                <h3>Fase 2: Reconocer el Pinyin dado el Carácter (Vocabulario)</h3>
+                <p>Escribe el Pinyin con tonos para cada palabra (usa las teclas 1 a 5 para colocar tildes tonales).</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1042,14 +1264,14 @@ const renderPhase2 = () => {
                     return `
                         <div class="exam-question-card phase2-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">${typeof I18N !== "undefined" ? I18N.t("examReviewTermNum", { num: idx + 1 }) : `Término ${idx + 1} de 10`}</span>
+                                <span class="q-number">Término ${idx + 1} de ${questions.length}</span>
                                 ${q.categoria ? `<span class="q-badge-cat">${(window.getCategoryLabel ? window.getCategoryLabel(q.categoria) : q.categoria)}</span>` : ''}
                             </div>
                             <div class="phase2-hanzi-banner">
                                 <div class="phase2-hanzi">${q.hanzi}</div>
                             </div>
                             <div class="phase2-input-wrapper">
-                                <label for="p2-input-${q.id}">${typeof I18N !== "undefined" ? I18N.t("examReviewP2InputLabel") : "Ingresa el Pinyin con tonos:"}</label>
+                                <label for="p2-input-${q.id}">Ingresa el Pinyin con tonos:</label>
                                 <input type="text" 
                                        class="form-control phase2-pinyin-input" 
                                        id="p2-input-${q.id}" 
@@ -1075,15 +1297,15 @@ const renderPhase2 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 3: Fill in the Blank (5 direct sentences - 100% Traditional Chinese)
+// FASE 3: Gramática — Completado de Frases
 // --------------------------------------------------------------------------
 const renderPhase3 = () => {
     const questions = examSession.data.phase3 || [];
     return `
         <div class="phase-container phase-3-container">
             <div class="phase-header-banner">
-                <h3>Fase 3: 填空題 (Completar Espacios en Blanco)</h3>
-                <p>請閱讀以下 5 個句子，並在空格 <code>[ ___ ]</code> 填入適當的漢字詞語。</p>
+                <h3>Fase 3: 填空題 · Completado de Frases (Gramática)</h3>
+                <p>Lee las siguientes ${questions.length} oraciones y escribe en el espacio <code>[ ___ ]</code> la palabra adecuada.</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1091,7 +1313,7 @@ const renderPhase3 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">第 ${idx + 1} 題（共 5 題）</span>
+                                <span class="q-number">第 ${idx + 1} 題（共 ${questions.length} 題）</span>
                             </div>
                             <div class="phase3-sentence-box">
                                 <div class="phase3-chinese-text">${q.oracion}</div>
@@ -1116,15 +1338,15 @@ const renderPhase3 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 4: Complex Sentences (10 sentences -> 3 options A, B, C - 100% Traditional Chinese)
+// FASE 4: Gramática — Selección Múltiple
 // --------------------------------------------------------------------------
 const renderPhase4 = () => {
     const questions = examSession.data.phase4 || [];
     return `
         <div class="phase-container phase-4-container">
             <div class="phase-header-banner">
-                <h3>Fase 4: 文法與句型選擇題 (Estructuras Complejas)</h3>
-                <p>請閱讀以下 10 個句子，並從 3 個選項中選出最合適的答案完成句子。</p>
+                <h3>Fase 4: 文法與句型選擇題 · Selección Múltiple (Gramática)</h3>
+                <p>Elige la opción correcta (A, B o C) que completa gramaticalmente cada oración.</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1132,14 +1354,14 @@ const renderPhase4 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">第 ${idx + 1} 題（共 10 題）</span>
+                                <span class="q-number">第 ${idx + 1} 題（共 ${questions.length} 題）</span>
                             </div>
                             <div class="phase4-sentence-box">
                                 <div class="phase4-chinese-text">${q.oracion}</div>
                             </div>
                             <div class="phase4-options-list">
-                                ${q.opciones.map((opt, optIdx) => {
-                                    const letter = String.fromCharCode(65 + optIdx); // A, B, C
+                                ${(q.opciones || []).map((opt, optIdx) => {
+                                    const letter = String.fromCharCode(65 + optIdx);
                                     const isChosen = selected === opt;
                                     return `
                                         <button type="button" 
@@ -1161,15 +1383,15 @@ const renderPhase4 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 5: Contextual Scenarios (5 open questions - 100% Traditional Chinese)
+// FASE 5: Redacción — Respuestas a Frases Libres
 // --------------------------------------------------------------------------
 const renderPhase5 = () => {
     const questions = examSession.data.phase5 || [];
     return `
         <div class="phase-container phase-5-container">
             <div class="phase-header-banner">
-                <h3>Fase 5: 情境問答 (Situaciones Cotidianas)</h3>
-                <p>請根據各題情境，用完整的繁體中文句子回答問題。</p>
+                <h3>Fase 5: 情境問答 · Respuestas a Frases Libres (Redacción)</h3>
+                <p>Responde en chino tradicional a cada pregunta según el escenario planteado.</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1177,7 +1399,7 @@ const renderPhase5 = () => {
                     return `
                         <div class="exam-question-card phase5-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">情境 ${idx + 1}（共 5 題）</span>
+                                <span class="q-number">情境 ${idx + 1}（共 ${questions.length} 題）</span>
                             </div>
                             <div class="phase5-scenario-desc">
                                 <strong>📍 情境：</strong> ${q.escenario}
@@ -1202,21 +1424,20 @@ const renderPhase5 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 6: Fixed Character Bank (Bank of 5 -> 5 questions forced usage - 100% Chinese)
+// FASE 6: Redacción con Directrices (Palabra o Estructura obligatoria)
 // --------------------------------------------------------------------------
 const renderPhase6 = () => {
-    const bank = examSession.data.phase6.banco_caracteres || [];
-    const questions = examSession.data.phase6.preguntas || [];
+    const bank = examSession.data.phase6?.banco_caracteres || [];
+    const questions = examSession.data.phase6?.preguntas || [];
     return `
         <div class="phase-container phase-6-container">
             <div class="phase-header-banner">
-                <h3>Fase 6: 指定字造句問答 (Banco de Caracteres Fijos)</h3>
-                <p>請使用指定的漢字回答以下問題，造句中必須包含該指定漢字。</p>
+                <h3>Fase 6: 指定詞語與句型造句 · Redacción con Directrices</h3>
+                <p>Responde a cada pregunta utilizando obligatoriamente la palabra o estructura gramatical indicada.</p>
             </div>
 
-            <!-- Fixed Character Bank Display -->
             <div class="phase6-bank-panel">
-                <div class="phase6-bank-title">🏷️ 本測驗指定字庫：</div>
+                <div class="phase6-bank-title">🏷️ Directrices obligatorias de esta sección:</div>
                 <div class="phase6-bank-pills">
                     ${bank.map(char => `
                         <div class="bank-pill-char">${char}</div>
@@ -1230,19 +1451,19 @@ const renderPhase6 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">第 ${idx + 1} 題（共 5 題）</span>
-                                <span class="q-badge-required">${typeof I18N !== "undefined" ? I18N.t("examRequiredChar") : "必須包含漢字："}<strong>${q.caracter_asignado}</strong></span>
+                                <span class="q-number">第 ${idx + 1} 題（共 ${questions.length} 題）</span>
+                                <span class="q-badge-required">Directriz obligatoria: <strong>${q.caracter_asignado}</strong></span>
                             </div>
                             <div class="phase6-q-box">
                                 <div class="phase6-chinese-q">${q.pregunta}</div>
                             </div>
                             <div class="phase6-input-box">
-                                <label for="p6-input-${q.id}">你的回答（造句必須使用「${q.caracter_asignado}」）：</label>
+                                <label for="p6-input-${q.id}">Tu respuesta (usando «${q.caracter_asignado}»):</label>
                                 <input type="text" 
                                        class="form-control phase6-input" 
                                        id="p6-input-${q.id}" 
                                        data-q-id="${q.id}" 
-                                       placeholder="請用「${q.caracter_asignado}」寫出完整的句子..." 
+                                       placeholder="Escribe una oración completa aplicando «${q.caracter_asignado}»..." 
                                        value="${typed}">
                             </div>
                         </div>
@@ -1254,7 +1475,7 @@ const renderPhase6 = () => {
 };
 
 // --------------------------------------------------------------------------
-// PHASE 7: Reading Comprehension (Story + 5 T/F + 5 MCQ - 100% Traditional Chinese)
+// FASE 7: Lectura (Verdadero/Falso + Opción Múltiple)
 // --------------------------------------------------------------------------
 const renderPhase7 = () => {
     const p7 = examSession.data.phase7 || {};
@@ -1265,11 +1486,10 @@ const renderPhase7 = () => {
     return `
         <div class="phase-container phase-7-container">
             <div class="phase-header-banner">
-                <h3>Fase 7: 閱讀理解測驗 (Comprensión Lectora)</h3>
-                <p>請仔細閱讀以下短文，並完成是非題與單選題。</p>
+                <h3>Fase 7: 閱讀理解 · Comprensión Lectora</h3>
+                <p>Lee el texto y responde las preguntas de Verdadero/Falso (${vfList.length}) y Opción Múltiple (${mcqList.length}).</p>
             </div>
 
-            <!-- Story Card -->
             <div class="phase7-story-card">
                 <div class="phase7-story-header">
                     <h4>📖 短文閱讀</h4>
@@ -1279,9 +1499,8 @@ const renderPhase7 = () => {
                 </div>
             </div>
 
-            <!-- Part A: 是非題 (Verdadero o Falso) -->
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">第一部分：是非題（請判斷是否符合短文內容，共 5 題）</div>
+                <div class="phase7-sub-title">第一部分：是非題（Verdadero / Falso — ${vfList.length} 題）</div>
                 <div class="phase-questions-list">
                     ${vfList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_vf[q.id];
@@ -1296,13 +1515,13 @@ const renderPhase7 = () => {
                                             class="btn-vf ${chosen === true ? 'selected-true' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="true">
-                                        ${typeof I18N !== "undefined" ? I18N.t("examBtnTrue") : "✓ 是 (正確)"}
+                                        ✓ 是 (Verdadero)
                                     </button>
                                     <button type="button" 
                                             class="btn-vf ${chosen === false ? 'selected-false' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="false">
-                                        ${typeof I18N !== "undefined" ? I18N.t("examBtnFalse") : "✗ 否 (錯誤)"}
+                                        ✗ 否 (Falso)
                                     </button>
                                 </div>
                             </div>
@@ -1311,9 +1530,8 @@ const renderPhase7 = () => {
                 </div>
             </div>
 
-            <!-- Part B: 單選題 (Selección Múltiple) -->
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">第二部分：單選題（根據短文選出最佳答案，共 5 題）</div>
+                <div class="phase7-sub-title">第二部分：單選題（Opción Múltiple — ${mcqList.length} 題）</div>
                 <div class="phase-questions-list">
                     ${mcqList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_mcq[q.id];
@@ -1347,9 +1565,6 @@ const renderPhase7 = () => {
     `;
 };
 
-// --------------------------------------------------------------------------
-// EVENT LISTENERS INITIALIZATION PER PHASE
-// --------------------------------------------------------------------------
 const initPhaseSpecificListeners = (phaseNum, container) => {
     if (phaseNum === 1) {
         container.querySelectorAll('.option-btn-10').forEach(btn => {
@@ -1358,8 +1573,7 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
                 const opt = btn.dataset.option;
                 examSession.userAnswers.phase1[qId] = opt;
                 saveExamState();
-                
-                // Update selection UI instantly
+
                 const card = btn.closest('.exam-question-card');
                 card.querySelectorAll('.option-btn-10').forEach(b => b.classList.remove('selected'));
                 btn.classList.add('selected');
@@ -1368,7 +1582,6 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
         });
     } else if (phaseNum === 2) {
         container.querySelectorAll('.phase2-pinyin-input').forEach(input => {
-            // Attach Tone Engine (1..5 keys to diacritics)
             if (typeof window.attachPinyinToneInput === 'function') {
                 window.attachPinyinToneInput(input);
             }
@@ -1421,7 +1634,6 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
             });
         });
     } else if (phaseNum === 7) {
-        // True/False buttons
         container.querySelectorAll('.btn-vf').forEach(btn => {
             btn.addEventListener('click', () => {
                 const vfId = parseInt(btn.dataset.vfId, 10);
@@ -1438,7 +1650,6 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
             });
         });
 
-        // MCQ buttons
         container.querySelectorAll('.phase4-opt-btn[data-mcq-id]').forEach(btn => {
             btn.addEventListener('click', () => {
                 const mcqId = parseInt(btn.dataset.mcqId, 10);
@@ -1455,20 +1666,13 @@ const initPhaseSpecificListeners = (phaseNum, container) => {
     }
 };
 
-/**
- * Updates stepper counters without full re-render.
- */
 const updateStepperIndicators = () => {
     document.querySelectorAll('.exam-step-btn').forEach(btn => {
         const num = parseInt(btn.dataset.phase, 10);
         const status = getPhaseAnsweredStatus(num);
         const labelEl = btn.querySelector('.step-label');
         if (labelEl) labelEl.textContent = status.label;
-        if (status.completed) {
-            btn.classList.add('completed');
-        } else {
-            btn.classList.remove('completed');
-        }
+        btn.classList.toggle('completed', status.completed);
     });
 
     const footerSpan = document.querySelector('.exam-footer-info span');
@@ -1478,7 +1682,7 @@ const updateStepperIndicators = () => {
 };
 
 // --------------------------------------------------------------------------
-// RESULTS SCREEN: Detailed Breakdown & Scoring
+// PANTALLA DE RESULTADOS (Solo muestra las fases que estuvieron activas)
 // --------------------------------------------------------------------------
 const renderExamResults = (container) => {
     const res = examSession.results;
@@ -1488,81 +1692,64 @@ const renderExamResults = (container) => {
     }
 
     const { scores, details, aiSummary } = res;
+    const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
     const isPassing = scores.percentage >= 60;
+    const firstReviewPhase = activePhases[0] || 1;
 
     container.innerHTML = `
         <div class="exam-results-container">
-            <!-- Score Card Header -->
             <div class="exam-score-hero ${isPassing ? 'passing' : 'failing'}">
-                <div class="score-badge">${isPassing ? (typeof I18N !== "undefined" ? I18N.t("examResultsHeroPassed") : "¡Examen Aprobado!") : (typeof I18N !== "undefined" ? I18N.t("examResultsHeroFailed") : "Requiere Refuerzo")}</div>
+                <div class="score-badge">${isPassing ? "¡Examen Aprobado!" : "Requiere Refuerzo"}</div>
                 <div class="score-circle">
                     <span class="score-number">${scores.percentage}%</span>
                     <span class="score-points">${scores.totalPoints} / ${scores.maxPoints} pts</span>
                 </div>
                 <p class="score-feedback-text">${aiSummary}</p>
                 <div class="results-actions">
-                    <button class="btn btn-primary" id="btn-restart-exam">
-                        ${typeof I18N !== "undefined" ? I18N.t("examResultsRestartBtn") : "Realizar Nuevo Examen"}
+                    <button class="btn btn-primary" id="btn-configure-new-exam">
+                        Configurar / Nuevo Examen
                     </button>
                     <button class="btn btn-secondary" id="btn-review-library">
-                        ${typeof I18N !== "undefined" ? I18N.t("examResultsGoLibrary") : "Ir a la Biblioteca"}
+                        Ir a la Biblioteca
                     </button>
                 </div>
             </div>
 
-            <!-- Breakdown by Phase -->
             <div class="exam-breakdown-cards">
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP1") : "Fase 1: Reconocimiento"}</div>
-                    <div class="b-score">${scores.phase1} / 10 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP2") : "Fase 2: Escritura Pinyin"}</div>
-                    <div class="b-score">${scores.phase2} / 10 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP3") : "Fase 3: Espacios en Blanco"}</div>
-                    <div class="b-score">${scores.phase3} / 5 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP4") : "Fase 4: Gramática Compleja"}</div>
-                    <div class="b-score">${scores.phase4} / 10 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP5") : "Fase 5: Escenarios Abiertos"}</div>
-                    <div class="b-score">${scores.phase5} / 5 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP6") : "Fase 6: Banco de Caracteres"}</div>
-                    <div class="b-score">${scores.phase6} / 5 pts</div>
-                </div>
-                <div class="breakdown-card">
-                    <div class="b-phase">${typeof I18N !== "undefined" ? I18N.t("examBreakdownP7") : "Fase 7: Comprensión Lectora"}</div>
-                    <div class="b-score">${scores.phase7} / 10 pts</div>
-                </div>
+                ${activePhases.map(num => {
+                    const sc = scores[`phase${num}`] || 0;
+                    const mx = scores.maxByPhase?.[num] || 0;
+                    return `
+                        <div class="breakdown-card">
+                            <div class="b-phase">${PHASE_NAMES[num]}</div>
+                            <div class="b-score">${sc} / ${mx} pts</div>
+                        </div>
+                    `;
+                }).join('')}
             </div>
 
-            <!-- Detailed Accordion / Review section -->
             <div class="exam-review-section">
-                <h3 class="review-title">${typeof I18N !== "undefined" ? I18N.t("examReviewTitle") : "Revisión Detallada de Respuestas"}</h3>
-                
-                <!-- Tab bar for review -->
+                <h3 class="review-title">Revisión Detallada de Respuestas</h3>
                 <div class="review-tabs">
-                    ${[1, 2, 3, 4, 5, 6, 7].map(num => `
-                        <button class="review-tab-btn ${num === 1 ? 'active' : ''}" data-review-phase="${num}">
-                            ${typeof I18N !== "undefined" ? I18N.t("examReviewPhaseBtn", { phase: num }) : `Fase ${num}`}
+                    ${activePhases.map((num, idx) => `
+                        <button class="review-tab-btn ${idx === 0 ? 'active' : ''}" data-review-phase="${num}">
+                            Fase ${num}
                         </button>
                     `).join('')}
                 </div>
-
                 <div class="review-phase-details" id="review-phase-details">
-                    ${renderReviewPhaseContent(1, details)}
+                    ${renderReviewPhaseContent(firstReviewPhase, details)}
                 </div>
             </div>
         </div>
     `;
 
-    document.getElementById('btn-restart-exam')?.addEventListener('click', startNewExam);
+    document.getElementById('btn-configure-new-exam')?.addEventListener('click', () => {
+        examSession.status = 'idle';
+        examSession.results = null;
+        saveExamState();
+        renderExam();
+    });
     document.getElementById('btn-review-library')?.addEventListener('click', () => {
         navigateTo('biblioteca');
     });
@@ -1580,41 +1767,38 @@ const renderExamResults = (container) => {
     });
 };
 
-/**
- * Renders individual phase detail review cards.
- */
 const renderReviewPhaseContent = (phaseNum, details) => {
     switch (phaseNum) {
         case 1:
-            return details.phase1.map((item, idx) => `
+            return (details.phase1 || []).map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>Pregunta ${idx + 1} (${item.pinyin} ${item.zhuyin ? `/ ${item.zhuyin}` : ''})</span>
-                        <span class="review-status">${item.isCorrect ? (typeof I18N !== "undefined" ? I18N.t("examReviewStatusCorrect") : "✓ Correcto (+1 pt)") : (typeof I18N !== "undefined" ? I18N.t("examReviewStatusIncorrect") : "✗ Incorrecto (0 pts)")}</span>
+                        <span class="review-status">${item.isCorrect ? "✓ Correcto (+1 pt)" : "✗ Incorrecto (0 pts)"}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewYourAnswer") : "Tu respuesta:"} <strong>${item.userAnswer}</strong></div>
-                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewCorrectAnswer") : "Respuesta correcta:"} <strong>${item.correctAnswer}</strong></div>
+                        <div>Tu respuesta: <strong>${item.userAnswer}</strong></div>
+                        <div>Respuesta correcta: <strong>${item.correctAnswer}</strong></div>
                     </div>
                 </div>
             `).join('');
 
         case 2:
-            return details.phase2.map((item, idx) => `
+            return (details.phase2 || []).map((item) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>Carácter: <strong style="font-size:1.2rem; font-family:'Noto Sans TC';">${item.hanzi}</strong></span>
-                        <span class="review-status">${item.isCorrect ? (typeof I18N !== "undefined" ? I18N.t("examReviewStatusCorrect") : "✓ Correcto (+1 pt)") : (typeof I18N !== "undefined" ? I18N.t("examReviewStatusIncorrect") : "✗ Incorrecto (0 pts)")}</span>
+                        <span class="review-status">${item.isCorrect ? "✓ Correcto (+1 pt)" : "✗ Incorrecto (0 pts)"}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewYourPinyin") : "Tu Pinyin:"} <code>${item.userAnswer}</code></div>
-                        <div>${typeof I18N !== "undefined" ? I18N.t("examReviewExpectedPinyin") : "Pinyin esperado:"} <code>${item.correctAnswer}</code></div>
+                        <div>Tu Pinyin: <code>${item.userAnswer}</code></div>
+                        <div>Pinyin esperado: <code>${item.correctAnswer}</code></div>
                     </div>
                 </div>
             `).join('');
 
         case 3:
-            return details.phase3.map((item, idx) => `
+            return (details.phase3 || []).map((item) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>題目：${item.oracion}</span>
@@ -1628,7 +1812,7 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             `).join('');
 
         case 4:
-            return details.phase4.map((item, idx) => `
+            return (details.phase4 || []).map((item) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>題目：${item.oracion}</span>
@@ -1642,7 +1826,7 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             `).join('');
 
         case 5:
-            return details.phase5.map((item, idx) => `
+            return (details.phase5 || []).map((item, idx) => `
                 <div class="review-item ${item.eval.puntaje >= 1 ? 'correct' : item.eval.puntaje > 0 ? 'partial' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>情境 ${idx + 1}：${item.escenario}</span>
@@ -1664,10 +1848,10 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             `).join('');
 
         case 6:
-            return details.phase6.map((item, idx) => `
+            return (details.phase6 || []).map((item) => `
                 <div class="review-item ${item.eval.puntaje >= 1 ? 'correct' : item.eval.puntaje > 0 ? 'partial' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>指定漢字：<strong style="color:var(--accent); font-size:1.15rem;">${item.caracter_asignado}</strong></span>
+                        <span>Directriz: <strong style="color:var(--accent); font-size:1.1rem;">${item.caracter_asignado}</strong></span>
                         <span class="review-status">${item.eval.puntaje} / 1 pt</span>
                     </div>
                     <div class="review-q-prompt">
@@ -1686,7 +1870,7 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             `).join('');
 
         case 7: {
-            const vfHtml = details.phase7_vf.map((item, idx) => `
+            const vfHtml = (details.phase7_vf || []).map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>是非題 ${idx + 1}：${item.afirmacion}</span>
@@ -1699,7 +1883,7 @@ const renderReviewPhaseContent = (phaseNum, details) => {
                 </div>
             `).join('');
 
-            const mcqHtml = details.phase7_mcq.map((item, idx) => `
+            const mcqHtml = (details.phase7_mcq || []).map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
                         <span>單選題 ${idx + 1}：${item.pregunta}</span>
@@ -1729,12 +1913,10 @@ const renderReviewPhaseContent = (phaseNum, details) => {
     }
 };
 
-/**
- * Initializes Exam mode when navigating to the section.
- */
 const initExamMode = () => {
     loadExamState();
     renderExam();
 };
 
 window.initExamMode = initExamMode;
+window.renderExam = renderExam;

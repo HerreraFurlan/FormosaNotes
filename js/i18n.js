@@ -1081,7 +1081,6 @@ const setLanguage = async (newLang) => {
         renderWordBank(activeBankChip ? activeBankChip.dataset.filter : 'todos');
     }
     if (typeof updateExportCount === 'function') updateExportCount();
-    if (typeof renderPracticeUI === 'function') renderPracticeUI();
     if (typeof renderExam === 'function') renderExam();
 
     if (typeof showToast === 'function' && prevLang !== newLang) {

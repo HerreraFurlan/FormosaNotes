@@ -1067,8 +1067,6 @@ const navigateTo = (sectionName) => {
         renderWordBank(activeBankChip ? activeBankChip.dataset.filter : 'todos');
     } else if (sectionName === 'estudio') {
         initStudyMode();
-    } else if (sectionName === 'practica') {
-        initPracticeMode();
     } else if (sectionName === 'exam') {
         if (typeof initExamMode === 'function') initExamMode();
     } else if (sectionName === 'exportar') {
