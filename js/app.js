@@ -59,6 +59,7 @@ let currentCategoriesFilter = ['todos'];
 let currentLessonFilter = ['todas'];
 let currentStructLessonFilter = ['todas'];
 let currentSearch = '';
+let currentStructSearch = '';
 let currentPrintSearch = '';
 
 let libraryGridObserver = null;
@@ -497,8 +498,35 @@ const renderStructures = () => {
     listEl.innerHTML = '';
     const db = loadDB();
     let structures = db.estructuras || [];
+    const totalCount = structures.length;
+
     if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
         structures = structures.filter(s => APP_CONFIG.matchesLessonFilter(s, currentStructLessonFilter));
+    }
+
+    if (currentStructSearch) {
+        const q = currentStructSearch.toLowerCase().trim();
+        structures = structures.filter(s => {
+            const name = (s.nombre || '').toLowerCase();
+            const formula = (s.formula || '').toLowerCase();
+            const notes = (s.notas || '').toLowerCase();
+            const trad = (s.ejemplo_tradicional || '').toLowerCase();
+            const pin = (s.ejemplo_pinyin || '').toLowerCase();
+            const es = (s.ejemplo_espanol || '').toLowerCase();
+            const en = (s.ejemplo_english || '').toLowerCase();
+            return name.includes(q) || formula.includes(q) || notes.includes(q) ||
+                   trad.includes(q) || pin.includes(q) || es.includes(q) || en.includes(q);
+        });
+    }
+
+    // Update status badge
+    const countBadge = document.getElementById('structures-count-badge');
+    if (countBadge) {
+        if (typeof I18N !== 'undefined') {
+            countBadge.textContent = I18N.t('structCountSummary', { shown: structures.length, total: totalCount });
+        } else {
+            countBadge.textContent = `${structures.length} de ${totalCount} estructuras`;
+        }
     }
 
     if (structures.length === 0) {
@@ -1230,6 +1258,15 @@ document.addEventListener('DOMContentLoaded', async () => {
                 c.classList.toggle('active', currentStructLessonFilter.includes(val));
             });
 
+            renderStructures();
+        });
+    }
+
+    // 9c. Structures search input
+    const structSearchInput = document.getElementById('structures-search-input');
+    if (structSearchInput) {
+        structSearchInput.addEventListener('input', (e) => {
+            currentStructSearch = e.target.value;
             renderStructures();
         });
     }

@@ -1626,65 +1626,67 @@ html[lang="en"] .builder-dropzone.is-empty::after {
 }
 
 /* =============================================
-   13. STRUCTURE CARDS
+   13. REDESIGNED STRUCTURE CARDS & TOOLBAR
    ============================================= */
+.structures-status-bar {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.structures-count-badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-color);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
 .structure-card {
     background: var(--bg-secondary);
     border: 1px solid var(--border-color);
     border-left: 5px solid var(--color-structure);
     border-radius: var(--radius-md);
-    padding: 1.25rem 1.5rem;
-    margin-bottom: 1rem;
+    padding: 1.25rem 1.4rem;
+    margin-bottom: 1.25rem;
     transition: var(--transition);
     position: relative;
+    box-shadow: var(--shadow-xs);
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
 }
 
 .structure-card:hover {
     box-shadow: var(--shadow-sm);
+    border-color: rgba(194, 82, 122, 0.4);
+}
+
+/* Card Header */
+.structure-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-right: 4.5rem;
+}
+
+.structure-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
 }
 
 .structure-card h4 {
-    font-size: 1rem;
+    font-size: 1.08rem;
     font-weight: 700;
-    margin-bottom: 0.25rem;
-}
-
-.structure-card .formula {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--color-structure);
-    font-family: monospace;
-    margin-bottom: 0.75rem;
-}
-
-.structure-card .example-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    font-size: 0.85rem;
-}
-
-.structure-card .example-row div {
-    display: flex;
-    flex-direction: column;
-}
-
-.structure-card .example-row .ex-label {
-    font-size: 0.65rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-}
-
-.structure-card .example-row .ex-value {
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.structure-card .example-row .ex-value.chinese {
-    font-family: var(--font-chinese);
-    font-size: 1.15rem;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.35;
 }
 
 .structure-actions {
@@ -1692,13 +1694,422 @@ html[lang="en"] .builder-dropzone.is-empty::after {
     top: 1rem;
     right: 1rem;
     display: flex;
-    gap: 0.25rem;
-    opacity: 0;
+    align-items: center;
+    gap: 0.35rem;
+    opacity: 0.7;
     transition: opacity 0.2s;
 }
 
 .structure-card:hover .structure-actions {
     opacity: 1;
+}
+
+.structure-actions .btn-icon {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.structure-actions .btn-icon:hover {
+    background: var(--bg-tertiary);
+    color: var(--color-structure);
+}
+
+.structure-actions .delete-btn:hover {
+    color: var(--danger);
+    background: rgba(192, 57, 43, 0.08);
+}
+
+/* Section Subhead */
+.struct-subhead {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+.struct-subhead .subhead-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+/* 1. Sentence Structure Blueprint (Estructura de la Oración) */
+.struct-blueprint-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1rem;
+}
+
+.struct-variants-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+}
+
+.struct-variant-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.5rem;
+    font-size: 0.92rem;
+    line-height: 1.5;
+}
+
+/* Pattern Badge (Afirmativa, Negativa, Pregunta, etc.) */
+.pattern-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.15rem 0.55rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 999px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.pattern-badge-afirm {
+    background: rgba(30, 140, 94, 0.12);
+    color: var(--success);
+    border: 1px solid rgba(30, 140, 94, 0.28);
+}
+
+.pattern-badge-neg {
+    background: rgba(192, 57, 43, 0.12);
+    color: var(--danger);
+    border: 1px solid rgba(192, 57, 43, 0.28);
+}
+
+.pattern-badge-preg {
+    background: rgba(46, 120, 183, 0.12);
+    color: var(--color-noun);
+    border: 1px solid rgba(46, 120, 183, 0.28);
+}
+
+.pattern-badge-info {
+    background: rgba(194, 82, 122, 0.12);
+    color: var(--color-structure);
+    border: 1px solid rgba(194, 82, 122, 0.28);
+}
+
+/* Blueprint Slots */
+.blueprint-chain {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.blueprint-slot {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-main);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.18rem 0.55rem;
+    border-radius: 4px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.blueprint-slot-subject {
+    background: rgba(46, 120, 183, 0.09);
+    color: #1b5e94;
+    border-color: rgba(46, 120, 183, 0.3);
+}
+
+.blueprint-slot-verb {
+    background: rgba(212, 118, 10, 0.09);
+    color: #b05c04;
+    border-color: rgba(212, 118, 10, 0.3);
+}
+
+.blueprint-slot-object {
+    background: rgba(107, 123, 141, 0.1);
+    color: #485665;
+    border-color: rgba(107, 123, 141, 0.3);
+}
+
+.blueprint-slot-adverb {
+    background: rgba(30, 140, 94, 0.09);
+    color: #15734c;
+    border-color: rgba(30, 140, 94, 0.3);
+}
+
+.blueprint-slot-clf {
+    background: rgba(141, 91, 76, 0.1);
+    color: #704437;
+    border-color: rgba(141, 91, 76, 0.3);
+}
+
+.blueprint-slot-num {
+    background: rgba(201, 151, 26, 0.1);
+    color: #9c730e;
+    border-color: rgba(201, 151, 26, 0.3);
+}
+
+.blueprint-slot-time,
+.blueprint-slot-place,
+.blueprint-slot-role {
+    background: rgba(125, 84, 181, 0.09);
+    color: #633f94;
+    border-color: rgba(125, 84, 181, 0.28);
+}
+
+.blueprint-slot-hanzi {
+    background: rgba(194, 82, 122, 0.12);
+    color: var(--color-structure);
+    border: 1.5px solid var(--color-structure);
+    font-family: var(--font-chinese);
+    font-size: 1.05rem;
+    font-weight: 700;
+    padding: 0.12rem 0.55rem;
+}
+
+.blueprint-slot-optional {
+    border-style: dashed;
+    opacity: 0.82;
+}
+
+.blueprint-op {
+    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    padding: 0 0.15rem;
+    user-select: none;
+}
+
+/* 2. Prominent Usage Description (Uso y Reglas Gramaticales) */
+.struct-usage-section {
+    background: var(--bg-tertiary);
+    border-left: 3.5px solid var(--color-structure);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 0.85rem 1.1rem 0.85rem 1rem;
+    box-shadow: inset 0 1px 2px rgba(44, 24, 16, 0.02);
+}
+
+.struct-usage-lead {
+    font-size: 0.93rem;
+    line-height: 1.62;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.struct-usage-lead:not(:last-child) {
+    margin-bottom: 0.65rem;
+}
+
+.struct-rule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-top: 0.55rem;
+}
+
+.struct-rule-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.91rem;
+    line-height: 1.58;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.45);
+    padding: 0.45rem 0.65rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(229, 217, 204, 0.6);
+}
+
+.struct-rule-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-structure);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 0.12rem;
+}
+
+.struct-rule-body {
+    flex: 1;
+}
+
+.struct-bullet-list {
+    margin: 0.4rem 0 0 1.25rem;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.91rem;
+    line-height: 1.58;
+    color: var(--text-primary);
+}
+
+.struct-rule-label {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.struct-emphasis {
+    font-weight: 700;
+    color: var(--color-structure);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.struct-hanzi-inline {
+    font-family: var(--font-chinese);
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(44, 24, 16, 0.06);
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+    font-size: 1.02em;
+}
+
+.struct-bad-usage {
+    color: var(--danger);
+    background: rgba(192, 57, 43, 0.08);
+    border: 1px dashed rgba(192, 57, 43, 0.35);
+    padding: 0.05rem 0.35rem;
+    border-radius: 3px;
+    font-family: var(--font-chinese);
+    font-size: 0.95em;
+    font-weight: 600;
+}
+
+/* 3. Compact Application Examples (Ejemplos de Aplicación) */
+.struct-examples-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.75rem;
+}
+
+.struct-examples-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.struct-examples-pills {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.struct-ex-pill {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 0.15rem 0.55rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.struct-ex-pill:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.struct-ex-pill.active {
+    background: var(--color-structure);
+    border-color: var(--color-structure);
+    color: #fff;
+}
+
+.struct-toggle-all-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.struct-toggle-all-btn:hover {
+    color: var(--color-structure);
+    background: rgba(194, 82, 122, 0.08);
+}
+
+.struct-examples-display {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.struct-example-item {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.85rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    transition: var(--transition);
+}
+
+.struct-example-item:hover {
+    border-color: rgba(194, 82, 122, 0.4);
+    background: var(--bg-secondary);
+}
+
+.struct-example-chinese-line {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+}
+
+.struct-example-chinese {
+    font-family: var(--font-chinese);
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: 0.02em;
+}
+
+.struct-example-pinyin {
+    font-size: 0.86rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.struct-example-translation {
+    font-size: 0.84rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+    font-style: italic;
 }
 
 /* =============================================

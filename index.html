@@ -270,11 +270,21 @@
         <div class="section" id="section-estructuras">
             <div class="page-body">
                 <div class="toolbar" style="margin-bottom: 1rem;">
+                    <div class="search-box">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
+                        <input type="search" id="structures-search-input" placeholder="Buscar estructuras, fórmulas o reglas..." data-i18n-ph="searchStructuresPlaceholder">
+                    </div>
                     <div class="library-filter-bars">
                         <div class="library-filter-bar">
                             <span class="filter-bar-label" data-i18n="lessonLabel">Lección:</span>
                             <div class="filter-chips" id="structures-lesson-chips"></div>
                         </div>
+                    </div>
+                    <div class="structures-status-bar">
+                        <span class="structures-count-badge" id="structures-count-badge"></span>
                     </div>
                 </div>
                 <div id="structures-list"></div>
