@@ -5311,7 +5311,7 @@ const SEED_DATA_EN = {
             "zhuyin": "ㄔㄜ ㄆㄧㄠˋ",
             "categoria": "N",
             "posSymbol": "N",
-            "clasificador": "id_clf_zhang",
+            "clasificador": "id_mty004_zhang",
             "leccion": 8,
             "espanol": "(Train, bus) ticket",
             "radicales": [
@@ -5443,7 +5443,7 @@ const SEED_DATA_EN = {
             ],
             "notas": "Literally 'studying together'. Means classmate or fellow student; also used by teachers to address students.",
             "ejemplos": [
-                "A：這是我的同學，他姓白。 B：白先生，你好。 — A: This is my classmate; his surname is Bai. B: Mr. Bai, hello."
+                "A：這是我的同學，他姓林。 B：林先生，你好。 — A: This is my classmate; his surname is Lin. B: Mr. Lin, hello."
             ],
             "fechaCreacion": "2026-11-03",
             "semanticTags": [
@@ -5539,9 +5539,9 @@ const SEED_DATA_EN = {
         },
         {
             "id": "id_l8_gugong",
-            "tradicional": "故宮博物院 / 故宮",
-            "pinyin": "Gùgōng Bówùyuàn / Gùgōng",
-            "zhuyin": "ㄍㄨˋ ㄍㄨㄥ ㄅㄛˊ ㄨˋ ㄩㄢˋ / ㄍㄨˋ ㄍㄨㄥ",
+            "tradicional": "故宮",
+            "pinyin": "Gùgōng",
+            "zhuyin": "ㄍㄨˋ ㄍㄨㄥ",
             "categoria": "N",
             "posSymbol": "N",
             "clasificador": "",
@@ -5557,7 +5557,7 @@ const SEED_DATA_EN = {
                     "value": "博物院 (Bówùyuàn - Museum)"
                 }
             ],
-            "notas": "World-famous museum in Taipei housing imperial Chinese artifacts; commonly shortened to 故宮 (Gùgōng).",
+            "notas": "Short for 故宮博物院 (Gùgōng Bówùyuàn, National Palace Museum), the world-famous museum in Taipei housing imperial artifacts.",
             "ejemplos": [
                 "我今天有空，想跟朋友去參觀故宮博物院。 — I have free time today and want to go visit the National Palace Museum with my friends."
             ],
@@ -8943,7 +8943,7 @@ const SEED_DATA_EN = {
             "radicales": [
                 {
                     "type": "text",
-                    "value": "王 (yu - jade)"
+                    "value": "王 (yù - jade)"
                 },
                 {
                     "type": "text",
@@ -9127,7 +9127,7 @@ const SEED_DATA_EN = {
             "radicales": [
                 {
                     "type": "text",
-                    "value": "𢦏 (zāi - phonetic)"
+                    "value": "十 + 戈 (gē - halberd)"
                 },
                 {
                     "type": "text",
@@ -12902,7 +12902,7 @@ const SEED_DATA_EN = {
             "zhuyin": "ㄅㄧㄢˋ ㄌㄧˋ ㄕㄤ ㄉㄧㄢˋ",
             "categoria": "Phr",
             "posSymbol": "Phr",
-            "clasificador": "id_l5_jia",
+            "clasificador": "id_clf_jia_shop",
             "leccion": 8,
             "espanol": "Convenience store",
             "radicales": [
@@ -12927,9 +12927,9 @@ const SEED_DATA_EN = {
         },
         {
             "id": "id_l8_gongche",
-            "tradicional": "公共汽車 / 公車",
-            "pinyin": "gōnggòng qìchē / gōngchē",
-            "zhuyin": "ㄍㄨㄥ ㄍㄨㄥˋ ㄑㄧˋ ㄔㄜ / ㄍㄨㄥ ㄔㄜ",
+            "tradicional": "公車",
+            "pinyin": "gōngchē",
+            "zhuyin": "ㄍㄨㄥ ㄔㄜ",
             "categoria": "Phr",
             "posSymbol": "Phr",
             "clasificador": "",
@@ -12945,7 +12945,7 @@ const SEED_DATA_EN = {
                     "value": "汽車 (qìchē - motor vehicle)"
                 }
             ],
-            "notas": "Public bus. In Taiwan, the shortened form 公車 (gōngchē) is used almost exclusively in daily speech.",
+            "notas": "Public bus (short for 公共汽車 gōnggòng qìchē). In Taiwan, 公車 is used almost exclusively in daily speech.",
             "ejemplos": [
                 "他每天坐公車去學校上課。 — He takes the bus to school for class every day."
             ],
@@ -12961,7 +12961,7 @@ const SEED_DATA_EN = {
             "zhuyin": "ㄅㄨˋ ㄒㄧㄥˊ",
             "categoria": "Phr",
             "posSymbol": "Phr",
-            "verbSubtype": "Vs",
+            "verbSubtype": null,
             "clasificador": "",
             "leccion": 8,
             "espanol": "Will not do, not allowed",
@@ -13021,11 +13021,11 @@ const SEED_DATA_EN = {
         {
             "id": "id_l8_chabuduo",
             "tradicional": "差不多",
-            "pinyin": "chàbùduō",
-            "zhuyin": "ㄔㄚˋ ㄅㄨˋ ㄉㄨㄛ",
+            "pinyin": "chābùduō",
+            "zhuyin": "ㄔㄚ ㄅㄨˋ ㄉㄨㄛ",
             "categoria": "Phr",
             "posSymbol": "Phr",
-            "verbSubtype": "Vs",
+            "verbSubtype": null,
             "clasificador": "",
             "leccion": 8,
             "espanol": "About the same",
@@ -13045,7 +13045,7 @@ const SEED_DATA_EN = {
             ],
             "notas": "Literally 'the difference is not much'. Used as a predicate meaning 'about the same / almost identical'.",
             "ejemplos": [
-                "A：你覺得如玉和月美，誰唱歌唱得比較好？ B：我覺得差不多。 — A: Between Ruyu and Yuemei, who do you think sings better? B: I think they are about the same."
+                "A：你覺得張小姐和陳小姐，誰唱歌唱得比較好？ B：我覺得差不多。 — A: Between Miss Zhang and Miss Chen, who do you think sings better? B: I think they are about the same."
             ],
             "fechaCreacion": "2026-11-03",
             "semanticTags": [
@@ -13596,7 +13596,7 @@ const SEED_DATA_EN = {
             "nombre": "IV · Correlative Pattern 又 (yòu)... 又 (yòu)... (\"both A and B\")",
             "formula": "Affirm.: S + 又 + Vs₁ / VP₁ + 又 + Vs₂ / VP₂ | Neg.: S + 又不 + Vs₁ / VP₁ + 又不 + Vs₂ / VP₂",
             "ejemplo_tradicional": "這家餐廳的菜，又便宜又好吃，所以我們常來吃。 / 坐高鐵又快又舒服，可是有一點貴。 / 老闆今天做的臭豆腐，又不臭又不辣。 / 我的舊手機又不能照相又不能上網。",
-            "ejemplo_pinyin": "Zhè jiā cāntīng de cài, yòu piányí yòu hǎochī, suǒyǐ wǒmen cháng lái chī. / Zuò gāotiě yòu kuài yòu shūfú, kěshì yǒu yìdiǎn guì. / Lǎobǎn jīntiān zuò de chòu dòufǔ, yòu bú chòu yòu bú là. / Wǒ de jiù shǒujī yòu bù néng zhàoxiàng yòu bù néng shàngwǎng.",
+            "ejemplo_pinyin": "Zhè jiā cāntīng de cài, yòu piányí yòu hǎochī, suǒyǐ wǒmen cháng lái chī. / Zuò gāotiě yòu kuài yòu shūfú, kěshì yǒu yìdiǎn guì. / Lǎobǎn jīntiān zuò de chòudòufu, yòu bú chòu yòu bú là. / Wǒ de jiù shǒujī yòu bù néng zhàoxiàng yòu bù néng shàngwǎng.",
             "ejemplo_espanol": "The food at this restaurant is both cheap and delicious, so we often come to eat. / Taking the HSR is both fast and comfortable, but a bit expensive. / The stinky tofu the boss made today is neither smelly nor spicy. / My old phone can neither take photos nor connect to the Internet.",
             "notas": "1) Function: Expresses two simultaneous qualities, states, or behaviors that apply to the same subject (我又想喝茶又想喝咖啡，但是這裡沒有便利商店). 2) Negation Rule: The negative marker 不 (bù) appears AFTER both the first 又 and the second 又, forming 又不... 又不... ('neither A nor B'): 老闆今天做的臭豆腐，又不臭又不辣。我覺得不好吃 / 我的舊手機又不能照相又不能上網。我想買新的."
         },
@@ -13611,7 +13611,7 @@ const SEED_DATA_EN = {
             "notas": "1) Function: Preposition 比 explicitly compares two items A and B with respect to a state verb (Vs). 2) Negation: Negated with 不比 or 不是比 (在家上網不比在學校快 / 我的車不比他的車貴 / 坐公車不是比坐計程車快). 3) Questions: 他們學校比你們學校遠嗎？ / 這種手機比那種貴嗎？ 4) Strict Degree Adverb Prohibition: In a 比 comparison, absolute degree adverbs like 很 (hěn), 真 (zhēn), and 非常 (fēicháng) CANNOT be placed before the state verb Vs (NEVER say *我的手機比他的很貴 or *坐高鐵比坐火車非常快)."
         }
     ]
-};
+}
 
 if (typeof window !== 'undefined') {
     window.SEED_DATA_EN = SEED_DATA_EN;

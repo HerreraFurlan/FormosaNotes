@@ -65,7 +65,8 @@ const SyntaxEngine = (() => {
         '多少': { categoria: 'Num', posSymbol: 'Num', semanticTags: ['numeral', 'question'], pinyin: 'duōshǎo', espanol: 'Cuánto / Cuántos', english: 'How much / How many' },
         '個': { categoria: 'M', posSymbol: 'M', semanticTags: ['measure'], pinyin: 'ge', espanol: 'Clasificador general', english: 'General measure word' },
         '是': { categoria: 'V', posSymbol: 'Vst', verbSubtype: 'Vst', semanticTags: ['state', 'transitiveState', 'copula'], pinyin: 'shì', espanol: 'Ser', english: 'To be' },
-        '有': { categoria: 'V', posSymbol: 'V', verbSubtype: 'V', semanticTags: ['action', 'possession', 'existential'], pinyin: 'yǒu', espanol: 'Tener / Haber', english: 'To have / There is' }
+        '有': { categoria: 'V', posSymbol: 'V', verbSubtype: 'V', semanticTags: ['action', 'possession', 'existential'], pinyin: 'yǒu', espanol: 'Tener / Haber', english: 'To have / There is' },
+        '臭': { categoria: 'V', posSymbol: 'Vs', verbSubtype: 'Vs', semanticTags: ['state', 'hasDegree'], pinyin: 'chòu', espanol: 'Oler mal / Apestoso', english: 'Smelly / Stinky' }
     };
 
     // Listas cerradas y patrones seguros para evitar contaminación por subcadena (ej. 甜點)
@@ -171,9 +172,10 @@ const SyntaxEngine = (() => {
     // Helpers de predicado sobre un token
     const isPOS = (tok, pos) => tok && tok.categoria === pos;
     const hasTag = (tok, tag) => tok && Array.isArray(tok.semanticTags) && tok.semanticTags.includes(tag);
+    const isNominalToken = (tok) => tok && (tok.categoria === 'N' || (tok.categoria === 'Phr' && (hasTag(tok, 'object') || hasTag(tok, 'place')) && !hasTag(tok, 'conversationalExpression')));
     const isNumeral = (tok) => tok && (tok.categoria === 'Num' || hasTag(tok, 'numeral'));
     const isDetOrNum = (tok) => tok && (tok.categoria === 'Det' || isNumeral(tok));
-    const isStateVerb = (tok) => tok && tok.categoria === 'V' && ['Vs', 'Vst', 'Vs-pred', 'Vs-attr', 'Vs-sep'].includes(tok.verbSubtype);
+    const isStateVerb = (tok) => tok && ((tok.categoria === 'V' && ['Vs', 'Vst', 'Vs-pred', 'Vs-attr', 'Vs-sep'].includes(tok.verbSubtype)) || (tok.categoria === 'Phr' && (tok.verbSubtype === 'Vs' || hasTag(tok, 'state')) && !hasTag(tok, 'conversationalExpression')));
     const isActionOrProcessVerb = (tok) => tok && tok.categoria === 'V' && ['V', 'Vi', 'V-sep', 'Vp', 'Vpt', 'Vp-sep'].includes(tok.verbSubtype || 'V');
     const isAuxVerb = (tok) => tok && tok.categoria === 'V' && tok.verbSubtype === 'Vaux';
     const isSeparableVerb = (tok) => tok && tok.categoria === 'V' && ['V-sep', 'Vs-sep', 'Vp-sep'].includes(tok.verbSubtype);
@@ -355,11 +357,31 @@ const SyntaxEngine = (() => {
             }
 
             // 8. 多 aproximado después de Numeral o Clasificador (一百多個人 / 三個多月)
-            if (hz === '多' && prev && (isNumeral(prev) || isPOS(prev, 'M')) && nxt && (isPOS(nxt, 'M') || isPOS(nxt, 'N'))) {
+            if (hz === '多' && prev && (isNumeral(prev) || isPOS(prev, 'M')) && nxt && (isPOS(nxt, 'M') || isNominalToken(nxt))) {
                 cur.categoria = 'Num';
                 cur.posSymbol = 'Num';
                 cur.verbSubtype = null;
                 cur.semanticTags = ['numeral', 'approximative'];
+            }
+
+            // 9. 坐: Verbo transitivo V (坐火車 / 坐捷運 / 坐公車 / 坐計程車) vs intransitivo Vi (請坐 / 坐在這裡)
+            if (hz === '坐') {
+                const VEHICLES = ['火車', '高鐵', '捷運', '公車', '公共汽車', '計程車', '車', '飛機', '船'];
+                const followedByVehicle = nxt && (VEHICLES.includes(nxt.tradicional) ||
+                    (isDetOrNum(nxt) && list.slice(i + 1, i + 5).some(t => VEHICLES.includes(t.tradicional))));
+                if (followedByVehicle) {
+                    cur.id = 'id_l8_zuo_v';
+                    cur.categoria = 'V';
+                    cur.posSymbol = 'V';
+                    cur.verbSubtype = 'V';
+                    cur.semanticTags = ['action', 'allowsPostPlace'];
+                } else {
+                    cur.id = 'id_l6_zuo';
+                    cur.categoria = 'V';
+                    cur.posSymbol = 'Vi';
+                    cur.verbSubtype = 'Vi';
+                    cur.semanticTags = ['action', 'intransitive', 'allowsPostPlace'];
+                }
             }
         }
         return list;
@@ -558,7 +580,7 @@ const SyntaxEngine = (() => {
                 }
 
                 // Caso B: 在/到 + Pron/N + 的 + Lugar (ej. 在 + 我 + 的 + 學校)
-                if (isPOS(t1, 'N') && t2 && t2.tradicional === '的' && t3 && isPOS(t3, 'N')) {
+                if (isNominalToken(t1) && t2 && t2.tradicional === '的' && t3 && isNominalToken(t3)) {
                     syntagmas.push(makeCapsule('LOCATION', tokens.slice(i, i + 4), `[Prep(${t0.tradicional}) + N + 的 + Lugar]`));
                     i += 4;
                     continue;
@@ -579,14 +601,14 @@ const SyntaxEngine = (() => {
                         i = curIdx + 1;
                         continue;
                     }
-                    if (tokens[curIdx] && isPOS(tokens[curIdx], 'M') && tokens[curIdx + 1] && isPOS(tokens[curIdx + 1], 'N')) {
+                    if (tokens[curIdx] && isPOS(tokens[curIdx], 'M') && tokens[curIdx + 1] && isNominalToken(tokens[curIdx + 1])) {
                         syntagmas.push(makeCapsule('LOCATION', tokens.slice(i, curIdx + 2), `[Prep(${t0.tradicional}) + Det/Num + M + Lugar]`));
                         i = curIdx + 2;
                         continue;
                     }
                 }
                 // Caso E: 在/到 + Lugar [+ 旁邊/裡面/外面/前面/後面/附近/樓下]
-                if (isPlaceToken(t1) || isPOS(t1, 'N')) {
+                if (isPlaceToken(t1) || isNominalToken(t1)) {
                     let end = i + 2;
                     if (tokens[end] && ['旁邊', '裡面', '外面', '前面', '後面', '附近', '樓下', '樓上', '上', '裡'].includes(tokens[end].tradicional)) {
                         end++;
@@ -598,17 +620,17 @@ const SyntaxEngine = (() => {
             }
 
             // ---------------------------------------------------------
-            // 2. Prep(跟/給/對/幫) + Persona/Sustantivo [+ 一起] -> Capsule[COMPANY_SCOPE]
+            // 2. Prep(跟/給/對/幫/比) + Persona/Sustantivo [+ 一起] -> Capsule[COMPANY_SCOPE]
             // ---------------------------------------------------------
-            if (isPOS(t0, 'Prep') && ['跟', '給', '對', '幫'].includes(t0.tradicional) && t1) {
-                if (isPOS(t1, 'N') && t2 && t2.tradicional === '的' && t3 && isPOS(t3, 'N')) {
+            if (isPOS(t0, 'Prep') && ['跟', '給', '對', '幫', '比'].includes(t0.tradicional) && t1) {
+                if (isNominalToken(t1) && t2 && t2.tradicional === '的' && t3 && isNominalToken(t3)) {
                     let end = i + 4;
                     if (tokens[end] && tokens[end].tradicional === '一起') end++;
                     syntagmas.push(makeCapsule('COMPANY_SCOPE', tokens.slice(i, end), `[Prep(${t0.tradicional}) + N]`));
                     i = end;
                     continue;
                 }
-                if (isPOS(t1, 'N') || isPersonOrPronoun(t1)) {
+                if (isNominalToken(t1) || isPersonOrPronoun(t1)) {
                     let end = i + 2;
                     if (tokens[end] && tokens[end].tradicional === '一起') end++;
                     syntagmas.push(makeCapsule('COMPANY_SCOPE', tokens.slice(i, end), `[Prep(${t0.tradicional}) + N]`));
@@ -711,7 +733,7 @@ const SyntaxEngine = (() => {
                     }
 
                     let hasNoun = false;
-                    if (tokens[modPtr] && isPOS(tokens[modPtr], 'N')) {
+                    if (tokens[modPtr] && isNominalToken(tokens[modPtr])) {
                         ptr = modPtr + 1;
                         hasNoun = true;
                     }
@@ -742,7 +764,7 @@ const SyntaxEngine = (() => {
 
             // 5b. Pronombre pluralizado: 我/你/他 + 們 [+ 的 + N]
             if (hasTag(t0, 'pronoun') && t1 && t1.tradicional === '們') {
-                if (t2 && t2.tradicional === '的' && t3 && isPOS(t3, 'N')) {
+                if (t2 && t2.tradicional === '的' && t3 && isNominalToken(t3)) {
                     syntagmas.push(makeCapsule('NOUN_PHRASE', tokens.slice(i, i + 4), '[Pron + 們 + 的 + N]'));
                     i += 4;
                     continue;
@@ -753,19 +775,19 @@ const SyntaxEngine = (() => {
             }
 
             // 5c. Modificador posesivo o atributivo con 的: (N/Pron/[Adv]+Vs) + 的 + N (ej. 我 + 的 + 書, 很 + 好 + 的 + 朋友)
-            if (isPOS(t0, 'Adv') && t1 && isStateVerb(t1) && t2 && t2.tradicional === '的' && t3 && isPOS(t3, 'N')) {
+            if (isPOS(t0, 'Adv') && t1 && isStateVerb(t1) && t2 && t2.tradicional === '的' && t3 && isNominalToken(t3)) {
                 syntagmas.push(makeCapsule('NOUN_PHRASE', tokens.slice(i, i + 4), '[Adv + Vs + 的 + N]'));
                 i += 4;
                 continue;
             }
-            if ((isPOS(t0, 'N') || isStateVerb(t0)) && t1 && t1.tradicional === '的' && t2 && isPOS(t2, 'N')) {
+            if ((isNominalToken(t0) || isStateVerb(t0)) && t1 && t1.tradicional === '的' && t2 && isNominalToken(t2)) {
                 syntagmas.push(makeCapsule('NOUN_PHRASE', tokens.slice(i, i + 3), `[${t0.posSymbol} + 的 + N]`));
                 i += 3;
                 continue;
             }
 
             // 5d. Coordinación nominal con 和/跟: N + 和 + N (ej. 爸爸 + 和 + 媽媽, 茶 + 和 + 咖啡)
-            if (isPOS(t0, 'N') && t1 && t1.tradicional === '和' && t2 && isPOS(t2, 'N')) {
+            if (isNominalToken(t0) && t1 && t1.tradicional === '和' && t2 && isNominalToken(t2)) {
                 syntagmas.push(makeCapsule('NOUN_PHRASE', tokens.slice(i, i + 3), '[N + 和 + N]'));
                 i += 3;
                 continue;
@@ -956,11 +978,14 @@ const SyntaxEngine = (() => {
         if (isPOS(tok, 'Adv') || isAuxVerb(tok)) {
             return { slot: 'ADV_MODAL', order: 5, color: '#0D9488', label: { es: 'MODAL / ADV', en: 'MODAL / ADV' } };
         }
-        if (isPOS(tok, 'V')) {
+        if (isPOS(tok, 'V') || isStateVerb(tok)) {
             if (isStateVerb(tok)) {
                 return { slot: 'VERB_STATE', order: 6, color: '#C9971A', label: { es: `ESTADO (${tok.posSymbol})`, en: `STATE (${tok.posSymbol})` } };
             }
             return { slot: 'VERB_STATE', order: 6, color: '#D4760A', label: { es: `ACCIÓN (${tok.posSymbol})`, en: `ACTION (${tok.posSymbol})` } };
+        }
+        if (isPlaceToken(tok)) {
+            return { slot: 'PLACE', order: 4, color: '#3B6998', label: { es: 'LUGAR', en: 'PLACE' } };
         }
         if (isPOS(tok, 'Ptc') && hasTag(tok, 'finalModal')) {
             return { slot: 'FINAL_PTC', order: 8, color: '#7D54B5', label: { es: 'PARTÍCULA FINAL', en: 'FINAL PARTICLE' } };
@@ -1047,14 +1072,15 @@ const SyntaxEngine = (() => {
 
         // -----------------------------------------------------------------
         // REGLA 1: Lugar (`在 + N`) colocado DESPUÉS del verbo principal
-        // (Excepción: verbos locativos/direccionales como 坐, 住, 到, 來, 去)
+        // (Excepción: verbos locativos/direccionales como 坐, 住, 到, 來, 去 o comparaciones con 比)
         // -----------------------------------------------------------------
         syntagmas.forEach((syn, sIdx) => {
             if (syn.type === 'LOCATION' && verbSynIdx !== -1 && sIdx > verbSynIdx && !hasCopulaFocus) {
                 const mainVerbHz = mainVerbSyn.tokens.map(t => t.tradicional).join('');
+                const isPartOfBiComparison = tokens.slice(0, syn.startIndex).some(t => t.tradicional === '比');
                 const allowsPostLocation = mainVerbSyn.tokens.some(t =>
                     hasTag(t, 'allowsPostPlace') || ['坐', '住', '放', '站', '寫', '生', '在', '到', '來', '去', '回'].includes(t.tradicional)
-                ) || syn.tokens[0]?.tradicional === '到';
+                ) || syn.tokens[0]?.tradicional === '到' || isPartOfBiComparison;
                 if (!allowsPostLocation) {
                     issues.push({
                         code: 'PLACE_AFTER_VERB',
@@ -1165,7 +1191,7 @@ const SyntaxEngine = (() => {
                 !hasTag(cur, 'hasMeasure') &&
                 !hasTag(cur, 'frequencyPhrase') &&
                 !['多少', '一次', '這些', '那些'].includes(cur.tradicional);
-            const isDirectNoun = isPOS(nxt, 'N') &&
+            const isDirectNoun = isNominalToken(nxt) &&
                 !isTimeToken(nxt) &&
                 !MEASURELESS_NOUNS.has(nxt.tradicional) &&
                 !(cur.tradicional === '哪' && ['國', '裡'].includes(nxt.tradicional));
@@ -1454,6 +1480,51 @@ const SyntaxEngine = (() => {
                         ? `Chinese time expressions strictly follow the Macro-to-Micro order: «${nxt.tradicional}» (larger) must come before «${cur.tradicional}» (smaller).`
                         : `En chino el tiempo sigue estrictamente el orden Mayor → Menor: «${nxt.tradicional}» debe ir antes que «${cur.tradicional}» («${nxt.tradicional}${cur.tradicional}»).`,
                     fixLabel: isEn ? `🔄 Swap to «${nxt.tradicional}${cur.tradicional}»` : `🔄 Ordenar como «${nxt.tradicional}${cur.tradicional}»`,
+                    applyFix: (currentList) => moveTokenSlice(currentList, k + 1, k + 1, k)
+                });
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // REGLA 16: Comparación con `比` + Adverbio de grado absoluto (`*比 + B + 很/非常/真/太 + Vs`) (L8)
+        // -----------------------------------------------------------------
+        const biIdx = tokens.findIndex(t => t.tradicional === '比');
+        if (biIdx !== -1) {
+            for (let k = biIdx + 1; k < tokens.length - 1; k++) {
+                const cur = tokens[k];
+                const nxt = tokens[k + 1];
+                if (['很', '非常', '真', '太'].includes(cur.tradicional) && isStateVerb(nxt)) {
+                    issues.push({
+                        code: 'BI_WITH_DEGREE_ADV',
+                        severity: 'error',
+                        offendingTokenIndices: [k, k + 1],
+                        title: isEn ? `Do not use «${cur.tradicional}» in «比» comparisons` : `No uses «${cur.tradicional}» en comparaciones con «比»`,
+                        message: isEn
+                            ? `In a «比» comparison (A 比 B + Vs), degree adverbs like «${cur.tradicional}» cannot precede «${nxt.tradicional}». Use «${nxt.tradicional}» directly or «${nxt.tradicional}得多 / ${nxt.tradicional}一點».`
+                            : `En la estructura comparativa «A 比 B + Vs», no se colocan adverbios de grado absoluto como «${cur.tradicional}» antes de «${nxt.tradicional}». Usa «${nxt.tradicional}» directamente.`,
+                        fixLabel: isEn ? `🗑️ Remove «${cur.tradicional}»` : `🗑️ Eliminar «${cur.tradicional}»`,
+                        applyFix: (currentList) => currentList.filter((_, idx) => idx !== k)
+                    });
+                }
+            }
+        }
+
+        // -----------------------------------------------------------------
+        // REGLA 17: Negación mal colocada con `比較` (`*不比較 + Vs` -> `比較不 + Vs`) (L8)
+        // -----------------------------------------------------------------
+        for (let k = 0; k < tokens.length - 1; k++) {
+            const cur = tokens[k];
+            const nxt = tokens[k + 1];
+            if (['不', '沒'].includes(cur.tradicional) && nxt.tradicional === '比較') {
+                issues.push({
+                    code: 'BU_BEFORE_BIJIAO',
+                    severity: 'error',
+                    offendingTokenIndices: [k, k + 1],
+                    title: isEn ? `Order with «比較»: «比較${cur.tradicional}», not «*${cur.tradicional}比較»` : `Orden con «比較»: se dice «比較${cur.tradicional}», no «*${cur.tradicional}比較»`,
+                    message: isEn
+                        ? `When negating a «比較» comparison, «比較» precedes the negation: «比較${cur.tradicional} + Vs» (relatively not...), never «*${cur.tradicional}比較».`
+                        : `Al negar con el adverbio comparativo «比較», éste siempre precede a la negación: «比較${cur.tradicional}...», nunca «*${cur.tradicional}比較».`,
+                    fixLabel: isEn ? `🔄 Swap to «比較${cur.tradicional}»` : `🔄 Invertir a «比較${cur.tradicional}»`,
                     applyFix: (currentList) => moveTokenSlice(currentList, k + 1, k + 1, k)
                 });
             }
