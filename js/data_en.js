@@ -124,34 +124,6 @@ const SEED_DATA_EN = {
             ]
         },
         {
-            "id": "n5",
-            "espanol": "China",
-            "tradicional": "中國",
-            "pinyin": "Zhōngguó",
-            "zhuyin": "ㄓㄨㄥ ㄍㄨㄛˊ",
-            "categoria": "N",
-            "clasificador": "id_mtfhewfx_gtw3b",
-            "radicales": [
-                {
-                    "type": "ref",
-                    "id": "id_mtjn2p70_9qg74"
-                },
-                {
-                    "type": "text",
-                    "value": "國 (guó - country)"
-                }
-            ],
-            "notas": "Literally 'The Country of the Center'. 中 represents the center and 國 the walled territory.",
-            "ejemplos": [
-                "他是中國人 — He is Chinese",
-                "我不是中國人 — I am not Chinese"
-            ],
-            "posSymbol": "N",
-            "semanticTags": [
-                "place"
-            ]
-        },
-        {
             "id": "n6",
             "espanol": "America",
             "tradicional": "美國",
@@ -5272,6 +5244,355 @@ const SEED_DATA_EN = {
             "semanticTags": [
                 "time"
             ]
+        },
+        {
+            "id": "id_l8_huoche",
+            "tradicional": "火車",
+            "pinyin": "huǒchē",
+            "zhuyin": "ㄏㄨㄛˇ ㄔㄜ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Train",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msk0536g_z9es3"
+                },
+                {
+                    "type": "text",
+                    "value": "車 (chē - vehicle)"
+                }
+            ],
+            "notas": "Literally 'fire vehicle' (from steam locomotives). Conventional train (as opposed to 高鐵 High Speed Rail).",
+            "ejemplos": [
+                "他們想坐火車去花蓮找朋友。 — They want to take the train to Hualien to visit friends."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_zhongtou",
+            "tradicional": "鐘頭",
+            "pinyin": "zhōngtóu",
+            "zhuyin": "ㄓㄨㄥ ㄊㄡˊ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "leccion": 8,
+            "espanol": "Hour",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "鐘 (zhōng - clock/bell)"
+                },
+                {
+                    "type": "text",
+                    "value": "頭 (tóu - head/noun suffix)"
+                }
+            ],
+            "notas": "Noun for hours of duration (as opposed to 點 for clock time). Takes classifier 個 (e.g., 一個鐘頭 one hour, 半個鐘頭 half an hour).",
+            "ejemplos": [
+                "從我家到學校附近的咖啡店要半個鐘頭。 — It takes half an hour from my house to the coffee shop near school."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "time",
+                "timeMeasure"
+            ]
+        },
+        {
+            "id": "id_l8_chepiao",
+            "tradicional": "車票",
+            "pinyin": "chēpiào",
+            "zhuyin": "ㄔㄜ ㄆㄧㄠˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_clf_zhang",
+            "leccion": 8,
+            "espanol": "(Train, bus) ticket",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "車 (chē - vehicle)"
+                },
+                {
+                    "type": "text",
+                    "value": "票 (piào - ticket)"
+                }
+            ],
+            "notas": "Ticket for land transport such as a train, HSR, MRT, or bus. Classifier: 張 (zhāng).",
+            "ejemplos": [
+                "我常在網路上買高鐵車票。 — I often buy HSR tickets on the Internet."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_zhan",
+            "tradicional": "站",
+            "pinyin": "zhàn",
+            "zhuyin": "ㄓㄢˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Station",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "立 (lì - stand)"
+                },
+                {
+                    "type": "text",
+                    "value": "占 (zhān - occupy)"
+                }
+            ],
+            "notas": "Transit station or stop (e.g., 火車站 train station, 捷運站 MRT station, 高鐵站 HSR station, 公車站 bus stop).",
+            "ejemplos": [
+                "這個火車站附近有很多商店。 — There are many shops near this train station."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_tainan",
+            "tradicional": "臺南",
+            "pinyin": "Táinán",
+            "zhuyin": "ㄊㄞˊ ㄋㄢˊ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Tainan (a city in southwestern Taiwan)",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "臺 (tái - Taiwan)"
+                },
+                {
+                    "type": "text",
+                    "value": "南 (nán - south)"
+                }
+            ],
+            "notas": "Historic cultural capital in southwestern Taiwan, famous for its traditional snacks (小吃) and temples.",
+            "ejemplos": [
+                "聽說臺南有不少有名的小吃。 — I heard Tainan has quite a few famous snacks."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l8_gaotie",
+            "tradicional": "高鐵",
+            "pinyin": "gāotiě",
+            "zhuyin": "ㄍㄠ ㄊㄧㄝˇ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "High Speed Rail (HSR)",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "高 (gāo - high)"
+                },
+                {
+                    "type": "text",
+                    "value": "鐵 (tiě - iron/rail)"
+                }
+            ],
+            "notas": "Abbreviation of 高速鐵路 (High Speed Rail), connecting western Taiwan from Taipei to Zuoying (Kaohsiung).",
+            "ejemplos": [
+                "我不常坐火車，比較常坐高鐵。 — I don't often take the train; I more often take the High Speed Rail."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_tongxue",
+            "tradicional": "同學",
+            "pinyin": "tóngxué",
+            "zhuyin": "ㄊㄨㄥˊ ㄒㄩㄝˊ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "leccion": 8,
+            "espanol": "Classmate",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "同 (tóng - same/together)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l3_xue"
+                }
+            ],
+            "notas": "Literally 'studying together'. Means classmate or fellow student; also used by teachers to address students.",
+            "ejemplos": [
+                "A：這是我的同學，他姓白。 B：白先生，你好。 — A: This is my classmate; his surname is Bai. B: Mr. Bai, hello."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "person"
+            ]
+        },
+        {
+            "id": "id_l8_gudai",
+            "tradicional": "古代",
+            "pinyin": "gǔdài",
+            "zhuyin": "ㄍㄨˇ ㄉㄞˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Ancient times",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "古 (gǔ - ancient)"
+                },
+                {
+                    "type": "text",
+                    "value": "代 (dài - era/dynasty)"
+                }
+            ],
+            "notas": "Noun referring to antiquity or ancient historical periods (e.g., 古代的書 ancient books).",
+            "ejemplos": [
+                "那個圖書館有很多古代的書。 — That library has many books from ancient times."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "time"
+            ]
+        },
+        {
+            "id": "id_l8_jiche",
+            "tradicional": "機車",
+            "pinyin": "jīchē",
+            "zhuyin": "ㄐㄧ ㄔㄜ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Motorcycle, scooter",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "機 (jī - engine/motor)"
+                },
+                {
+                    "type": "text",
+                    "value": "車 (chē - vehicle)"
+                }
+            ],
+            "notas": "Standard Taiwanese Mandarin term for a motor scooter or motorcycle (short for 機器腳踏車).",
+            "ejemplos": [
+                "我覺得張先生騎機車騎得太快了。 — I think Mr. Zhang rides his motorcycle too fast."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_jieyun",
+            "tradicional": "捷運",
+            "pinyin": "jiéyùn",
+            "zhuyin": "ㄐㄧㄝˊ ㄩㄣˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Mass Rapid Transit (MRT)",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "捷 (jié - rapid)"
+                },
+                {
+                    "type": "text",
+                    "value": "運 (yùn - transit/transport)"
+                }
+            ],
+            "notas": "Taiwan's Mass Rapid Transit (MRT) metro system.",
+            "ejemplos": [
+                "他家附近沒有捷運站，所以他不常坐捷運。 — There is no MRT station near his home, so he doesn't often take the MRT."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_gugong",
+            "tradicional": "故宮博物院 / 故宮",
+            "pinyin": "Gùgōng Bówùyuàn / Gùgōng",
+            "zhuyin": "ㄍㄨˋ ㄍㄨㄥ ㄅㄛˊ ㄨˋ ㄩㄢˋ / ㄍㄨˋ ㄍㄨㄥ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "National Palace Museum",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "故宮 (Gùgōng - Former Palace)"
+                },
+                {
+                    "type": "text",
+                    "value": "博物院 (Bówùyuàn - Museum)"
+                }
+            ],
+            "notas": "World-famous museum in Taipei housing imperial Chinese artifacts; commonly shortened to 故宮 (Gùgōng).",
+            "ejemplos": [
+                "我今天有空，想跟朋友去參觀故宮博物院。 — I have free time today and want to go visit the National Palace Museum with my friends."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "n5",
+            "espanol": "China",
+            "tradicional": "中國",
+            "pinyin": "Zhōngguó",
+            "zhuyin": "ㄓㄨㄥ ㄍㄨㄛˊ",
+            "categoria": "N",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn2p70_9qg74"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - country)"
+                }
+            ],
+            "notas": "Literally 'Middle Kingdom / Central Country'.",
+            "ejemplos": [
+                "他說中國的高鐵又快又舒服。 — He says China's high-speed rail is both fast and comfortable."
+            ],
+            "posSymbol": "N",
+            "semanticTags": [
+                "place"
+            ],
+            "leccion": 8
         }
     ],
     "verbos": [
@@ -8577,6 +8898,250 @@ const SEED_DATA_EN = {
                 "state",
                 "hasDegree"
             ]
+        },
+        {
+            "id": "id_l8_zuo_v",
+            "tradicional": "坐",
+            "pinyin": "zuò",
+            "zhuyin": "ㄗㄨㄛˋ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "To take, to travel by",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "人 (rén - person)"
+                },
+                {
+                    "type": "text",
+                    "value": "土 (tǔ - earth)"
+                }
+            ],
+            "notas": "Transitive action verb (V) used for enclosed vehicles where you sit inside (坐火車, 坐高鐵, 坐捷運, 坐公車, 坐計程車).",
+            "ejemplos": [
+                "我每天坐火車去學校上課。 — I take the train to school for class every day."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l8_wan",
+            "tradicional": "玩",
+            "pinyin": "wán",
+            "zhuyin": "ㄨㄢˊ",
+            "categoria": "V",
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "To have fun",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "王 (yu - jade)"
+                },
+                {
+                    "type": "text",
+                    "value": "元 (yuán - origin)"
+                }
+            ],
+            "notas": "Intransitive action verb (Vi) meaning 'to have fun / to hang out / to travel for pleasure' (e.g., 去哪裡玩？).",
+            "ejemplos": [
+                "你週末想去哪裡玩？ — Where do you want to go have fun this weekend?"
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
+        },
+        {
+            "id": "id_l8_man",
+            "tradicional": "慢",
+            "pinyin": "màn",
+            "zhuyin": "ㄇㄢˋ",
+            "categoria": "V",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Slow",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "忄 (xīn - heart)"
+                },
+                {
+                    "type": "text",
+                    "value": "曼 (màn - prolonged)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning 'slow' (antonym: 快 kuài, fast).",
+            "ejemplos": [
+                "他吃飯吃得很慢。 — He eats very slowly."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l8_kuai",
+            "tradicional": "快",
+            "pinyin": "kuài",
+            "zhuyin": "ㄎㄨㄞˋ",
+            "categoria": "V",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Fast",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "忄 (xīn - heart)"
+                },
+                {
+                    "type": "text",
+                    "value": "夬 (guài - decisive)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning 'fast / quick' (antonym: 慢 màn, slow).",
+            "ejemplos": [
+                "他寫字寫得很快。 — He writes characters very fast."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l8_shufu",
+            "tradicional": "舒服",
+            "pinyin": "shūfú",
+            "zhuyin": "ㄕㄨ ㄈㄨˊ",
+            "categoria": "V",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Comfortable",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "舒 (shū - stretch/relax)"
+                },
+                {
+                    "type": "text",
+                    "value": "服 (fú - accustomed)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning 'comfortable' (for places, seats, weather) or 'feeling well' (for people).",
+            "ejemplos": [
+                "我們學校的圖書館又大又舒服，很多學生喜歡去那裡看書。 — Our school's library is both big and comfortable; many students like to go there to read."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l8_canguan",
+            "tradicional": "參觀",
+            "pinyin": "cānguān",
+            "zhuyin": "ㄘㄢ ㄍㄨㄢ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "To visit (an institution)",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "參 (cān - join/inspect)"
+                },
+                {
+                    "type": "text",
+                    "value": "觀 (guān - observe/view)"
+                }
+            ],
+            "notas": "Transitive verb meaning to visit and tour a place or institution (such as a museum, school, or factory), never used for visiting people.",
+            "ejemplos": [
+                "聽說你們學校的大樓都很漂亮，我們想去參觀，可以嗎？ — I heard the buildings at your school are all very pretty; we'd like to go visit them, may we?"
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l8_qi",
+            "tradicional": "騎",
+            "pinyin": "qí",
+            "zhuyin": "ㄑㄧˊ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "To ride",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "馬 (mǎ - horse)"
+                },
+                {
+                    "type": "text",
+                    "value": "奇 (qí - astride)"
+                }
+            ],
+            "notas": "Transitive action verb used for straddling and riding two-wheeled vehicles or animals (騎機車 ride a scooter, 騎腳踏車 ride a bike).",
+            "ejemplos": [
+                "我們家每個人都會騎機車。 — Everyone in our family knows how to ride a scooter."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l8_zai_ride",
+            "tradicional": "載",
+            "pinyin": "zài",
+            "zhuyin": "ㄗㄞˋ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "To give someone a ride (on/in a vehicle, e.g., motorcycle, bicycle or car)",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "𢦏 (zāi - phonetic)"
+                },
+                {
+                    "type": "text",
+                    "value": "車 (chē - vehicle)"
+                }
+            ],
+            "notas": "Transitive verb meaning to carry a passenger or give someone a lift on a scooter, bike, or car (載 + Person + 去 + Place).",
+            "ejemplos": [
+                "A：你可以騎機車載我去火車站嗎？ B：沒問題。 — A: Can you give me a ride on your scooter to the train station? B: No problem."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "action"
+            ]
         }
     ],
     "adverbios": [
@@ -8727,35 +9292,6 @@ const SEED_DATA_EN = {
             ]
         },
         {
-            "id": "id_voc_feichang",
-            "espanol": "Extremely",
-            "tradicional": "非常",
-            "pinyin": "fēicháng",
-            "zhuyin": "ㄈㄟ ㄔㄤˊ",
-            "categoria": "Adv",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "非 (fēi - No)"
-                },
-                {
-                    "type": "text",
-                    "value": "常 (cháng - common)"
-                }
-            ],
-            "notas": "Etymologically 'out of the ordinary'. Adverb of intense degree greater than 很, placed before adjectives or psychological verbs.",
-            "ejemplos": [
-                "國畫課非常有趣 — Traditional Chinese painting class is extremely fun",
-                "他非常想去臺灣學中文 — He greatly wants to go to Taiwan to study Chinese."
-            ],
-            "fechaCreacion": "2026-09-27",
-            "posSymbol": "Adv",
-            "semanticTags": [
-                "degree"
-            ]
-        },
-        {
             "id": "id_voc_zai_again",
             "espanol": "Again",
             "tradicional": "再",
@@ -8779,36 +9315,6 @@ const SEED_DATA_EN = {
             "semanticTags": [
                 "frequency",
                 "repetition"
-            ]
-        },
-        {
-            "id": "id_voc_zenme",
-            "espanol": "As?",
-            "tradicional": "怎麼",
-            "pinyin": "zěnme",
-            "zhuyin": "ㄗㄣˇ ㄇㄜ˙",
-            "categoria": "Adv",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "怎 (zěn - as)"
-                },
-                {
-                    "type": "text",
-                    "value": "麼 (me - suffix)"
-                }
-            ],
-            "notas": "Question the method, mode or instrument to execute an action: S + 怎麼 + Verb (e.g. 怎麼去 = how to go?).",
-            "ejemplos": [
-                "請問，怎麼去圖書館？ — Excuse me, how do you get to the library?",
-                "你怎麼來學校？ — How do you come to school?"
-            ],
-            "fechaCreacion": "2026-09-28",
-            "posSymbol": "Adv",
-            "semanticTags": [
-                "questionAdv",
-                "question"
             ]
         },
         {
@@ -9195,6 +9701,124 @@ const SEED_DATA_EN = {
                 "degree",
                 "negativeDegree"
             ]
+        },
+        {
+            "id": "id_voc_zenme",
+            "espanol": "How",
+            "tradicional": "怎麼",
+            "pinyin": "zěnme",
+            "zhuyin": "ㄗㄣˇ ˙ㄇㄜ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "乍 (zhà - suddenly)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_mtlt07kj_ddod0"
+                },
+                {
+                    "type": "text",
+                    "value": "麼 (me - suffix)"
+                }
+            ],
+            "notas": "Interrogative adverb placed directly before a verb to ask 'how / by what means' (e.g., 怎麼說, 怎麼去). Contrast with 怎麼樣 (state verb: 'how is it?').",
+            "ejemplos": [
+                "請問，這個東西中文怎麼說？ — Excuse me, how do you say this thing in Chinese?"
+            ],
+            "fechaCreacion": "2026-09-28",
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "questionAdv",
+                "question"
+            ],
+            "leccion": 8
+        },
+        {
+            "id": "id_l8_bijiao",
+            "tradicional": "比較",
+            "pinyin": "bǐjiào",
+            "zhuyin": "ㄅㄧˇ ㄐㄧㄠˋ",
+            "categoria": "Adv",
+            "posSymbol": "Adv",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "(Comparatively) more",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "比 (bǐ - compare)"
+                },
+                {
+                    "type": "text",
+                    "value": "較 (jiào - compare/more)"
+                }
+            ],
+            "notas": "Adverb indicating an implicit comparison ('comparatively more / -er'). Negation goes after 比較 (比較不熱, 比較沒有空).",
+            "ejemplos": [
+                "我最近比較忙，沒有空去找你。 — I've been comparatively busier lately and don't have free time to visit you."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "degree"
+            ]
+        },
+        {
+            "id": "id_voc_feichang",
+            "espanol": "Very, extremely",
+            "tradicional": "非常",
+            "pinyin": "fēicháng",
+            "zhuyin": "ㄈㄟ ㄔㄤˊ",
+            "categoria": "Adv",
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "非 (fēi - not/beyond)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l3_chang"
+                }
+            ],
+            "notas": "Literally 'beyond the ordinary'. High-degree adverb stronger than 很 ('very / extremely').",
+            "ejemplos": [
+                "那家店的牛肉麵非常好吃，你一定要去吃。 — The beef noodles at that shop are very delicious; you definitely have to go eat them."
+            ],
+            "fechaCreacion": "2026-09-27",
+            "posSymbol": "Adv",
+            "semanticTags": [
+                "degree"
+            ],
+            "leccion": 8
+        },
+        {
+            "id": "id_l8_you",
+            "tradicional": "又",
+            "pinyin": "yòu",
+            "zhuyin": "ㄧㄡˋ",
+            "categoria": "Adv",
+            "posSymbol": "Adv",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Both... and...",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "又 (yòu - right hand/again)"
+                }
+            ],
+            "notas": "Used in the correlative pattern 又 A 又 B ('both A and B') to link two positive or two negative qualities/actions.",
+            "ejemplos": [
+                "這家店的小籠包又便宜又好吃。 — The xiaolongbao at this shop are both cheap and delicious."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "scope",
+                "additive"
+            ]
         }
     ],
     "conjunciones": [
@@ -9324,6 +9948,64 @@ const SEED_DATA_EN = {
                 "questionChoice",
                 "question"
             ]
+        },
+        {
+            "id": "id_l8_danshi",
+            "tradicional": "但是",
+            "pinyin": "dànshì",
+            "zhuyin": "ㄉㄢˋ ㄕˋ",
+            "categoria": "Conj",
+            "posSymbol": "Conj",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "But, however",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "但 (dàn - only/but)"
+                },
+                {
+                    "type": "ref",
+                    "id": "v1"
+                }
+            ],
+            "notas": "Adversative conjunction ('but / however'), interchangeable with 可是 (kěshì).",
+            "ejemplos": [
+                "我想跟你們去看籃球比賽，但是等一下我得去上課。 — I want to go watch the basketball game with you, but I have to go to class later."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "conjunction"
+            ]
+        },
+        {
+            "id": "id_l8_huoshi",
+            "tradicional": "或是",
+            "pinyin": "huòshì",
+            "zhuyin": "ㄏㄨㄛˋ ㄕˋ",
+            "categoria": "Conj",
+            "posSymbol": "Conj",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Or",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "或 (huò - or/perhaps)"
+                },
+                {
+                    "type": "ref",
+                    "id": "v1"
+                }
+            ],
+            "notas": "Conjunction meaning 'or' used in declarative statements (whereas 還是 háishì is used in alternative questions).",
+            "ejemplos": [
+                "A：你想什麼時候去游泳？ B：早上或是下午都可以。 — A: When do you want to go swimming? B: Either morning or afternoon is fine."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "conjunction"
+            ]
         }
     ],
     "preposiciones": [
@@ -9420,31 +10102,6 @@ const SEED_DATA_EN = {
             ]
         },
         {
-            "id": "id_prep_gen",
-            "tradicional": "跟",
-            "pinyin": "gēn",
-            "zhuyin": "ㄍㄣ",
-            "espanol": "With (someone)",
-            "categoria": "Prep",
-            "posSymbol": "Prep",
-            "semanticTags": [
-                "prepCompany",
-                "nounLinker"
-            ],
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "足 (Pie)"
-                },
-                {
-                    "type": "text",
-                    "value": "艮 (Firme)"
-                }
-            ],
-            "notas": "Preposition (介詞) introducing company before the verb: 我跟朋友去學校 (I go to school with friends)."
-        },
-        {
             "id": "id_prep_gei",
             "tradicional": "給",
             "pinyin": "gěi",
@@ -9529,6 +10186,60 @@ const SEED_DATA_EN = {
             "leccion": 7,
             "ejemplos": [
                 "林先生從他們宿舍到圖書館去看書。 — Mr. Lin goes from their dorm to the library to read."
+            ]
+        },
+        {
+            "id": "id_prep_gen",
+            "tradicional": "跟",
+            "pinyin": "gēn",
+            "zhuyin": "ㄍㄣ",
+            "espanol": "With",
+            "categoria": "Prep",
+            "posSymbol": "Prep",
+            "semanticTags": [
+                "prepCompany",
+                "nounLinker"
+            ],
+            "clasificador": "",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "足 (zú - foot)"
+                },
+                {
+                    "type": "text",
+                    "value": "艮 (gèn - heel/firm)"
+                }
+            ],
+            "notas": "Preposition introducing the person with whom one does something (S + 跟 + Person + [一起] + VP). Negation 不 goes before 跟.",
+            "leccion": 8,
+            "ejemplos": [
+                "我等一下要跟朋友見面。 — I am going to meet with a friend later."
+            ]
+        },
+        {
+            "id": "id_l8_bi",
+            "tradicional": "比",
+            "pinyin": "bǐ",
+            "zhuyin": "ㄅㄧˇ",
+            "categoria": "Prep",
+            "posSymbol": "Prep",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "(More...) than",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "比 (bǐ - two people side by side comparing)"
+                }
+            ],
+            "notas": "Comparison preposition (A 比 B + Vs). Never use degree adverbs like 很, 真, or 非常 before the state verb in a 比 sentence.",
+            "ejemplos": [
+                "我的同學都覺得打籃球比打棒球好玩。 — My classmates all think playing basketball is more fun than playing baseball."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "prepComparison"
             ]
         }
     ],
@@ -12150,6 +12861,196 @@ const SEED_DATA_EN = {
                 "time",
                 "conversationalExpression"
             ]
+        },
+        {
+            "id": "id_l8_wanglushang",
+            "tradicional": "網路上",
+            "pinyin": "wǎnglù shàng",
+            "zhuyin": "ㄨㄤˇ ㄌㄨˋ ㄕㄤˋ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "On the Internet",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "網 (wǎng - net)"
+                },
+                {
+                    "type": "text",
+                    "value": "路 (lù - road/network)"
+                },
+                {
+                    "type": "text",
+                    "value": "上 (shàng - on)"
+                }
+            ],
+            "notas": "Used with 在 to indicate doing something online (在網路上買東西, 在網路上看電影).",
+            "ejemplos": [
+                "你常在網路上買東西嗎？ — Do you often buy things on the Internet?"
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_l8_bianlishangdian",
+            "tradicional": "便利商店",
+            "pinyin": "biànlì shāngdiàn",
+            "zhuyin": "ㄅㄧㄢˋ ㄌㄧˋ ㄕㄤ ㄉㄧㄢˋ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "clasificador": "id_l5_jia",
+            "leccion": 8,
+            "espanol": "Convenience store",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "便利 (biànlì - convenient)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_l6_shangdian"
+                }
+            ],
+            "notas": "24-hour convenience store (such as 7-Eleven or FamilyMart), ubiquitous in Taiwan. Classifier: 家 (jiā).",
+            "ejemplos": [
+                "學校裡面有兩家便利商店，真方便。 — There are two convenience stores inside the school; it's really convenient."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_gongche",
+            "tradicional": "公共汽車 / 公車",
+            "pinyin": "gōnggòng qìchē / gōngchē",
+            "zhuyin": "ㄍㄨㄥ ㄍㄨㄥˋ ㄑㄧˋ ㄔㄜ / ㄍㄨㄥ ㄔㄜ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Bus",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "公共 (gōnggòng - public)"
+                },
+                {
+                    "type": "text",
+                    "value": "汽車 (qìchē - motor vehicle)"
+                }
+            ],
+            "notas": "Public bus. In Taiwan, the shortened form 公車 (gōngchē) is used almost exclusively in daily speech.",
+            "ejemplos": [
+                "他每天坐公車去學校上課。 — He takes the bus to school for class every day."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_buxing",
+            "tradicional": "不行",
+            "pinyin": "bù xíng",
+            "zhuyin": "ㄅㄨˋ ㄒㄧㄥˊ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Will not do, not allowed",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "a1"
+                },
+                {
+                    "type": "text",
+                    "value": "行 (xíng - okay/workable)"
+                }
+            ],
+            "notas": "Conversational expression meaning 'that won't do / not allowed / out of the question'.",
+            "ejemplos": [
+                "A：請問我們可以在這裡照相嗎？ B：對不起，不行。 — A: Excuse me, may we take pictures here? B: Sorry, that's not allowed."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "state",
+                "conversationalExpression"
+            ]
+        },
+        {
+            "id": "id_l8_jichengche",
+            "tradicional": "計程車",
+            "pinyin": "jìchéngchē",
+            "zhuyin": "ㄐㄧˋ ㄔㄥˊ ㄔㄜ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "Taxi",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "計 (jì - calculate)"
+                },
+                {
+                    "type": "text",
+                    "value": "程 (chéng - distance)"
+                },
+                {
+                    "type": "text",
+                    "value": "車 (chē - vehicle)"
+                }
+            ],
+            "notas": "Literally 'distance-calculating vehicle'. Standard Taiwanese Mandarin term for a taxi.",
+            "ejemplos": [
+                "現在去那個地方，坐計程車比坐捷運慢。 — Going to that place right now, taking a taxi is slower than taking the MRT."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l8_chabuduo",
+            "tradicional": "差不多",
+            "pinyin": "chàbùduō",
+            "zhuyin": "ㄔㄚˋ ㄅㄨˋ ㄉㄨㄛ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 8,
+            "espanol": "About the same",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "差 (chà - differ)"
+                },
+                {
+                    "type": "ref",
+                    "id": "a1"
+                },
+                {
+                    "type": "text",
+                    "value": "多 (duō - much)"
+                }
+            ],
+            "notas": "Literally 'the difference is not much'. Used as a predicate meaning 'about the same / almost identical'.",
+            "ejemplos": [
+                "A：你覺得如玉和月美，誰唱歌唱得比較好？ B：我覺得差不多。 — A: Between Ruyu and Yuemei, who do you think sings better? B: I think they are about the same."
+            ],
+            "fechaCreacion": "2026-11-03",
+            "semanticTags": [
+                "state"
+            ]
         }
     ],
     "estructuras": [
@@ -12658,9 +13559,59 @@ const SEED_DATA_EN = {
             "ejemplo_pinyin": "Wǒ māma shuō, nǐmen kěyǐ lái wǒ jiā dǎ lánqiú. / Nǐ bù kěyǐ zài túshūguǎn lǐmiàn chī dōngxi. / Wǒ kěyǐ bù kěyǐ qù kàn nǐmen de lánqiú bǐsài? / Zhè shì nǐ de shū ma? Wǒ kěyǐ kànkàn ma?",
             "ejemplo_espanol": "My mom says you may come to my house to play basketball. / You may not eat inside the library. / May I go watch your basketball game? / Is this your book? May I take a look?",
             "notas": "1) Function: Auxiliary verb 可以 precedes the main verb to grant or ask for permission (爸爸說，我可以買這支手機 / 我叫林先生，你可以叫我小林). 2) Negation (Prohibition): 不可以 ONLY expresses lack of permission / prohibition, never impossibility (媽媽說，我不可以買這支手機 / 先生，對不起，你不可以在這裡照相 / 你不可以說老闆不好). 3) Questions & Short Answers: A-not-A forms 可不可以 or 可以不可以 can express either permission (我可以不可以買一支新手機？) or possibility (你可不可以明天來？). You can also ask with 可以嗎？ (我想吃你的包子，可以嗎？ — 可以啊) and answer simply 可以 or 沒問題."
+        },
+        {
+            "id": "struct_l8_gen_compania",
+            "leccion": 8,
+            "nombre": "I · Accompaniment with Preposition 跟 (gēn, \"with\")",
+            "formula": "Affirm.: S + 跟 + Person + (一起 +) VP | Neg.: S + 不 + 跟 + Person + (一起 +) VP | Quest.: ... 跟誰 ...？ / ... 跟不跟 ...？",
+            "ejemplo_tradicional": "我常跟哥哥去看棒球比賽。 / 我跟朋友在餐廳吃飯。 / 我週末要跟同學去參觀故宮。 / 我今天不跟同學去上書法課。",
+            "ejemplo_pinyin": "Wǒ cháng gēn gēge qù kàn bàngqiú bǐsài. / Wǒ gēn péngyǒu zài cāntīng chīfàn. / Wǒ zhōumò yào gēn tóngxué qù cānguān Gùgōng. / Wǒ jīntiān bù gēn tóngxué qù shàng shūfǎ kè.",
+            "ejemplo_espanol": "I often go watch baseball games with my older brother. / I eat with my friends at the restaurant. / I am going to visit the National Palace Museum with my classmates this weekend. / Today I am not going to calligraphy class with my classmates.",
+            "notas": "1) Function & Structure: The prepositional phrase '跟 + someone' introduces the companion and MUST precede the verb phrase (VP). The adverb 一起 (yìqǐ, 'together') is commonly paired with 跟 and placed directly before the main verb. 2) Negation: The negative marker 不 (bù) is placed BEFORE 跟: 我今天不跟同學去上書法課 / 他不跟我一起去KTV唱歌 / 妹妹不跟我去吃越南菜. 3) Questions: 你要跟他去日本嗎？ / 你常跟誰去看電影？ / 你想跟我去打網球嗎？ / 你跟不跟我去圖書館看書？"
+        },
+        {
+            "id": "struct_l8_zenme_como",
+            "leccion": 8,
+            "nombre": "II · Asking \"How\" with Interrogative Adverb 怎麼 (zěnme)",
+            "formula": "S + 怎麼 + V (+ O)？ (Contrast: S + 怎麼樣？)",
+            "ejemplo_tradicional": "你們怎麼去？ / 這個菜怎麼做？ / 這個歌怎麼唱？ / 這支新手機怎麼上網？",
+            "ejemplo_pinyin": "Nǐmen zěnme qù? / Zhège cài zěnme zuò? / Zhège gē zěnme chàng? / Zhè zhī xīn shǒujī zěnme shàngwǎng?",
+            "ejemplo_espanol": "How are you going? / How do you make this dish? / How do you sing this song? / How does this new cell phone connect to the Internet?",
+            "notas": "1) Function: 怎麼 (zěnme, 'how / by what means') is an interrogative adverb placed directly before the action verb to ask how an action is performed. 2) Crucial Contrast between 怎麼 and 怎麼樣: 怎麼 is an adverb that modifies a verb (這個菜怎麼做？ = How do you cook this dish?), whereas 怎麼樣 is a state verb functioning as the main predicate (這個菜怎麼樣？ = How is this dish? / What do you think of this dish?)."
+        },
+        {
+            "id": "struct_l8_bijiao_comparacion",
+            "leccion": 8,
+            "nombre": "III · Implicit Comparison with Adverb 比較 (bǐjiào, \"comparatively more\")",
+            "formula": "Affirm.: S + 比較 + Vs / Vaux + VP | Neg.: S + 比較 + 不 / 沒(有) + Vs / V | Quest.: S + 比較 + Vs / Vaux + VP + 嗎？",
+            "ejemplo_tradicional": "今天比較熱。 / 越南餐廳很遠。坐捷運比較快。 / 我們家，姐姐比較會做飯。 / 昨天比較不熱。 / 他比較不喜歡游泳。",
+            "ejemplo_pinyin": "Jīntiān bǐjiào rè. / Yuènán cāntīng hěn yuǎn. Zuò jiéyùn bǐjiào kuài. / Wǒmen jiā, jiějie bǐjiào huì zuòfàn. / Zuótiān bǐjiào bú rè. / Tā bǐjiào bù xǐhuān yóuyǒng.",
+            "ejemplo_espanol": "Today is (comparatively) hotter. / The Vietnamese restaurant is very far. Taking the MRT is faster. / In our family, my older sister is a better cook. / Yesterday was not as hot. / He doesn't like swimming as much.",
+            "notas": "1) Function: The adverb 比較 conveys an implicit comparison based on context. 2) Negation Rule: Adverbs do not take negation directly; the negative marker 不 or 沒(有) goes AFTER 比較, right before the verb or state verb: 昨天比較不熱 / 他比較不喜歡游泳 / 我最近比較沒有空. 3) Questions: 咖啡和茶，你比較喜歡喝咖啡嗎？ / 你和哥哥，你比較會打棒球嗎？ / 他比較想去看美國電影還是日本電影？ 4) Usage in Taiwan: In Mainland China, 比較 can mean 'fairly/rather' without comparison (他的法文說得比較好), whereas in Taiwan 比較 always implies a comparison (哥哥和我，我比較高)."
+        },
+        {
+            "id": "struct_l8_you_you",
+            "leccion": 8,
+            "nombre": "IV · Correlative Pattern 又 (yòu)... 又 (yòu)... (\"both A and B\")",
+            "formula": "Affirm.: S + 又 + Vs₁ / VP₁ + 又 + Vs₂ / VP₂ | Neg.: S + 又不 + Vs₁ / VP₁ + 又不 + Vs₂ / VP₂",
+            "ejemplo_tradicional": "這家餐廳的菜，又便宜又好吃，所以我們常來吃。 / 坐高鐵又快又舒服，可是有一點貴。 / 老闆今天做的臭豆腐，又不臭又不辣。 / 我的舊手機又不能照相又不能上網。",
+            "ejemplo_pinyin": "Zhè jiā cāntīng de cài, yòu piányí yòu hǎochī, suǒyǐ wǒmen cháng lái chī. / Zuò gāotiě yòu kuài yòu shūfú, kěshì yǒu yìdiǎn guì. / Lǎobǎn jīntiān zuò de chòu dòufǔ, yòu bú chòu yòu bú là. / Wǒ de jiù shǒujī yòu bù néng zhàoxiàng yòu bù néng shàngwǎng.",
+            "ejemplo_espanol": "The food at this restaurant is both cheap and delicious, so we often come to eat. / Taking the HSR is both fast and comfortable, but a bit expensive. / The stinky tofu the boss made today is neither smelly nor spicy. / My old phone can neither take photos nor connect to the Internet.",
+            "notas": "1) Function: Expresses two simultaneous qualities, states, or behaviors that apply to the same subject (我又想喝茶又想喝咖啡，但是這裡沒有便利商店). 2) Negation Rule: The negative marker 不 (bù) appears AFTER both the first 又 and the second 又, forming 又不... 又不... ('neither A nor B'): 老闆今天做的臭豆腐，又不臭又不辣。我覺得不好吃 / 我的舊手機又不能照相又不能上網。我想買新的."
+        },
+        {
+            "id": "struct_l8_bi_comparacion",
+            "leccion": 8,
+            "nombre": "V · Explicit Comparison with Preposition 比 (bǐ, \"more... than\")",
+            "formula": "Affirm.: A + 比 + B + Vs | Neg.: A + 不比 (or 不是比) + B + Vs | Quest.: A + 比 + B + Vs + 嗎？",
+            "ejemplo_tradicional": "山上的風景比這裡漂亮。 / 我們學校比他們學校遠。 / 坐捷運比坐火車快。 / 在家上網不比在學校快。 / 坐公車不是比坐計程車快。",
+            "ejemplo_pinyin": "Shānshàng de fēngjǐng bǐ zhèlǐ piàoliàng. / Wǒmen xuéxiào bǐ tāmen xuéxiào yuǎn. / Zuò jiéyùn bǐ zuò huǒchē kuài. / Zài jiā shàngwǎng bù bǐ zài xuéxiào kuài. / Zuò gōngchē bú shì bǐ zuò jìchéngchē kuài.",
+            "ejemplo_espanol": "The scenery in the mountains is more beautiful than here. / Our school is farther than their school. / Taking the MRT is faster than taking the train. / Surfing the Internet at home is not faster than at school. / Taking the bus is not faster than taking a taxi.",
+            "notas": "1) Function: Preposition 比 explicitly compares two items A and B with respect to a state verb (Vs). 2) Negation: Negated with 不比 or 不是比 (在家上網不比在學校快 / 我的車不比他的車貴 / 坐公車不是比坐計程車快). 3) Questions: 他們學校比你們學校遠嗎？ / 這種手機比那種貴嗎？ 4) Strict Degree Adverb Prohibition: In a 比 comparison, absolute degree adverbs like 很 (hěn), 真 (zhēn), and 非常 (fēicháng) CANNOT be placed before the state verb Vs (NEVER say *我的手機比他的很貴 or *坐高鐵比坐火車非常快)."
         }
     ]
-}
+};
 
 if (typeof window !== 'undefined') {
     window.SEED_DATA_EN = SEED_DATA_EN;
