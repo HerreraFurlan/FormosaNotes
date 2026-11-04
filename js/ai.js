@@ -237,6 +237,47 @@ const safeParseJSON = (text) => {
     try {
         return JSON.parse(clean);
     } catch (err1) {
+        // Helper to escape unescaped double quotes inside JSON string values
+        const escapeInnerQuotes = (rawStr) => {
+            let out = '';
+            let inStr = false;
+            let escaped = false;
+            for (let i = 0; i < rawStr.length; i++) {
+                const ch = rawStr[i];
+                if (escaped) {
+                    out += ch;
+                    escaped = false;
+                    continue;
+                }
+                if (ch === '\\') {
+                    out += ch;
+                    escaped = true;
+                    continue;
+                }
+                if (ch === '"') {
+                    if (!inStr) {
+                        inStr = true;
+                        out += ch;
+                    } else {
+                        const rest = rawStr.slice(i + 1);
+                        if (/^\s*(?:[:,}\]]|$)/.test(rest)) {
+                            inStr = false;
+                            out += ch;
+                        } else {
+                            out += '\\"';
+                        }
+                    }
+                    continue;
+                }
+                if (inStr && (ch === '\n' || ch === '\r')) {
+                    out += ' ';
+                    continue;
+                }
+                out += ch;
+            }
+            return out;
+        };
+
         let s = clean;
         s = s.replace(/,\s*([\]}])/g, '$1');
         s = s.replace(/}\s*\{/g, '}, {');
@@ -248,6 +289,11 @@ const safeParseJSON = (text) => {
             return JSON.parse(s);
         } catch (_) {}
 
+        try {
+            return JSON.parse(escapeInnerQuotes(s));
+        } catch (_) {}
+
+        s = escapeInnerQuotes(s);
         let openBraces = (s.match(/\{/g) || []).length - (s.match(/\}/g) || []).length;
         let openBrackets = (s.match(/\[/g) || []).length - (s.match(/\]/g) || []).length;
 
@@ -454,13 +500,18 @@ const buildCompactVocabularyContext = (focusWords = [], supportWords = []) => {
  * - Nivel SOPORTE: `L1: Fórmula 1 ; Fórmula 2`
  */
 const buildCompactStructuresContext = (focusStructures = [], supportStructures = []) => {
+    const isEn = isAILangEnglish();
     const focusIds = new Set();
     const focusLines = focusStructures.map(s => {
         if (s.id) focusIds.add(s.id);
         const lTag = s.leccion ? `[L${s.leccion}] ` : '';
-        const name = (s.nombre || 'Estructura').replace(/^[I|V|X]+\.?[A-Z]?\s*·\s*/, '').trim();
+        const name = (s.nombre || (isEn ? 'Structure' : 'Estructura'))
+            .replace(/^[I|V|X]+\.?[A-Z]?\s*·\s*/, '')
+            .replace(/"/g, "'")
+            .trim();
+        const cleanFormula = (s.formula || '').replace(/"/g, "'").trim();
         const firstEx = (s.ejemplo_tradicional || '').split('/')[0].trim();
-        return `- ${lTag}${name} => Fórmula: ${s.formula}${firstEx ? ` (Ej: ${firstEx})` : ''}`;
+        return `- ${lTag}${name} => ${isEn ? 'Formula' : 'Fórmula'}: ${cleanFormula}${firstEx ? ` (${isEn ? 'Ex' : 'Ej'}: ${firstEx})` : ''}`;
     });
 
     const supportByLesson = {};
@@ -469,7 +520,7 @@ const buildCompactStructuresContext = (focusStructures = [], supportStructures =
         const lKey = s.leccion ? `L${s.leccion}` : 'Base';
         if (!supportByLesson[lKey]) supportByLesson[lKey] = [];
         if (s.formula) {
-            const shortFormula = s.formula.split('|')[0].trim();
+            const shortFormula = s.formula.split('|')[0].replace(/"/g, "'").trim();
             supportByLesson[lKey].push(shortFormula);
         }
     });
@@ -481,8 +532,8 @@ const buildCompactStructuresContext = (focusStructures = [], supportStructures =
     return {
         focusStructsBlock: focusLines.length > 0
             ? focusLines.join('\n')
-            : '- Estructuras básicas SVO (S + Tiempo + Lugar + V + O)',
-        supportStructsBlock: supportLines || '(Solo estructuras foco)'
+            : (isEn ? '- Basic SVO structures (S + Time + Location + V + O)' : '- Estructuras básicas SVO (S + Tiempo + Lugar + V + O)'),
+        supportStructsBlock: supportLines || (isEn ? '(Only focus structures)' : '(Solo estructuras foco)')
     };
 };
 
@@ -490,6 +541,7 @@ const buildCompactStructuresContext = (focusStructures = [], supportStructures =
  * 3. GENERADOR DE SIMULACIÓN DE EXAMEN PERSONALIZABLE (Prompt y Schema Dinámicos)
  * Solo solicita a Gemini las áreas activas (`gramatica`, `redaccion`, `lectura`),
  * ajusta el número de reactivos (`questionCount`: 3, 5 o 10) y la longitud/complejidad (`difficulty`).
+ * Soporta tanto Español como Inglés según el idioma activo.
  *
  * @param {object} configPayload
  * @returns {Promise<object>}
@@ -507,6 +559,7 @@ const generateExamAIData = async (configPayload) => {
         directivesBank = []
     } = configPayload || {};
 
+    const isEn = isAILangEnglish();
     const needGrammar = !!areas.gramatica;
     const needWriting = !!areas.redaccion;
     const needReading = !!areas.lectura;
@@ -520,23 +573,41 @@ const generateExamAIData = async (configPayload) => {
     const { focusStructsBlock, supportStructsBlock } = buildCompactStructuresContext(focusStructures, supportStructures);
 
     // Reglas de longitud según nivel de dificultad (Nivel 3 de personalización)
-    const difficultyRulesMap = {
-        basico: {
-            label: 'BÁSICO (Oraciones cortas y directas)',
-            sentenceLen: '6 a 10 caracteres chinos por oración (1 sola cláusula directa y sencilla)',
-            storyLen: '60 a 90 caracteres chinos en total (párrafo breve, oraciones simples)'
-        },
-        estandar: {
-            label: 'ESTÁNDAR (Nivel examen oficial de clase)',
-            sentenceLen: '10 a 16 caracteres chinos por oración (combinando sujeto, tiempo/lugar y predicado)',
-            storyLen: '110 a 150 caracteres chinos en total (relato fluido y natural en Taiwán)'
-        },
-        avanzado: {
-            label: 'AVANZADO (Oraciones largas y compuestas)',
-            sentenceLen: '16 a 25 caracteres chinos por oración (2 cláusulas conectadas o contraste completo)',
-            storyLen: '170 a 230 caracteres chinos en total (relato detallado con múltiples eventos y comparaciones)'
+    const difficultyRulesMap = isEn
+        ? {
+            basico: {
+                label: 'BASIC (Short, direct sentences)',
+                sentenceLen: '6 to 10 Chinese characters per sentence (1 simple direct clause)',
+                storyLen: '60 to 90 Chinese characters in total (short paragraph, simple sentences)'
+            },
+            estandar: {
+                label: 'STANDARD (Official classroom exam level)',
+                sentenceLen: '10 to 16 Chinese characters per sentence (combining subject, time/location, and predicate)',
+                storyLen: '110 to 150 Chinese characters in total (natural, fluent Taiwanese story)'
+            },
+            avanzado: {
+                label: 'ADVANCED (Long, compound sentences)',
+                sentenceLen: '16 to 25 Chinese characters per sentence (2 connected clauses or full contrast)',
+                storyLen: '170 to 230 Chinese characters in total (detailed passage with multiple events and comparisons)'
+            }
         }
-    };
+        : {
+            basico: {
+                label: 'BÁSICO (Oraciones cortas y directas)',
+                sentenceLen: '6 a 10 caracteres chinos por oración (1 sola cláusula directa y sencilla)',
+                storyLen: '60 a 90 caracteres chinos en total (párrafo breve, oraciones simples)'
+            },
+            estandar: {
+                label: 'ESTÁNDAR (Nivel examen oficial de clase)',
+                sentenceLen: '10 a 16 caracteres chinos por oración (combinando sujeto, tiempo/lugar y predicado)',
+                storyLen: '110 a 150 caracteres chinos en total (relato fluido y natural en Taiwán)'
+            },
+            avanzado: {
+                label: 'AVANZADO (Oraciones largas y compuestas)',
+                sentenceLen: '16 a 25 caracteres chinos por oración (2 cláusulas conectadas o contraste completo)',
+                storyLen: '170 a 230 caracteres chinos en total (relato detallado con múltiples eventos y comparaciones)'
+            }
+        };
     const diffSpec = difficultyRulesMap[difficulty] || difficultyRulesMap.estandar;
 
     // Construcción dinámica de instrucciones de fases y schema JSON (solo lo activo)
@@ -545,7 +616,14 @@ const generateExamAIData = async (configPayload) => {
     const schemaRequired = [];
 
     if (needGrammar) {
-        phaseInstructions.push(`
+        phaseInstructions.push(isEn ? `
+1. GRAMMAR AREA ("fase3" and "fase4" — exactly ${questionCount} items each, id: 1..${questionCount}):
+   - "fase3" (Fill in the blank):
+     * ${questionCount} sentences in Traditional Chinese (${diffSpec.sentenceLen}) where exactly 1 word or particle from FOCUS VOCABULARY (Lessons ${selectedLessons.join(', ')}) is replaced by "[ ___ ]".
+     * The sentence context must make the missing word ("palabra_faltante") unambiguous.
+   - "fase4" (Grammar Multiple Choice):
+     * ${questionCount} sentences in Traditional Chinese with "[ ___ ]" (${diffSpec.sentenceLen}) directly testing the FOCUS STRUCTURES listed below.
+     * "opciones": array of 3 options in Traditional Chinese. Only 1 ("opcion_correcta") is grammatically valid; the 2 distractors must violate the target grammar rule.` : `
 1. ÁREA GRAMÁTICA ("fase3" y "fase4" — exactamente ${questionCount} reactivos cada una, id: 1..${questionCount}):
    - "fase3" (Completado de frases):
      * ${questionCount} oraciones de longitud ${diffSpec.sentenceLen} donde falta exactamente 1 palabra o partícula del VOCABULARIO FOCO (Lecciones ${selectedLessons.join(', ')}), representada por "[ ___ ]".
@@ -584,13 +662,21 @@ const generateExamAIData = async (configPayload) => {
 
     if (needWriting) {
         const directivesText = directivesBank.map((d, idx) =>
-            `   #${idx + 1}: [${d.tipo === 'estructura' ? 'ESTRUCTURA' : 'PALABRA'}] "${d.valor}"`
+            `   #${idx + 1}: [${d.tipo === 'estructura' ? (isEn ? 'STRUCTURE' : 'ESTRUCTURA') : (isEn ? 'WORD' : 'PALABRA')}] 「${String(d.valor || '').replace(/"/g, "'")}」`
         ).join('\n');
 
-        phaseInstructions.push(`
+        phaseInstructions.push(isEn ? `
+2. WRITING AREA ("fase5" and "fase6" — exactly ${questionCount} items each, id: 1..${questionCount}):
+   - "fase5" (Free response to situational questions):
+     * ${questionCount} everyday scenarios in Taiwan ("escenario", written in Traditional Chinese) with a question ("pregunta", ${diffSpec.sentenceLen}) in Traditional Chinese prompting the student to answer using vocabulary and grammar from Lessons ${selectedLessons.join(', ')}. Include a valid "ejemplo_respuesta" in Traditional Chinese.
+   - "fase6" (Guided writing with mandatory directive — specific word or grammar pattern):
+     * Set "banco_caracteres" to the array of ${questionCount} directive strings below.
+     * Use EXACTLY these ${questionCount} preselected directives in order (id: 1..${questionCount}) as "caracter_asignado":
+${directivesText}
+     * For each directive, write a natural question or prompt in Traditional Chinese ("pregunta") that requires the student to answer in a complete sentence applying "caracter_asignado", and provide a valid "ejemplo_respuesta" in Traditional Chinese.` : `
 2. ÁREA REDACCIÓN ("fase5" y "fase6" — exactamente ${questionCount} reactivos cada una, id: 1..${questionCount}):
    - "fase5" (Respuesta libre a preguntas situacionales):
-     * ${questionCount} escenarios cotidianos en Taiwán ("escenario") con una "pregunta" en chino tradicional (${diffSpec.sentenceLen}) que invite al alumno a responder usando el vocabulario y estructuras de las Lecciones ${selectedLessons.join(', ')}. Incluye "ejemplo_respuesta".
+     * ${questionCount} escenarios cotidianos en Taiwán ("escenario", en chino tradicional) con una "pregunta" en chino tradicional (${diffSpec.sentenceLen}) que invite al alumno a responder usando el vocabulario y estructuras de las Lecciones ${selectedLessons.join(', ')}. Incluye "ejemplo_respuesta".
    - "fase6" (Redacción con directrices obligatorias: usar palabra o estructura específica):
      * Usa EXACTAMENTE estas ${questionCount} directrices preseleccionadas en orden (id: 1..${questionCount}) para "caracter_asignado":
 ${directivesText}
@@ -633,7 +719,11 @@ ${directivesText}
     }
 
     if (needReading) {
-        phaseInstructions.push(`
+        phaseInstructions.push(isEn ? `
+3. READING AREA ("fase7" — 1 story + ${questionCount} True/False + ${questionCount} Multiple Choice):
+   - "historia": A cohesive story in Traditional Chinese (${diffSpec.storyLen}) set in Taiwan (do NOT use textbook character names), heavily integrating the FOCUS VOCABULARY and FOCUS STRUCTURES.
+   - "verdadero_falso": exactly ${questionCount} statements (id: 1..${questionCount}) in Traditional Chinese about the story ("es_verdadera": true/false).
+   - "opcion_multiple": exactly ${questionCount} questions (id: 1..${questionCount}) in Traditional Chinese about the story, each with 3 "opciones" and "respuesta_correcta" matching one of the 3 options.` : `
 3. ÁREA LECTURA ("fase7" — 1 historia + ${questionCount} Verdadero/Falso + ${questionCount} Opción Múltiple):
    - "historia": Relato en chino tradicional de ${diffSpec.storyLen}, protagonizado por estudiantes o amigos en Taiwán (sin usar nombres de libros de texto), integrando intensivamente el VOCABULARIO FOCO y las ESTRUCTURAS FOCO.
    - "verdadero_falso": exactamente ${questionCount} afirmaciones (id: 1..${questionCount}) en chino tradicional sobre la historia ("es_verdadera": true/false).
@@ -674,10 +764,37 @@ ${directivesText}
         schemaRequired.push("fase7");
     }
 
-    const prompt = `Diseña un Examen Oficial de Chino Tradicional de Taiwán (TOCFL) enfocado en las Lecciones: ${selectedLessons.join(', ')}.
+    const prompt = isEn
+        ? `Design an Official Taiwanese Traditional Mandarin (TOCFL) Exam focused on Lessons: ${selectedLessons.join(', ')}.
+DIFFICULTY & LENGTH LEVEL: ${diffSpec.label}
+- Sentence length: ${diffSpec.sentenceLen}.
+- 100% immersion in Traditional Chinese characters (繁體中文), with NO Pinyin and NO English inside sentences, scenarios, or options.
+- NEVER use double quotes (") inside JSON string values; use corner brackets 「...」 or single quotes '...' if needed.
+
+STRICT CONTEXT CONTROL RULE (ZERO UNSEEN WORDS OR GRAMMAR):
+1. MANDATORY EVALUATION FOCUS (Lessons ${selectedLessons.join(', ')}):
+   All target answers, blanks, grammar questions, and core themes MUST directly test this vocabulary and these grammar structures:
+   [FOCUS_VOCABULARY]:
+   ${focusVocabLine}
+
+   [FOCUS_STRUCTURES]:
+${focusStructsBlock}
+
+2. ALLOWED SUPPORT BASE (Earlier lessons):
+   You may use words and patterns from this support list ONLY as scaffolding to build sentences, and it is STRICTLY FORBIDDEN to use any Chinese words or grammar structures not present in FOCUS or SUPPORT:
+   [SUPPORT_VOCABULARY]:
+   ${supportVocabLine}
+
+   [SUPPORT_STRUCTURES]:
+${supportStructsBlock}
+
+REQUESTED SECTIONS:
+${phaseInstructions.join('\n')}`
+        : `Diseña un Examen Oficial de Chino Tradicional de Taiwán (TOCFL) enfocado en las Lecciones: ${selectedLessons.join(', ')}.
 NIVEL DE DIFICULTAD Y LONGITUD: ${diffSpec.label}
 - Longitud de oraciones: ${diffSpec.sentenceLen}.
 - Inmersión 100% en caracteres tradicionales (繁體中文), sin pinyin ni español dentro de las oraciones u opciones.
+- PROHIBIDO usar comillas dobles (") dentro de los valores de texto JSON; usa 「...」 o comillas simples '...' si necesitas citar algo.
 
 REGLA ESTRICTA DE CONTROL DE CONTEXTO (CERO PALABRAS O ESTRUCTURAS NO VISTAS):
 1. FOCO DE EVALUACIÓN OBLIGATORIO (Lecciones ${selectedLessons.join(', ')}):
@@ -700,7 +817,7 @@ SECCIONES SOLICITADAS:
 ${phaseInstructions.join('\n')}`;
 
     const body = {
-        systemInstruction: buildTaiwanSystemInstruction('es'),
+        systemInstruction: buildTaiwanSystemInstruction(isEn ? 'en' : 'es'),
         contents: [{ parts: [{ text: prompt }] }],
         generationConfig: {
             responseMimeType: "application/json",
@@ -719,7 +836,7 @@ ${phaseInstructions.join('\n')}`;
             const candidate = await callGeminiAPI(body);
             const parsed = safeParseJSON(candidate);
             if (!parsed || typeof parsed !== 'object') {
-                throw new Error("El formato del examen generado por Gemini es inválido.");
+                throw new Error(isEn ? "Invalid exam format returned by Gemini." : "El formato del examen generado por Gemini es inválido.");
             }
             return {
                 fase3: Array.isArray(parsed.fase3) ? parsed.fase3 : [],
@@ -750,8 +867,34 @@ const evaluateExamAIAnswers = async (phase5Submissions, phase6Submissions) => {
     const isEn = isAILangEnglish();
     const langName = getAILangName();
 
-    const prompt = `Evalúa las respuestas abiertas en Chino Tradicional de Taiwán del estudiante para la sección de Redacción (Fase 5: Respuestas libres y Fase 6: Redacción con directriz obligatoria).
-Redacta todos los comentarios, traducciones y el resumen general en ${langName}.
+    const prompt = isEn
+        ? `Evaluate the student's open-ended Taiwanese Traditional Chinese responses for the Writing section (Phase 5: Free Situational Answers and Phase 6: Guided Writing with Mandatory Directive).
+Write all feedback comments ("comentario"), translations ("traduccion_correccion"), and the overall summary ("resumen_general") in ${langName}. Do NOT use double quotes (") inside JSON string values.
+
+GRADING RUBRIC:
+- Phase 5 (Free situational answers):
+  * 1.0 pt ("es_correcta": true): Answers the question coherently with accurate Traditional Chinese grammar.
+  * 0.5 pts ("es_correcta": false): Understandable and relevant, but with minor word order, measure word, or character errors.
+  * 0.0 pts ("es_correcta": false): Blank, unrelated, or not written in Chinese.
+- Phase 6 (Guided writing with mandatory directive in "caracter_asignado"):
+  * 1.0 pt ("es_correcta": true, "uso_caracter_banco": true): Answers the prompt while properly applying the required word or grammar structure in "caracter_asignado".
+  * 0.5 pts ("es_correcta": false): Either answers well without applying the directive "caracter_asignado", or applies the directive with minor grammar errors.
+  * 0.0 pts ("es_correcta": false): Blank or unintelligible.
+
+SUBMISSIONS TO EVALUATE:
+Phase 5:
+${JSON.stringify(phase5Submissions, null, 2)}
+
+Phase 6:
+${JSON.stringify(phase6Submissions, null, 2)}
+
+For each item include:
+- "comentario": brief pedagogical feedback in ${langName} (1-2 sentences, no double quotes).
+- "correccion_sugerida": ideal model sentence in Taiwanese Traditional Chinese.
+- "pinyin_correccion": Hanyu Pinyin with tone marks.
+- "traduccion_correccion": natural translation in ${langName}.`
+        : `Evalúa las respuestas abiertas en Chino Tradicional de Taiwán del estudiante para la sección de Redacción (Fase 5: Respuestas libres y Fase 6: Redacción con directriz obligatoria).
+Redacta todos los comentarios, traducciones y el resumen general en ${langName}. PROHIBIDO usar comillas dobles (") dentro de valores de texto JSON.
 
 RÚBRICA DE CALIFICACIÓN:
 - Fase 5 (Respuestas a preguntas libres):

@@ -362,12 +362,13 @@ const loadDB = () => {
         try {
             const data = JSON.parse(raw);
             const hasSeedLoaded = seed && Object.keys(seed).length > 0;
-            if (hasSeedLoaded && (!data.meta || data.meta.migratedWordsVersion !== targetDataVersion || !data.clasificadores || data.clasificadores.length === 0)) {
+            const hasL8 = Array.isArray(data.estructuras) && data.estructuras.some(s => Number(s.leccion) === 8);
+            if (hasSeedLoaded && (!data.meta || data.meta.migratedWordsVersion !== targetDataVersion || !data.clasificadores || data.clasificadores.length === 0 || !hasL8)) {
                 sanitizeAndMigrateData(data, seed);
                 data.meta = data.meta || {};
                 data.meta.migratedWordsVersion = targetDataVersion;
                 saveDB(data);
-            } else {
+            } else if (hasSeedLoaded) {
                 memoryDBCache[key] = data;
             }
             return data;

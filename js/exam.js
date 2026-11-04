@@ -1,10 +1,9 @@
 /**
  * =====================================================
  * AppChino — exam.js
- * Modo Examen Personalizable en 3 Niveles + Enfoque por Lección
+ * Modo Examen Personalizable en 3 Niveles + Enfoque por Lección (Bilingüe ES / EN)
  *
- * - Selección libre de Lecciones Foco (ej. solo Lección 8, o varias)
- *   usando las lecciones anteriores como soporte gramatical base.
+ * - Selección libre de Lecciones Foco (usando las lecciones anteriores como soporte base).
  * - Nivel 1 (Áreas a evaluar):
  *     1. Vocabulario (Fase 1: Pinyin->Hanzi, Fase 2: Hanzi->Pinyin)
  *     2. Gramática (Fase 3: Completado de frases, Fase 4: Selección múltiple)
@@ -17,6 +16,12 @@
 
 const EXAM_STORAGE_KEY = 'appchino_exam_state_v3';
 const EXAM_PREFS_STORAGE_KEY = 'appchino_exam_prefs_v3';
+
+const isExamEnglish = () => {
+    return (typeof I18N !== 'undefined' && typeof I18N.getLanguage === 'function')
+        ? I18N.getLanguage() === 'en'
+        : (typeof localStorage !== 'undefined' && localStorage.getItem('appchino_lang') === 'en');
+};
 
 const DEFAULT_EXAM_PREFS = {
     selectedLessons: [8],
@@ -244,7 +249,6 @@ const generatePhase1Local = (focusWords, supportWords, count = 5) => {
     }
 
     return targetWords.map((target, idx) => {
-        // Priorizar distractores de las mismas lecciones foco
         const focusDistractors = validFocus
             .filter(w => w.tradicional !== target.tradicional)
             .map(w => w.tradicional);
@@ -293,22 +297,28 @@ const generatePhase2Local = (focusWords, supportWords, count = 5) => {
 /**
  * Construye en local las `count` directrices para la Fase 6 (Redacción con directrices),
  * combinando palabras clave y estructuras gramaticales de las lecciones FOCO.
+ * Compatible tanto con fórmulas en Español (`Afirm.:`) como en Inglés (`Affirm.:`).
  */
 const buildLocalDirectivesBank = (focusWords, focusStructures, count = 5) => {
     const directives = [];
 
-    // 1. Tomar hasta la mitad de directrices de estructuras gramaticales foco (ej. "比 (A + 比 + B + Vs)")
+    // 1. Tomar hasta la mitad de directrices de estructuras gramaticales foco
     const structCount = Math.min(focusStructures.length, Math.ceil(count / 2));
     const pickedStructs = shuffleArray(focusStructures).slice(0, structCount);
     pickedStructs.forEach(s => {
-        const shortFormula = (s.formula || '').split('|')[0].replace(/^Afirm\.:\s*/i, '').trim();
+        const shortFormula = (s.formula || '')
+            .split('|')[0]
+            .replace(/^(Af+irm\.|Standard|Full|1\))\s*:?\s*/i, '')
+            .replace(/"/g, "'")
+            .trim();
+        const fallbackName = (s.nombre || '').replace(/"/g, "'").trim();
         directives.push({
             tipo: 'estructura',
-            valor: shortFormula || s.nombre
+            valor: shortFormula || fallbackName
         });
     });
 
-    // 2. Completar el resto con palabras versátiles del vocabulario foco (V, Vs, Adv, Prep, Conj, Phr, N)
+    // 2. Completar el resto con palabras versátiles del vocabulario foco
     const priorityWords = focusWords.filter(w =>
         ['V', 'Adv', 'Prep', 'Conj', 'Phr', 'N'].includes(w.categoria) && w.tradicional
     );
@@ -341,13 +351,32 @@ const verifyPhase2Answer = (expectedPinyin, userAnswer) => {
  * Inicia y genera un nuevo examen personalizado.
  */
 const startNewExam = async () => {
+    const isEn = isExamEnglish();
+
+    // Asegurar que el paquete de idioma activo (SEED_DATA o SEED_DATA_EN) esté cargado antes de consultar la BD
+    if (typeof I18N !== 'undefined' && typeof I18N.ensureLanguageDataLoaded === 'function') {
+        try {
+            await I18N.ensureLanguageDataLoaded();
+            if (typeof invalidateStorageCache === 'function') {
+                invalidateStorageCache();
+            }
+        } catch (loadErr) {
+            console.warn("Advertencia al verificar paquete de idioma antes del examen:", loadErr);
+        }
+    }
+
     loadExamPrefs();
     const pools = getExamPools(examPrefs);
     const activePhases = computeActivePhases(examPrefs.areas);
     const qCount = examPrefs.questionCount || 5;
 
     if (pools.focusWords.length < 3) {
-        showToast("Selecciona al menos una lección con vocabulario disponible.", "warning");
+        showToast(
+            isEn
+                ? "Select at least one lesson with available vocabulary."
+                : "Selecciona al menos una lección con vocabulario disponible.",
+            "warning"
+        );
         return;
     }
 
@@ -370,7 +399,9 @@ const startNewExam = async () => {
 
     if (needsAI) {
         examSession.status = 'loading';
-        examSession.loadingMessage = `Diseñando examen enfocado en L${examPrefs.selectedLessons.join(', L')} (${qCount} preguntas por subfase)...`;
+        examSession.loadingMessage = isEn
+            ? `Designing exam focused on L${examPrefs.selectedLessons.join(', L')} (${qCount} questions per subphase)...`
+            : `Diseñando examen enfocado en L${examPrefs.selectedLessons.join(', L')} (${qCount} preguntas por subfase)...`;
         saveExamState();
         renderExam();
     }
@@ -425,13 +456,17 @@ const startNewExam = async () => {
         examSession.currentPhase = activePhases[0];
         saveExamState();
         renderExam();
-        showToast("¡Examen listo! Mucho éxito.", "success");
+        showToast(isEn ? "Exam ready! Good luck." : "¡Examen listo! Mucho éxito.", "success");
     } catch (err) {
         console.error("Error al iniciar el examen:", err);
         examSession.status = 'idle';
         saveExamState();
         renderExam();
-        showToast("Error al generar el examen con IA: " + (err.message || "Intenta nuevamente"), "error");
+        showToast(
+            (isEn ? "Error generating exam with AI: " : "Error al generar el examen con IA: ") +
+                (err.message || (isEn ? "Please try again" : "Intenta nuevamente")),
+            "error"
+        );
     }
 };
 
@@ -439,9 +474,12 @@ const startNewExam = async () => {
  * Califica todas las áreas activas del examen.
  */
 const finishAndEvaluateExam = async () => {
+    const isEn = isExamEnglish();
     const missingPhases = checkIncompletePhases();
     if (missingPhases.length > 0) {
-        const confirmMsg = `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
+        const confirmMsg = isEn
+            ? `You have unanswered questions in: ${missingPhases.join(', ')}. Do you want to grade and finish the exam anyway?`
+            : `Tienes preguntas sin responder en: ${missingPhases.join(', ')}. ¿Deseas calificar y finalizar el examen de todos modos?`;
         if (!confirm(confirmMsg)) {
             return;
         }
@@ -452,10 +490,14 @@ const finishAndEvaluateExam = async () => {
 
     if (hasWriting) {
         examSession.status = 'evaluating';
-        examSession.loadingMessage = 'El profesor IA está evaluando tu redacción y calculando tu puntuación...';
+        examSession.loadingMessage = isEn
+            ? 'The AI teacher is grading your writing and calculating your score...'
+            : 'El profesor IA está evaluando tu redacción y calculando tu puntuación...';
         saveExamState();
         renderExam();
     }
+
+    const noAnsLabel = isEn ? '(No answer)' : '(Sin respuesta)';
 
     try {
         // 1. Fase 1
@@ -468,7 +510,7 @@ const finishAndEvaluateExam = async () => {
                 id: q.id,
                 pinyin: q.pinyin,
                 zhuyin: q.zhuyin,
-                userAnswer: userAns || '(Sin respuesta)',
+                userAnswer: userAns || noAnsLabel,
                 correctAnswer: q.correctHanzi,
                 isCorrect
             };
@@ -484,7 +526,7 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 hanzi: q.hanzi,
-                userAnswer: userAns || '(Sin respuesta)',
+                userAnswer: userAns || noAnsLabel,
                 correctAnswer: expected,
                 isCorrect
             };
@@ -500,7 +542,7 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 oracion: q.oracion,
-                userAnswer: userAns || '(Sin respuesta)',
+                userAnswer: userAns || noAnsLabel,
                 correctAnswer: expected,
                 isCorrect
             };
@@ -516,7 +558,7 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 oracion: q.oracion,
-                userAnswer: userAns || '(Sin respuesta)',
+                userAnswer: userAns || noAnsLabel,
                 correctAnswer: expected,
                 isCorrect
             };
@@ -524,6 +566,8 @@ const finishAndEvaluateExam = async () => {
 
         // 5. Fase 7 (Lectura)
         let scoreP7_vf = 0;
+        const trueLabel = isEn ? 'True' : 'Verdadero';
+        const falseLabel = isEn ? 'False' : 'Falso';
         const p7_vfDetails = (examSession.data.phase7?.verdadero_falso || []).map(q => {
             const userAns = examSession.userAnswers.phase7_vf[q.id];
             const expected = q.es_verdadera;
@@ -532,8 +576,8 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 afirmacion: q.afirmacion,
-                userAnswer: userAns === undefined ? '(Sin respuesta)' : (userAns ? 'Verdadero' : 'Falso'),
-                correctAnswer: expected ? 'Verdadero' : 'Falso',
+                userAnswer: userAns === undefined ? noAnsLabel : (userAns ? trueLabel : falseLabel),
+                correctAnswer: expected ? trueLabel : falseLabel,
                 isCorrect
             };
         });
@@ -547,7 +591,7 @@ const finishAndEvaluateExam = async () => {
             return {
                 id: q.id,
                 pregunta: q.pregunta,
-                userAnswer: userAns || '(Sin respuesta)',
+                userAnswer: userAns || noAnsLabel,
                 correctAnswer: expected,
                 isCorrect
             };
@@ -560,7 +604,9 @@ const finishAndEvaluateExam = async () => {
         let scoreP6 = 0;
         let p5Details = [];
         let p6Details = [];
-        let aiSummary = '¡Excelente práctica enfocada en las lecciones seleccionadas!';
+        let aiSummary = isEn
+            ? 'Excellent practice focused on your selected lessons!'
+            : '¡Excelente práctica enfocada en las lecciones seleccionadas!';
 
         if (hasWriting) {
             const p5Submissions = (examSession.data.phase5 || []).map(q => ({
@@ -589,7 +635,9 @@ const finishAndEvaluateExam = async () => {
                         id: s.id,
                         es_correcta: s.respuesta_usuario.trim().length > 1,
                         puntaje: s.respuesta_usuario.trim().length > 1 ? 1.0 : 0.0,
-                        comentario: s.respuesta_usuario.trim().length > 1 ? "Respuesta registrada." : "No se ingresó respuesta.",
+                        comentario: s.respuesta_usuario.trim().length > 1
+                            ? (isEn ? "Answer recorded." : "Respuesta registrada.")
+                            : (isEn ? "No answer provided." : "No se ingresó respuesta."),
                         correccion_sugerida: s.ejemplo_respuesta || "",
                         pinyin_correccion: ""
                     })),
@@ -600,12 +648,14 @@ const finishAndEvaluateExam = async () => {
                             es_correcta: hasReply,
                             uso_caracter_banco: hasReply,
                             puntaje: hasReply ? 1.0 : 0.0,
-                            comentario: hasReply ? "Respuesta registrada." : "No se ingresó respuesta.",
+                            comentario: hasReply
+                                ? (isEn ? "Answer recorded." : "Respuesta registrada.")
+                                : (isEn ? "No answer provided." : "No se ingresó respuesta."),
                             correccion_sugerida: s.ejemplo_respuesta || "",
                             pinyin_correccion: ""
                         };
                     }),
-                    resumen_general: "Examen completado."
+                    resumen_general: isEn ? "Exam completed." : "Examen completado."
                 };
             }
 
@@ -617,7 +667,7 @@ const finishAndEvaluateExam = async () => {
                     id: q.id,
                     escenario: q.escenario,
                     pregunta: q.pregunta,
-                    userAnswer: examSession.userAnswers.phase5[q.id] || '(Sin respuesta)',
+                    userAnswer: examSession.userAnswers.phase5[q.id] || noAnsLabel,
                     eval: ev
                 };
             });
@@ -630,7 +680,7 @@ const finishAndEvaluateExam = async () => {
                     id: q.id,
                     caracter_asignado: q.caracter_asignado,
                     pregunta: q.pregunta,
-                    userAnswer: examSession.userAnswers.phase6[q.id] || '(Sin respuesta)',
+                    userAnswer: examSession.userAnswers.phase6[q.id] || noAnsLabel,
                     eval: ev
                 };
             });
@@ -699,13 +749,16 @@ const finishAndEvaluateExam = async () => {
         examSession.status = 'completed';
         saveExamState();
         renderExam();
-        showToast("¡Examen evaluado exitosamente!", "success");
+        showToast(isEn ? "Exam graded successfully!" : "¡Examen evaluado exitosamente!", "success");
     } catch (error) {
         console.error("Error durante la evaluación del examen:", error);
         examSession.status = 'active';
         saveExamState();
         renderExam();
-        showToast("Ocurrió un error al evaluar el examen: " + error.message, "error");
+        showToast(
+            (isEn ? "An error occurred while grading the exam: " : "Ocurrió un error al evaluar el examen: ") + error.message,
+            "error"
+        );
     }
 };
 
@@ -713,13 +766,14 @@ const finishAndEvaluateExam = async () => {
  * Verifica preguntas incompletas únicamente en las fases activas.
  */
 const checkIncompletePhases = () => {
+    const isEn = isExamEnglish();
     const incomplete = [];
     const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
 
     activePhases.forEach(p => {
         const status = getPhaseAnsweredStatus(p);
         if (!status.completed) {
-            incomplete.push(`Fase ${p} (${status.label})`);
+            incomplete.push(`${isEn ? 'Phase' : 'Fase'} ${p} (${status.label})`);
         }
     });
 
@@ -742,7 +796,11 @@ const setExamPhase = (phaseNumber) => {
  * Abandona el examen actual y vuelve a la pantalla de configuración.
  */
 const resetExam = () => {
-    if (confirm("¿Estás seguro de que deseas salir del examen actual? Se perderán las respuestas no guardadas.")) {
+    const isEn = isExamEnglish();
+    const msg = isEn
+        ? "Are you sure you want to leave the current exam? Unsaved answers will be lost."
+        : "¿Estás seguro de que deseas salir del examen actual? Se perderán las respuestas no guardadas.";
+    if (confirm(msg)) {
         examSession.status = 'idle';
         examSession.results = null;
         saveExamState();
@@ -786,9 +844,8 @@ const getEstimatedTotalQuestions = (prefs = examPrefs) => {
  */
 const renderExamWelcome = (container) => {
     loadExamPrefs();
-    const pools = getExamPools(examPrefs);
+    const isEn = isExamEnglish();
     const totalQuestions = getEstimatedTotalQuestions(examPrefs);
-    const activePhases = computeActivePhases(examPrefs.areas);
     const qCount = examPrefs.questionCount;
 
     const lessonNumbers = (typeof APP_CONFIG !== 'undefined' && APP_CONFIG.lessons && APP_CONFIG.lessons.items)
@@ -799,14 +856,11 @@ const renderExamWelcome = (container) => {
     container.innerHTML = `
         <div class="exam-welcome-card">
             <div class="exam-welcome-header">
-                <div class="exam-badge">Simulador Oficial TOCFL · Personalizable</div>
-                <h1 class="exam-title">Simulación de Examen</h1>
-                <p class="exam-subtitle">Configura las lecciones foco que vas a presentar y personaliza las áreas, la extensión y la complejidad de las frases.</p>
-                <div class="exam-stats-pills" id="exam-header-pills">
-                    <span class="exam-pill">🎯 Foco: L${examPrefs.selectedLessons.slice().sort((a,b)=>a-b).join(', L')} (${pools.focusWords.length} palabras · ${pools.focusStructures.length} estructuras)</span>
-                    <span class="exam-pill">🧱 Soporte base: ${pools.supportWords.length} palabras previas</span>
-                    <span class="exam-pill">📝 ${totalQuestions} preguntas (${activePhases.length} subfases)</span>
-                </div>
+                <div class="exam-badge">${isEn ? 'Official TOCFL Simulator · Customizable' : 'Simulador Oficial TOCFL · Personalizable'}</div>
+                <h1 class="exam-title">${isEn ? 'Exam Simulation' : 'Simulación de Examen'}</h1>
+                <p class="exam-subtitle">${isEn
+                    ? 'Configure the target lessons you want to take and customize the evaluation areas, length, and sentence complexity.'
+                    : 'Configura las lecciones foco que vas a presentar y personaliza las áreas, la extensión y la complejidad de las frases.'}</p>
             </div>
 
             <!-- PASO 0: Selector libre de Lecciones Foco -->
@@ -817,19 +871,18 @@ const renderExamWelcome = (container) => {
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
                             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
                         </svg>
-                        <span>Lecciones a evaluar (Enfoque directo)</span>
+                        <span>${isEn ? 'Lessons to evaluate (Direct focus)' : 'Lecciones a evaluar (Enfoque directo)'}</span>
                     </div>
                     <div class="exam-quick-lesson-btns">
-                        <button type="button" class="btn btn-secondary btn-sm" id="btn-exam-only-latest" title="Enfocar únicamente en la última lección">
-                            🎯 Solo L${maxLessonNum}
-                        </button>
-                        <button type="button" class="btn btn-secondary btn-sm" id="btn-exam-all-lessons" title="Seleccionar todas las lecciones">
-                            📚 Todas (L1–L${maxLessonNum})
+                        <button type="button" class="btn btn-secondary btn-sm" id="btn-exam-all-lessons" title="${isEn ? 'Select all lessons' : 'Seleccionar todas las lecciones'}">
+                            📚 ${isEn ? `All (L1–L${maxLessonNum})` : `Todas (L1–L${maxLessonNum})`}
                         </button>
                     </div>
                 </div>
                 <p class="exam-lesson-hint">
-                    Selecciona <strong>cualquier combinación de lecciones</strong> para que el examen evalúe sus palabras y estructuras. Las lecciones anteriores se usarán únicamente como base gramatical de soporte.
+                    ${isEn
+                        ? 'Select <strong>any combination of lessons</strong> so the exam directly tests their vocabulary and grammar structures. Earlier lessons will only be used as support context.'
+                        : 'Selecciona <strong>cualquier combinación de lecciones</strong> para que el examen evalúe sus palabras y estructuras. Las lecciones anteriores se usarán únicamente como base gramatical de soporte.'}
                 </p>
                 <div class="exam-lesson-checkboxes" id="exam-lesson-checkboxes">
                     ${lessonNumbers.map(num => {
@@ -837,7 +890,7 @@ const renderExamWelcome = (container) => {
                         return `
                             <label class="exam-lesson-cb-card ${isChecked ? 'active' : ''}">
                                 <input type="checkbox" data-lesson="${num}" ${isChecked ? 'checked' : ''}>
-                                <span class="cb-label">Lección ${num}</span>
+                                <span class="cb-label">${isEn ? `Lesson ${num}` : `Lección ${num}`}</span>
                             </label>
                         `;
                     }).join('')}
@@ -845,47 +898,52 @@ const renderExamWelcome = (container) => {
                 <div class="exam-lesson-extra">
                     <label class="exam-unassigned-checkbox-label">
                         <input type="checkbox" id="exam-toggle-unassigned" ${examPrefs.includeUnassigned ? 'checked' : ''}>
-                        <span>Incluir tarjetas sin lección asignada (/)</span>
+                        <span>${isEn ? 'Include cards without assigned lesson (/)' : 'Incluir tarjetas sin lección asignada (/)'}</span>
                     </label>
-                    <span class="exam-word-count-badge" id="exam-word-count-badge">
-                        🎯 ${pools.focusWords.length} palabras foco · ${pools.focusStructures.length} estructuras foco
-                    </span>
                 </div>
             </div>
 
             <!-- NIVEL 1: Áreas a Evaluar -->
             <div class="exam-custom-section">
-                <div class="exam-custom-title">1. Áreas a evaluar</div>
+                <div class="exam-custom-title">${isEn ? '1. Areas to evaluate' : '1. Áreas a evaluar'}</div>
                 <div class="exam-areas-grid" id="exam-areas-grid">
                     <label class="exam-area-card ${examPrefs.areas.vocabulario ? 'active' : ''}">
                         <input type="checkbox" data-area="vocabulario" ${examPrefs.areas.vocabulario ? 'checked' : ''}>
                         <div class="exam-area-body">
-                            <div class="exam-area-title">📖 Vocabulario <span class="exam-area-tag">Fases 1–2</span></div>
-                            <p class="exam-area-desc">Reconocer caracteres dado el Pinyin y escribir el Pinyin con tonos dado el carácter (${qCount * 2} reactivos).</p>
+                            <div class="exam-area-title">📖 ${isEn ? 'Vocabulary' : 'Vocabulario'} <span class="exam-area-tag">${isEn ? 'Phases 1–2' : 'Fases 1–2'}</span></div>
+                            <p class="exam-area-desc">${isEn
+                                ? `Recognize characters from Pinyin and type Pinyin with tones from the character (${qCount * 2} items).`
+                                : `Reconocer caracteres dado el Pinyin y escribir el Pinyin con tonos dado el carácter (${qCount * 2} reactivos).`}</p>
                         </div>
                     </label>
 
                     <label class="exam-area-card ${examPrefs.areas.gramatica ? 'active' : ''}">
                         <input type="checkbox" data-area="gramatica" ${examPrefs.areas.gramatica ? 'checked' : ''}>
                         <div class="exam-area-body">
-                            <div class="exam-area-title">🧩 Gramática <span class="exam-area-tag">Fases 3–4</span></div>
-                            <p class="exam-area-desc">Completado de frases (<code>[ ___ ]</code>) y selección múltiple (A, B, C) sobre las estructuras foco (${qCount * 2} reactivos).</p>
+                            <div class="exam-area-title">🧩 ${isEn ? 'Grammar' : 'Gramática'} <span class="exam-area-tag">${isEn ? 'Phases 3–4' : 'Fases 3–4'}</span></div>
+                            <p class="exam-area-desc">${isEn
+                                ? `Fill in the blanks (<code>[ ___ ]</code>) and multiple choice (A, B, C) on target structures (${qCount * 2} items).`
+                                : `Completado de frases (<code>[ ___ ]</code>) y selección múltiple (A, B, C) sobre las estructuras foco (${qCount * 2} reactivos).`}</p>
                         </div>
                     </label>
 
                     <label class="exam-area-card ${examPrefs.areas.redaccion ? 'active' : ''}">
                         <input type="checkbox" data-area="redaccion" ${examPrefs.areas.redaccion ? 'checked' : ''}>
                         <div class="exam-area-body">
-                            <div class="exam-area-title">✍️ Redacción <span class="exam-area-tag">Fases 5–6</span></div>
-                            <p class="exam-area-desc">Respuestas a preguntas libres y redacción con directrices (usar palabra o estructura específica) (${qCount * 2} reactivos).</p>
+                            <div class="exam-area-title">✍️ ${isEn ? 'Writing' : 'Redacción'} <span class="exam-area-tag">${isEn ? 'Phases 5–6' : 'Fases 5–6'}</span></div>
+                            <p class="exam-area-desc">${isEn
+                                ? `Open situational responses and guided writing (using a required word or structure) (${qCount * 2} items).`
+                                : `Respuestas a preguntas libres y redacción con directrices (usar palabra o estructura específica) (${qCount * 2} reactivos).`}</p>
                         </div>
                     </label>
 
                     <label class="exam-area-card ${examPrefs.areas.lectura ? 'active' : ''}">
                         <input type="checkbox" data-area="lectura" ${examPrefs.areas.lectura ? 'checked' : ''}>
                         <div class="exam-area-body">
-                            <div class="exam-area-title">📜 Lectura <span class="exam-area-tag">Fase 7</span></div>
-                            <p class="exam-area-desc">Relato en chino tradicional con preguntas de Verdadero/Falso y Opción Múltiple (${qCount * 2} reactivos).</p>
+                            <div class="exam-area-title">📜 ${isEn ? 'Reading' : 'Lectura'} <span class="exam-area-tag">${isEn ? 'Phase 7' : 'Fase 7'}</span></div>
+                            <p class="exam-area-desc">${isEn
+                                ? `Traditional Chinese reading passage with True/False and Multiple Choice questions (${qCount * 2} items).`
+                                : `Relato en chino tradicional con preguntas de Verdadero/Falso y Opción Múltiple (${qCount * 2} reactivos).`}</p>
                         </div>
                     </label>
                 </div>
@@ -895,38 +953,38 @@ const renderExamWelcome = (container) => {
             <div class="exam-custom-row-2col">
                 <!-- NIVEL 2: Cantidad de preguntas por tema -->
                 <div class="exam-custom-section">
-                    <div class="exam-custom-title">2. Cantidad de preguntas por tema</div>
+                    <div class="exam-custom-title">${isEn ? '2. Questions per topic' : '2. Cantidad de preguntas por tema'}</div>
                     <div class="exam-segmented-group" id="exam-count-group">
                         <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 3 ? 'active' : ''}" data-count="3">
-                            <strong>⚡ Corto (3)</strong>
-                            <small>3 por subfase</small>
+                            <strong>⚡ ${isEn ? 'Short (3)' : 'Corto (3)'}</strong>
+                            <small>${isEn ? '3 per subphase' : '3 por subfase'}</small>
                         </button>
                         <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 5 ? 'active' : ''}" data-count="5">
-                            <strong>⚖️ Medio (5)</strong>
-                            <small>5 por subfase</small>
+                            <strong>⚖️ ${isEn ? 'Medium (5)' : 'Medio (5)'}</strong>
+                            <small>${isEn ? '5 per subphase' : '5 por subfase'}</small>
                         </button>
                         <button type="button" class="exam-seg-btn ${examPrefs.questionCount === 10 ? 'active' : ''}" data-count="10">
-                            <strong>🏆 Largo (10)</strong>
-                            <small>10 por subfase</small>
+                            <strong>🏆 ${isEn ? 'Long (10)' : 'Largo (10)'}</strong>
+                            <small>${isEn ? '10 per subphase' : '10 por subfase'}</small>
                         </button>
                     </div>
                 </div>
 
                 <!-- NIVEL 3: Dificultad (Longitud de frases) -->
                 <div class="exam-custom-section">
-                    <div class="exam-custom-title">3. Dificultad (Longitud de frases)</div>
+                    <div class="exam-custom-title">${isEn ? '3. Difficulty (Sentence length)' : '3. Dificultad (Longitud de frases)'}</div>
                     <div class="exam-segmented-group" id="exam-difficulty-group">
                         <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'basico' ? 'active' : ''}" data-diff="basico">
-                            <strong>🟢 Básico</strong>
-                            <small>Frases cortas (6–10 caract.)</small>
+                            <strong>🟢 ${isEn ? 'Basic' : 'Básico'}</strong>
+                            <small>${isEn ? 'Short (6–10 chars)' : 'Frases cortas (6–10 caract.)'}</small>
                         </button>
                         <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'estandar' ? 'active' : ''}" data-diff="estandar">
-                            <strong>🟡 Estándar</strong>
-                            <small>Nivel examen (10–16 caract.)</small>
+                            <strong>🟡 ${isEn ? 'Standard' : 'Estándar'}</strong>
+                            <small>${isEn ? 'Exam level (10–16 chars)' : 'Nivel examen (10–16 caract.)'}</small>
                         </button>
                         <button type="button" class="exam-seg-btn ${examPrefs.difficulty === 'avanzado' ? 'active' : ''}" data-diff="avanzado">
-                            <strong>🔴 Avanzado</strong>
-                            <small>Compuestas (16–25 caract.)</small>
+                            <strong>🔴 ${isEn ? 'Advanced' : 'Avanzado'}</strong>
+                            <small>${isEn ? 'Compound (16–25 chars)' : 'Compuestas (16–25 caract.)'}</small>
                         </button>
                     </div>
                 </div>
@@ -937,7 +995,7 @@ const renderExamWelcome = (container) => {
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
-                    Comenzar Examen (${totalQuestions} preguntas)
+                    ${isEn ? `Start Exam (${totalQuestions} questions)` : `Comenzar Examen (${totalQuestions} preguntas)`}
                 </button>
             </div>
         </div>
@@ -957,7 +1015,10 @@ const renderExamWelcome = (container) => {
             } else {
                 if (examPrefs.selectedLessons.length <= 1) {
                     target.checked = true;
-                    showToast("Debe haber al menos 1 lección seleccionada.", "warning");
+                    showToast(
+                        isEn ? "At least 1 lesson must remain selected." : "Debe haber al menos 1 lección seleccionada.",
+                        "warning"
+                    );
                     return;
                 }
                 examPrefs.selectedLessons = examPrefs.selectedLessons.filter(n => n !== num);
@@ -966,12 +1027,6 @@ const renderExamWelcome = (container) => {
             renderExamWelcome(container);
         });
     }
-
-    container.querySelector('#btn-exam-only-latest')?.addEventListener('click', () => {
-        examPrefs.selectedLessons = [maxLessonNum];
-        saveExamPrefs();
-        renderExamWelcome(container);
-    });
 
     container.querySelector('#btn-exam-all-lessons')?.addEventListener('click', () => {
         examPrefs.selectedLessons = [...lessonNumbers];
@@ -994,7 +1049,10 @@ const renderExamWelcome = (container) => {
         if (!Object.values(examPrefs.areas).some(Boolean)) {
             examPrefs.areas[areaKey] = true;
             input.checked = true;
-            showToast("Selecciona al menos un área a evaluar.", "warning");
+            showToast(
+                isEn ? "Select at least one area to evaluate." : "Selecciona al menos un área a evaluar.",
+                "warning"
+            );
             return;
         }
         saveExamPrefs();
@@ -1026,11 +1084,14 @@ const renderExamWelcome = (container) => {
  * Pantalla de carga / evaluación.
  */
 const renderExamLoading = (container) => {
+    const isEn = isExamEnglish();
     const isEvaluating = examSession.status === 'evaluating';
-    const title = isEvaluating ? "Evaluando Examen" : "Preparando Examen Personalizado";
+    const title = isEvaluating
+        ? (isEn ? "Evaluating Exam" : "Evaluando Examen")
+        : (isEn ? "Preparing Custom Exam" : "Preparando Examen Personalizado");
     const message = examSession.loadingMessage || (isEvaluating
-        ? "El profesor IA está evaluando tus respuestas..."
-        : "Generando reactivos enfocados en las lecciones seleccionadas...");
+        ? (isEn ? "The AI teacher is grading your answers..." : "El profesor IA está evaluando tus respuestas...")
+        : (isEn ? "Generating questions focused on your selected lessons..." : "Generando reactivos enfocados en las lecciones seleccionadas..."));
 
     container.innerHTML = `
         <div class="exam-loading-card">
@@ -1038,26 +1099,42 @@ const renderExamLoading = (container) => {
             <h2 class="exam-loading-title">${title}</h2>
             <p class="exam-loading-text">${message}</p>
             <div class="exam-loading-tips">
-                <p>💡 <em>Tip: En la Fase 2 (Pinyin), presiona 1, 2, 3 o 4 después de cada sílaba para poner los tonos automáticamente (ej: hao3 → hǎo).</em></p>
+                <p>💡 <em>${isEn
+                    ? 'Tip: In Phase 2 (Pinyin), press 1, 2, 3, or 4 after each syllable to place tone marks automatically (e.g. hao3 → hǎo).'
+                    : 'Tip: En la Fase 2 (Pinyin), presiona 1, 2, 3 o 4 después de cada sílaba para poner los tonos automáticamente (ej: hao3 → hǎo).'}</em></p>
             </div>
         </div>
     `;
 };
 
-const PHASE_NAMES = {
-    1: "1. Reconocer Caracteres",
-    2: "2. Escribir Pinyin",
-    3: "3. Completar Frases",
-    4: "4. Opción Múltiple Gramatical",
-    5: "5. Respuestas Libres",
-    6: "6. Redacción con Directriz",
-    7: "7. Comprensión Lectora"
+const getPhaseName = (phaseNum) => {
+    const isEn = isExamEnglish();
+    const mapEs = {
+        1: "1. Reconocer Caracteres",
+        2: "2. Escribir Pinyin",
+        3: "3. Completar Frases",
+        4: "4. Opción Múltiple Gramatical",
+        5: "5. Respuestas Libres",
+        6: "6. Redacción con Directriz",
+        7: "7. Comprensión Lectora"
+    };
+    const mapEn = {
+        1: "1. Recognize Characters",
+        2: "2. Type Pinyin",
+        3: "3. Fill in the Blanks",
+        4: "4. Grammar Multiple Choice",
+        5: "5. Free Responses",
+        6: "6. Guided Writing",
+        7: "7. Reading Comprehension"
+    };
+    return (isEn ? mapEn[phaseNum] : mapEs[phaseNum]) || `${phaseNum}`;
 };
 
 /**
  * Pantalla de Examen Activo (con Stepper dinámico solo para las fases seleccionadas).
  */
 const renderExamActive = (container) => {
+    const isEn = isExamEnglish();
     const activePhases = examSession.activePhases || [1, 2, 3, 4, 5, 6, 7];
     const currentPhase = activePhases.includes(examSession.currentPhase) ? examSession.currentPhase : activePhases[0];
     examSession.currentPhase = currentPhase;
@@ -1072,12 +1149,14 @@ const renderExamActive = (container) => {
             <div class="exam-active-header">
                 <div class="exam-header-top">
                     <div class="exam-active-title">
-                        <h2>Examen · Lección L${focusedLessons}</h2>
-                        <span class="exam-phase-indicator">Paso ${currentIdx + 1} de ${activePhases.length}: ${PHASE_NAMES[currentPhase]}</span>
+                        <h2>${isEn ? `Exam · Lesson L${focusedLessons}` : `Examen · Lección L${focusedLessons}`}</h2>
+                        <span class="exam-phase-indicator">${isEn
+                            ? `Step ${currentIdx + 1} of ${activePhases.length}: ${getPhaseName(currentPhase)}`
+                            : `Paso ${currentIdx + 1} de ${activePhases.length}: ${getPhaseName(currentPhase)}`}</span>
                     </div>
                     <div class="exam-header-actions">
-                        <button class="btn btn-secondary btn-sm" id="btn-cancel-exam" title="Salir del examen">
-                            Abandonar
+                        <button class="btn btn-secondary btn-sm" id="btn-cancel-exam" title="${isEn ? 'Leave exam' : 'Salir del examen'}">
+                            ${isEn ? 'Leave' : 'Abandonar'}
                         </button>
                     </div>
                 </div>
@@ -1104,18 +1183,18 @@ const renderExamActive = (container) => {
 
             <div class="exam-active-footer">
                 <button class="btn btn-secondary" id="btn-prev-phase" ${prevPhase === null ? 'disabled' : ''}>
-                    &larr; Anterior
+                    &larr; ${isEn ? 'Previous' : 'Anterior'}
                 </button>
                 <div class="exam-footer-info">
                     <span>${getPhaseProgressSummary(currentPhase)}</span>
                 </div>
                 ${nextPhase !== null ? `
                     <button class="btn btn-primary" id="btn-next-phase">
-                        Siguiente &rarr;
+                        ${isEn ? 'Next' : 'Siguiente'} &rarr;
                     </button>
                 ` : `
                     <button class="btn btn-primary btn-submit-exam" id="btn-finish-exam">
-                        Finalizar y Calificar Examen
+                        ${isEn ? 'Submit and Grade Exam' : 'Finalizar y Calificar Examen'}
                     </button>
                 `}
             </div>
@@ -1189,8 +1268,9 @@ const getPhaseAnsweredStatus = (phaseNum) => {
 };
 
 const getPhaseProgressSummary = (phaseNum) => {
+    const isEn = isExamEnglish();
     const status = getPhaseAnsweredStatus(phaseNum);
-    return `Respondidas: ${status.label} preguntas`;
+    return isEn ? `Answered: ${status.label} questions` : `Respondidas: ${status.label} preguntas`;
 };
 
 const renderPhaseBody = (phaseNum) => {
@@ -1210,12 +1290,15 @@ const renderPhaseBody = (phaseNum) => {
 // FASE 1: Reconocer Caracteres dado el Pinyin/Zhuyin
 // --------------------------------------------------------------------------
 const renderPhase1 = () => {
+    const isEn = isExamEnglish();
     const questions = examSession.data.phase1 || [];
     return `
         <div class="phase-container phase-1-container">
             <div class="phase-header-banner">
-                <h3>Fase 1: Reconocimiento de Caracteres (Vocabulario)</h3>
-                <p>Selecciona la palabra en caracteres tradicionales que corresponde al Pinyin y Zhuyin mostrados.</p>
+                <h3>${isEn ? 'Phase 1: Character Recognition (Vocabulary)' : 'Fase 1: Reconocimiento de Caracteres (Vocabulario)'}</h3>
+                <p>${isEn
+                    ? 'Select the Traditional Chinese word that matches the Pinyin and Zhuyin shown.'
+                    : 'Selecciona la palabra en caracteres tradicionales que corresponde al Pinyin y Zhuyin mostrados.'}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1223,7 +1306,7 @@ const renderPhase1 = () => {
                     return `
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Pregunta ${idx + 1} de ${questions.length}</span>
+                                <span class="q-number">${isEn ? `Question ${idx + 1} of ${questions.length}` : `Pregunta ${idx + 1} de ${questions.length}`}</span>
                             </div>
                             <div class="q-prompt-center">
                                 <div class="q-pinyin-display">${q.pinyin}</div>
@@ -1251,12 +1334,15 @@ const renderPhase1 = () => {
 // FASE 2: Reconocer Pinyin dado el Carácter
 // --------------------------------------------------------------------------
 const renderPhase2 = () => {
+    const isEn = isExamEnglish();
     const questions = examSession.data.phase2 || [];
     return `
         <div class="phase-container phase-2-container">
             <div class="phase-header-banner">
-                <h3>Fase 2: Reconocer el Pinyin dado el Carácter (Vocabulario)</h3>
-                <p>Escribe el Pinyin con tonos para cada palabra (usa las teclas 1 a 5 para colocar tildes tonales).</p>
+                <h3>${isEn ? 'Phase 2: Write Pinyin from Character (Vocabulary)' : 'Fase 2: Reconocer el Pinyin dado el Carácter (Vocabulario)'}</h3>
+                <p>${isEn
+                    ? 'Type the Pinyin with tone marks for each word (use keys 1 to 5 to place tone marks).'
+                    : 'Escribe el Pinyin con tonos para cada palabra (usa las teclas 1 a 5 para colocar tildes tonales).'}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1264,28 +1350,28 @@ const renderPhase2 = () => {
                     return `
                         <div class="exam-question-card phase2-card" data-q-id="${q.id}">
                             <div class="q-header">
-                                <span class="q-number">Término ${idx + 1} de ${questions.length}</span>
+                                <span class="q-number">${isEn ? `Term ${idx + 1} of ${questions.length}` : `Término ${idx + 1} de ${questions.length}`}</span>
                                 ${q.categoria ? `<span class="q-badge-cat">${(window.getCategoryLabel ? window.getCategoryLabel(q.categoria) : q.categoria)}</span>` : ''}
                             </div>
                             <div class="phase2-hanzi-banner">
                                 <div class="phase2-hanzi">${q.hanzi}</div>
                             </div>
                             <div class="phase2-input-wrapper">
-                                <label for="p2-input-${q.id}">Ingresa el Pinyin con tonos:</label>
+                                <label for="p2-input-${q.id}">${isEn ? 'Enter Pinyin with tones:' : 'Ingresa el Pinyin con tonos:'}</label>
                                 <input type="text" 
                                        class="form-control phase2-pinyin-input" 
                                        id="p2-input-${q.id}" 
                                        data-q-id="${q.id}" 
-                                       placeholder="Ej: nǐ hǎo" 
+                                       placeholder="${isEn ? 'Ex: nǐ hǎo' : 'Ej: nǐ hǎo'}" 
                                        value="${typed}" 
                                        autocomplete="off" 
                                        spellcheck="false">
                                 <div class="phase2-tone-helper">
-                                    <span>Tono 1: a1&rarr;ā</span>
-                                    <span>Tono 2: a2&rarr;á</span>
-                                    <span>Tono 3: a3&rarr;ǎ</span>
-                                    <span>Tono 4: a4&rarr;à</span>
-                                    <span>Neutro: a5&rarr;a</span>
+                                    <span>${isEn ? 'Tone 1: a1&rarr;ā' : 'Tono 1: a1&rarr;ā'}</span>
+                                    <span>${isEn ? 'Tone 2: a2&rarr;á' : 'Tono 2: a2&rarr;á'}</span>
+                                    <span>${isEn ? 'Tone 3: a3&rarr;ǎ' : 'Tono 3: a3&rarr;ǎ'}</span>
+                                    <span>${isEn ? 'Tone 4: a4&rarr;à' : 'Tono 4: a4&rarr;à'}</span>
+                                    <span>${isEn ? 'Neutral: a5&rarr;a' : 'Neutro: a5&rarr;a'}</span>
                                 </div>
                             </div>
                         </div>
@@ -1300,12 +1386,15 @@ const renderPhase2 = () => {
 // FASE 3: Gramática — Completado de Frases
 // --------------------------------------------------------------------------
 const renderPhase3 = () => {
+    const isEn = isExamEnglish();
     const questions = examSession.data.phase3 || [];
     return `
         <div class="phase-container phase-3-container">
             <div class="phase-header-banner">
-                <h3>Fase 3: 填空題 · Completado de Frases (Gramática)</h3>
-                <p>Lee las siguientes ${questions.length} oraciones y escribe en el espacio <code>[ ___ ]</code> la palabra adecuada.</p>
+                <h3>${isEn ? 'Phase 3: 填空題 · Fill in the Blanks (Grammar)' : 'Fase 3: 填空題 · Completado de Frases (Gramática)'}</h3>
+                <p>${isEn
+                    ? `Read the following ${questions.length} sentences and type the missing word for <code>[ ___ ]</code>.`
+                    : `Lee las siguientes ${questions.length} oraciones y escribe en el espacio <code>[ ___ ]</code> la palabra adecuada.`}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1341,12 +1430,15 @@ const renderPhase3 = () => {
 // FASE 4: Gramática — Selección Múltiple
 // --------------------------------------------------------------------------
 const renderPhase4 = () => {
+    const isEn = isExamEnglish();
     const questions = examSession.data.phase4 || [];
     return `
         <div class="phase-container phase-4-container">
             <div class="phase-header-banner">
-                <h3>Fase 4: 文法與句型選擇題 · Selección Múltiple (Gramática)</h3>
-                <p>Elige la opción correcta (A, B o C) que completa gramaticalmente cada oración.</p>
+                <h3>${isEn ? 'Phase 4: 文法與句型選擇題 · Multiple Choice (Grammar)' : 'Fase 4: 文法與句型選擇題 · Selección Múltiple (Gramática)'}</h3>
+                <p>${isEn
+                    ? 'Choose the correct option (A, B, or C) that grammatically completes each sentence.'
+                    : 'Elige la opción correcta (A, B o C) que completa gramaticalmente cada oración.'}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1386,12 +1478,15 @@ const renderPhase4 = () => {
 // FASE 5: Redacción — Respuestas a Frases Libres
 // --------------------------------------------------------------------------
 const renderPhase5 = () => {
+    const isEn = isExamEnglish();
     const questions = examSession.data.phase5 || [];
     return `
         <div class="phase-container phase-5-container">
             <div class="phase-header-banner">
-                <h3>Fase 5: 情境問答 · Respuestas a Frases Libres (Redacción)</h3>
-                <p>Responde en chino tradicional a cada pregunta según el escenario planteado.</p>
+                <h3>${isEn ? 'Phase 5: 情境問答 · Open Situational Responses (Writing)' : 'Fase 5: 情境問答 · Respuestas a Frases Libres (Redacción)'}</h3>
+                <p>${isEn
+                    ? 'Answer each question in Traditional Chinese according to the scenario presented.'
+                    : 'Responde en chino tradicional a cada pregunta según el escenario planteado.'}</p>
             </div>
             <div class="phase-questions-list">
                 ${questions.map((q, idx) => {
@@ -1427,17 +1522,20 @@ const renderPhase5 = () => {
 // FASE 6: Redacción con Directrices (Palabra o Estructura obligatoria)
 // --------------------------------------------------------------------------
 const renderPhase6 = () => {
+    const isEn = isExamEnglish();
     const bank = examSession.data.phase6?.banco_caracteres || [];
     const questions = examSession.data.phase6?.preguntas || [];
     return `
         <div class="phase-container phase-6-container">
             <div class="phase-header-banner">
-                <h3>Fase 6: 指定詞語與句型造句 · Redacción con Directrices</h3>
-                <p>Responde a cada pregunta utilizando obligatoriamente la palabra o estructura gramatical indicada.</p>
+                <h3>${isEn ? 'Phase 6: 指定詞語與句型造句 · Guided Writing with Directives' : 'Fase 6: 指定詞語與句型造句 · Redacción con Directrices'}</h3>
+                <p>${isEn
+                    ? 'Answer each question in a complete sentence using the required word or grammar structure.'
+                    : 'Responde a cada pregunta utilizando obligatoriamente la palabra o estructura gramatical indicada.'}</p>
             </div>
 
             <div class="phase6-bank-panel">
-                <div class="phase6-bank-title">🏷️ Directrices obligatorias de esta sección:</div>
+                <div class="phase6-bank-title">🏷️ ${isEn ? 'Required directives in this section:' : 'Directrices obligatorias de esta sección:'}</div>
                 <div class="phase6-bank-pills">
                     ${bank.map(char => `
                         <div class="bank-pill-char">${char}</div>
@@ -1452,18 +1550,18 @@ const renderPhase6 = () => {
                         <div class="exam-question-card" data-q-id="${q.id}">
                             <div class="q-header">
                                 <span class="q-number">第 ${idx + 1} 題（共 ${questions.length} 題）</span>
-                                <span class="q-badge-required">Directriz obligatoria: <strong>${q.caracter_asignado}</strong></span>
+                                <span class="q-badge-required">${isEn ? 'Required directive:' : 'Directriz obligatoria:'} <strong>${q.caracter_asignado}</strong></span>
                             </div>
                             <div class="phase6-q-box">
                                 <div class="phase6-chinese-q">${q.pregunta}</div>
                             </div>
                             <div class="phase6-input-box">
-                                <label for="p6-input-${q.id}">Tu respuesta (usando «${q.caracter_asignado}»):</label>
+                                <label for="p6-input-${q.id}">${isEn ? `Your answer (using «${q.caracter_asignado}»):` : `Tu respuesta (usando «${q.caracter_asignado}»):`}</label>
                                 <input type="text" 
                                        class="form-control phase6-input" 
                                        id="p6-input-${q.id}" 
                                        data-q-id="${q.id}" 
-                                       placeholder="Escribe una oración completa aplicando «${q.caracter_asignado}»..." 
+                                       placeholder="${isEn ? `Write a complete sentence applying «${q.caracter_asignado}»...` : `Escribe una oración completa aplicando «${q.caracter_asignado}»...`}" 
                                        value="${typed}">
                             </div>
                         </div>
@@ -1478,6 +1576,7 @@ const renderPhase6 = () => {
 // FASE 7: Lectura (Verdadero/Falso + Opción Múltiple)
 // --------------------------------------------------------------------------
 const renderPhase7 = () => {
+    const isEn = isExamEnglish();
     const p7 = examSession.data.phase7 || {};
     const story = p7.historia || '';
     const vfList = p7.verdadero_falso || [];
@@ -1486,8 +1585,10 @@ const renderPhase7 = () => {
     return `
         <div class="phase-container phase-7-container">
             <div class="phase-header-banner">
-                <h3>Fase 7: 閱讀理解 · Comprensión Lectora</h3>
-                <p>Lee el texto y responde las preguntas de Verdadero/Falso (${vfList.length}) y Opción Múltiple (${mcqList.length}).</p>
+                <h3>${isEn ? 'Phase 7: 閱讀理解 · Reading Comprehension' : 'Fase 7: 閱讀理解 · Comprensión Lectora'}</h3>
+                <p>${isEn
+                    ? `Read the passage and answer the True/False (${vfList.length}) and Multiple Choice (${mcqList.length}) questions.`
+                    : `Lee el texto y responde las preguntas de Verdadero/Falso (${vfList.length}) y Opción Múltiple (${mcqList.length}).`}</p>
             </div>
 
             <div class="phase7-story-card">
@@ -1500,7 +1601,7 @@ const renderPhase7 = () => {
             </div>
 
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">第一部分：是非題（Verdadero / Falso — ${vfList.length} 題）</div>
+                <div class="phase7-sub-title">第一部分：是非題（${isEn ? 'True / False' : 'Verdadero / Falso'} — ${vfList.length} 題）</div>
                 <div class="phase-questions-list">
                     ${vfList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_vf[q.id];
@@ -1515,13 +1616,13 @@ const renderPhase7 = () => {
                                             class="btn-vf ${chosen === true ? 'selected-true' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="true">
-                                        ✓ 是 (Verdadero)
+                                        ✓ 是 (${isEn ? 'True' : 'Verdadero'})
                                     </button>
                                     <button type="button" 
                                             class="btn-vf ${chosen === false ? 'selected-false' : ''}" 
                                             data-vf-id="${q.id}" 
                                             data-val="false">
-                                        ✗ 否 (Falso)
+                                        ✗ 否 (${isEn ? 'False' : 'Falso'})
                                     </button>
                                 </div>
                             </div>
@@ -1531,7 +1632,7 @@ const renderPhase7 = () => {
             </div>
 
             <div class="phase7-sub-section">
-                <div class="phase7-sub-title">第二部分：單選題（Opción Múltiple — ${mcqList.length} 題）</div>
+                <div class="phase7-sub-title">第二部分：單選題（${isEn ? 'Multiple Choice' : 'Opción Múltiple'} — ${mcqList.length} 題）</div>
                 <div class="phase-questions-list">
                     ${mcqList.map((q, idx) => {
                         const chosen = examSession.userAnswers.phase7_mcq[q.id];
@@ -1685,9 +1786,10 @@ const updateStepperIndicators = () => {
 // PANTALLA DE RESULTADOS (Solo muestra las fases que estuvieron activas)
 // --------------------------------------------------------------------------
 const renderExamResults = (container) => {
+    const isEn = isExamEnglish();
     const res = examSession.results;
     if (!res) {
-        container.innerHTML = `<p>No hay resultados disponibles.</p>`;
+        container.innerHTML = `<p>${isEn ? 'No results available.' : 'No hay resultados disponibles.'}</p>`;
         return;
     }
 
@@ -1699,7 +1801,9 @@ const renderExamResults = (container) => {
     container.innerHTML = `
         <div class="exam-results-container">
             <div class="exam-score-hero ${isPassing ? 'passing' : 'failing'}">
-                <div class="score-badge">${isPassing ? "¡Examen Aprobado!" : "Requiere Refuerzo"}</div>
+                <div class="score-badge">${isPassing
+                    ? (isEn ? "Exam Passed!" : "¡Examen Aprobado!")
+                    : (isEn ? "Needs Practice" : "Requiere Refuerzo")}</div>
                 <div class="score-circle">
                     <span class="score-number">${scores.percentage}%</span>
                     <span class="score-points">${scores.totalPoints} / ${scores.maxPoints} pts</span>
@@ -1707,10 +1811,10 @@ const renderExamResults = (container) => {
                 <p class="score-feedback-text">${aiSummary}</p>
                 <div class="results-actions">
                     <button class="btn btn-primary" id="btn-configure-new-exam">
-                        Configurar / Nuevo Examen
+                        ${isEn ? 'Configure / New Exam' : 'Configurar / Nuevo Examen'}
                     </button>
                     <button class="btn btn-secondary" id="btn-review-library">
-                        Ir a la Biblioteca
+                        ${isEn ? 'Go to Library' : 'Ir a la Biblioteca'}
                     </button>
                 </div>
             </div>
@@ -1721,7 +1825,7 @@ const renderExamResults = (container) => {
                     const mx = scores.maxByPhase?.[num] || 0;
                     return `
                         <div class="breakdown-card">
-                            <div class="b-phase">${PHASE_NAMES[num]}</div>
+                            <div class="b-phase">${getPhaseName(num)}</div>
                             <div class="b-score">${sc} / ${mx} pts</div>
                         </div>
                     `;
@@ -1729,11 +1833,11 @@ const renderExamResults = (container) => {
             </div>
 
             <div class="exam-review-section">
-                <h3 class="review-title">Revisión Detallada de Respuestas</h3>
+                <h3 class="review-title">${isEn ? 'Detailed Answer Review' : 'Revisión Detallada de Respuestas'}</h3>
                 <div class="review-tabs">
                     ${activePhases.map((num, idx) => `
                         <button class="review-tab-btn ${idx === 0 ? 'active' : ''}" data-review-phase="${num}">
-                            Fase ${num}
+                            ${isEn ? `Phase ${num}` : `Fase ${num}`}
                         </button>
                     `).join('')}
                 </div>
@@ -1768,17 +1872,20 @@ const renderExamResults = (container) => {
 };
 
 const renderReviewPhaseContent = (phaseNum, details) => {
+    const isEn = isExamEnglish();
     switch (phaseNum) {
         case 1:
             return (details.phase1 || []).map((item, idx) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Pregunta ${idx + 1} (${item.pinyin} ${item.zhuyin ? `/ ${item.zhuyin}` : ''})</span>
-                        <span class="review-status">${item.isCorrect ? "✓ Correcto (+1 pt)" : "✗ Incorrecto (0 pts)"}</span>
+                        <span>${isEn ? `Question ${idx + 1}` : `Pregunta ${idx + 1}`} (${item.pinyin} ${item.zhuyin ? `/ ${item.zhuyin}` : ''})</span>
+                        <span class="review-status">${item.isCorrect
+                            ? (isEn ? "✓ Correct (+1 pt)" : "✓ Correcto (+1 pt)")
+                            : (isEn ? "✗ Incorrect (0 pts)" : "✗ Incorrecto (0 pts)")}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu respuesta: <strong>${item.userAnswer}</strong></div>
-                        <div>Respuesta correcta: <strong>${item.correctAnswer}</strong></div>
+                        <div>${isEn ? 'Your answer:' : 'Tu respuesta:'} <strong>${item.userAnswer}</strong></div>
+                        <div>${isEn ? 'Correct answer:' : 'Respuesta correcta:'} <strong>${item.correctAnswer}</strong></div>
                     </div>
                 </div>
             `).join('');
@@ -1787,12 +1894,14 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return (details.phase2 || []).map((item) => `
                 <div class="review-item ${item.isCorrect ? 'correct' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Carácter: <strong style="font-size:1.2rem; font-family:'Noto Sans TC';">${item.hanzi}</strong></span>
-                        <span class="review-status">${item.isCorrect ? "✓ Correcto (+1 pt)" : "✗ Incorrecto (0 pts)"}</span>
+                        <span>${isEn ? 'Character:' : 'Carácter:'} <strong style="font-size:1.2rem; font-family:'Noto Sans TC';">${item.hanzi}</strong></span>
+                        <span class="review-status">${item.isCorrect
+                            ? (isEn ? "✓ Correct (+1 pt)" : "✓ Correcto (+1 pt)")
+                            : (isEn ? "✗ Incorrect (0 pts)" : "✗ Incorrecto (0 pts)")}</span>
                     </div>
                     <div class="review-content-row">
-                        <div>Tu Pinyin: <code>${item.userAnswer}</code></div>
-                        <div>Pinyin esperado: <code>${item.correctAnswer}</code></div>
+                        <div>${isEn ? 'Your Pinyin:' : 'Tu Pinyin:'} <code>${item.userAnswer}</code></div>
+                        <div>${isEn ? 'Expected Pinyin:' : 'Pinyin esperado:'} <code>${item.correctAnswer}</code></div>
                     </div>
                 </div>
             `).join('');
@@ -1839,9 +1948,9 @@ const renderReviewPhaseContent = (phaseNum, details) => {
                         <div>你的回答：<strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
                     </div>
                     <div class="review-ai-feedback">
-                        <p><strong>教師評語：</strong> ${item.eval.comentario || '已完成評估。'}</p>
+                        <p><strong>${isEn ? 'Teacher Feedback:' : '教師評語：'}</strong> ${item.eval.comentario || (isEn ? 'Evaluated.' : '已完成評估。')}</p>
                         ${item.eval.correccion_sugerida ? `
-                            <p><strong>建議範例：</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
+                            <p><strong>${isEn ? 'Suggested Answer:' : '建議範例：'}</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
                         ` : ''}
                     </div>
                 </div>
@@ -1851,7 +1960,7 @@ const renderReviewPhaseContent = (phaseNum, details) => {
             return (details.phase6 || []).map((item) => `
                 <div class="review-item ${item.eval.puntaje >= 1 ? 'correct' : item.eval.puntaje > 0 ? 'partial' : 'incorrect'}">
                     <div class="review-item-header">
-                        <span>Directriz: <strong style="color:var(--accent); font-size:1.1rem;">${item.caracter_asignado}</strong></span>
+                        <span>${isEn ? 'Directive:' : 'Directriz:'} <strong style="color:var(--accent); font-size:1.1rem;">${item.caracter_asignado}</strong></span>
                         <span class="review-status">${item.eval.puntaje} / 1 pt</span>
                     </div>
                     <div class="review-q-prompt">
@@ -1861,9 +1970,9 @@ const renderReviewPhaseContent = (phaseNum, details) => {
                         <div>你的造句：<strong style="font-family:'Noto Sans TC';">${item.userAnswer}</strong></div>
                     </div>
                     <div class="review-ai-feedback">
-                        <p><strong>教師評語：</strong> ${item.eval.comentario || '已完成評估。'}</p>
+                        <p><strong>${isEn ? 'Teacher Feedback:' : '教師評語：'}</strong> ${item.eval.comentario || (isEn ? 'Evaluated.' : '已完成評估。')}</p>
                         ${item.eval.correccion_sugerida ? `
-                            <p><strong>建議範例：</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
+                            <p><strong>${isEn ? 'Suggested Answer:' : '建議範例：'}</strong> <span style="font-family:'Noto Sans TC'; font-size:1.05rem;">${item.eval.correccion_sugerida}</span></p>
                         ` : ''}
                     </div>
                 </div>
