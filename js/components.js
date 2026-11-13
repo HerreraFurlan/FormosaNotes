@@ -309,8 +309,8 @@ const createBuilderMiniCard = (token, handlers = {}) => {
         card.dataset.roleSlot = token.roleSlot || '';
     }
 
-    // Separable verb split button (⇄) for V-sep / Vs-sep / Vp-sep
-    const isSeparable = ['V-sep', 'Vs-sep', 'Vp-sep'].includes(token.verbSubtype || token.posSymbol) && !token.isSplitVerbHead && (token.tradicional || '').length >= 2;
+    // Separable verb split button (⇄) for V-sep / Vs-sep / Vp-sep or phrases with sepParts
+    const isSeparable = (['V-sep', 'Vs-sep', 'Vp-sep'].includes(token.verbSubtype || token.posSymbol) || (Array.isArray(token.sepParts) && token.sepParts.length === 2)) && !token.isSplitVerbHead && (token.tradicional || '').length >= 2;
     if (isSeparable && typeof handlers.onSplitSeparable === 'function') {
         const splitBtn = document.createElement('button');
         splitBtn.type = 'button';

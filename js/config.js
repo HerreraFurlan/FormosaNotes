@@ -11,13 +11,13 @@
  * =====================================================
  */
 
-const LESSON_COUNT = 8;
+const LESSON_COUNT = 9;
 
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.2.3',
-        dataVersion: '4.2.3',
+        version: '4.2.4',
+        dataVersion: '4.2.4',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
         removedSeedIds: [
             'id_n_yundong_sport',
@@ -644,8 +644,6 @@ const APP_CONFIG = {
         '分': 'id_clf_fen',
         '刻': 'id_clf_ke_time',
         '日': 'id_clf_ri',
-        '號': 'id_clf_hao',
-        '号': 'id_clf_hao',
         '些': 'id_clf_xie',
         '支': 'id_clf_zhi_phone',
         '塊': 'id_clf_kuai',

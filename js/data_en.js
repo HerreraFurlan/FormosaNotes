@@ -1,7 +1,7 @@
 /**
  * =====================================================
  * AppChino — data_en.js
- * English Dataset (SEED_DATA_EN)
+ * English Seed Data (SEED_DATA_EN)
  * =====================================================
  */
 
@@ -680,7 +680,7 @@ const SEED_DATA_EN = {
             ]
         },
         {
-            "espanol": "She / Her",
+            "espanol": "She, her",
             "tradicional": "她",
             "pinyin": "tā",
             "zhuyin": "ㄊㄚ",
@@ -696,18 +696,19 @@ const SEED_DATA_EN = {
                     "id": "id_msk0pp4g_bdeqd"
                 }
             ],
-            "notas": "It has the female radical 女 on the left. It sounds exactly the same as 他 (tā).",
+            "notas": "Third-person female personal pronoun ('she / her'). Written with the female radical 女 on the left and pronounced identically to 他 (tā).",
             "id": "id_mso0qqz5_dsqug",
             "fechaCreacion": "2026-08-11",
             "ejemplos": [
-                "她是我的媽媽 — She is my mom",
-                "她是陳小姐 — This is Miss Chen"
+                "她是我們書法課的老師。 — She is the teacher of our calligraphy class.",
+                "她是我的媽媽。 — She is my mom."
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "pronoun",
                 "person"
-            ]
+            ],
+            "leccion": 9
         },
         {
             "espanol": "Meat",
@@ -911,7 +912,7 @@ const SEED_DATA_EN = {
         },
         {
             "id": "rad_mujer_1786603351443",
-            "espanol": "Women",
+            "espanol": "Girl-, female- (女 + noun)",
             "tradicional": "女",
             "pinyin": "nǚ",
             "zhuyin": "ㄋㄩˇ",
@@ -923,15 +924,16 @@ const SEED_DATA_EN = {
                     "value": "女 (nǚ - women)"
                 }
             ],
-            "notas": "Pictogram of a woman kneeling with her hands crossed. Radical from 媽媽, 她, 姐, 妹, 好, 安.",
+            "notas": "Placed directly before a noun (女 + noun, without 的) to indicate female gender: 女朋友 (girlfriend), 女老師 (female teacher), 女生 (girl/female student).",
             "ejemplos": [
-                "女性 — Woman/feminine gender",
-                "她是一位女老師 — She is a teacher"
+                "田中的女朋友上個星期來臺灣看他。 — Tanaka's girlfriend came to Taiwan to see him last week.",
+                "她是一位女老師。 — She is a female teacher."
             ],
             "posSymbol": "N",
             "semanticTags": [
                 "person"
-            ]
+            ],
+            "leccion": 9
         },
         {
             "id": "rad_agua_1786603351443",
@@ -2427,7 +2429,7 @@ const SEED_DATA_EN = {
         },
         {
             "id": "id_voc_yue",
-            "espanol": "Month",
+            "espanol": "Month of a year",
             "tradicional": "月",
             "pinyin": "yuè",
             "zhuyin": "ㄩㄝˋ",
@@ -2439,16 +2441,17 @@ const SEED_DATA_EN = {
                     "value": "月 (yuè - moon/month)"
                 }
             ],
-            "notas": "Calendar month. For periods a classifier is required: 三個月 (three months); for names: 三月 (March).",
+            "notas": "Preceded directly by a number (1–12), it names the month of the year (一月 January … 十二月 December). With the measure word 個 in between, it expresses duration: 一個月 (one month), 三個月 (three months).",
             "ejemplos": [
-                "一年有十二個月 — A year has twelve months",
-                "九月開學 — Classes start in September"
+                "安同打算十二月去日本玩。 — Antong plans to go to Japan for fun in December.",
+                "一年有十二個月。 — A year has twelve months."
             ],
             "fechaCreacion": "2026-09-27",
             "posSymbol": "N",
             "semanticTags": [
                 "time"
-            ]
+            ],
+            "leccion": 9
         },
         {
             "id": "id_voc_shangshanggeyue",
@@ -2599,8 +2602,8 @@ const SEED_DATA_EN = {
             "id": "id_voc_xingqi",
             "espanol": "Week",
             "tradicional": "星期",
-            "pinyin": "xīngqī",
-            "zhuyin": "ㄒㄧㄥ ㄑㄧ",
+            "pinyin": "xīngqí",
+            "zhuyin": "ㄒㄧㄥ ㄑㄧˊ",
             "categoria": "N",
             "clasificador": "id_mtfhewfx_gtw3b",
             "radicales": [
@@ -2613,16 +2616,17 @@ const SEED_DATA_EN = {
                     "value": "期 (qī - period)"
                 }
             ],
-            "notas": "Seven-day period governed by stellar and lunar phases. Synonym in Taiwan: 禮拜 (lǐbài).",
+            "notas": "Followed by a number, it indicates the day of the week (星期一 Monday … 星期六 Saturday, 星期日／天 Sunday). Preceded by number + 個, it indicates duration (一個星期 one week). Pronounced xīngqí in Taiwan; 禮拜 (lǐbài) is a common synonym.",
             "ejemplos": [
-                "一個星期有七天 — A week has seven days",
-                "你這個星期忙不忙？ — Are you busy this week?"
+                "我這個星期六要去花蓮玩兩天。 — I am going to Hualien to have fun for two days this Saturday.",
+                "一個星期有七天。 — A week has seven days."
             ],
             "fechaCreacion": "2026-09-27",
             "posSymbol": "N",
             "semanticTags": [
                 "time"
-            ]
+            ],
+            "leccion": 9
         },
         {
             "id": "id_voc_shangshanggexingqi",
@@ -2704,35 +2708,6 @@ const SEED_DATA_EN = {
             "ejemplos": [
                 "這個星期五有漢字考試 — This Friday there is a character exam",
                 "這個星期每天都有課 — This week I have classes every day"
-            ],
-            "fechaCreacion": "2026-09-27",
-            "posSymbol": "N",
-            "semanticTags": [
-                "time"
-            ]
-        },
-        {
-            "id": "id_voc_xiagexingqi",
-            "espanol": "next week",
-            "tradicional": "下個星期",
-            "pinyin": "xià ge xīngqī",
-            "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧ",
-            "categoria": "N",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "下 (xià - later)"
-                },
-                {
-                    "type": "ref",
-                    "id": "id_voc_xingqi"
-                }
-            ],
-            "notas": "The week immediately following the current one.",
-            "ejemplos": [
-                "下個星期見！ — See you next week!",
-                "下個星期我們開始學語法 — Next week we start studying grammar"
             ],
             "fechaCreacion": "2026-09-27",
             "posSymbol": "N",
@@ -5593,6 +5568,270 @@ const SEED_DATA_EN = {
                 "place"
             ],
             "leccion": 8
+        },
+        {
+            "id": "id_l9_dianshi",
+            "tradicional": "電視",
+            "pinyin": "diànshì",
+            "zhuyin": "ㄉㄧㄢˋ ㄕˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "TV",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "電 (diàn - electricity)"
+                },
+                {
+                    "type": "text",
+                    "value": "視 (shì - vision/view)"
+                }
+            ],
+            "notas": "Literally 'electric vision'. Paired with the verb 看 (kàn): 看電視 (to watch TV).",
+            "ejemplos": [
+                "我有空的時候，常常在家看電視。 — When I have free time, I often watch TV at home."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_yingpian",
+            "tradicional": "影片",
+            "pinyin": "yǐngpiàn",
+            "zhuyin": "ㄧㄥˇ ㄆㄧㄢˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Film, video",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "影 (yǐng - image/shadow)"
+                },
+                {
+                    "type": "text",
+                    "value": "片 (piàn - reel/slice)"
+                }
+            ],
+            "notas": "Refers to both films/movies and video clips (such as online videos).",
+            "ejemplos": [
+                "你喜歡看什麼影片？ — What films/videos do you like to watch?"
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_gongke",
+            "tradicional": "功課",
+            "pinyin": "gōngkè",
+            "zhuyin": "ㄍㄨㄥ ㄎㄜˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Homework",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "功 (gōng - work/achievement)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_ke"
+                }
+            ],
+            "notas": "Schoolwork or homework assignments. Commonly paired with the verb 寫 (xiě) or 做 (zuò): 寫功課 / 做功課 (to do homework).",
+            "ejemplos": [
+                "我每天都要寫很多功課。 — Every day I have to do a lot of homework."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_taidong",
+            "tradicional": "臺東",
+            "pinyin": "Táidōng",
+            "zhuyin": "ㄊㄞˊ ㄉㄨㄥ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Taitung (major city on the southeastern coast of Taiwan)",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvgjyyx_mz8uu"
+                },
+                {
+                    "type": "text",
+                    "value": "東 (dōng - east)"
+                }
+            ],
+            "notas": "One of the major cities and counties on the southeastern coast of Taiwan, renowned for its natural scenery, coastline, and hot springs.",
+            "ejemplos": [
+                "臺東是一個風景非常漂亮的地方。 — Taitung is a place with very beautiful scenery."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "place"
+            ]
+        },
+        {
+            "id": "id_clf_hao",
+            "tradicional": "號",
+            "pinyin": "hào",
+            "zhuyin": "ㄏㄠˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Date, day of a month",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "口 (kǒu - mouth)"
+                },
+                {
+                    "type": "text",
+                    "value": "虎 (hǔ - tiger)"
+                }
+            ],
+            "notas": "Preceded by a number, it indicates the date or day of a month in spoken Mandarin (e.g. 八月十七號 August 17th). In formal or written contexts, 日 (rì) is also used.",
+            "ejemplos": [
+                "A：你想什麼時候去參觀故宮博物院？ B：八月十七號。 — A: When would you like to visit the National Palace Museum? B: August 17th."
+            ],
+            "fechaCreacion": "2026-09-28",
+            "semanticTags": [
+                "time",
+                "timeMeasure"
+            ]
+        },
+        {
+            "id": "id_l9_jianyi",
+            "tradicional": "建議",
+            "pinyin": "jiànyì",
+            "zhuyin": "ㄐㄧㄢˋ ㄧˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "leccion": 9,
+            "espanol": "Suggestion",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "建 (jiàn - build/propose)"
+                },
+                {
+                    "type": "text",
+                    "value": "議 (yì - discuss/opinion)"
+                }
+            ],
+            "notas": "Noun meaning 'suggestion' or 'recommendation' (e.g. 你有什麼建議？ Do you have any suggestions?). Measure word: 個.",
+            "ejemplos": [
+                "A：我想去花蓮玩，你有什麼建議？ B：我覺得坐火車去不錯，又便宜又可以看風景。 — A: I want to go to Hualien for fun; do you have any suggestions? B: I think going by train is pretty good; it's both cheap and you can enjoy the scenery."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_yeshi",
+            "tradicional": "夜市",
+            "pinyin": "yèshì",
+            "zhuyin": "ㄧㄝˋ ㄕˋ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_mtfhewfx_gtw3b",
+            "leccion": 9,
+            "espanol": "Night market",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "夜 (yè - night)"
+                },
+                {
+                    "type": "text",
+                    "value": "市 (shì - market/city)"
+                }
+            ],
+            "notas": "Open-air street market operating at night, a hallmark of Taiwanese food and nightlife culture. Commonly paired with 逛 (guàng): 逛夜市 (to stroll through a night market).",
+            "ejemplos": [
+                "臺灣有很多有名的夜市。 — Taiwan has many famous night markets."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_chaguan",
+            "tradicional": "茶館",
+            "pinyin": "cháguǎn",
+            "zhuyin": "ㄔㄚˊ ㄍㄨㄢˇ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "id_clf_jia_shop",
+            "leccion": 9,
+            "espanol": "Tea house",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtvh97ru_97ysy"
+                },
+                {
+                    "type": "text",
+                    "value": "館 (guǎn - hall/establishment)"
+                }
+            ],
+            "notas": "Traditional establishment for brewing and enjoying tea (especially popular in mountain areas like 貓空 Māokōng). Measure word: 家 (jiā).",
+            "ejemplos": [
+                "我最近不忙，常去山上的茶館喝茶。 — I haven't been busy lately and often go to the tea house on the mountain to drink tea."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "place",
+                "object"
+            ]
+        },
+        {
+            "id": "id_l9_maokong",
+            "tradicional": "貓空",
+            "pinyin": "Māokōng",
+            "zhuyin": "ㄇㄠ ㄎㄨㄥ",
+            "categoria": "N",
+            "posSymbol": "N",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Maokong (must-see place in Taipei to visit for fine tea and scenery)",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "n8"
+                },
+                {
+                    "type": "text",
+                    "value": "空 (kōng - hollow/sky)"
+                }
+            ],
+            "notas": "A must-see mountain area in southern Taipei (Wenshan District), famous for its tea plantations, tea houses (茶館), and panoramic scenery.",
+            "ejemplos": [
+                "貓空的風景很美，那裡的茶也很好喝。 — The scenery in Maokong is very beautiful, and the tea there is also very delicious."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "place"
+            ]
         }
     ],
     "verbos": [
@@ -9142,6 +9381,286 @@ const SEED_DATA_EN = {
             "semanticTags": [
                 "action"
             ]
+        },
+        {
+            "id": "id_l9_huiguo",
+            "tradicional": "回國",
+            "pinyin": "huíguó",
+            "zhuyin": "ㄏㄨㄟˊ ㄍㄨㄛˊ",
+            "categoria": "V",
+            "posSymbol": "V-sep",
+            "verbSubtype": "V-sep",
+            "sepParts": [
+                "回",
+                "國"
+            ],
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To return to one's country",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "回 (huí - return)"
+                },
+                {
+                    "type": "text",
+                    "value": "國 (guó - country/nation)"
+                }
+            ],
+            "notas": "Separable verb (V-sep: 回 + 國) meaning to return to one's home country. To name a specific country, place it after 回 (e.g. 回美國 return to the US).",
+            "ejemplos": [
+                "你想什麼時候回國？ — When would you like to return to your country?"
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action",
+                "separable",
+                "intransitive"
+            ]
+        },
+        {
+            "id": "id_l9_dasuan",
+            "tradicional": "打算",
+            "pinyin": "dǎsuàn",
+            "zhuyin": "ㄉㄚˇ ㄙㄨㄢˋ",
+            "categoria": "V",
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To plan to",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l3_da"
+                },
+                {
+                    "type": "text",
+                    "value": "算 (suàn - calculate/plan)"
+                }
+            ],
+            "notas": "Auxiliary verb (Vaux) placed before a verb phrase to express a plan or intention ('to plan to do something').",
+            "ejemplos": [
+                "我同學這個週末打算去參觀他朋友的學校。 — My classmate plans to go visit his friend's school this weekend."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "auxiliary"
+            ]
+        },
+        {
+            "id": "id_l9_luxing",
+            "tradicional": "旅行",
+            "pinyin": "lǚxíng",
+            "zhuyin": "ㄌㄩˇ ㄒㄧㄥˊ",
+            "categoria": "V",
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To travel",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "旅 (lǚ - trip/travel)"
+                },
+                {
+                    "type": "text",
+                    "value": "行 (xíng - walk/go)"
+                }
+            ],
+            "notas": "Intransitive action verb (Vi). It does not take a destination object directly; introduce the destination beforehand with 去 or 到 (e.g. 去日本旅行).",
+            "ejemplos": [
+                "在臺灣坐高鐵旅行，又方便又舒服。 — Traveling by HSR in Taiwan is both convenient and comfortable."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
+        },
+        {
+            "id": "id_l9_chuqu",
+            "tradicional": "出去",
+            "pinyin": "chūqù",
+            "zhuyin": "ㄔㄨ ㄑㄩˋ",
+            "categoria": "V",
+            "posSymbol": "Vi",
+            "verbSubtype": "Vi",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To go out",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "出 (chū - exit/go out)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_qu"
+                }
+            ],
+            "notas": "Intransitive directional verb (Vi) meaning to go out (away from the speaker/inside), often followed by a purpose verb: 出去玩 (go out for fun), 出去運動 (go out to exercise).",
+            "ejemplos": [
+                "明華打算星期三下午出去運動。 — Minghua plans to go out to exercise on Wednesday afternoon."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action",
+                "intransitive"
+            ]
+        },
+        {
+            "id": "id_l9_dai",
+            "tradicional": "帶",
+            "pinyin": "dài",
+            "zhuyin": "ㄉㄞˋ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To take, to bring",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "巾 (jīn - cloth/sash)"
+                },
+                {
+                    "type": "text",
+                    "value": "带 (dài - belt/carry)"
+                }
+            ],
+            "notas": "Transitive verb (V) meaning to take/lead someone somewhere (帶 + Person + 去 + VP) or to bring an item along.",
+            "ejemplos": [
+                "我昨天晚上帶爸爸媽媽去吃越南菜。 — Last night I took my mom and dad to eat Vietnamese food."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l9_yinggai",
+            "tradicional": "應該",
+            "pinyin": "yīnggāi",
+            "zhuyin": "ㄧㄥ ㄍㄞ",
+            "categoria": "V",
+            "posSymbol": "Vaux",
+            "verbSubtype": "Vaux",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Should; ought to",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "應 (yīng - should/respond)"
+                },
+                {
+                    "type": "text",
+                    "value": "該 (gāi - ought to)"
+                }
+            ],
+            "notas": "Auxiliary modal verb (Vaux) expressing advice, recommendation, or obligation ('should / ought to'). Negated as 不應該.",
+            "ejemplos": [
+                "來臺灣旅行，我覺得應該去逛逛夜市。 — When traveling to Taiwan, I think you should go stroll around a night market."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "auxiliary"
+            ]
+        },
+        {
+            "id": "id_l9_guang",
+            "tradicional": "逛",
+            "pinyin": "guàng",
+            "zhuyin": "ㄍㄨㄤˋ",
+            "categoria": "V",
+            "posSymbol": "V",
+            "verbSubtype": "V",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To wander around, to look around",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "狂 (kuáng - phonetic)"
+                }
+            ],
+            "notas": "Action verb (V) meaning to stroll, browse, or wander around leisurely (e.g. 逛夜市 stroll around a night market). Often reduplicated as 逛逛.",
+            "ejemplos": [
+                "聽說你們學校附近的商店都很有意思，我有空想去逛逛。 — I heard the shops near your school are all very interesting; I want to go look around when I have free time."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action"
+            ]
+        },
+        {
+            "id": "id_l9_tebie",
+            "tradicional": "特別",
+            "pinyin": "tèbié",
+            "zhuyin": "ㄊㄜˋ ㄅㄧㄝˊ",
+            "categoria": "V",
+            "posSymbol": "Vs",
+            "verbSubtype": "Vs",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Special",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "特 (tè - special/unique)"
+                },
+                {
+                    "type": "text",
+                    "value": "別 (bié - distinguish/other)"
+                }
+            ],
+            "notas": "State verb (Vs) meaning 'to be special / distinctive' (e.g. 很特別 very special).",
+            "ejemplos": [
+                "很多人都說那家店的牛肉麵很特別，我打算明天下課去吃。 — Many people say that shop's beef noodles are very special; I plan to go eat them after class tomorrow."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "state",
+                "hasDegree"
+            ]
+        },
+        {
+            "id": "id_l9_jueding",
+            "tradicional": "決定",
+            "pinyin": "juédìng",
+            "zhuyin": "ㄐㄩㄝˊ ㄉㄧㄥˋ",
+            "categoria": "V",
+            "posSymbol": "Vp",
+            "verbSubtype": "Vp",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To decide",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "決 (jué - decide/resolve)"
+                },
+                {
+                    "type": "text",
+                    "value": "定 (dìng - settle/fix)"
+                }
+            ],
+            "notas": "Process verb (Vp) meaning 'to decide' to do something.",
+            "ejemplos": [
+                "你決定什麼時候開始教我中文？ — When did you decide to start teaching me Chinese?"
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "process",
+                "action"
+            ]
         }
     ],
     "adverbios": [
@@ -9819,6 +10338,95 @@ const SEED_DATA_EN = {
                 "scope",
                 "additive"
             ]
+        },
+        {
+            "id": "id_l9_dagai",
+            "tradicional": "大概",
+            "pinyin": "dàgài",
+            "zhuyin": "ㄉㄚˋ ㄍㄞˋ",
+            "categoria": "Adv",
+            "posSymbol": "Adv",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Approximately, about, probably",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mtjn41m4_7ohc2"
+                },
+                {
+                    "type": "text",
+                    "value": "概 (gài - general/approximate)"
+                }
+            ],
+            "notas": "Adverb expressing an approximate estimate of quantity/duration ('approximately / about') or likelihood ('probably'). Placed before the verb or numerical phrase.",
+            "ejemplos": [
+                "我一天大概上六、七個鐘頭的網。 — I surf the Internet for about six or seven hours a day."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "scope"
+            ]
+        },
+        {
+            "id": "id_l9_hai",
+            "tradicional": "還",
+            "pinyin": "hái",
+            "zhuyin": "ㄏㄞˊ",
+            "categoria": "Adv",
+            "posSymbol": "Adv",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Still, yet, also, in addition",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "辶 (chuò - walk)"
+                },
+                {
+                    "type": "text",
+                    "value": "睘 (qióng - phonetic)"
+                }
+            ],
+            "notas": "Adverb used to add another action or obligation ('also / in addition', e.g. 還得... also have to...) or to indicate continuation ('still / yet').",
+            "ejemplos": [
+                "我明天早上得去銀行，還得跟朋友見面。 — Tomorrow morning I have to go to the bank, and I also have to meet a friend."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "scope",
+                "additive"
+            ]
+        },
+        {
+            "id": "id_l9_jiu",
+            "tradicional": "就",
+            "pinyin": "jiù",
+            "zhuyin": "ㄐㄧㄡˋ",
+            "categoria": "Adv",
+            "posSymbol": "Adv",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Then",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "京 (jīng - capital)"
+                },
+                {
+                    "type": "text",
+                    "value": "尤 (yóu - outstanding)"
+                }
+            ],
+            "notas": "Correlative adverb introducing the consequence in the second clause of the conditional pattern 要是…，(S +) 就 + VP ('if..., then...'). Always placed AFTER the subject at the start of the predicate.",
+            "ejemplos": [
+                "要是你想吃臺灣小吃，就去臺南吧！ — If you want to eat Taiwanese street snacks, then go to Tainan!"
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "scope",
+                "consequence"
+            ]
         }
     ],
     "conjunciones": [
@@ -10005,6 +10613,36 @@ const SEED_DATA_EN = {
             "fechaCreacion": "2026-11-03",
             "semanticTags": [
                 "conjunction"
+            ]
+        },
+        {
+            "id": "id_l9_yaoshi",
+            "tradicional": "要是",
+            "pinyin": "yàoshi",
+            "zhuyin": "ㄧㄠˋ ˙ㄕ",
+            "categoria": "Conj",
+            "posSymbol": "Conj",
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "If",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_l4_yao_v"
+                },
+                {
+                    "type": "ref",
+                    "id": "v1"
+                }
+            ],
+            "notas": "Conditional conjunction ('if') used in the pattern 要是…，(S +) 就… Can be placed either before or after the subject of the first clause (要是我有空… = 我要是有空…).",
+            "ejemplos": [
+                "你要是星期天沒事，歡迎來我家坐坐。 — If you are free on Sunday, welcome to my home to sit for a while."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "conjunction",
+                "conditional"
             ]
         }
     ],
@@ -10719,37 +11357,6 @@ const SEED_DATA_EN = {
             "ejemplos": [
                 "今天是九月二十七日 — Today is September 27",
                 "十月十日是國慶日 — October 10 is National Day"
-            ],
-            "fechaCreacion": "2026-09-28",
-            "posSymbol": "M",
-            "semanticTags": [
-                "measure",
-                "timeMeasure",
-                "time"
-            ]
-        },
-        {
-            "id": "id_clf_hao",
-            "espanol": "Day of month / number",
-            "tradicional": "號",
-            "pinyin": "hào",
-            "zhuyin": "ㄏㄠˋ",
-            "categoria": "M",
-            "clasificador": "",
-            "radicales": [
-                {
-                    "type": "text",
-                    "value": "口 (kǒu - mouth)"
-                },
-                {
-                    "type": "text",
-                    "value": "虎 (hǔ - tiger)"
-                }
-            ],
-            "notas": "Shout or proclaim a distinctive mark. Common oral classifier in Taiwan for the day of the date and identifying numbers.",
-            "ejemplos": [
-                "明天是幾號？明天是五號 — What day is tomorrow? Tomorrow is five",
-                "你的手機號碼是幾號？ — What is your phone number?"
             ],
             "fechaCreacion": "2026-09-28",
             "posSymbol": "M",
@@ -13051,6 +13658,138 @@ const SEED_DATA_EN = {
             "semanticTags": [
                 "state"
             ]
+        },
+        {
+            "id": "id_l9_fangjia",
+            "tradicional": "放假",
+            "pinyin": "fàngjià",
+            "zhuyin": "ㄈㄤˋ ㄐㄧㄚˋ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": null,
+            "sepParts": [
+                "放",
+                "假"
+            ],
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "To have a holiday, to be on vacation",
+            "radicales": [
+                {
+                    "type": "text",
+                    "value": "放 (fàng - release/grant)"
+                },
+                {
+                    "type": "text",
+                    "value": "假 (jià - holiday/leave)"
+                }
+            ],
+            "notas": "Separable verb phrase (放 + 假) meaning to have a holiday or vacation. When taking a time-duration complement, the duration is inserted between 放 and 假: 放四天的假 (to have a four-day holiday).",
+            "ejemplos": [
+                "放假的時候，我喜歡在家聽聽音樂、上上網。 — When on holiday, I like to listen to music and surf the Internet at home."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "action",
+                "separable"
+            ]
+        },
+        {
+            "id": "id_voc_xiagexingqi",
+            "tradicional": "下個星期",
+            "pinyin": "xià ge xīngqí",
+            "zhuyin": "ㄒㄧㄚˋ ˙ㄍㄜ ㄒㄧㄥ ㄑㄧˊ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": null,
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Next week",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_voc_xia"
+                },
+                {
+                    "type": "text",
+                    "value": "個 (ge - measure word)"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_xingqi"
+                }
+            ],
+            "notas": "Time-When expression referring to the week following the current one. Also commonly expressed as 下個禮拜 (xià ge lǐbài).",
+            "ejemplos": [
+                "下個星期放四天的假，我打算跟家人去旅行。 — Next week there is a four-day holiday; I plan to go traveling with my family."
+            ],
+            "fechaCreacion": "2026-09-27",
+            "semanticTags": [
+                "time"
+            ]
+        },
+        {
+            "id": "id_l9_youshihou",
+            "tradicional": "有時候",
+            "pinyin": "yǒu shíhòu",
+            "zhuyin": "ㄧㄡˇ ㄕˊ ㄏㄡˋ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": null,
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "Sometimes",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_msikgc9s_g7seh"
+                },
+                {
+                    "type": "ref",
+                    "id": "id_voc_shihou"
+                }
+            ],
+            "notas": "Often used in the correlative pattern 有時候…，有時候… ('sometimes..., and sometimes...') to describe two alternating possibilities.",
+            "ejemplos": [
+                "我沒課的時候，有時候在家看影片，有時候出去玩。 — When I don't have class, sometimes I watch films at home, and sometimes I go out for fun."
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "time",
+                "frequency"
+            ]
+        },
+        {
+            "id": "id_l9_duojiu",
+            "tradicional": "多久",
+            "pinyin": "duō jiǔ",
+            "zhuyin": "ㄉㄨㄛ ㄐㄧㄡˇ",
+            "categoria": "Phr",
+            "posSymbol": "Phr",
+            "verbSubtype": null,
+            "clasificador": "",
+            "leccion": 9,
+            "espanol": "How long",
+            "radicales": [
+                {
+                    "type": "ref",
+                    "id": "id_mty023_duo"
+                },
+                {
+                    "type": "text",
+                    "value": "久 (jiǔ - long time)"
+                }
+            ],
+            "notas": "Interrogative time-duration phrase ('how long'). Placed in the exact post-verbal or internal slot where the duration answer appears (e.g. 學多久的中文).",
+            "ejemplos": [
+                "你大概想學多久的中文？ — Approximately how long do you want to study Chinese?"
+            ],
+            "fechaCreacion": "2026-11-13",
+            "semanticTags": [
+                "time",
+                "timeMeasure",
+                "question"
+            ]
         }
     ],
     "estructuras": [
@@ -13609,6 +14348,56 @@ const SEED_DATA_EN = {
             "ejemplo_pinyin": "Shānshàng de fēngjǐng bǐ zhèlǐ piàoliàng. / Wǒmen xuéxiào bǐ tāmen xuéxiào yuǎn. / Zuò jiéyùn bǐ zuò huǒchē kuài. / Zài jiā shàngwǎng bù bǐ zài xuéxiào kuài. / Zuò gōngchē bú shì bǐ zuò jìchéngchē kuài.",
             "ejemplo_espanol": "The scenery in the mountains is more beautiful than here. / Our school is farther than their school. / Taking the MRT is faster than taking the train. / Surfing the Internet at home is not faster than at school. / Taking the bus is not faster than taking a taxi.",
             "notas": "1) Function: Preposition 比 explicitly compares two items A and B with respect to a state verb (Vs). 2) Negation: Negated with 不比 or 不是比 (在家上網不比在學校快 / 我的車不比他的車貴 / 坐公車不是比坐計程車快). 3) Questions: 他們學校比你們學校遠嗎？ / 這種手機比那種貴嗎？ 4) Strict Degree Adverb Prohibition: In a 比 comparison, absolute degree adverbs like 很 (hěn), 真 (zhēn), and 非常 (fēicháng) CANNOT be placed before the state verb Vs (NEVER say *我的手機比他的很貴 or *坐高鐵比坐火車非常快)."
+        },
+        {
+            "id": "struct_l9_time_when_vs_duration",
+            "leccion": 9,
+            "nombre": "I · Time-When vs. Time-Duration Expressions",
+            "formula": "Time-When (point in time: before V) vs. Time-Duration (stretch of time: after V)",
+            "ejemplo_tradicional": "去年、今年、明年 / 上個月、這個月、下個月 / 上個星期、這個星期、下個星期 / 一年、一個月、一個星期、一天、一個鐘頭",
+            "ejemplo_pinyin": "qùnián, jīnnián, míngnián / shàng ge yuè, zhè ge yuè, xià ge yuè / shàng ge xīngqí, zhè ge xīngqí, xià ge xīngqí / yì nián, yí ge yuè, yí ge xīngqí, yì tiān, yí ge zhōngtóu",
+            "ejemplo_espanol": "last year, this year, next year / last month, this month, next month / last week, this week, next week / one year, one month, one week, one day, one hour",
+            "notas": "1) Function: Time-When expressions indicate WHEN an action takes place (a point in time, e.g., 6:30 this morning) and precede the verb. Time-Duration expressions refer to a stretch of time (e.g., 2 hours) and follow the verb. 2) Time-When (Past | Present | Future): • Year (年 nián): 去年 | 今年 | 明年. • Month (月 yuè): 上個月 | 這個月 | 下個月. • Week (星期 xīngqí / 禮拜 lǐbài): 上個星期／禮拜 | 這個星期／禮拜 | 下個星期／禮拜. • Day (天 tiān): 昨天 | 今天 | 明天. 3) Time-When vs. Time-Duration: • Year: 2013年、2014年、2015年… vs. 一年、兩年、三年… / 半年、一年半. • Month: 一月、二月、三月… vs. 一個月、兩個月、三個月… / 半個月、一個半月. • Week: 星期一、星期二… / 星期日／天 vs. 一個星期、兩個星期… • Day (日 rì / 號 hào): 1日（號）、2日、3日… vs. 一天、兩天、三天… / 半天、一天半. • Hour: 一點（鐘）、兩點（鐘）… / 六點半 vs. 一個鐘頭、兩個鐘頭… / 半個鐘頭、六個半鐘頭."
+        },
+        {
+            "id": "struct_l9_time_duration_period",
+            "leccion": 9,
+            "nombre": "II · Time-Duration (\"for a period of time\"): S + V + Duration",
+            "formula": "1) S + V + Duration | 2) S + V + O + V + Duration | 3) S + Duration + Neg + VP | 4) V-sep: V₁ + Duration + (的) + O₂",
+            "ejemplo_tradicional": "我去花蓮玩一個星期。 / 這個電影很有意思，可是要看三個鐘頭。 / 中文，我想學一年半。 / 他打算教中文教一年。 / 他太忙了，所以他兩天不能來上課。 / 我每星期上五天的課。",
+            "ejemplo_pinyin": "Wǒ qù Huālián wán yí ge xīngqí. / Zhège diànyǐng hěn yǒu yìsi, kěshì yào kàn sān ge zhōngtóu. / Zhōngwén, wǒ xiǎng xué yì nián bàn. / Tā dǎsuàn jiāo Zhōngwén jiāo yì nián. / Tā tài máng le, suǒyǐ tā liǎng tiān bù néng lái shàngkè. / Wǒ měi xīngqí shàng wǔ tiān de kè.",
+            "ejemplo_espanol": "I am going to Hualien to have fun for a week. / This movie is very interesting, but it takes three hours to watch. / As for Chinese, I want to study it for a year and a half. / He plans to teach Chinese for a year. / He is too busy, so he cannot come to class for two days. / I have class five days every week.",
+            "notas": "Function: Indicates the length of time ('how long') an action takes. Four key structures: 1) Duration follows the verb directly (Subject + Verb + duration): 我去日本旅行一個多星期 / 這麼多甜點，我們要吃一個星期 / 我想坐高鐵去臺南玩兩天 / 中文課，我們學校要上四年. 2) If the verb has an object following it, you must repeat the verb (Subject + Verb + Object + Verb + duration): 他打算教中文教一年 / 我每個星期學書法學兩天 / 今年我想在臺灣學中文學九個月. 3) Time-Duration is placed in front of negation: 他太忙了，所以他兩天不能來上課 / 這裡沒有網路，所以我兩個星期不能上網 / 她要回美國，所以一個月不能上課. 4) When a separable verb takes Time-Duration, the time expression is inserted into the separable verb, either with or without 的: 我每星期上五天的課 / 學校下個月放三天的假 / 我們打算明天去KTV唱三個鐘頭的歌 / 你決定在臺灣學多久的中文？"
+        },
+        {
+            "id": "struct_l9_de_shihou",
+            "leccion": 9,
+            "nombre": "III · Time Clause with …的時候 (de shíhòu, \"when...\")",
+            "formula": "[Event / Situation] + 的時候，S + VP",
+            "ejemplo_tradicional": "在山上看風景的時候，我覺得很舒服。 / 放假的時候，我喜歡去逛夜市。 / 你有空的時候，請到我家來玩。",
+            "ejemplo_pinyin": "Zài shānshàng kàn fēngjǐng de shíhòu, wǒ juéde hěn shūfú. / Fàngjià de shíhòu, wǒ xǐhuān qù guàng yèshì. / Nǐ yǒu kòng de shíhòu, qǐng dào wǒ jiā lái wán.",
+            "ejemplo_espanol": "When looking at the scenery on the mountain, I feel very comfortable. / When on holiday, I like to go stroll around the night market. / When you have free time, please come to my house to hang out.",
+            "notas": "Function: The '…的時候…' pattern indicates the time an event takes, took, or will take place ('when...'). The clause or verb phrase describing the situation is placed before 的時候 as a modifier."
+        },
+        {
+            "id": "struct_l9_youshihou_youshihou",
+            "leccion": 9,
+            "nombre": "IV · Alternating Events with 有時候…，有時候… (\"sometimes..., and sometimes...\")",
+            "formula": "(Time / Place Frame，) S + 有時候 + VP₁，有時候 + VP₂",
+            "ejemplo_tradicional": "我有時候吃中國菜，有時候吃越南菜。 / 在圖書館的時候，我有時候看書，有時候上網。 / 放假的時候，我有時候在家寫功課，有時候出去玩。",
+            "ejemplo_pinyin": "Wǒ yǒu shíhòu chī Zhōngguó cài, yǒu shíhòu chī Yuènán cài. / Zài túshūguǎn de shíhòu, wǒ yǒu shíhòu kànshū, yǒu shíhòu shàngwǎng. / Fàngjià de shíhòu, wǒ yǒu shíhòu zài jiā xiě gōngkè, yǒu shíhòu chūqù wán.",
+            "ejemplo_espanol": "Sometimes I eat Chinese food, and sometimes I eat Vietnamese food. / When I am at the library, sometimes I read books, and sometimes I surf the Internet. / When on holiday, sometimes I do homework at home, and sometimes I go out for fun.",
+            "notas": "Function: The '有時候…，有時候…' pattern refers to two alternating possibilities of events within a given situation ('sometimes..., and sometimes...')."
+        },
+        {
+            "id": "struct_l9_yaoshi_jiu",
+            "leccion": 9,
+            "nombre": "V · Condition and Consequence with 要是 (yàoshi)… 就 (jiù)… (\"if..., then...\")",
+            "formula": "要是 + S₁ + VP₁ (or S₁ + 要是 + VP₁)，S₂ + 就 + VP₂",
+            "ejemplo_tradicional": "要是我有錢，我就買大房子。 / 我要是不回國，我就跟你們一起去玩。 / 要是我有空，我就跟朋友一起去KTV唱歌。 / 你要是星期日有空，你就跟我去旅行吧！ / 要是下個月不忙，她就回國。 / 你要是沒空，我們就不要去逛夜市。",
+            "ejemplo_pinyin": "Yàoshi wǒ yǒu qián, wǒ jiù mǎi dà fángzi. / Wǒ yàoshi bù huíguó, wǒ jiù gēn nǐmen yìqǐ qù wán. / Yàoshi wǒ yǒu kòng, wǒ jiù gēn péngyǒu yìqǐ qù KTV chànggē. / Nǐ yàoshi xīngqírì yǒu kòng, nǐ jiù gēn wǒ qù lǚxíng ba! / Yàoshi xià ge yuè bù máng, tā jiù huíguó. / Nǐ yàoshi méi kòng, wǒmen jiù bú yào qù guàng yèshì.",
+            "ejemplo_espanol": "If I have money, I will buy a big house. / If I don't return to my country, I will go have fun with you all. / If I have free time, I will go sing at the KTV with my friends. / If you are free on Sunday, then come travel with me! / If she is not busy next month, she will return to her country. / If you don't have free time, then let's not go stroll around the night market.",
+            "notas": "1) Function: In this pattern, 要是 (yàoshi) presents the condition in the first clause ('if...'), while 就 (jiù) in the second clause presents the consequence ('then...'). 2) Word Order Rule: 要是 is a conjunction, which can be placed BEFORE or AFTER the subject of the first clause (要是我有錢… / 我要是不回國… / 你要是星期日有空…). In the second clause, 就 is an adverb and MUST be placed at the very beginning of the predicate, AFTER the subject (我就買大房子 / 她就回國 / 我們就不要去逛夜市; never before the subject *就我...)."
         }
     ]
 }

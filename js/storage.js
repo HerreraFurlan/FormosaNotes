@@ -175,7 +175,7 @@ const sanitizeAndMigrateData = (data, seedSource) => {
     }
 
     // 2. Remove any classifiers that might be lingering in other category arrays
-    const clfIds = new Set((data.clasificadores || []).map(c => c.id));
+    const clfIds = new Set((activeDefaultClf || []).map(c => c.id));
     for (const cat of nonClfCollections) {
         if (Array.isArray(data[cat])) {
             data[cat] = data[cat].filter(w => !clfIds.has(w.id));
@@ -362,8 +362,8 @@ const loadDB = () => {
         try {
             const data = JSON.parse(raw);
             const hasSeedLoaded = seed && Object.keys(seed).length > 0;
-            const hasL8 = Array.isArray(data.estructuras) && data.estructuras.some(s => Number(s.leccion) === 8);
-            if (hasSeedLoaded && (!data.meta || data.meta.migratedWordsVersion !== targetDataVersion || !data.clasificadores || data.clasificadores.length === 0 || !hasL8)) {
+            const hasL9 = Array.isArray(data.estructuras) && data.estructuras.some(s => Number(s.leccion) === 9);
+            if (hasSeedLoaded && (!data.meta || data.meta.migratedWordsVersion !== targetDataVersion || !data.clasificadores || data.clasificadores.length === 0 || !hasL9)) {
                 sanitizeAndMigrateData(data, seed);
                 data.meta = data.meta || {};
                 data.meta.migratedWordsVersion = targetDataVersion;
