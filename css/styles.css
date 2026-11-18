@@ -2186,8 +2186,6 @@ html[lang="en"] .builder-dropzone.is-empty::after {
     display: flex;
     gap: 1.25rem;
     flex-wrap: wrap;
-    padding-top: 0.35rem;
-    border-top: 1px dashed var(--border-color);
     font-size: 0.82rem;
 }
 
@@ -2207,9 +2205,29 @@ html[lang="en"] .builder-dropzone.is-empty::after {
     flex: 1;
 }
 
-.study-filters .chip {
+.study-filters .chip,
+.study-progress-filter .chip {
     padding: 0.2rem 0.6rem;
     font-size: 0.78rem;
+}
+
+.study-filter-divider {
+    width: 1px;
+    height: 20px;
+    background: var(--border-color);
+    flex-shrink: 0;
+}
+
+.study-progress-filter {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.study-unmastered-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
 }
 
 /* Card Container & Meta */
@@ -2225,9 +2243,41 @@ html[lang="en"] .builder-dropzone.is-empty::after {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 0.5rem;
     width: 100%;
-    max-width: 330px;
+    max-width: 390px;
     padding: 0 0.25rem;
+    flex-wrap: wrap;
+}
+
+.study-meta-right {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.study-tracker-summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 0.14rem 0.5rem;
+    border-radius: 999px;
+}
+
+.study-tracker-summary .tracker-known {
+    color: #1E8C5E;
+}
+
+.study-tracker-summary .tracker-unknown {
+    color: #C83E3B;
+}
+
+.study-tracker-summary .tracker-sep {
+    color: var(--text-muted);
 }
 
 .study-progress {
@@ -2450,15 +2500,61 @@ html[lang="en"] .builder-dropzone.is-empty::after {
 /* Controls */
 .study-controls {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.55rem;
     align-items: center;
     justify-content: center;
+    flex-wrap: wrap;
     margin-top: 0.15rem;
 }
 
 .study-controls .btn {
     padding: 0.45rem 1rem;
     font-size: 0.88rem;
+}
+
+.study-controls .study-mark-btn {
+    width: 40px;
+    height: 38px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm, 6px);
+    background: var(--bg-secondary);
+    border: 1.5px solid var(--border-color);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: background-color 0.16s ease, border-color 0.16s ease, color 0.16s ease, box-shadow 0.16s ease, transform 0.12s ease;
+}
+
+.study-controls .study-mark-btn:active {
+    transform: scale(0.94);
+}
+
+.study-controls .study-mark-unknown:hover {
+    border-color: #C83E3B;
+    color: #C83E3B;
+    background: #FDECEC;
+}
+
+.study-controls .study-mark-unknown.is-marked-unknown {
+    background: #C83E3B;
+    border-color: #C83E3B;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(200, 62, 59, 0.32);
+}
+
+.study-controls .study-mark-known:hover {
+    border-color: #1E8C5E;
+    color: #1E8C5E;
+    background: #E6F6EF;
+}
+
+.study-controls .study-mark-known.is-marked-known {
+    background: #1E8C5E;
+    border-color: #1E8C5E;
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(30, 140, 94, 0.32);
 }
 
 .study-bottom-bar {

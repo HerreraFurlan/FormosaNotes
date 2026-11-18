@@ -14,17 +14,19 @@ const STUDY_SHOW_CAT_KEY = 'appchino_study_show_cat_v2';
 const STUDY_SHOW_NOTES_KEY = 'appchino_study_show_notes_v2';
 const STUDY_SHOW_RADS_KEY = 'appchino_study_show_rads_v2';
 const STUDY_LESSON_FILTER_KEY = 'appchino_study_lesson_filters_v2';
-const STUDY_CAT_FILTER_KEY = 'appchino_study_cat_filters_v2';
+const STUDY_PROGRESS_STORAGE_KEY = 'appchino_study_progress_v1';
+const STUDY_UNMASTERED_FILTER_KEY = 'appchino_study_only_unmastered_v1';
 
 let studyDeck = [];
 let studyIndex = 0;
-let currentStudyCategories = ['todos'];
 let currentStudyLessons = ['todas'];
+let studyOnlyUnmastered = false;
+let studyProgress = {}; // { [wordId]: 'known' | 'unknown' }
 
 // Backward compatibility properties
 Object.defineProperty(window, 'currentStudyFilter', {
-    get: () => currentStudyCategories[0] || 'todos',
-    set: (val) => { currentStudyCategories = val ? [val] : ['todos']; }
+    get: () => 'todos',
+    set: () => {}
 });
 Object.defineProperty(window, 'currentStudyLessonFilter', {
     get: () => currentStudyLessons[0] || 'todas',
@@ -36,6 +38,71 @@ let currentStudyMode = 'caracteres';
 let studyShowCategory = true;
 let studyShowNotes = true;
 let studyShowRadicals = true;
+
+/**
+ * Loads card study status map from localStorage.
+ */
+const loadStudyProgress = () => {
+    try {
+        const raw = localStorage.getItem(STUDY_PROGRESS_STORAGE_KEY);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+                studyProgress = parsed;
+            }
+        }
+    } catch (e) {
+        console.warn("No se pudo cargar el progreso de estudio:", e);
+    }
+};
+
+/**
+ * Saves card study status map to localStorage.
+ */
+const saveStudyProgress = () => {
+    try {
+        localStorage.setItem(STUDY_PROGRESS_STORAGE_KEY, JSON.stringify(studyProgress));
+    } catch (e) {
+        console.warn("No se pudo guardar el progreso de estudio:", e);
+    }
+};
+
+/**
+ * Returns the study status of a word ('known' | 'unknown' | null).
+ * @param {string} wordId
+ * @returns {'known'|'unknown'|null}
+ */
+const getCardStudyStatus = (wordId) => {
+    if (!wordId) return null;
+    const val = studyProgress[wordId];
+    return (val === 'known' || val === 'unknown') ? val : null;
+};
+
+/**
+ * Returns all words matching the currently selected lessons.
+ */
+const getLessonFilteredStudyWords = () => {
+    let words = getAllWords();
+    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
+        words = words.filter(w => APP_CONFIG.matchesLessonFilter(w, currentStudyLessons));
+    }
+    return words;
+};
+
+/**
+ * Computes known/unknown counts within the active lesson filter.
+ */
+const getStudyProgressCounts = () => {
+    const words = getLessonFilteredStudyWords();
+    let known = 0;
+    let unknown = 0;
+    words.forEach(w => {
+        const st = getCardStudyStatus(w.id);
+        if (st === 'known') known++;
+        else if (st === 'unknown') unknown++;
+    });
+    return { known, unknown, total: words.length };
+};
 
 /**
  * Loads preferences from localStorage.
@@ -76,24 +143,12 @@ const loadStudyPreferences = () => {
             }
         }
 
-        const savedCats = localStorage.getItem(STUDY_CAT_FILTER_KEY);
-        if (savedCats) {
-            try {
-                const parsed = JSON.parse(savedCats);
-                if (Array.isArray(parsed) && parsed.length > 0) {
-                    currentStudyCategories = parsed;
-                } else if (typeof parsed === 'string' && parsed) {
-                    currentStudyCategories = [parsed];
-                }
-            } catch {
-                currentStudyCategories = [savedCats];
-            }
-            if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.normalizeCategoryId === 'function') {
-                currentStudyCategories = Array.from(new Set(
-                    currentStudyCategories.map(c => c === 'todos' ? 'todos' : APP_CONFIG.normalizeCategoryId(c))
-                ));
-            }
+        const savedUnmastered = localStorage.getItem(STUDY_UNMASTERED_FILTER_KEY);
+        if (savedUnmastered !== null) {
+            studyOnlyUnmastered = savedUnmastered === 'true';
         }
+
+        loadStudyProgress();
     } catch (e) {
         console.warn("No se pudieron cargar las preferencias de estudio:", e);
     }
@@ -109,7 +164,7 @@ const saveStudyPreferences = () => {
         localStorage.setItem(STUDY_SHOW_NOTES_KEY, String(studyShowNotes));
         localStorage.setItem(STUDY_SHOW_RADS_KEY, String(studyShowRadicals));
         localStorage.setItem(STUDY_LESSON_FILTER_KEY, JSON.stringify(currentStudyLessons));
-        localStorage.setItem(STUDY_CAT_FILTER_KEY, JSON.stringify(currentStudyCategories));
+        localStorage.setItem(STUDY_UNMASTERED_FILTER_KEY, String(studyOnlyUnmastered));
     } catch (e) {
         console.warn("No se pudieron guardar las preferencias de estudio:", e);
     }
@@ -117,31 +172,22 @@ const saveStudyPreferences = () => {
 
 /**
  * Initializes the study deck with filtered and shuffled words.
- * @param {string|Array<string>} categories - Category filter(s)
- * @param {string|Array<string>} lessons - Lesson filter(s)
+ * @param {string|Array<string>} [lessonsArg] - Lesson filter(s)
  */
-const initStudyMode = (categories = currentStudyCategories, lessons = currentStudyLessons) => {
+const initStudyMode = (lessonsArg, legacyLessonsArg) => {
     loadStudyPreferences();
-    if (categories !== undefined) {
-        currentStudyCategories = Array.isArray(categories) ? [...categories] : [categories];
+    const resolvedLessons = legacyLessonsArg !== undefined ? legacyLessonsArg : lessonsArg;
+    if (resolvedLessons !== undefined) {
+        currentStudyLessons = Array.isArray(resolvedLessons) ? [...resolvedLessons] : [resolvedLessons];
     }
-    if (lessons !== undefined) {
-        currentStudyLessons = Array.isArray(lessons) ? [...lessons] : [lessons];
-    }
-    if (!currentStudyCategories || currentStudyCategories.length === 0) currentStudyCategories = ['todos'];
     if (!currentStudyLessons || currentStudyLessons.length === 0) currentStudyLessons = ['todas'];
     saveStudyPreferences();
 
-    let words = getAllWords();
+    let words = getLessonFilteredStudyWords();
 
-    // 1. Filter by categories (stackable)
-    if (!currentStudyCategories.includes('todos') && currentStudyCategories.length > 0) {
-        words = words.filter(w => currentStudyCategories.includes(w.categoria));
-    }
-
-    // 2. Filter by lessons via APP_CONFIG (stackable)
-    if (typeof APP_CONFIG !== 'undefined' && typeof APP_CONFIG.matchesLessonFilter === 'function') {
-        words = words.filter(w => APP_CONFIG.matchesLessonFilter(w, currentStudyLessons));
+    // Filter out known cards when "Por estudiar" pill is active
+    if (studyOnlyUnmastered) {
+        words = words.filter(w => getCardStudyStatus(w.id) !== 'known');
     }
 
     // Fisher-Yates shuffle
@@ -186,15 +232,60 @@ const updateStudyToolbarUI = () => {
     const toggleRads = document.getElementById('study-toggle-radicales');
     if (toggleRads) toggleRads.checked = studyShowRadicals;
 
-    document.querySelectorAll('#study-filters .chip').forEach(chip => {
-        const filterVal = chip.dataset.filter;
-        chip.classList.toggle('active', currentStudyCategories.includes(filterVal));
-    });
-
     document.querySelectorAll('#study-lesson-filters .chip').forEach(chip => {
         const lessonVal = chip.dataset.lessonFilter;
         chip.classList.toggle('active', currentStudyLessons.includes(lessonVal));
     });
+
+    const unmasteredPill = document.getElementById('study-unmastered-pill');
+    if (unmasteredPill) {
+        unmasteredPill.classList.toggle('active', studyOnlyUnmastered);
+        unmasteredPill.setAttribute('aria-pressed', String(studyOnlyUnmastered));
+    }
+};
+
+/**
+ * Updates the active visual state of the mark buttons and tracker summary in place.
+ */
+const updateStudyMarkButtonsUI = () => {
+    const word = studyDeck[studyIndex];
+    const status = word ? getCardStudyStatus(word.id) : null;
+
+    const btnKnown = document.getElementById('study-mark-known');
+    if (btnKnown) {
+        const isKnown = status === 'known';
+        btnKnown.classList.toggle('is-marked-known', isKnown);
+        btnKnown.setAttribute('aria-pressed', String(isKnown));
+    }
+
+    const btnUnknown = document.getElementById('study-mark-unknown');
+    if (btnUnknown) {
+        const isUnknown = status === 'unknown';
+        btnUnknown.classList.toggle('is-marked-unknown', isUnknown);
+        btnUnknown.setAttribute('aria-pressed', String(isUnknown));
+    }
+
+    const counts = getStudyProgressCounts();
+    const knownEl = document.getElementById('study-known-count');
+    if (knownEl) knownEl.textContent = String(counts.known);
+    const unknownEl = document.getElementById('study-unknown-count');
+    if (unknownEl) unknownEl.textContent = String(counts.unknown);
+};
+
+/**
+ * Toggles the study status ('known' | 'unknown') for the currently displayed card.
+ * @param {'known'|'unknown'} targetStatus
+ */
+const toggleCurrentCardStudyStatus = (targetStatus) => {
+    if (!studyDeck.length || !studyDeck[studyIndex]) return;
+    const word = studyDeck[studyIndex];
+    if (studyProgress[word.id] === targetStatus) {
+        delete studyProgress[word.id];
+    } else {
+        studyProgress[word.id] = targetStatus;
+    }
+    saveStudyProgress();
+    updateStudyMarkButtonsUI();
 };
 
 /**
@@ -372,15 +463,23 @@ const renderStudyCard = () => {
     const container = document.getElementById('study-container');
     if (!container) return;
 
+    const tFn = (key, params) => (typeof window !== 'undefined' && window.I18N && window.I18N.t) ? window.I18N.t(key, params) : null;
+
     if (studyDeck.length === 0) {
-        const emptyTitle = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyEmpty') : 'No hay palabras para estudiar con estos filtros';
-        const emptySub = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyNoLessonCat') : 'Prueba seleccionando otras lecciones o categorías en la barra superior.';
+        const hasLessonWords = getLessonFilteredStudyWords().length > 0;
+        const isAllMastered = studyOnlyUnmastered && hasLessonWords;
+        const emptyTitle = isAllMastered
+            ? (tFn('studyAllMastered') || '¡Todas las tarjetas están conocidas!')
+            : (tFn('studyEmpty') || 'No hay palabras para estudiar con estos filtros');
+        const emptySub = isAllMastered
+            ? (tFn('studyAllMasteredSub') || 'Todas las tarjetas de este filtro están marcadas como conocidas (✓). Desactiva «Por estudiar» o elige otras lecciones.')
+            : (tFn('studyNoLesson') || 'Prueba seleccionando otras lecciones en la barra superior.');
+        const iconSvg = isAllMastered
+            ? `<svg viewBox="0 0 24 24" fill="none" stroke="#1E8C5E" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polyline points="8 12.5 11 15.5 16.5 9.5"/></svg>`
+            : `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
         container.innerHTML = `
             <div class="empty-state">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                    <circle cx="12" cy="12" r="10"/>
-                    <polyline points="12 6 12 12 16 14"/>
-                </svg>
+                ${iconSvg}
                 <h3>${emptyTitle}</h3>
                 <p>${emptySub}</p>
             </div>
@@ -389,31 +488,42 @@ const renderStudyCard = () => {
     }
 
     const word = studyDeck[studyIndex];
+    const cardStatus = getCardStudyStatus(word.id);
+    const counts = getStudyProgressCounts();
     const color = studyShowCategory
         ? ((typeof CATEGORY_COLORS !== 'undefined' && CATEGORY_COLORS[word.categoria]) || 'var(--accent)')
         : '#9E948A';
     const { frontHtml, backHtml } = buildCardFacesHtml(word);
 
-    const progressHtml = (typeof window !== 'undefined' && window.I18N)
-        ? window.I18N.t('studyCardOf', { current: `<strong>${studyIndex + 1}</strong>`, total: `<strong>${studyDeck.length}</strong>` })
-        : `Tarjeta <strong>${studyIndex + 1}</strong> de <strong>${studyDeck.length}</strong>`;
+    const progressHtml = tFn('studyCardOf', { current: `<strong>${studyIndex + 1}</strong>`, total: `<strong>${studyDeck.length}</strong>` })
+        || `Tarjeta <strong>${studyIndex + 1}</strong> de <strong>${studyDeck.length}</strong>`;
 
-    const prevLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyPrev') : 'Anterior';
-    const flipLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyFlip') : 'Voltear';
-    const nextLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyNext') : 'Siguiente';
-    const shuffleLabel = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyShuffle') : 'Mezclar';
+    const prevLabel = tFn('studyPrev') || 'Anterior';
+    const flipLabel = tFn('studyFlip') || 'Voltear';
+    const nextLabel = tFn('studyNext') || 'Siguiente';
+    const shuffleLabel = tFn('studyShuffle') || 'Mezclar';
+    const markKnownTitle = tFn('studyMarkKnownTitle') || 'Marcar como conocida (Atajo: ↑ Flecha arriba)';
+    const markUnknownTitle = tFn('studyMarkUnknownTitle') || 'Marcar como no conocida (Atajo: ↓ Flecha abajo)';
+    const trackerSummaryTitle = tFn('studyTrackerSummaryTitle') || 'Tarjetas marcadas en las lecciones seleccionadas (✓ conocidas · ✕ no conocidas)';
 
-    const tabChars = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabChars') : 'Ver Caracteres';
-    const tabPron = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabPron') : 'Ver Pronunciación';
-    const tabDef = (typeof window !== 'undefined' && window.I18N) ? window.I18N.t('studyTabDef') : 'Ver Definición';
+    const tabChars = tFn('studyTabChars') || 'Ver Caracteres';
+    const tabPron = tFn('studyTabPron') || 'Ver Pronunciación';
+    const tabDef = tFn('studyTabDef') || 'Ver Definición';
 
     container.innerHTML = `
         <div class="study-card-meta-bar">
             <div class="study-progress">
                 ${progressHtml}
             </div>
-            <div class="study-mode-badge-indicator">
-                ${currentStudyMode === 'caracteres' ? '🀄 ' + tabChars : currentStudyMode === 'pronunciacion' ? '🗣️ ' + tabPron : '📖 ' + tabDef}
+            <div class="study-meta-right">
+                <div class="study-tracker-summary" id="study-tracker-summary" title="${trackerSummaryTitle}">
+                    <span class="tracker-known">✓ <strong id="study-known-count">${counts.known}</strong></span>
+                    <span class="tracker-sep">·</span>
+                    <span class="tracker-unknown">✕ <strong id="study-unknown-count">${counts.unknown}</strong></span>
+                </div>
+                <div class="study-mode-badge-indicator">
+                    ${currentStudyMode === 'caracteres' ? '🀄 ' + tabChars : currentStudyMode === 'pronunciacion' ? '🗣️ ' + tabPron : '📖 ' + tabDef}
+                </div>
             </div>
         </div>
 
@@ -431,8 +541,19 @@ const renderStudyCard = () => {
                 </svg>
                 ${prevLabel}
             </button>
+            <button class="btn study-mark-btn study-mark-unknown ${cardStatus === 'unknown' ? 'is-marked-unknown' : ''}" id="study-mark-unknown" title="${markUnknownTitle}" aria-label="${markUnknownTitle}" aria-pressed="${cardStatus === 'unknown' ? 'true' : 'false'}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
             <button class="btn btn-primary" id="study-flip" title="${flipLabel}">
                 🔄 ${flipLabel}
+            </button>
+            <button class="btn study-mark-btn study-mark-known ${cardStatus === 'known' ? 'is-marked-known' : ''}" id="study-mark-known" title="${markKnownTitle}" aria-label="${markKnownTitle}" aria-pressed="${cardStatus === 'known' ? 'true' : 'false'}">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" width="18" height="18">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
             </button>
             <button class="btn btn-secondary" id="study-next" title="${nextLabel}">
                 ${nextLabel}
@@ -476,6 +597,16 @@ const renderStudyCard = () => {
         toggleFlip();
     });
 
+    document.getElementById('study-mark-unknown')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCurrentCardStudyStatus('unknown');
+    });
+
+    document.getElementById('study-mark-known')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleCurrentCardStudyStatus('known');
+    });
+
     document.getElementById('study-prev')?.addEventListener('click', () => {
         if (studyIndex > 0) {
             studyIndex--;
@@ -496,6 +627,9 @@ const renderStudyCard = () => {
     });
 
     document.getElementById('study-shuffle')?.addEventListener('click', () => {
+        if (studyOnlyUnmastered) {
+            studyDeck = getLessonFilteredStudyWords().filter(w => getCardStudyStatus(w.id) !== 'known');
+        }
         for (let i = studyDeck.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [studyDeck[i], studyDeck[j]] = [studyDeck[j], studyDeck[i]];
@@ -544,31 +678,6 @@ const initStudyEventListeners = () => {
         });
     }
 
-    const filtersContainer = document.getElementById('study-filters');
-    if (filtersContainer) {
-        filtersContainer.addEventListener('click', (e) => {
-            const chip = e.target.closest('.chip');
-            if (!chip) return;
-            const filter = chip.dataset.filter || 'todos';
-
-            if (filter === 'todos') {
-                currentStudyCategories = ['todos'];
-            } else {
-                let cats = currentStudyCategories.filter(c => c !== 'todos');
-                if (cats.includes(filter)) {
-                    cats = cats.filter(c => c !== filter);
-                } else {
-                    cats.push(filter);
-                }
-                if (cats.length === 0) {
-                    cats = ['todos'];
-                }
-                currentStudyCategories = cats;
-            }
-            initStudyMode(currentStudyCategories, currentStudyLessons);
-        });
-    }
-
     const lessonFiltersContainer = document.getElementById('study-lesson-filters');
     if (lessonFiltersContainer) {
         lessonFiltersContainer.addEventListener('click', (e) => {
@@ -590,7 +699,16 @@ const initStudyEventListeners = () => {
                 }
                 currentStudyLessons = lessons;
             }
-            initStudyMode(currentStudyCategories, currentStudyLessons);
+            initStudyMode(currentStudyLessons);
+        });
+    }
+
+    const unmasteredPill = document.getElementById('study-unmastered-pill');
+    if (unmasteredPill) {
+        unmasteredPill.addEventListener('click', () => {
+            studyOnlyUnmastered = !studyOnlyUnmastered;
+            saveStudyPreferences();
+            initStudyMode(currentStudyLessons);
         });
     }
 
@@ -615,6 +733,12 @@ const initStudyEventListeners = () => {
                 studyIndex = (studyIndex + 1) % studyDeck.length;
                 renderStudyCard();
             }
+        } else if (e.code === 'ArrowUp') {
+            e.preventDefault();
+            toggleCurrentCardStudyStatus('known');
+        } else if (e.code === 'ArrowDown') {
+            e.preventDefault();
+            toggleCurrentCardStudyStatus('unknown');
         }
     });
 };
@@ -627,3 +751,4 @@ if (document.readyState === 'loading') {
 
 window.initStudyMode = initStudyMode;
 window.setStudyMode = setStudyMode;
+window.updateStudyToolbarUI = updateStudyToolbarUI;

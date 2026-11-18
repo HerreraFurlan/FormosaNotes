@@ -106,7 +106,7 @@ const renderConfigurableFiltersAndInputs = () => {
         if (lessonsCfg.allowUnassigned) {
             const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
             const isActive = currentLessonFilter.includes(unKey);
-            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" data-i18n="unassignedLessonTitle" title="${tFn('unassignedLessonTitle')}">${tFn('unassignedLessonTitle')}</button>`;
         }
         libLessonEl.innerHTML = html;
     }
@@ -123,7 +123,7 @@ const renderConfigurableFiltersAndInputs = () => {
         if (lessonsCfg.allowUnassigned) {
             const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
             const isActive = currentStructLessonFilter.includes(unKey);
-            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+            html += `<button class="chip ${isActive ? 'active' : ''}" data-lesson-filter="${unKey}" data-i18n="unassignedLessonTitle" title="${tFn('unassignedLessonTitle')}">${tFn('unassignedLessonTitle')}</button>`;
         }
         structLessonEl.innerHTML = html;
     }
@@ -138,7 +138,7 @@ const renderConfigurableFiltersAndInputs = () => {
         });
         if (lessonsCfg.allowUnassigned) {
             const unKey = lessonsCfg.unassignedFilterId || 'ninguna';
-            html += `<button class="chip" data-lesson-filter="${unKey}" title="${tFn('unassignedLessonTitle')}">${lessonsCfg.unassignedSymbol || '/'}</button>`;
+            html += `<button class="chip" data-lesson-filter="${unKey}" data-i18n="unassignedLessonTitle" title="${tFn('unassignedLessonTitle')}">${tFn('unassignedLessonTitle')}</button>`;
         }
         studyLessonEl.innerHTML = html;
     }
@@ -167,17 +167,7 @@ const renderConfigurableFiltersAndInputs = () => {
         bankCatEl.innerHTML = html;
     }
 
-    // 5. Study Mode Category Filter Chips (#study-filters)
-    const studyCatEl = document.getElementById('study-filters');
-    if (studyCatEl) {
-        let html = `<button class="chip active" data-filter="todos" data-i18n="allCategories">${tFn('allCategories')}</button>`;
-        categories.forEach(cat => {
-            html += `<button class="chip" data-filter="${cat.id}" data-cat-label="${cat.id}" data-cat-plural="true">${getCatLbl(cat.id, true)}</button>`;
-        });
-        studyCatEl.innerHTML = html;
-    }
-
-    // 6. Word Dialog Category Select (#w-categoria)
+    // 5. Word Dialog Category Select (#w-categoria)
     const wordCatSelect = document.getElementById('w-categoria');
     if (wordCatSelect) {
         const prevVal = wordCatSelect.value || APP_CONFIG.ui?.defaultCategoryId || 'sustantivo';

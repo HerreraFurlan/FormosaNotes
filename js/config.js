@@ -16,7 +16,7 @@ const LESSON_COUNT = 9;
 const APP_CONFIG = {
     app: {
         name: 'Formosa Notes',
-        version: '4.2.4',
+        version: '4.2.5',
         dataVersion: '4.2.4',
         // IDs de tarjetas semilla eliminadas: se purgan del localStorage al migrar
         removedSeedIds: [

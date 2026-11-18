@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- App Styles -->
-    <link rel="stylesheet" href="css/styles.css?v=4.2.4">
+    <link rel="stylesheet" href="css/styles.css?v=4.2.5">
 
     <!-- CDN Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
@@ -171,7 +171,7 @@
                                 <button class="chip" data-lesson-filter="7">L7</button>
                                 <button class="chip" data-lesson-filter="8">L8</button>
                                 <button class="chip" data-lesson-filter="9">L9</button>
-                                <button class="chip" data-lesson-filter="ninguna">/</button>
+                                <button class="chip" data-lesson-filter="ninguna" data-i18n="unassignedLessonTitle">Sin lección asignada</button>
                             </div>
                         </div>
 
@@ -315,7 +315,7 @@
                         </label>
                     </div>
 
-                    <!-- Filtros por Lección -->
+                    <!-- Filtros por Lección y Progreso -->
                     <div class="study-filters-bar">
                         <span class="study-bar-label" data-i18n="lessonLabel">Lección:</span>
                         <div class="study-filters" id="study-lesson-filters">
@@ -329,23 +329,13 @@
                             <button class="chip" data-lesson-filter="7">L7</button>
                             <button class="chip" data-lesson-filter="8">L8</button>
                             <button class="chip" data-lesson-filter="9">L9</button>
-                            <button class="chip" data-lesson-filter="ninguna">/</button>
+                            <button class="chip" data-lesson-filter="ninguna" data-i18n="unassignedLessonTitle">Sin lección asignada</button>
                         </div>
-                    </div>
-
-                    <!-- Filtros por Categoría -->
-                    <div class="study-filters-bar">
-                        <span class="study-bar-label" data-i18n="categoryLabel">Categoría:</span>
-                        <div class="study-filters" id="study-filters">
-                            <button class="chip active" data-filter="todos" data-i18n="allCategories">Todos</button>
-                            <button class="chip" data-filter="pronombre" data-i18n="catPronoun">Pronombres</button>
-                            <button class="chip" data-filter="sustantivo" data-i18n="catNoun">Sustantivos</button>
-                            <button class="chip" data-filter="clasificador" data-i18n="catClassifier">Clasificadores</button>
-                            <button class="chip" data-filter="verbo" data-i18n="catVerb">Verbos</button>
-                            <button class="chip" data-filter="adverbio" data-i18n="catAdverb">Adverbios</button>
-                            <button class="chip" data-filter="adjetivo" data-i18n="catAdjective">Adjetivos</button>
-                            <button class="chip" data-filter="expresion" data-i18n="catExpression">Expresiones</button>
-                            <button class="chip" data-filter="particula" data-i18n="catParticle">Partículas</button>
+                        <div class="study-filter-divider" aria-hidden="true"></div>
+                        <div class="study-progress-filter">
+                            <button type="button" class="chip study-unmastered-chip" id="study-unmastered-pill" data-i18n-title="studyFilterUnmasteredTitle" title="Estudiar solo tarjetas no conocidas (✕) y sin marcar (ignora las conocidas ✓)" aria-pressed="false">
+                                <span data-i18n="studyFilterUnmastered">Por estudiar</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -705,17 +695,17 @@
 
     <!-- ======================== JAVASCRIPT MODULES ======================== -->
     <!-- Load order matters: config → i18n (lazy-loads active language data pack) → storage → components → ai → builder → study → pdf → practice → exam → app -->
-    <script src="js/config.js?v=4.2.4"></script>
-    <script src="js/i18n.js?v=4.2.4"></script>
-    <script src="js/storage.js?v=4.2.4"></script>
-    <script src="js/syntax-engine.js?v=4.2.4"></script>
-    <script src="js/components.js?v=4.2.4"></script>
-    <script src="js/ai.js?v=4.2.4"></script>
-    <script src="js/builder.js?v=4.2.4"></script>
-    <script src="js/study.js?v=4.2.4"></script>
-    <script src="js/pdf.js?v=4.2.4"></script>
-    <script src="js/exam.js?v=4.2.4"></script>
-    <script src="js/app.js?v=4.2.4"></script>
+    <script src="js/config.js?v=4.2.5"></script>
+    <script src="js/i18n.js?v=4.2.5"></script>
+    <script src="js/storage.js?v=4.2.5"></script>
+    <script src="js/syntax-engine.js?v=4.2.5"></script>
+    <script src="js/components.js?v=4.2.5"></script>
+    <script src="js/ai.js?v=4.2.5"></script>
+    <script src="js/builder.js?v=4.2.5"></script>
+    <script src="js/study.js?v=4.2.5"></script>
+    <script src="js/pdf.js?v=4.2.5"></script>
+    <script src="js/exam.js?v=4.2.5"></script>
+    <script src="js/app.js?v=4.2.5"></script>
 
 </body>
 
